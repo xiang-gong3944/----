@@ -1,0 +1,96 @@
+\documentclass[11pt,dvipdfmx,a4paper]{jsarticle}
+
+\usepackage{amsmath,amssymb}
+\usepackage{bm}
+\usepackage[dvipdfmx]{graphicx}
+\usepackage{physics} % http://mirrors.ibiblio.org/CTAN/macros/latex/contrib/physics/physics.pdf
+\usepackage{siunitx} %SI単位を楽に出力
+\usepackage{mathtools} %環境の追加
+% \usepackage{circuitikz} %電気回路をtex中で書く
+% \usepackage{caption} %番号なしキャプションを書く
+% \usepackage{cancel} %式中に斜線を入れる
+% \usepackage{tensor} %テンソルの添え字を書く
+% \usepackage{tikz} %図を書く
+% \usepackage{ascmac} %四角い枠の中に文章を書く
+% \usepackage{float} %figureで[hbp]オプションを使う
+% \usepackage{hyperref}  \usepackage{pxjahyper} %ハイパーリンクをつかう
+% \usepackage{tablefootnote} %表中に注釈をいれる
+% \usepackage[thicklines]{cancel} %数式中の取り消し線
+% \usepackage[version=4]{mhchem} %化学式の入力
+\usepackage{pdfpages}
+% \usepackage{wrapfig} %文章の回り込み
+\usepackage[subrefformat=parens]{subcaption} %(a)図のようにすることができるやつ
+\usepackage{here}
+\usepackage[margin=15mm]{geometry} %余白の削除
+
+\graphicspath{{./image/}}
+
+\begin{document}
+
+%出力したpdfを表紙にするとき
+% \includepdf[pages=1,noautoscale=false]{cover.pdf}
+% \newpage
+
+%texで表紙を書くとき
+\quad\\[35mm]
+\centerline{\Huge{\textsf{第 a 回}}}
+\quad\\[5mm]
+\centerline{\Huge{\textsf{応 用 物 理 学 実 験}}}
+\quad\\[5mm]
+\begin{table}[h]
+	\centering
+	\begin{tabular}{| c | c |}
+		\hline
+		\Huge\textsf{{題目}} & \Huge{\textsf{タイトル}} \rule[-5mm]{0mm}{15mm} \\
+		\hline
+	\end{tabular}
+\end{table}
+\quad\\[10mm]
+\begin{table}[h]
+	\centering
+	\begin{tabular}{l l}
+		\hline
+		\LARGE{\textsf{氏\qquad 名}} & \LARGE{\textsf{: 西原 翔}} \rule[0mm]{0mm}{6mm} \\
+		\hline
+		\LARGE{\textsf{学  籍  番  号}} & \LARGE{\textsf{: 1522068}} \rule[0mm]{0mm}{6mm} \\
+		\LARGE{\textsf{学部学科学年}} & \LARGE{\textsf{: 理学部第一部応用物理学科3年}}\\
+		\hline
+	\end{tabular}
+\end{table}
+\quad\\[10mm]
+\centerline{\LARGE{\textsf{共同実験者:1522xxx oo oo}}}\\[2mm]
+\centerline{\LARGE{\textsf{\qquad\qquad\quad\;\;1522xxx oo oo}}}
+\quad\\[10mm]
+\centerline{\LARGE{\textsf{提出年月日:2024年a月a日}}}\\[2mm]
+\centerline{\LARGE{\textsf{実験実施日:2024年a月a日}}}\\[2mm]
+\centerline{\LARGE{\textsf{\qquad\qquad\quad\;2024年a月a日}}}
+\quad\\[10mm]
+\centerline{\LARGE{\textsf{東 京 理 科 大 学 理 学 部 第 1 部}}}\\[2mm]
+\centerline{\LARGE{\textsf{応 用 物 理 学 教 室}}}
+
+\thispagestyle{empty}
+\clearpage
+\addtocounter{page}{-1}
+\newpage
+
+% \twocolumn
+\section{目的}
+
+\section{原理}
+
+\section{実験}
+
+\section{結果}
+
+\section{考察}
+
+\section{結論}
+
+
+さらなる検討の例\cite{huga}も存在するが、この説明では不十分とする場合もある\cite{hoge}。
+
+\bibliographystyle{junsrt}
+\bibliography{reference}
+\section*{付録}
+
+\end{document}
