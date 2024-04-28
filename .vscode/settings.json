@@ -4,6 +4,7 @@
         "name": "ptex2pdf",
         "command": "ptex2pdf",
         "args": [
+            "-interaction=nonstopmode",
             "-l",
             "-ot",
             "-kanji=utf8 -synctex=1",
