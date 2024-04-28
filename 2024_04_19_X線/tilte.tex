@@ -183,6 +183,61 @@ Si, Fe の単体粉末と、NaCl, KCl, CsCl の粉末の X 線回折パターン
 % 	\end{minipage}
 % \end{figure}
 
+\section{課題}
+\subsection*{課題1}
+以下の 3 組の、結晶構造が同じ、あるいは似た試料の XDR 回折の結果を比較して、違いが出る理由を考察せよ。\\
+(i) Fe と CsCl \quad (ii) Cu と Si \quad (iii) NaCl と KCl\\ \\
+
+(i)両者とも単位格子は体心立方構造のようになっている。
+しかし散乱強度における結晶構造因子を考えると Fe の場合
+\begin{align}
+	F = f_{\text{fe}}\qty(1+e^{i\pi(h+k+l)})
+\end{align}
+なのに対し CsCl は
+\begin{align}
+	F = f_{\text{Cs}}+f_{\text{Cl}}e^{i\pi(h+k+l)}
+\end{align}
+となる。CsCl の原子散乱因子は Cs と Cl では違うので、
+面指数[hkl] の和が奇数のときであっても消滅則が働かない。
+そのため XDR で検出したピークの数は CsCl のほうが多くなる。% 結果のところに貼った図表番号を入れたい。
+Fe の強度が弱くなっているのは Fe 結晶構造というよりかはの特性によるものである。
+これは考察で言及する。\\ % あとで具体的にな考察の節番号を振りたい
+
+
+(ii)両者とも単位格子に面心立方格子が含まれている。
+Si はこれにさらに面心立方構造を(1/4, 1/4, 1/4)方向にずらした副格子もある。%副格子ってあってる?
+そのため結晶構造因子は Cu のものは
+\begin{align}
+	F = f_{\text{Cu}}\qty(1+e^{i\pi(h+k)}+e^{i\pi(k+l)}+e^{i\pi(l+h)})
+\end{align}
+であり、Si は
+\begin{align}
+	F = f_{\text{Si}}\qty(1+e^{\frac{i\pi}{2}(h+k+l)})\qty(1+e^{i\pi(h+k)}+e^{i\pi(k+l)}+e^{i\pi(l+h)})
+\end{align}
+となる。
+これを見ると Si の XDR のピークが消えずに残る条件は、
+面心立方の消滅則である面指数 [hkl] のすべての指数の偶奇が一致しているときに加え、
+[hkl] の和を4で割ったあまりが2ではないという条件が加わる。
+測定できたピークの数としては Si の方が多いが面間隔のことを考えると、
+やはり消滅則が多い Si は消滅しているピークがあることがわかる。% 図の参照を加えたい
+Cu にはバックグラウンドが多いことは考察で言及する\\ % かもしれない
+
+(iii)両者とも結晶構造としては同じ構造である。
+しかし両者を比較すると KCl では消滅しているピークがある。
+これは X 線の回折に関わるイオンの散乱因子の違いからくるであると考えられる。
+イオン散乱因子は希ガス核と同じだと考えると、
+Na は Ne 核、Cl と K は Ar 核になるので結晶構造因子は
+NaCl では
+\begin{align}
+	F = \qty(f_{\text{Ne}}+f_{\text{Ar}}e^{i\pi h})\qty(1+e^{i\pi(h+k)}+e^{i\pi(k+l)}+e^{i\pi(l+h)})
+\end{align}
+となり、KCl では
+\begin{align}
+	F = f_{\text{Ar}}\qty(1 + e^{i\pi h})\qty(1+e^{i\pi(h+k)}+e^{i\pi(k+l)}+e^{i\pi(l+h)})
+\end{align}
+となる。
+これより面指数 h が奇数か偶数かという消滅則が KCl には働く。
+
 
 \section{考察}
 \subsection{Fe の X 線回折強度について}
