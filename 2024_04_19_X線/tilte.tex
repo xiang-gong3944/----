@@ -82,6 +82,47 @@
 
 \section{原理}
 \subsection{回折の一般論}
+X 線回折のパターンを見る上で回折の一般論を見ておく。
+光源から出た光や、回折して検出器に入る回折光は本来は球面波である。
+しかし、ターゲット材料との距離が十分離れているときには平面波のように扱うことができる。
+光源から出た光が点 P で弾性散乱して点 B の検出器に到達するという過程を考える。(図\ref{ibach_fig3-1})
+% \begin{figure}[h]
+% 	\centering
+% 	\includegraphics[width = \columnwidth]{/fig/ibach_3-1.png}
+% 	\caption{散乱による回折の模式図。\cite{ibach-luth}}
+% 	\label{ibach_fig3-1}
+% \end{figure}
+点 P における入射光の状態は弾性散乱であるため位相の時間部分を略して
+\begin{align}
+	A_P(r) = A_0e^{ik_0\cdot(R+r)}
+\end{align}
+と書ける。ここで\(\rho(r)\)は散乱密度。
+散乱により振幅と位相が変わるので点 B での散乱光の振幅は
+\begin{align}
+	A_B(r) &= A_P \rho(r) \frac{e^{ik\cdot(R'-r)}}{R'}\\
+	&=\frac{A_0}{R'}e^{i(k_0 \cdot R+ k \cdot R')}\rho(r)e^{i(k_0-k)\cdot r}
+\end{align}
+となる。ターゲット材料全体で積分すると検出器が実際に検出する振幅になるので積分すると
+\begin{align}
+	A_B =\frac{A_0}{R'}e^{i(k_0 \cdot R+ k \cdot R')}\int \rho(r) e^{i(k_0-k)\cdot r} dr
+\end{align}
+このうち積分の部分を原子散乱因子\(f\)と呼ぶ。
+結晶材料を考えるとき、原子散乱因子は結晶の周期性からくる散乱条件と、単位格子内の原子の配置による散乱条件がある。
+前者はラウエ条件(等価なものとしてブラッグの条件)、後者は結晶構造因子と呼ばれる。
+
+これが見えやすい形に原子散乱因子の積分を書き換える。
+積分の引数の \(r\) を格子の位置を表す \(R\), 格子中の j番目の原子の位置を表す \(r_j\), そして
+格子中の j 番目の原子の周りの散乱密度を\(\rho_j\)と表すと、
+\begin{align}
+	f&=\sum_R \sum_{j} \int\rho(r-R-r_j)e^{i(k_0-k)\cdot r} dr\\
+	&=\sum_R e^{-iK\cdot R}\sum_j e^{-iK\cdot r_j} \int \rho(r-R-r_j) e^{-iK\cdot(r-R-r_j)}dr\label{factor_1}
+\end{align}
+となる。ここで入射波と散乱波の波数ベクトルの差を
+\begin{align}
+	K = k -k_0
+\end{align}
+とした。
+
 \subsection{ラウエの回折条件}
 % Ewalt 球らへんでアンブレラ効果をやりたい
 \subsection{ブラッグの回折条件}
