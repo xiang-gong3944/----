@@ -179,6 +179,22 @@ a 軸、b 軸、c 軸の格子数を\(N_a,\,N_b,\,N_c\) とすると総和は
 も使う。
 
 \subsection{結晶構造因子}
+(\ref{factor_1})式の \(j\) についての総和について考える。
+ラウエの条件を当てはめ、積分の引数を変換すると
+\begin{align}
+	F_{hkl} := \sum_j e^{-iG_{hkl}\cdot r_j} \int \rho_j(r) e^{-iG_{hkl}\cdot r_j}dr
+\end{align}
+積分の部分を
+\begin{align}
+	f_j :=\int \rho_j(r) e^{-iG_{hkl}\cdot r_j}dr
+\end{align}
+とする。
+\(G_{hkl}\) を逆格子ベクトルベクトルで書いたものを入れると
+\begin{align}
+	F_{hkl} = \sum_j f_j e^{-2\pi i (hx + ky + lz)}
+\end{align}
+というようになる。
+このとき、結晶構造によっては\(F_{hkl}\) の値が 0 となることがある。
 \subsection{X 線源}
 今回の実験で使う X 線源はタングステンフィラメントを加熱し発生した熱電子を加速しCuにあてて、
 光電効果により発生させる。
