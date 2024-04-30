@@ -195,6 +195,24 @@ a 軸、b 軸、c 軸の格子数を\(N_a,\,N_b,\,N_c\) とすると総和は
 \end{align}
 というようになる。
 このとき、結晶構造によっては\(F_{hkl}\) の値が 0 となることがある。
+% 積分の中身を評価する。散乱密度 \(\rho\) は原子の周りに関して球対称なので
+% \begin{align}
+% 	f_j &=\int \rho_j(r) e^{-iG_{hkl}\cdot r_j}dr\\
+% 	&= \rho_j(r) e^{-iG_{hkl} r_j \cos\theta}r^2\sin\theta dr\\
+% 	&= 4\pi \int \rho_j(r) r^2 \frac{\sin(Gr)}{Gr}dr\\
+% \end{align}
+% \(k\) と \(k_0\) のなす角は散乱角 \(2\Theta\) であり、これを使って表すと
+% \begin{align}
+% 	G = K = 2k_0\sin(\Theta) = \frac{4\pi\sin\theta}{\lambda}
+% \end{align}
+% なので
+% \begin{align}
+% 	f_j  = 4\pi \int \rho(r) r^2 \frac{\sin(4\pi r\sin(\Theta \lambda))}{4\pi r(\sin\Theta/\lambda)} dr
+% \end{align}
+% となる。
+% この積分を前面散乱 (\(\Theta = 0\)) のときを考えると %云々
+% % https://www.desmos.com/calculator/i8apmkd23r 1s 電子でやった時の強度
+
 \subsection{X 線源}
 今回の実験で使う X 線源はタングステンフィラメントを加熱し発生した熱電子を加速しCuにあてて、
 光電効果により発生させる。
