@@ -152,6 +152,32 @@ a 軸、b 軸、c 軸の格子数を\(N_a,\,N_b,\,N_c\) とすると総和は
 % Ewalt 球らへんでアンブレラ効果をやりたい
 
 \subsection{ブラッグの回折条件}
+ラウエの条件と等価な条件式を導く。
+逆格子ベクトル \(G_{hkl}\) は格子面 [hkl] の法線ベクトルになっている。
+そのため面間隔\(d_{hkl}\)は法線ベクトルと基本格子ベクトルとの内積を考えることによって求まる。
+今回は立方晶を扱うので a 軸の基本格子ベクトルを \(a\) として
+\begin{align}
+	d_{hkl} &= \frac{a}{h} \cdot \frac{G_{hkl}}{\abs{G_{hkl}}}\\
+	&= \frac{2\pi}{\abs{G_{hkl}}} \label{eq:d-G}\\
+	&= \frac{2\pi a}{\sqrt{h^2+k^2+l^2}}
+\end{align}
+となる。
+\(k\) と \(k_0\) のなす角は散乱角 \(2\Theta\) であり、これを使って \(K\) の大きさを表すと
+\begin{align}
+	\abs{K} = 2k_0\sin(\Theta) = \frac{4\pi\sin\theta}{\lambda}
+\end{align}
+となる。ラウエの条件の両辺のベクトルの大きさを取ってみると
+\begin{align}
+	\frac{4\pi\sin\Theta}{\lambda} &= \frac{2\pi}{d_{hkl}}\\
+	2d_{hkl} \sin\Theta &= \lambda
+\end{align}
+これがブラッグの条件である。
+また散乱角 \(\Theta\) を測定して格子定数 \(a\) と面指数 [hkl] を求めるのに面間隔 \(d_{hkl}\) をブラッグの条件から消去した式
+\begin{align}
+	\lambda \sqrt{h^2+k^2+l^2}  = 2a \sin\Theta
+\end{align}
+も使う。
+
 \subsection{結晶構造因子}
 \subsection{X 線源}
 今回の実験で使う X 線源はタングステンフィラメントを加熱し発生した熱電子を加速しCuにあてて、
