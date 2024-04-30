@@ -126,8 +126,31 @@ X 線回折のパターンを見る上で回折の一般論を見ておく。
 \subsection{ラウエの回折条件}
 (\ref{factor_1})式の \(R\) についての総和について考える。
 \(R = n_a a + n_b b + n_c c\) というように格子ベクトルで展開することを考える。
-
+a 軸、b 軸、c 軸の格子数を\(N_a,\,N_b,\,N_c\) とすると総和は
+\begin{align}
+	G(K) &:= \sum_R e^{-iK\cdot R}\sum_j e^{-iK\cdot r_j}\\
+	&= \sum_{n_a=1}^{N_a} e^{-in_aK\cdot a} + \sum_{n_b=1}^{N_b} e^{-in_bK\cdot b} + \sum_{n_c=1}^{N_c} e^{-in_cK\cdot a}\\
+	&=\frac{e^{-iK\cdot a} (1-e^{-iN_a K\cdot a})}{1-e^{-iK\cdot a}}\,
+	\frac{e^{-iK\cdot b} (1-e^{-iN_b K\cdot b})}{1-e^{-iK\cdot b}}\,
+	\frac{e^{-iK\cdot c} (1-e^{-iN_c K\cdot c})}{1-e^{-iK\cdot c}}
+\end{align}
+これよりこの部分による回折強度は
+\begin{align}
+	\abs{G(K)}^2 &= \dfrac{\sin^2(N_a K\cdot a/2)}{\sin^2(K\cdot a/2)}
+	\dfrac{\sin^2(N_b K\cdot b/2)}{\sin^2(K\cdot b/2)}
+	\dfrac{\sin^2(N_c K\cdot c/2)}{\sin^2(K\cdot c/2)}
+\end{align}
+これより \(K\) が
+\begin{align}
+	K\cdot a = 2\pi h, \qquad K\cdot b =2\pi k, \qquad K\cdot c =2\pi l
+\end{align}
+を満たすとき、つまり 波数ベクトルの変化が逆格子ベクトルと等しいとき
+\begin{align}
+	K = G_{hkl}
+\end{align}
+を満たすとき回折強度を持つ。これをラウエの条件という。
 % Ewalt 球らへんでアンブレラ効果をやりたい
+
 \subsection{ブラッグの回折条件}
 \subsection{結晶構造因子}
 \subsection{X 線源}
