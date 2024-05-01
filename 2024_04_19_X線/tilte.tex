@@ -93,12 +93,12 @@ X 線回折のパターンを見る上で回折の一般論を見ておく。
 光源から出た光や、回折して検出器に入る回折光は本来は球面波である。
 しかし、ターゲット材料との距離が十分離れているときには平面波のように扱うことができる。
 光源から出た光が点 P で弾性散乱して点 B の検出器に到達するという過程を考える。(図\ref{ibach_fig3-1})
-% \begin{figure}[h]
-% 	\centering
-% 	\includegraphics[width = \columnwidth]{/fig/ibach_3-1.png}
-% 	\caption{散乱による回折の模式図。\cite{ibach-luth}}
-% 	\label{ibach_fig3-1}
-% \end{figure}
+\begin{figure}[h]
+	\centering
+	\includegraphics[width = \columnwidth]{/fig/ibach_3-1.png}
+	\caption{散乱による回折の模式図。\cite{ibach-luth}}
+	\label{ibach_fig3-1}
+\end{figure}
 点 P における入射光の状態は弾性散乱であるため位相の時間部分を略して
 \begin{align}
 	A_P(r) = A_0e^{ik_0\cdot(R+r)}
@@ -247,6 +247,31 @@ K\(\alpha_2\) 線は波長が近いためこれによるピークが見えるも
 これは測定装置に付属する解析ソフトにより除去する。
 
 \subsection{粉末 X 線回折}
+単体のターゲット試料に X 線を当てたとき、X 線が回折するのは特定の一つの面だけである。
+そのため試料を回転させる等の工夫が必要となる。
+
+万遍なく各結晶面からの回折を見るのに Debye と Scherrer はターゲット試料を粉末にした。
+各粉末は小さな結晶となっていて、各結晶は向いている面がランダムになっているため回折角を調整するだけで様々な面からの散乱をみることができる。
+
+
+\subsection{Nelson-Riley の式による格子定数の外挿}
+(\ref{eq:bragg})式による格子定数決定をすると、実験系の系統誤差によりずれてしまう。
+例えば Ewalt 球の曲面の一部を切り取ってピークにすることによるアンブレラ効果、
+X 線の偏光によるずれ、ターゲット試料の回転ステージの偏心によるもの、
+X 線のフォーカスによるずれ、
+などがある。これらの系統誤差を抑えて格子定数を求めるのに同時期に Nelson, Riley のグループと
+Taylor, Sinclair のグループによって外挿する式が出された。\cite{Nelson_1945}\cite{Taylor_1945}
+その式は
+\begin{align}
+	a(\Theta) = k\qty(\frac{\cos^2\Theta}{\sin\Theta}+\frac{\cos^2\Theta}{\Theta}) + a \label{eq:nelson-riley}
+\end{align}
+である。ここで\(a(\pi/2)=a\)の値が求める格子定数である。
+Nelson, Riley のグループの論文では外挿するを比較し、最もよくできている関数として紹介している。
+そのため経験的にうまくいく関数として言われるが、
+Taylor, Sinclair のグループの論文では各系統誤差をモデル化し、ある系統誤差に対するものの議論でこの式を出している。
+\footnote{ちゃんと読めてないですがいいこと言ってます。}
+このレポートでは(\ref{eq:bragg})式による格子定数と(\ref{eq:nelson-riley})式による格子定数の両方を求める。
+
 
 \section{実験}
 この実験ではリガクの MiniFlex600 を用いて、
@@ -260,63 +285,77 @@ K\(\alpha_2\) 線によるピークを除去をした。
 Niフィルターの有無による Cu の X 線回折パターンは図\ref{Cu_XRD}のようになった。
 Si, Fe の単体粉末と、NaCl, KCl, CsCl の粉末の X 線回折パターンは
 それぞれ図\ref{Si_XRD}, 図\ref{Fe_XRD}, 図\ref{NaCl_XRD}, 図\ref{KCl_XRD}, 図\ref{CsCl_XRD} のようになった。
-% \begin{figure}[h]
-% 	\centering
-% 	\begin{minipage}[t]{0.48\columnwidth}
-% 		\centering
-% 		\includegraphics[width=\columnwidth]{/graph/Cu.png}
-% 		\subcaption{Ni フィルター有}
-% 	\end{minipage}
-% 	\hfil
-% 	\begin{minipage}[t]{0.48\columnwidth}
-% 		\centering
-% 		\includegraphics[width=\columnwidth]{/graph/Cu.png}
-% 		\subcaption{Ni フィルター無}
-% 	\end{minipage}
-% 	\caption{Cu 単体粉末の X 線回折強度}
-% 	\label{Cu_XRD}
-% \end{figure}
-% \begin{figure}[h]
-% 	\centering
-% 	\begin{minipage}[t]{0.48\columnwidth}
-% 		\centering
-% 		\includegraphics[width=\columnwidth]{/graph/Si.png}
-% 		\caption{Si 単体粉末の X 線回折強度}
-% 		\label{Si_XRD}
-% 	\end{minipage}
-% 	\hfil
-% 	\begin{minipage}[t]{0.48\columnwidth}
-% 		\centering
-% 		\includegraphics[width=\columnwidth]{/graph/Fe.png}
-% 		\caption{Fe 単体粉末の X 線回折強度}
-% 		\label{Fe_XRD}
-% 	\end{minipage}
-% \end{figure}
-% \begin{figure}[h]
-% 	\centering
-% 	\begin{minipage}[t]{0.48\columnwidth}
-% 		\centering
-% 		\includegraphics[width=\columnwidth]{/graph/NaCl.png}
-% 		\caption{NaCl 粉末の X 線回折強度}
-% 		\label{NaCl_XRD}
-% 	\end{minipage}
-% 	\hfil
-% 	\begin{minipage}[t]{0.48\columnwidth}
-% 		\centering
-% 		\includegraphics[width=\columnwidth]{/graph/KCl.png}
-% 		\caption{KCl 粉末の X 線回折強度}
-% 		\label{KCl_XRD}
-% 	\end{minipage}
-% \end{figure}
-% \begin{figure}[h]
-% 	\centering
-% 	\begin{minipage}[t]{0.48\columnwidth}
-% 		\centering
-% 		\includegraphics[width=\columnwidth]{/graph/CsCl.png}
-% 		\caption{CsCl 粉末の X 線回折強度}
-% 		\label{CsCl_XRD}
-% 	\end{minipage}
-% \end{figure}
+またこの回折ピークと結晶構造因子による消滅則を考慮しながら格子定数を求めると表\ref{table:result}のようになった。
+算出法は Bragg の式 (\ref{eq:bragg})式と Nelson-Riley 関数 (\ref{eq:nelson-riley}) に測定値を入れて求めた。
+\begin{table}[h]
+	\centering
+	\caption{X 線回折による格子定数の測定結果(単位:\AA)} \label{table:result}
+	\begin{tabular}[pos]{lcccccc}
+		\hline \hline
+		算出法 & Cu & Si & Fe & NaCl & KCl & CsCl \\
+		\hline
+		Bragg の式 & 3.6219 & 5.4414 & 2.8723 & 5.6441 & 6.2898 & 4.1207 \\
+		Nelson-Riley 関数 & 3.6184 & 5.4354 & 2.8688 & 5.6433 & 6.2979 & 4.1259\\
+		\hline \hline
+	\end{tabular}
+\end{table}
+\begin{figure}[h]
+	\centering
+	\begin{minipage}[t]{0.48\columnwidth}
+		\centering
+		\includegraphics[width=\columnwidth]{/graph/Cu.png}
+		\subcaption{Ni フィルター有}
+	\end{minipage}
+	\hfil
+	\begin{minipage}[t]{0.48\columnwidth}
+		\centering
+		\includegraphics[width=\columnwidth]{/graph/Cu.png}
+		\subcaption{Ni フィルター無}
+	\end{minipage}
+	\caption{Cu 単体粉末の X 線回折強度}
+	\label{Cu_XRD}
+\end{figure}
+\begin{figure}[h]
+	\centering
+	\begin{minipage}[t]{0.48\columnwidth}
+		\centering
+		\includegraphics[width=\columnwidth]{/graph/Si.png}
+		\caption{Si 単体粉末の X 線回折強度}
+		\label{Si_XRD}
+	\end{minipage}
+	\hfil
+	\begin{minipage}[t]{0.48\columnwidth}
+		\centering
+		\includegraphics[width=\columnwidth]{/graph/Fe.png}
+		\caption{Fe 単体粉末の X 線回折強度}
+		\label{Fe_XRD}
+	\end{minipage}
+\end{figure}
+\begin{figure}[h]
+	\centering
+	\begin{minipage}[t]{0.48\columnwidth}
+		\centering
+		\includegraphics[width=\columnwidth]{/graph/NaCl.png}
+		\caption{NaCl 粉末の X 線回折強度}
+		\label{NaCl_XRD}
+	\end{minipage}
+	\hfil
+	\begin{minipage}[t]{0.48\columnwidth}
+		\centering
+		\includegraphics[width=\columnwidth]{/graph/KCl.png}
+		\caption{KCl 粉末の X 線回折強度}
+		\label{KCl_XRD}
+	\end{minipage}
+\end{figure}
+\begin{figure}[h]
+	\centering
+	\begin{minipage}[t]{0.48\columnwidth}
+		\centering
+		\includegraphics[width=\columnwidth]{/graph/CsCl.png}
+		\caption{CsCl 粉末の X 線回折強度}
+		\label{CsCl_XRD}
+	\end{minipage}
+\end{figure}
 
 \section{課題}
 \subsection*{課題1}
@@ -337,24 +376,24 @@ Si, Fe の単体粉末と、NaCl, KCl, CsCl の粉末の X 線回折パターン
 面指数 (hkl) の和が奇数のときであっても消滅則が働かない。
 そのため XDR で検出したピークの数は CsCl のほうが多くなる。(図\ref{Fe_XRD}, 図\ref{CsCl_XRD})
 Fe の強度が弱くなっているのは Fe 結晶構造というよりかはの特性によるものである。
-これは考察で言及する。\\ % あとで具体的にな考察の節番号を振りたい
+これは考察で言及する。\\
 
-% \begin{figure}[h]
-% 	\centering
-% 	\begin{minipage}[t]{0.48\columnwidth}
-% 		\centering
-% 		\includegraphics[width=\columnwidth]{fig/Fe.pdf}
-% 		\caption{Fe の構造\cite{cfi_Fe}}
-% 		\label{Fe_str.}
-% 	\end{minipage}
-% 	\hfill
-% 	\begin{minipage}[t]{0.48\columnwidth}
-% 		\centering
-% 		\includegraphics[width=\columnwidth]{fig/CsCl.pdf}
-% 		\caption{Fe の構造\cite{cfi_CsCl}}
-% 		\label{CsCl_str.}
-% 	\end{minipage}
-% \end{figure}
+\begin{figure}[h]
+	\centering
+	\begin{minipage}[t]{0.48\columnwidth}
+		\centering
+		\includegraphics[width=\columnwidth]{fig/Fe.pdf}
+		\caption{Fe の構造。VESTA を用いて以下の文献のパラメータを用いて作成。\cite{cfi_Fe}}
+		\label{Fe_str.}
+	\end{minipage}
+	\hfill
+	\begin{minipage}[t]{0.48\columnwidth}
+		\centering
+		\includegraphics[width=\columnwidth]{fig/CsCl.pdf}
+		\caption{Fe の構造。VESTA を用いて以下の文献のパラメータを用いて作成。\cite{cfi_CsCl}}
+		\label{CsCl_str.}
+	\end{minipage}
+\end{figure}
 
 \subsubsection*{(ii)}
 両者とも単位格子に面心立方格子が含まれている。(図\ref{Cu_str.}, \ref{Si_str.})
@@ -374,22 +413,22 @@ Si はこれにさらに面心立方構造を(1/4, 1/4, 1/4)方向にずらし�
 測定できたピークの数としては Si の方が多いが面間隔のことを考えると、
 やはり消滅則が多い Si は消滅しているピークがあることがわかる。(図\ref{Cu_XRD}, 図\ref{Si_XRD})% 図の参照を加えたい
 Cu にはバックグラウンドが多いことは考察で言及する\\ % かもしれない
-% \begin{figure}[h]
-% 	\centering
-% 	\begin{minipage}[t]{0.48\columnwidth}
-% 		\centering
-% 		\includegraphics[width=\columnwidth]{fig/Cu.pdf}
-% 		\caption{Cu の構造\cite{cfi_Cu}}
-% 		\label{Cu_str.}
-% 	\end{minipage}
-% 	\hfill
-% 	\begin{minipage}[t]{0.48\columnwidth}
-% 		\centering
-% 		\includegraphics[width=\columnwidth]{fig/Si.pdf}
-% 		\caption{Si の構造\cite{cfi_Si}}
-% 		\label{Si_str.}
-% 	\end{minipage}
-% \end{figure}
+\begin{figure}[h]
+	\centering
+	\begin{minipage}[t]{0.48\columnwidth}
+		\centering
+		\includegraphics[width=\columnwidth]{fig/Cu.pdf}
+		\caption{Cu の構造。VESTA を用いて以下の文献のパラメータを用いて作成。\cite{cfi_Cu}}
+		\label{Cu_str.}
+	\end{minipage}
+	\hfill
+	\begin{minipage}[t]{0.48\columnwidth}
+		\centering
+		\includegraphics[width=\columnwidth]{fig/Si.pdf}
+		\caption{Si の構造。VESTA を用いて以下の文献のパラメータを用いて作成。\cite{cfi_Si}}
+		\label{Si_str.}
+	\end{minipage}
+\end{figure}
 
 \subsubsection*{(iii)}
 両者とも結晶構造としては同じ構造である。(図\ref{NaCl_str.}, \ref{KCl_str.})
@@ -407,22 +446,22 @@ NaCl では
 \end{align}
 となる。
 これより面指数 h が奇数か偶数かという消滅則が KCl には働く。
-% \begin{figure}[h]
-% 	\centering
-% 	\begin{minipage}[t]{0.48\columnwidth}
-% 		\centering
-% 		\includegraphics[width=\columnwidth]{fig/NaCl.pdf}
-% 		\caption{NaCl の構造\cite{cfi_NaCl}}
-% 		\label{NaCl_str.}
-% 	\end{minipage}
-% 	\hfill
-% 	\begin{minipage}[t]{0.48\columnwidth}
-% 		\centering
-% 		\includegraphics[width=\columnwidth]{fig/KCl.pdf}
-% 		\caption{KCl の構造\cite{cfi_NaCl}}
-% 		\label{KCl_str.}
-% 	\end{minipage}
-% \end{figure}
+\begin{figure}[h]
+	\centering
+	\begin{minipage}[t]{0.48\columnwidth}
+		\centering
+		\includegraphics[width=\columnwidth]{fig/NaCl.pdf}
+		\caption{NaCl の構造。VESTA を用いて以下の文献のパラメータを用いて作成。\cite{cfi_NaCl}}
+		\label{NaCl_str.}
+	\end{minipage}
+	\hfill
+	\begin{minipage}[t]{0.48\columnwidth}
+		\centering
+		\includegraphics[width=\columnwidth]{fig/KCl.pdf}
+		\caption{KCl の構造。VESTA を用いて以下の文献のパラメータを用いて作成。\cite{cfi_NaCl}}
+		\label{KCl_str.}
+	\end{minipage}
+\end{figure}
 
 \subsection*{課題2} 仮にこれらの立方晶の物質が、
 何らかの摂動を受けて正方晶になったとする。
@@ -445,9 +484,27 @@ Cu の粉末 X 線回折結果の強度比 \(I^{\text{obs.}}\)と
 を比較し、議論せよ。
 ここで強度比は、最も強い回折ピークの強度を 100 として答えよ。
 
+時間が足らず割愛します。
+
 \section{考察}
 \subsection{Fe の X 線回折強度について}
+図\ref{Fe_XRD} を見るとバックグラウンドが大きくまた、回折強度も弱い。
+これは X 線源から K\(\beta\) 線を取り除くのに使った Ni と Fe が似た構造をしているからであるからと考えられる。
+Ni は [Ar]3d\(^8\)4s\(^2\) なのに対し、Fe は [Ar]3d\(^6\)4s\(^2\) である。
+そのため電子が空軌道に遷移して光子を吸収する波長というのが近くなる。
+実際理科年表\cite{rikanenpyo} の数字を参照すると Fe の K 吸収端の波長は
+\begin{align}
+	\lambda = 1.743 \,\text{\AA}
+\end{align}
+である。そのためどの Cu の特性 X 線も吸収してしまう。
 
+K系の特性 X は 1s 電子が励起して 2p 軌道や 3p 軌道からもとに戻るときに放出される光子を使っている。
+これはつまり線源の原子において 1s 軌道から 2p 軌道への励起に必要なエネルギーを特性 X 線は持つことになる。
+原子番号が大きくなるにつれて 1s 軌道と 2p 軌道とのエネルギー差が大きくなるので、
+線源より小さい原子番号をもつようなターゲット試料では特性 X 線の持つエネルギーが空の軌道へと励起できるような量となる。
+
+以上より、ターゲット試料が X 線を吸収しないような線源の選び方として、
+ターゲット試料の原子番号より十分大きいものを選ぶべきと考えられる。
 
 \subsection{イオン結晶の発光}
 
