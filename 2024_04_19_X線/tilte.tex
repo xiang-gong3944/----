@@ -77,7 +77,7 @@
 
 % \twocolumn
 \section{目的}
-金属やイオン結晶とった固体は一つ一つの原子がある一定の規則性をもって配置している。
+金属やイオン結晶といった固体は一つ一つの原子がある一定の規則性をもって配置している。
 十分細いスリットにコヒーレント光を当てると、
 光はスリットで回折を起こしスクリーンにパターンが浮かび上がる。
 このパターンから目には見えないスリット幅が求めることができるように、
@@ -89,11 +89,12 @@
 
 \section{原理}
 \subsection{回折の一般論}
-X 線回折のパターンを見る上で回折の一般論を見ておく。
+回折の一般論を確認する。
 光源から出た光や、回折して検出器に入る回折光は本来は球面波である。
 しかし、ターゲット材料との距離が十分離れているときには平面波のように扱うことができる。
+
 光源から出た光が点 P で弾性散乱して点 B の検出器に到達するという過程を考える。(図\ref{ibach_fig3-1})
-\begin{figure}[h]
+\begin{figure}[H]
 	\centering
 	\includegraphics[width = \columnwidth]{/fig/ibach_3-1.png}
 	\caption{散乱による回折の模式図。\cite{ibach-luth}}
@@ -119,9 +120,9 @@ X 線回折のパターンを見る上で回折の一般論を見ておく。
 \begin{align}
 	\dv{W}{t} \propto \frac{1}{m^2}
 \end{align}
-となる。原子核より電子の方が軽いので放射するエネルギーは電子からによるものがほとんどとわかる。
+となる。原子核より電子の方が軽いので放射するエネルギーは電子からによるものがほとんどだとわかる。
 これより光の回折は結晶中の電子がするものと言える。
-散乱密度はこのようにして電子の密度であることが示される。
+散乱密度はこのようにして電子の密度であることが示された。
 
 散乱により振幅と位相が変わるので点 B での散乱光の振幅は
 \begin{align}
@@ -130,7 +131,7 @@ X 線回折のパターンを見る上で回折の一般論を見ておく。
 \end{align}
 となる。ターゲット材料全体で積分すると検出器が実際に検出する振幅になるので積分すると
 \begin{align}
-	A_B =\frac{A_0}{R'}e^{i(k_0 \cdot R+ k \cdot R')}\int \rho(r) e^{i(k_0-k)\cdot r} dr
+	A_B =\frac{A_0}{R'}e^{i(k_0 \cdot R+ k \cdot R')}\int \rho(r) e^{i(k_0-k)\cdot r} dr.
 \end{align}
 このうち積分の部分を原子散乱因子\(f\)と呼ぶ。
 結晶材料を考えるとき、原子散乱因子は結晶の周期性からくる散乱条件と、単位格子内の原子の配置による散乱条件がある。
@@ -151,20 +152,20 @@ X 線回折のパターンを見る上で回折の一般論を見ておく。
 
 \subsection{Laue の回折条件}
 (\ref{factor_1})式の \(R\) についての総和について考える。
-\(R = n_a a + n_b b + n_c c\) というように格子ベクトルで展開することを考える。
+\(R = n_a a + n_b b + n_c c\) というように格子ベクトルで展開して、
 a 軸、b 軸、c 軸の格子数を\(N_a,\,N_b,\,N_c\) とすると総和は
 \begin{align}
 	G(K) &:= \sum_R e^{-iK\cdot R}\sum_j e^{-iK\cdot r_j}\\
 	&= \sum_{n_a=1}^{N_a} e^{-in_aK\cdot a} + \sum_{n_b=1}^{N_b} e^{-in_bK\cdot b} + \sum_{n_c=1}^{N_c} e^{-in_cK\cdot a}\\
 	&=\frac{e^{-iK\cdot a} (1-e^{-iN_a K\cdot a})}{1-e^{-iK\cdot a}}\,
 	\frac{e^{-iK\cdot b} (1-e^{-iN_b K\cdot b})}{1-e^{-iK\cdot b}}\,
-	\frac{e^{-iK\cdot c} (1-e^{-iN_c K\cdot c})}{1-e^{-iK\cdot c}}
+	\frac{e^{-iK\cdot c} (1-e^{-iN_c K\cdot c})}{1-e^{-iK\cdot c}} .
 \end{align}
 これよりこの部分による回折強度は
 \begin{align}
 	\abs{G(K)}^2 &= \dfrac{\sin^2(N_a K\cdot a/2)}{\sin^2(K\cdot a/2)}
 	\dfrac{\sin^2(N_b K\cdot b/2)}{\sin^2(K\cdot b/2)}
-	\dfrac{\sin^2(N_c K\cdot c/2)}{\sin^2(K\cdot c/2)}
+	\dfrac{\sin^2(N_c K\cdot c/2)}{\sin^2(K\cdot c/2)} .
 \end{align}
 これより \(K\) が
 \begin{align}
@@ -174,23 +175,23 @@ a 軸、b 軸、c 軸の格子数を\(N_a,\,N_b,\,N_c\) とすると総和は
 \begin{align}
 	K = G_{hkl}
 \end{align}
-を満たすとき回折強度を持つ。これを Laue の条件という。
+において回折強度を持つ。これを Laue の条件という。
 % Ewalt 球らへんでアンブレラ効果をやりたい
 
 \subsection{Bragg の回折条件}
  Laue の条件と等価な条件式を導く。
 逆格子ベクトル \(G_{hkl}\) は格子面 (hkl) の法線ベクトル [hkl] になっている。
 そのため面間隔\(d_{hkl}\)は法線ベクトルと基本格子ベクトルとの内積を考えることによって求まる。
-今回は立方晶を扱うので a 軸の基本格子ベクトルを \(a\) として
+今回は立方晶を扱うので a 軸の基本格子ベクトルを \(a\), 格子定数を\(a_0\) として
 \begin{align}
 	d_{hkl} &= \frac{a}{h} \cdot \frac{G_{hkl}}{\abs{G_{hkl}}}\\
 	&= \frac{2\pi}{\abs{G_{hkl}}} \label{eq:d-G}\\
-	&= \frac{2\pi a}{\sqrt{h^2+k^2+l^2}}
+	&= \frac{2\pi a_0}{\sqrt{h^2+k^2+l^2}}
 \end{align}
 となる。
-\(k\) と \(k_0\) のなす角は散乱角 \(2\Theta\) であり、これを使って \(K\) の大きさを表すと
+\(k\) と \(k_0\) のなす角は散乱角\(\Theta\)を用いて表すと \(2\Theta\) であり、これを使って \(K\) の大きさを表すと
 \begin{align}
-	\abs{K} = 2k_0\sin(\Theta) = \frac{4\pi\sin\Theta}{\lambda}
+	\abs{K} = 2k_0\sin\Theta = \frac{4\pi\sin\Theta}{\lambda}
 \end{align}
 となる。Laue の条件の両辺のベクトルの大きさを取ってみると
 \begin{align}
@@ -205,10 +206,10 @@ a 軸、b 軸、c 軸の格子数を\(N_a,\,N_b,\,N_c\) とすると総和は
 も使う。
 
 \subsection{結晶構造因子}
-(\ref{factor_1})式の \(j\) についての総和について考える。
+(\ref{factor_1})式の \(j\) についての総和を考える。
 Laue の条件を当てはめ、積分の引数を変換すると
 \begin{align}
-	F_{hkl} := \sum_j e^{-iG_{hkl}\cdot r_j} \int \rho_j(r) e^{-iG_{hkl}\cdot r_j}dr
+	F_{hkl} := \sum_j e^{-iG_{hkl}\cdot r_j} \int \rho_j(r) e^{-iG_{hkl}\cdot r_j}dr .
 \end{align}
 積分の部分を
 \begin{align}
@@ -238,7 +239,7 @@ Laue の条件を当てはめ、積分の引数を変換すると
 \end{align}
 となる。
 これをプロットすると図\ref{graph1}となる。
-\begin{figure}[h]
+\begin{figure}[H]
 	\centering
 	\includegraphics[width =0.5\columnwidth]{/graph/graph1.png}
 	\caption{原子散乱因子。偏角に対する強度をプロットした。}
@@ -248,7 +249,7 @@ Laue の条件を当てはめ、積分の引数を変換すると
 % https://www.desmos.com/calculator/i8apmkd23r 1s 電子でやった時の強度
 
 \subsection{X 線源}
-今回の実験で使う X 線源はタングステンフィラメントを加熱し発生した熱電子を加速しCuにあてて、
+今回の実験で使う X 線源はタングステンフィラメントを加熱し発生した熱電子を Cu にあてて、
 光電効果により発生させる。
 この際、銅原子内の電子が様々な準位に励起され、励起により空いた準位に電子が遷移する際に光子(X 線)を放つ。
 特に
@@ -294,11 +295,11 @@ Taylor, Sinclair のグループによって外挿する式が出された。\ci
 \begin{align}
 	a(\Theta) = k\qty(\frac{\cos^2\Theta}{\sin\Theta}+\frac{\cos^2\Theta}{\Theta}) + a \label{eq:nelson-riley}
 \end{align}
-である。ここで\(a(\pi/2)=a\)の値が求める格子定数である。
+である。ここで \(k\) はある定数、\(a(\pi/2)=a\)の値が求める格子定数である。
 Nelson, Riley のグループの論文では外挿するを比較し、最もよくできている関数として紹介している。
 そのため経験的にうまくいく関数として言われるが、
 Taylor, Sinclair のグループの論文では各系統誤差をモデル化し、ある系統誤差に対するものの議論でこの式を出している。
-\footnote{ちゃんと読めてないですがいいこと言ってます。}
+% \footnote{ちゃんと読めてないですがいいこと言ってます。}
 このレポートでは(\ref{eq:bragg})式による格子定数と(\ref{eq:nelson-riley})式による格子定数の両方を求める。
 
 
@@ -316,7 +317,7 @@ Si, Fe の単体粉末と、NaCl, KCl, CsCl の粉末の X 線回折パターン
 それぞれ図\ref{Si_XRD}, 図\ref{Fe_XRD}, 図\ref{NaCl_XRD}, 図\ref{KCl_XRD}, 図\ref{CsCl_XRD} のようになった。
 またこの回折ピークと結晶構造因子による消滅則を考慮しながら格子定数を求めると表\ref{table:result}のようになった。
 算出法は Bragg の式 (\ref{eq:bragg})式と Nelson-Riley 関数 (\ref{eq:nelson-riley}) に測定値を入れて求めた。
-\begin{table}[h]
+\begin{table}[H]
 	\centering
 	\caption{X 線回折による格子定数の測定結果(単位:\AA)} \label{table:result}
 	\begin{tabular}[pos]{lcccccc}
@@ -328,7 +329,7 @@ Si, Fe の単体粉末と、NaCl, KCl, CsCl の粉末の X 線回折パターン
 		\hline \hline
 	\end{tabular}
 \end{table}
-\begin{figure}[h]
+\begin{figure}[H]
 	\centering
 	\begin{minipage}[t]{0.48\columnwidth}
 		\centering
@@ -344,7 +345,7 @@ Si, Fe の単体粉末と、NaCl, KCl, CsCl の粉末の X 線回折パターン
 	\caption{Cu 単体粉末の X 線回折強度}
 	\label{Cu_XRD}
 \end{figure}
-\begin{figure}[h]
+\begin{figure}[H]
 	\centering
 	\begin{minipage}[t]{0.48\columnwidth}
 		\centering
@@ -360,7 +361,7 @@ Si, Fe の単体粉末と、NaCl, KCl, CsCl の粉末の X 線回折パターン
 		\label{Fe_XRD}
 	\end{minipage}
 \end{figure}
-\begin{figure}[h]
+\begin{figure}[H]
 	\centering
 	\begin{minipage}[t]{0.48\columnwidth}
 		\centering
@@ -376,7 +377,7 @@ Si, Fe の単体粉末と、NaCl, KCl, CsCl の粉末の X 線回折パターン
 		\label{KCl_XRD}
 	\end{minipage}
 \end{figure}
-\begin{figure}[h]
+\begin{figure}[H]
 	\centering
 	\begin{minipage}[t]{0.48\columnwidth}
 		\centering
@@ -407,7 +408,7 @@ Si, Fe の単体粉末と、NaCl, KCl, CsCl の粉末の X 線回折パターン
 Fe の強度が弱くなっているのは Fe 結晶構造というよりかはの特性によるものである。
 これは考察で言及する。\\
 
-\begin{figure}[h]
+\begin{figure}[H]
 	\centering
 	\begin{minipage}[t]{0.48\columnwidth}
 		\centering
@@ -442,7 +443,7 @@ Si はこれにさらに面心立方構造を(1/4, 1/4, 1/4)方向にずらし�
 測定できたピークの数としては Si の方が多いが面間隔のことを考えると、
 やはり消滅則が多い Si は消滅しているピークがあることがわかる。(図\ref{Cu_XRD}, 図\ref{Si_XRD})% 図の参照を加えたい
 Cu にはバックグラウンドが多いことは考察で言及する\\ % かもしれない
-\begin{figure}[h]
+\begin{figure}[H]
 	\centering
 	\begin{minipage}[t]{0.48\columnwidth}
 		\centering
@@ -475,7 +476,7 @@ NaCl では
 \end{align}
 となる。
 これより面指数 h が奇数か偶数かという消滅則が KCl には働く。
-\begin{figure}[h]
+\begin{figure}[H]
 	\centering
 	\begin{minipage}[t]{0.48\columnwidth}
 		\centering
@@ -537,7 +538,7 @@ K系の特性 X は 1s 電子が励起して 2p 軌道や 3p 軌道からもと�
 
 \subsection{イオン結晶の発光}
 イオン結晶の X 線回折パターンを測定したあと、装置から出すと発光していることを確認した。(図\ref{photo:ion})
-\begin{figure}[h]
+\begin{figure}[H]
 	\begin{minipage}[t]{0.3\columnwidth}
 		\centering
 		\includegraphics[width=\columnwidth]{/photo/IMG_0215.JPG}
