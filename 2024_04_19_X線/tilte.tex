@@ -103,7 +103,26 @@ X 線回折のパターンを見る上で回折の一般論を見ておく。
 \begin{align}
 	A_P(r) = A_0e^{ik_0\cdot(R+r)}
 \end{align}
-と書ける。ここで\(\rho(r)\)は散乱密度。% 散乱密度と電子密度
+と書ける。ここで\(\rho(r)\)は散乱密度。
+
+古典的には散乱光は
+入射波の電磁場が結晶中の荷電粒子を振動させたことによる加速電荷が放射する電磁波である。
+加速運動するときに質量\(m\)の電荷のが放出するエネルギーは Lamor の公式より
+\begin{align}
+	\dv{W}{t} = \frac{q^2}{6\pi\varepsilon_0c^3}\abs{\ddot{r}}^2
+\end{align}
+となる。また電荷の従う運動方程式は
+\begin{align}
+	m\ddot{r} = qE^{i(k\cdot r -\omega t)}
+\end{align}
+より
+\begin{align}
+	\dv{W}{t} \propto \frac{1}{m^2}
+\end{align}
+となる。原子核より電子の方が軽いので放射するエネルギーは電子からによるものがほとんどとわかる。
+これより光の回折は結晶中の電子がするものと言える。
+散乱密度はこのようにして電子の密度であることが示される。
+
 散乱により振幅と位相が変わるので点 B での散乱光の振幅は
 \begin{align}
 	A_B(r) &= A_P \rho(r) \frac{e^{ik\cdot(R'-r)}}{R'}\\
@@ -202,23 +221,31 @@ Laue の条件を当てはめ、積分の引数を変換すると
 \end{align}
 というようになる。
 このとき、結晶構造によっては\(F_{hkl}\) の値が 0 となることがある。
-% 積分の中身を評価する。散乱密度 \(\rho\) は原子の周りに関して球対称なので
-% \begin{align}
-% 	f_j &=\int \rho_j(r) e^{-iG_{hkl}\cdot r_j}dr\\
-% 	&= \rho_j(r) e^{-iG_{hkl} r_j \cos\theta}r^2\sin\theta dr\\
-% 	&= 4\pi \int \rho_j(r) r^2 \frac{\sin(Gr)}{Gr}dr\\
-% \end{align}
-% \(k\) と \(k_0\) のなす角は散乱角 \(2\Theta\) であり、これを使って表すと
-% \begin{align}
-% 	G = K = 2k_0\sin(\Theta) = \frac{4\pi\sin\theta}{\lambda}
-% \end{align}
-% なので
-% \begin{align}
-% 	f_j  = 4\pi \int \rho(r) r^2 \frac{\sin(4\pi r\sin(\Theta \lambda))}{4\pi r(\sin\Theta/\lambda)} dr
-% \end{align}
-% となる。
-% この積分を前面散乱 (\(\Theta = 0\)) のときを考えると %云々
-% % https://www.desmos.com/calculator/i8apmkd23r 1s 電子でやった時の強度
+
+積分の中身\(f_j\)を評価する。電子密度 \(\rho\) を原子の周りに関して球対称だとみなすと
+\begin{align}
+	f_j &=\int \rho_j(r) e^{-iG_{hkl}\cdot r_j}dr\\
+	&= \rho_j(r) e^{-iG_{hkl} r_j \cos\theta}r^2\sin\theta dr\\
+	&= 4\pi \int \rho_j(r) r^2 \frac{\sin(Gr)}{Gr}dr\\
+\end{align}
+\(k\) と \(k_0\) のなす角は散乱角 \(2\Theta\) であり、これを使って表すと
+\begin{align}
+	G = K = 2k_0\sin\Theta = \frac{4\pi\sin\Theta}{\lambda}
+\end{align}
+なので
+\begin{align}
+	f_j  = 4\pi \int \rho(r) r^2 \frac{\sin(4\pi r\sin(\Theta \lambda))}{4\pi r(\sin\Theta/\lambda)} dr
+\end{align}
+となる。
+これをプロットすると図\ref{graph1}となる。
+\begin{figure}[h]
+	\centering
+	\includegraphics[width =0.5\columnwidth]{/graph/graph1.png}
+	\caption{原子散乱因子。偏角に対する強度をプロットした。}
+	\label{graph1}
+\end{figure}
+これより回折強度は\(\Theta = 0\) で最大で \(\Theta = \pi/2\) で最も弱くなる。
+% https://www.desmos.com/calculator/i8apmkd23r 1s 電子でやった時の強度
 
 \subsection{X 線源}
 今回の実験で使う X 線源はタングステンフィラメントを加熱し発生した熱電子を加速しCuにあてて、
@@ -259,7 +286,9 @@ K\(\alpha_2\) 線は波長が近いためこれによるピークが見えるも
 例えば Ewalt 球の曲面の一部を切り取ってピークにすることによるアンブレラ効果、
 X 線の偏光によるずれ、ターゲット試料の回転ステージの偏心によるもの、
 X 線のフォーカスによるずれ、
-などがある。これらの系統誤差を抑えて格子定数を求めるのに同時期に Nelson, Riley のグループと
+などがある。この系統誤差は回折角 \(\Theta = \pi/2\) のときに最小となるが、
+図\ref{graph1} で見たようにこのときの回折強度は弱い。
+\(\Theta = \pi/2\) の値を外挿して格子定数を求めるのに同時期に Nelson, Riley のグループと
 Taylor, Sinclair のグループによって外挿する式が出された。\cite{Nelson_1945}\cite{Taylor_1945}
 その式は
 \begin{align}
@@ -507,6 +536,28 @@ K系の特性 X は 1s 電子が励起して 2p 軌道や 3p 軌道からもと�
 ターゲット試料の原子番号より十分大きいものを選ぶべきと考えられる。
 
 \subsection{イオン結晶の発光}
+イオン結晶の X 線回折パターンを測定したあと、装置から出すと発光していることを確認した。(図\ref{photo:ion})
+\begin{figure}[h]
+	\begin{minipage}[t]{0.3\columnwidth}
+		\centering
+		\includegraphics[width=\columnwidth]{/photo/IMG_0215.JPG}
+		\subcaption{NaClが黄色に発光している。}
+	\end{minipage}
+	\hfill
+	\begin{minipage}[t]{0.3\columnwidth}
+		\centering
+		\includegraphics[width=\columnwidth]{/photo/IMG_0216.JPG}
+		\subcaption{KClが紫色に発光している。}
+	\end{minipage}
+	\hfill
+	\begin{minipage}[t]{0.3\columnwidth}
+		\centering
+		\includegraphics[width=\columnwidth]{/photo/IMG_0218.JPG}
+		\subcaption{CsClが青色に発光している。}
+	\end{minipage}
+	\caption{X 線を照射した後のイオン結晶の様子}
+	\label{photo:ion}
+\end{figure}
 
 
 \section{結論}
@@ -516,7 +567,7 @@ X 線材料 Cu, Si, Fe の単体粉末と、NaCl, KCl, CsCl の
 またこの測定において Fe は線源の X 線を吸収するため回折パターンの SN 比が悪くなることから、
 別の系で測定した方がよいとわかった。
 
-% NaCl, KCl, CsCl に X 線を当てるとルミネッセンスを生じることを確認した。
+NaCl, KCl, CsCl に X 線を当てるとルミネッセンスを生じることを確認した。
 
 \bibliographystyle{junsrt}
 \bibliography{reference}
