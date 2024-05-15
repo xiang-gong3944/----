@@ -1,0 +1,189 @@
+\documentclass[11pt,dvipdfmx,a4paper]{jsarticle}
+
+\usepackage{amsmath,amssymb}
+\usepackage{bm}
+\usepackage[dvipdfmx]{graphicx}
+\usepackage{physics} % http://mirrors.ibiblio.org/CTAN/macros/latex/contrib/physics/physics.pdf
+\usepackage{siunitx} %SI単位を楽に出力
+\usepackage{mathtools} %環境の追加
+\usepackage{circuitikz} %電気回路をtex中で書く
+% \usepackage{caption} %番号なしキャプションを書く
+% \usepackage{cancel} %式中に斜線を入れる
+% \usepackage{tensor} %テンソルの添え字を書く
+% \usepackage{tikz} %図を書く
+% \usepackage{ascmac} %四角い枠の中に文章を書く
+% \usepackage{float} %figureで[hbp]オプションを使う
+% \usepackage{hyperref}  \usepackage{pxjahyper} %ハイパーリンクをつかう
+% \usepackage{tablefootnote} %表中に注釈をいれる
+% \usepackage[thicklines]{cancel} %数式中の取り消し線
+% \usepackage[version=4]{mhchem} %化学式の入力
+\usepackage{pdfpages}
+% \usepackage{wrapfig} %文章の回り込み
+\usepackage[subrefformat=parens]{subcaption} %(a)図のようにすることができるやつ
+\usepackage{here}
+\usepackage[margin=15mm]{geometry} %余白の削除
+
+\graphicspath{{./image/}}
+
+\begin{document}
+
+%出力したpdfを表紙にするとき
+% \includepdf[pages=1,noautoscale=false]{cover.pdf}
+% \newpage
+
+%texで表紙を書くとき
+\quad\\[35mm]
+\centerline{\Huge{\textsf{第 2 回}}}
+\quad\\[5mm]
+\centerline{\Huge{\textsf{応 用 物 理 学 実 験}}}
+\quad\\[5mm]
+\begin{table}[h]
+	\centering
+	\begin{tabular}{| c | c |}
+		\hline
+		\Huge\textsf{{題目}} & \Huge{\textsf{電子回路}} \rule[-5mm]{0mm}{15mm} \\
+		\hline
+	\end{tabular}
+\end{table}
+\quad\\[10mm]
+\begin{table}[h]
+	\centering
+	\begin{tabular}{l l}
+		\hline
+		\LARGE{\textsf{氏\qquad 名}} & \LARGE{\textsf{: 西原 翔}} \rule[0mm]{0mm}{6mm} \\
+		\hline
+		\LARGE{\textsf{学  籍  番  号}} & \LARGE{\textsf{: 1522068}} \rule[0mm]{0mm}{6mm} \\
+		\LARGE{\textsf{学部学科学年}} & \LARGE{\textsf{: 理学部第一部応用物理学科3年}}\\
+		\hline
+	\end{tabular}
+\end{table}
+\quad\\[10mm]
+\centerline{\LARGE{\textsf{共同実験者:1522064 中井空弥}}}\\[2mm]
+\quad\\[10mm]
+\centerline{\LARGE{\textsf{提出年月日:2024年05月30日}}}\\[2mm]
+\centerline{\LARGE{\textsf{実験実施日:2024年05月10日}}}\\[2mm]
+\centerline{\LARGE{\textsf{\qquad\qquad\quad\;2024年05月17日}}}
+\quad\\[10mm]
+\centerline{\LARGE{\textsf{東 京 理 科 大 学 理 学 部 第 1 部}}}\\[2mm]
+\centerline{\LARGE{\textsf{応 用 物 理 学 教 室}}}
+
+\thispagestyle{empty}
+\clearpage
+\addtocounter{page}{-1}
+\newpage
+
+% \twocolumn
+\section{目的}
+オペアンプは電子回路で用いられる素子の一つで、
+二つの入力電圧を受け取りその差を大きな倍率で出力する。
+この性質により、入力信号の増幅とフィルタリングであったり、加算、減算、微分といった計算、
+出力をまた入力に戻してフィードバックループを作って制御に用いられるなど重要な役割を果たしている。
+
+仮想短絡と呼ばれる手法を用いてこの素子を用いた回路設計を行っていくことが多い。
+しかしこれは一種の近似であるため、この手法が成り立たない領域がある。
+
+この実験では反転増幅回路、非反転増幅回路、二次のローパスフィルタ回路の三つにおいて
+イマジナリーショートが成り立つかどうかを実際に回路を組み、入力と出力を測定して調べた。
+
+\section{原理}
+\subsection{オペアンプ}
+% オペアンプの歴史を電子回路の本から引っ張ってくる
+
+オペアンプには五つの端子があり模式図と、
+今回の実験で実際に使う素子 LM741 は図\ref{fig:no1}ようになっている。
+出力電圧は 4 番ピンの負電源と 7 番ピンの正電源から供給され、これを超える電圧を出力することはできない。
+このような状態を出力飽和という。
+2 番ピンの反転入力端子の電圧を \(V_{-}\), 3 番ピンの非反転入力端子の電圧を\(V_{+}\), 6 番ピンの出力端子の電圧を \(V_o\) とする。
+電圧増幅度を \(\mu\simeq 10^5\) としたとき、これらの間には
+\begin{align}
+	V_o = \mu (V_{+} - V_{-})
+\end{align}
+となっている。
+
+出力端子を入力端子につなげることを考える。
+このとき入力電圧と出力電圧はほぼ同じオーダーとなるため、
+大きな電圧増幅度との積をとる\(V_{+} - V_{-}\)この値は 電圧増幅度の逆数のオーダーでなければならない。
+\(\mu\simeq10^5\) であるため、\(V_{+}=V_{-}\) と言ってもよい。
+つまり反転入力端子と非反転入力端子が短絡されているとみなせる状態となっている。
+このように反転入力端子と非反転入力端子の電圧を考えるのを仮想短絡と呼ぶ。
+
+また、理想的なアンプは入出力電圧を落とさないようにするため、
+入力インピーダンスは限りなく大きく、出力インピーダンスは限りなく小さくなっている。
+つまり、入力端子には電流が流れず、出力端子は電流を吸い込んでいるという状態になっている。
+実際にはこういった極限をとったような状態ではないのでこれも考慮しなければならない。
+
+以降この性質を用いて今回の実験で振る舞いを調べる。
+反転増幅回路、非反転増幅回路、二次のローパスフィルタ回路の三つの回路の解析をする。
+
+\subsection{反転増幅回路}
+入力電圧を逆位相で増幅し出力する回路を反転増幅回路と言い、
+オペアンプを使ったものとしては図\ref{fig:no2}がある。
+仮想短絡により
+\begin{align}
+	V_{-} = 0
+\end{align}
+である。
+この回路に入力された電流はオペアンプの入力端子に流れず、\(R_{f}\) にすべて流れる。
+そのため\(R_i\) の抵抗に流れる電流と、\(R_f\) の抵抗に流れる電流について等式を立てて整理していくと、
+\begin{align}
+	\frac{V_i-V_{-}}{R_i} &= \frac{V_{-}-V_o}{R_f}\\
+	V_0 &= -\frac{R_f}{R_i} V_i
+\end{align}
+というようになる。
+
+\subsection{反転増幅回路}
+入力電圧を同じ位相で増幅し出力する回路を非反転増幅回路と言い、
+オペアンプを使ったものとしては図\ref{fig:no3}がある。
+仮想短絡により
+\begin{align}
+	V_{-} = V_{+} = V_i
+\end{align}
+である。
+この回路に入力された電流はオペアンプの入力端子に流れず、\(R_{f}\) にすべて流れる。
+そのため\(R_i\) の抵抗に流れる電流と、\(R_f\) の抵抗に流れる電流について等式を立てて整理していくと、
+\begin{align}
+	\frac{V_{-}-0}{R_i} &= \frac{V_{-}-V_o}{R_f}\\
+	V_0 &= \qty(1+\frac{R_f}{R_i}) V_i
+\end{align}
+というようになる。
+
+\subsection{2次のローパスフィルタ回路}
+交流入力があったとき、特定の周波数だけを取り除く回路をフィルタ回路といい、
+とくに高周波成分を取り除く回路をローパスフィルタ退路という。
+その例が図\ref{fig:no4} である。
+これについて解析していく。
+仮想短絡により
+\begin{align}
+	V_{+} = V_{-} = V_o
+\end{align}
+電圧\(V_1\)と書かれた地点において電流の流出入を考えると
+\begin{align}
+	\frac{V_i-V_1}{R_1}+\frac{V_{-}=V_1}{1/sC_1} = \frac{V_1-V_{+}}{R_2}
+\end{align}
+また電圧\(V_{+}\)と書かれた地点において電流の流出入を考えるとオペアンプには電流が流れ込まないので
+\begin{align}
+	\frac{V_1-V_{+}}{R_2} = \frac{V_{+}}{1/sC_2}
+\end{align}
+となる。これを入力と出力の比である伝達関数\(G(s)\)を用いると
+\begin{align}
+	G(s) &= \frac{V_o}{V_i} = \frac{\omega_c^2}{s^2+2\zeta\omega_c s+\omega_c^2},\\
+	\omega_c &:= \frac{1}{\sqrt{C_1C_2R_1R_2}},\\
+	\zeta &:= \frac{1}{2}\sqrt{\frac{C_2}{C_1}}\qty(\sqrt{\frac{R_1}{R_2}}+\sqrt{\frac{R_2}{R_1}})
+\end{align}
+となる。
+
+\section{実験}
+
+\section{結果}
+
+\section{考察}
+
+\section{結論}
+
+
+さらなる検討の例\cite{huga}も存在するが、この説明では不十分とする場合もある\cite{hoge}。
+
+\bibliographystyle{junsrt}
+\bibliography{reference}
+
+\end{document}
