@@ -63,7 +63,7 @@
 \centerline{\LARGE{\textsf{\qquad\qquad\quad\;\;1522095 村山涼矢}}}\\[2mm]
 \centerline{\LARGE{\textsf{\qquad\qquad\quad\;\;1522B02 中村洸太}}}\\[2mm]
 \quad\\[10mm]
-\centerline{\LARGE{\textsf{提出年月日:2024年05月02日}}}\\[2mm]
+\centerline{\LARGE{\textsf{提出年月日:2024年05月15日}}}\\[2mm]
 \centerline{\LARGE{\textsf{実験実施日:2024年04月19日}}}\\[2mm]
 \centerline{\LARGE{\textsf{\qquad\qquad\quad\;2024年04月26日}}}
 \quad\\[10mm]
@@ -78,7 +78,7 @@
 % \twocolumn
 \section{目的}
 金属やイオン結晶といった固体は一つ一つの原子がある一定の規則性をもって配置している。
-十分細いスリットにコヒーレント光を当てると、
+十分細い周期的に並んだスリットにコヒーレント光を当てると、
 光はスリットで回折を起こしスクリーンにパターンが浮かび上がる。
 このパターンから目には見えないスリット幅が求めることができるように、
 結晶に光を当てるとそれをなす原子間距離やその構造を回折パターンから求めることができる。
@@ -102,19 +102,19 @@
 \end{figure}
 点 P における入射光の状態は弾性散乱であるため位相の時間部分を略して
 \begin{align}
-	A_P(r) = A_0e^{ik_0\cdot(R+r)}
+	\vb{A}_P(r) = \vb{A}_0e^{i\vb{k}_0\cdot(\vb{R}+\vb{r})}
 \end{align}
-と書ける。ここで\(\rho(r)\)は散乱密度。
+と書ける。ここで\(\rho(\vb{r})\)は散乱密度である。
 
 古典的には散乱光は
 入射波の電磁場が結晶中の荷電粒子を振動させたことによる加速電荷が放射する電磁波である。
 加速運動するときに質量\(m\)の電荷のが放出するエネルギーは Lamor の公式より
 \begin{align}
-	\dv{W}{t} = \frac{q^2}{6\pi\varepsilon_0c^3}\abs{\ddot{r}}^2
+	\dv{W}{t} = \frac{q^2}{6\pi\varepsilon_0c^3}\abs{\ddot{\vb{r}}}^2
 \end{align}
 となる。また電荷の従う運動方程式は
 \begin{align}
-	m\ddot{r} = qE^{i(k\cdot r -\omega t)}
+	m\ddot{\vb{r}} = q\vb{E} e^{i(\vb{k}\cdot \vb{r} -\omega t)}
 \end{align}
 より
 \begin{align}
@@ -126,12 +126,12 @@
 
 散乱により振幅と位相が変わるので点 B での散乱光の振幅は
 \begin{align}
-	A_B(r) &= A_P \rho(r) \frac{e^{ik\cdot(R'-r)}}{R'}\\
-	&=\frac{A_0}{R'}e^{i(k_0 \cdot R+ k \cdot R')}\rho(r)e^{i(k_0-k)\cdot r}
+	\vb{A}_B(r) &= \vb{A}_P \rho(\vb{r}) \frac{e^{i\vb{k}\cdot(\vb{R}'-\vb{r})}}{R'}\\
+	&=\frac{\vb{A}_0}{R'}e^{i(\vb{k}_0 \cdot \vb{R}+ \vb{k} \cdot \vb{R}')}\rho(\vb{r})e^{i(\vb{k}_0-\vb{k})\cdot \vb{r}}
 \end{align}
 となる。ターゲット材料全体で積分すると検出器が実際に検出する振幅になるので積分すると
 \begin{align}
-	A_B =\frac{A_0}{R'}e^{i(k_0 \cdot R+ k \cdot R')}\int \rho(r) e^{i(k_0-k)\cdot r} dr.
+	\vb{A}_B =\frac{\vb{A}_0}{R'}e^{i(\vb{k}_0 \cdot \vb{R}+ \vb{k} \cdot \vb{R}')}\int \rho(\vb{r}) e^{i(\vb{k}_0-\vb{k})\cdot \vb{r}} d\vb{r}.
 \end{align}
 このうち積分の部分を原子散乱因子\(f\)と呼ぶ。
 結晶材料を考えるとき、原子散乱因子は結晶の周期性からくる散乱条件と、単位格子内の原子の配置による散乱条件がある。
@@ -141,51 +141,51 @@
 積分の引数の \(r\) を格子の位置を表す \(R\), 格子中の j番目の原子の位置を表す \(r_j\), そして
 格子中の j 番目の原子の周りの散乱密度を\(\rho_j\)と表すと、
 \begin{align}
-	f&=\sum_R \sum_{j} \int\rho(r-R-r_j)e^{i(k_0-k)\cdot r} dr\\
-	&=\sum_R e^{-iK\cdot R}\sum_j e^{-iK\cdot r_j} \int \rho_j(r-R-r_j) e^{-iK\cdot(r-R-r_j)}dr\label{factor_1}
+	f&=\sum_{\vb{R}} \sum_{j} \int\rho(\vb{r}-\vb{R}-\vb{r}_j)e^{i(\vb{k}_0-\vb{k})\cdot \vb{r}} d\vb{r}\\
+	&=\sum_{\vb{R}} e^{-iK\cdot \vb{R}}\sum_j e^{-i\vb{K}\cdot \vb{r}_j} \int \rho_j(\vb{r}-\vb{R}-\vb{r}_j) e^{-i\vb{K}\cdot(\vb{r}-\vb{R}-\vb{r}_j)}d\vb{r}\label{factor_1}
 \end{align}
 となる。ここで入射波と散乱波の波数ベクトルの差を
 \begin{align}
-	K = k -k_0
+	\vb{K} = \vb{k} -\vb{k}_0
 \end{align}
 とした。
 
 \subsection{Laue の回折条件}
-(\ref{factor_1})式の \(R\) についての総和について考える。
-\(R = n_a a + n_b b + n_c c\) というように格子ベクトルで展開して、
+(\ref{factor_1})式の \(\vb{R}\) についての総和について考える。
+\(\vb{R} = n_a \vb{a} + n_b \vb{b} + n_c \vb{c}\) というように格子ベクトルで展開して、
 a 軸、b 軸、c 軸の格子数を\(N_a,\,N_b,\,N_c\) とすると総和は
 \begin{align}
-	G(K) &:= \sum_R e^{-iK\cdot R}\sum_j e^{-iK\cdot r_j}\\
-	&= \sum_{n_a=1}^{N_a} e^{-in_aK\cdot a} + \sum_{n_b=1}^{N_b} e^{-in_bK\cdot b} + \sum_{n_c=1}^{N_c} e^{-in_cK\cdot a}\\
-	&=\frac{e^{-iK\cdot a} (1-e^{-iN_a K\cdot a})}{1-e^{-iK\cdot a}}\,
-	\frac{e^{-iK\cdot b} (1-e^{-iN_b K\cdot b})}{1-e^{-iK\cdot b}}\,
-	\frac{e^{-iK\cdot c} (1-e^{-iN_c K\cdot c})}{1-e^{-iK\cdot c}} .
+	G(\vb{K}) &:= \sum_{\vb{R}} e^{-i\vb{K}\cdot \vb{R}}\sum_j e^{-i\vb{K}\cdot \vb{r}_j}\\
+	&= \sum_{n_a=1}^{N_a} e^{-in_a\vb{K}\cdot \vb{a}} + \sum_{n_b=1}^{N_b} e^{-in_b\vb{K}\cdot \vb{b}} + \sum_{n_c=1}^{N_c} e^{-in_c\vb{K}\cdot \vb{c}}\\
+	&=\frac{e^{-i\vb{K}\cdot \vb{a}} (1-e^{-iN_a \vb{K}\cdot \vb{a}})}{1-e^{-i\vb{K}\cdot \vb{a}}}\,
+	\frac{e^{-i\vb{K}\cdot \vb{b}} (1-e^{-iN_b \vb{K}\cdot \vb{b}})}{1-e^{-i\vb{K}\cdot \vb{b}}}\,
+	\frac{e^{-i\vb{K}\cdot \vb{c}} (1-e^{-iN_c \vb{K}\cdot \vb{c}})}{1-e^{-i\vb{K}\cdot \vb{c}}} .
 \end{align}
 これよりこの部分による回折強度は
 \begin{align}
-	\abs{G(K)}^2 &= \dfrac{\sin^2(N_a K\cdot a/2)}{\sin^2(K\cdot a/2)}
-	\dfrac{\sin^2(N_b K\cdot b/2)}{\sin^2(K\cdot b/2)}
+	\abs{G(\vb{K})}^2 &= \dfrac{\sin^2(N_a \vb{K}\cdot \vb{a}/2)}{\sin^2(\vb{K}\cdot \vb{a}/2)}
+	\dfrac{\sin^2(N_b \vb{K}\cdot \vb{b}/2)}{\sin^2(\vb{K}\cdot \vb{b}/2)}
 	\dfrac{\sin^2(N_c K\cdot c/2)}{\sin^2(K\cdot c/2)} .
 \end{align}
-これより \(K\) が
+これより \(\vb{K}\) が
 \begin{align}
-	K\cdot a = 2\pi h, \qquad K\cdot b =2\pi k, \qquad K\cdot c =2\pi l
+	\vb{K}\cdot \vb{a} = 2\pi h, \qquad \vb{K}\cdot \vb{b} =2\pi k, \qquad \vb{K}\cdot \vb{c} =2\pi l
 \end{align}
 を満たすとき、つまり 波数ベクトルの変化が逆格子ベクトルと等しいとき
 \begin{align}
-	K = G_{hkl}
+	\vb{K} = \vb{G}_{hkl}
 \end{align}
 において回折強度を持つ。これを Laue の条件という。
 % Ewalt 球らへんでアンブレラ効果をやりたい
 
 \subsection{Bragg の回折条件}
  Laue の条件と等価な条件式を導く。
-逆格子ベクトル \(G_{hkl}\) は格子面 (hkl) の法線ベクトル [hkl] になっている。
+逆格子ベクトル \(\vb{G}_{hkl}\) は格子面 (hkl) の法線ベクトル [hkl] になっている。
 そのため面間隔\(d_{hkl}\)は法線ベクトルと基本格子ベクトルとの内積を考えることによって求まる。
-今回は立方晶を扱うので a 軸の基本格子ベクトルを \(a\), 格子定数を\(a_0\) として
+今回は立方晶を扱うので a 軸の基本格子ベクトルを \(\vb{a}\), 格子定数を\(a_0\) として
 \begin{align}
-	d_{hkl} &= \frac{a}{h} \cdot \frac{G_{hkl}}{\abs{G_{hkl}}}\\
-	&= \frac{2\pi}{\abs{G_{hkl}}} \label{eq:d-G}\\
+	d_{hkl} &= \frac{\vb{a}}{h} \cdot \frac{\vb{G}_{hkl}}{\abs{\vb{G}_{hkl}}}\\
+	&= \frac{2\pi}{\abs{\vb{G}_{hkl}}} \label{eq:d-G}\\
 	&= \frac{2\pi a_0}{\sqrt{h^2+k^2+l^2}}
 \end{align}
 となる。
@@ -209,14 +209,14 @@ a 軸、b 軸、c 軸の格子数を\(N_a,\,N_b,\,N_c\) とすると総和は
 (\ref{factor_1})式の \(j\) についての総和を考える。
 Laue の条件を当てはめ、積分の引数を変換すると
 \begin{align}
-	F_{hkl} := \sum_j e^{-iG_{hkl}\cdot r_j} \int \rho_j(r) e^{-iG_{hkl}\cdot r_j}dr .
+	F_{hkl} := \sum_j e^{-i\vb{G}_{hkl}\cdot \vb{r}_j} \int \rho_j(\vb{r}) e^{-i\vb{G}_{hkl}\cdot \vb{r}_j}d\vb{r} .
 \end{align}
 積分の部分を
 \begin{align}
-	f_j :=\int \rho_j(r) e^{-iG_{hkl}\cdot r_j}dr
+	f_j :=\int \rho_j(\vb{r}) e^{-i\vb{G}_{hkl}\cdot \vb{r}_j} d\vb{r}
 \end{align}
 とする。
-\(G_{hkl}\) を逆格子ベクトルベクトルで書いたものを入れると
+\(\vb{G}_{hkl}\) を逆格子ベクトルベクトルで書いたものを入れると
 \begin{align}
 	F_{hkl} = \sum_j f_j e^{-2\pi i (hx + ky + lz)}
 \end{align}
@@ -225,8 +225,8 @@ Laue の条件を当てはめ、積分の引数を変換すると
 
 積分の中身\(f_j\)を評価する。電子密度 \(\rho\) を原子の周りに関して球対称だとみなすと
 \begin{align}
-	f_j &=\int \rho_j(r) e^{-iG_{hkl}\cdot r_j}dr\\
-	&= \rho_j(r) e^{-iG_{hkl} r_j \cos\theta}r^2\sin\theta dr\\
+	f_j &=\int \rho_j(\vb{r}) e^{-i\vb{G}_{hkl}\cdot \vb{r}_j} d\vb{r}\\
+	&= \int \rho_j(r) e^{-iG_{hkl} r_j \cos\theta}r^2\sin\theta dr\\
 	&= 4\pi \int \rho_j(r) r^2 \frac{\sin(Gr)}{Gr}dr\\
 \end{align}
 \(k\) と \(k_0\) のなす角は散乱角 \(2\Theta\) であり、これを使って表すと
@@ -235,7 +235,7 @@ Laue の条件を当てはめ、積分の引数を変換すると
 \end{align}
 なので
 \begin{align}
-	f_j  = 4\pi \int \rho(r) r^2 \frac{\sin(4\pi r\sin(\Theta \lambda))}{4\pi r(\sin\Theta/\lambda)} dr
+	f_j  = 4\pi \int \rho(r) r^2 \frac{\sin(4\pi r\sin(\Theta / \lambda))}{4\pi r(\sin\Theta/\lambda)} dr
 \end{align}
 となる。
 これをプロットすると図\ref{graph1}となる。
@@ -312,23 +312,13 @@ Cu の X 線の回折パターンはフィルターが無いときとある時�
 K\(\alpha_2\) 線によるピークを除去をした。
 
 \section{結果}
+\subsection{X 線回折パターン}
 Niフィルターの有無による Cu の X 線回折パターンは図\ref{Cu_XRD}のようになった。
 Si, Fe の単体粉末と、NaCl, KCl, CsCl の粉末の X 線回折パターンは
 それぞれ図\ref{Si_XRD}, 図\ref{Fe_XRD}, 図\ref{NaCl_XRD}, 図\ref{KCl_XRD}, 図\ref{CsCl_XRD} のようになった。
-またこの回折ピークと結晶構造因子による消滅則を考慮しながら格子定数を求めると表\ref{table:result}のようになった。
-算出法は Bragg の式 (\ref{eq:bragg})式と Nelson-Riley 関数 (\ref{eq:nelson-riley}) に測定値を入れて求めた。
-\begin{table}[H]
-	\centering
-	\caption{X 線回折による格子定数の測定結果(単位:\AA)} \label{table:result}
-	\begin{tabular}[pos]{lcccccc}
-		\hline \hline
-		算出法 & Cu & Si & Fe & NaCl & KCl & CsCl \\
-		\hline
-		Bragg の式 & 3.6219 & 5.4414 & 2.8723 & 5.6441 & 6.2898 & 4.1207 \\
-		Nelson-Riley 関数 & 3.6184 & 5.4354 & 2.8688 & 5.6433 & 6.2979 & 4.1259\\
-		\hline \hline
-	\end{tabular}
-\end{table}
+図\ref{Cu_XRD} の結果を見比べるとやはり Ni フィルターがないときにおいてはピークが多く表れているのがわかる。
+Cu にはデータ処理をしてもバックグラウンドが確認できる。これは Cu の特性 X 線を用いて Cu の構造を見ていることに関係しそうである。
+
 \begin{figure}[H]
 	\centering
 	\begin{minipage}[t]{0.48\columnwidth}
@@ -339,7 +329,7 @@ Si, Fe の単体粉末と、NaCl, KCl, CsCl の粉末の X 線回折パターン
 	\hfil
 	\begin{minipage}[t]{0.48\columnwidth}
 		\centering
-		\includegraphics[width=\columnwidth]{/graph/Cu.png}
+		\includegraphics[width=\columnwidth]{/graph/Cu_nofilter.png}
 		\subcaption{Ni フィルター無}
 	\end{minipage}
 	\caption{Cu 単体粉末の X 線回折強度}
@@ -386,6 +376,22 @@ Si, Fe の単体粉末と、NaCl, KCl, CsCl の粉末の X 線回折パターン
 		\label{CsCl_XRD}
 	\end{minipage}
 \end{figure}
+\subsection{格子定数}
+X 線の回折ピークと結晶構造因子による消滅則を考慮しながら格子定数を求めると表\ref{table:result}のようになった。
+算出法は Bragg の式 (\ref{eq:bragg})式と Nelson-Riley 関数 (\ref{eq:nelson-riley}) に測定値を入れて求めた。
+\footnote{一回目の提出でも書きました。}
+\begin{table}[H]
+	\centering
+	\caption{X 線回折による格子定数の測定結果(単位:\AA)} \label{table:result}
+	\begin{tabular}[pos]{lcccccc}
+		\hline \hline
+		算出法 & Cu & Si & Fe & NaCl & KCl & CsCl \\
+		\hline
+		Bragg の式 & 3.6219 & 5.4414 & 2.8723 & 5.6441 & 6.2898 & 4.1207 \\
+		Nelson-Riley 関数 & 3.6184 & 5.4354 & 2.8688 & 5.6433 & 6.2979 & 4.1259\\
+		\hline \hline
+	\end{tabular}
+\end{table}
 
 \section{課題}
 \subsection*{課題1}
@@ -405,7 +411,7 @@ Si, Fe の単体粉末と、NaCl, KCl, CsCl の粉末の X 線回折パターン
 となる。CsCl のイオンによる散乱因子は Cs と Cl では違うので、
 面指数 (hkl) の和が奇数のときであっても消滅則が働かない。
 そのため XDR で検出したピークの数は CsCl のほうが多くなる。(図\ref{Fe_XRD}, 図\ref{CsCl_XRD})
-Fe の強度が弱くなっているのは Fe 結晶構造というよりかはの特性によるものである。
+Fe の強度が弱くなっているのは Fe 結晶構造というではなく、Fe の特性によるものである。
 これは考察で言及する。\\
 
 \begin{figure}[H]
@@ -442,7 +448,7 @@ Si はこれにさらに面心立方構造を(1/4, 1/4, 1/4)方向にずらし�
 (hkl) の和を4で割ったあまりが2ではないという条件が加わる。
 測定できたピークの数としては Si の方が多いが面間隔のことを考えると、
 やはり消滅則が多い Si は消滅しているピークがあることがわかる。(図\ref{Cu_XRD}, 図\ref{Si_XRD})% 図の参照を加えたい
-Cu にはバックグラウンドが多いことは考察で言及する\\ % かもしれない
+
 \begin{figure}[H]
 	\centering
 	\begin{minipage}[t]{0.48\columnwidth}
@@ -537,7 +543,13 @@ K系の特性 X は 1s 電子が励起して 2p 軌道や 3p 軌道からもと�
 ターゲット試料の原子番号より十分大きいものを選ぶべきと考えられる。
 
 \subsection{イオン結晶の発光}
-イオン結晶の X 線回折パターンを測定したあと、装置から出すと発光していることを確認した。(図\ref{photo:ion})
+イオン結晶の X 線回折パターンを測定したあと、装置から出すとしばらく発光していることを確認した。(図\ref{photo:ion})
+この結晶の陽イオンと発光する色の対応は炎色反応と同じようになっている。
+熱により陽イオン内の電子が励起して、
+そこから戻るときに放出する光が炎色反応の色となって見える。
+これと同様にこの X 線回折による測定では、X 線というエネルギーの高い光を試料に当てている。
+そのためこの X 線により陽イオン内の電子が励起して元の準位に戻るときに放つ光であると推測できる。
+この発光というのはこれらイオン結晶に含まれる陽イオンの電子構造によるものと考えられる。
 \begin{figure}[H]
 	\begin{minipage}[t]{0.3\columnwidth}
 		\centering
@@ -568,7 +580,7 @@ X 線材料 Cu, Si, Fe の単体粉末と、NaCl, KCl, CsCl の
 またこの測定において Fe は線源の X 線を吸収するため回折パターンの SN 比が悪くなることから、
 別の系で測定した方がよいとわかった。
 
-NaCl, KCl, CsCl に X 線を当てるとルミネッセンスを生じることを確認した。
+NaCl, KCl, CsCl に X 線を当てると各イオン結晶に含まれる陽イオンによる炎色反応と同じ色の発光を生じることを確認した。
 
 \bibliographystyle{junsrt}
 \bibliography{reference}
