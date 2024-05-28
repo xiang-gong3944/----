@@ -6,7 +6,7 @@
 \usepackage{physics} % http://mirrors.ibiblio.org/CTAN/macros/latex/contrib/physics/physics.pdf
 \usepackage{siunitx} %SI単位を楽に出力
 \usepackage{mathtools} %環境の追加
-\usepackage{circuitikz} %電気回路をtex中で書く
+% \usepackage{circuitikz} %電気回路をtex中で書く
 % \usepackage{caption} %番号なしキャプションを書く
 % \usepackage{cancel} %式中に斜線を入れる
 % \usepackage{tensor} %テンソルの添え字を書く
@@ -18,7 +18,7 @@
 % \usepackage[thicklines]{cancel} %数式中の取り消し線
 % \usepackage[version=4]{mhchem} %化学式の入力
 \usepackage{pdfpages}
-% \usepackage{wrapfig} %文章の回り込み
+\usepackage{wrapfig} %文章の回り込み
 \usepackage[subrefformat=parens]{subcaption} %(a)図のようにすることができるやつ
 \usepackage{here}
 \usepackage[margin=15mm]{geometry} %余白の削除
@@ -115,6 +115,21 @@
 
 この二つの性質はある一定の条件における近似になっているので成り立つときと成り立たないときに気を付けて
 回路の設計をしなければならない。
+\begin{figure}[H]
+	\centering
+	\includegraphics[width = 0.7 \columnwidth]{/fig/OpeAmp.png}
+	\caption{オペアンプの回路図と LM741 のピン配置。
+	1 番ピンはオフセット調整端子、
+	2 番ピンは反転入力端子、
+	3 番ピンは非反転入力端子、
+	4 番ピンは負側電源端子、
+	5 番ピンはオフセット調整端子、
+	6 番ピンは出力端子、
+	7 番ピンは正側電源端子、
+	8 番ピンは不使用というようになっている。}
+	\label{fig:no1}
+\end{figure}
+\newpage
 
 \subsection{反転増幅回路}
 入力電圧を逆位相で増幅し出力する回路を反転増幅回路と言い、
@@ -133,6 +148,27 @@
 というようになる。
 
 \subsection{ボルテージ・フォロワ回路回路}
+\begin{wrapfigure}{r}[0pt]{0.5\columnwidth}
+	\centering
+	\includegraphics[width = 0.5\columnwidth]{/fig/Invert_Amp_Circuit.png}
+	\caption{反転増幅回路の回路図}
+	\label{fig:no2}
+\end{wrapfigure}
+\begin{figure}[b]
+	\begin{minipage}[t]{0.49\columnwidth}
+		\centering
+		\includegraphics[width = \columnwidth]{/fig/Voltage_Follower_Circuit.png}
+		\caption{ボルテージ・フォロワ回路の回路図}
+		\label{fig:no3}
+	\end{minipage}
+	\hfill
+	\begin{minipage}[t]{0.49\columnwidth}
+		\centering
+		\includegraphics[width = \columnwidth]{/fig/Low_Pass_Filter.png}
+		\caption{2次のローパス・フィルタ回路の回路図}
+		\label{fig:no4}
+	\end{minipage}
+\end{figure}
 回路を設計する際、入力となる部分の回路と出力となる部分の回路を干渉させたくないことがある。
 そういったときに入力には電圧だけを読み取り電流を吸い込まず、
 出力では決まった電圧を出力し必要に応じて電流を出すといった回路が求められる。
@@ -148,8 +184,9 @@
 
 
 \subsection{2次のローパス・フィルタ回路}
+
 交流入力があったとき、特定の周波数だけを取り除く回路をフィルタ回路といい、
-とくに高周波成分を取り除く回路をローパスフィルタ退路という。
+とくに高周波成分を取り除く回路をローパスフィルタ回路という。
 その例が図\ref{fig:no4} である。
 これについて解析していく。(課題2)
 仮想短絡により
@@ -181,7 +218,6 @@
 	\zeta &:= \frac{1}{2}\sqrt{\frac{C_2}{C_1}}\qty(\sqrt{\frac{R_1}{R_2}}+\sqrt{\frac{R_2}{R_1}}).
 \end{align}
 
-
 \section{実験}
 \subsection{反転増幅回路}
 図\ref{fig:no2} の反転増幅回路をブレッドボード上に組んでその振る舞いを調べた。
@@ -205,9 +241,12 @@
 実効値 1.0 V の交流電圧の周波数を 100 Hz から 100 kHz まで変化させたときの出力電圧を測定した。
 
 \subsection{ボルテージ・フォロワ回路}
-図\ref{fig:no3}のボルテージ・フォロワ回路をブレッドボード上に組み、
-10 kHz で peak-to-peak が 10V の矩形波を入力したときのオペアンプの種類による応答の波形の違いを測定した。
-このとき用 LM741 と TL071 のオペアンプを使用し\(\pm 15.0 V\) の電圧を供給した。
+図\ref{fig:no3}のボルテージ・フォロワ回路をブレッドボード上に組んだ。
+オペアンプの種類による応答の波形の違いをもとめるためスルーレートという量を使う。
+入力信号に対する出力信号の遅れを表す量として矩形波を入れたときの出力の立ち上がりの傾きをスルーレートと呼び単位は V/s である。
+この数字が大きければ大きいほど信号に対する応答が早いものと言える。
+この実験では LM741 と TL071 のオペアンプの応答の違いを見た。
+使用した矩形波は 10 kHz で peak-to-peak が 10V であった。
 
 \subsection{2 次のローパス・フィルタ回路}
 図\ref{fig:no4}の 2 次のローパス・フィルタ回路をブレッドボード上に組み、
@@ -216,7 +255,7 @@
 このとき位相はオシロスコープについている機能を用いて測定した。
 使用したオペアンプは LM741 で、\(\pm 15.0 V\) の電圧を供給した。
 制動係数を変えるのに使った抵抗とコンデンサのインピーダンスは表\ref{table:no1}のようになっている。
-\begin{table}
+\begin{table}[H]
 	\centering
 	\caption{2次のローパス・フィルタ回路(図\ref{fig:no4})に使用した抵抗とコンデンサのパラメータ}
 	\label{table:no1}
@@ -230,10 +269,85 @@
 	\end{tabular}
 \end{table}
 
-
 \section{結果}
+\subsection{反転増幅回路}
+\subsubsection{直流特性}
+反転増幅回路の直流特性の測定結果は図\ref{graph:no1}のようになった。
+\(R_i\) が 33 k\si{\ohm} の回路は
+入力電圧が -4.01 V から 4.00 V の間において、回路の解析通りに
+出力は位相が反転して、倍率が\(R_i/R_f = 3.09\) で動作しているのがわかる。
+また反転入力端子の電位は仮想短絡により 0 V になっているというのがわかる。
+一方この範囲を超えると、 -13.6 V 程度の一定の電圧を出力するようになった。
+これはオペアンプにかけた電源電圧 \(\pm\)15 V であるので飽和出力になったと考えられる。
+またこのとき、反転入力端子の電圧が 0 V から変化し始めた。
+
+\(R_i\) が 16 k\si{\ohm} の回路ではこの測定範囲においては
+回路の解析通りに動作していることがわかる。
+ただ、10 V 付近の反転入力端子のの測定値をみると上昇し始めているのが読み取れる。
+これは 33 k\si{\ohm} の回路での振る舞いと照らし合わせると、
+これ以上の電圧を入力に入れると出力飽和になると予想される。
+
+\subsubsection{交流電圧特性}
+反転増幅回路の交流電圧特性の測定結果は図\ref{graph:no2}のようになった。
+\(R_i\) が 33 k\si{\ohm} の回路、\(R_i\) が 16 k\si{\ohm} の回路ともに
+出力の実効値が 10.3 V より小さいときには回路の解析通りに振舞うことがわかる。
+実行値を実際の振幅に直すと\(\pm 14.6\) V となる。
+これもやはり、解析通りに作動しないのは飽和出力状態になっているのが原因だとわかる。
+また入力周波数を十分上げると出力は三角波のようになった。(図\ref{graph:noA})
+
+\subsubsection{交流周波数特性}
+反転増幅回路の直流特性の測定結果は図\ref{graph:no3}のようになった。
+これを見ると両方の回路において 10 kHz より低い周波数においては、
+解析通りのゲインとなっているのがわかる。
+一方周波数が 10 kHz より大きいときにおいては 20 dB/dec でゲインが減少していることがわかる。
+このゲインの減少の傾きから反転増幅回路は 1 次のローパス・フィルタ回路にもなっていることがわかる。
+
+\begin{figure}[H]
+	\centering
+	\begin{minipage}[t]{0.49\columnwidth}
+		\centering
+		\includegraphics[width=\columnwidth]{/graph/fig1.png}
+		\subcaption{直流特性}
+		\label{graph:no1}
+	\end{minipage}
+	\hfill
+	\begin{minipage}[t]{0.49\columnwidth}
+		\centering
+		\includegraphics[width=\columnwidth]{/graph/fig2.png}
+		\subcaption{交流電圧特性}
+		\label{graph:no2}
+	\end{minipage}\\
+	\begin{minipage}[t]{0.49\columnwidth}
+		\centering
+		\includegraphics[width=\columnwidth]{/graph/fig3.png}
+		\subcaption{交流周波数特性}
+		\label{graph:no3}
+	\end{minipage}
+	\hfill
+	\begin{minipage}[t]{0.49\columnwidth}
+		\centering
+		% \includegraphics[width=\columnwidth]{/graph/figA.png}
+		\subcaption{入力周波数が十分分高いときには出力は三角波になっている様子。}
+		\label{graph:no3}
+	\end{minipage}
+	\caption{LM741 を使用した反転増幅回路の特性の測定結果。
+	このときの\(R_f\) は 100 k\si{\ohm} である。}
+\end{figure}
+\subsection{ボルテージ・フォロワ回路}
+ボルテージ・フォロワ回路の矩形波に対する応答は
+オペアンプに LM741 を使ったものは図\ref{graph:no4},
+オペアンプに TL071 を使ったものは図\ref{graph:no5} のようになった。
+
+LM741 では 1 V/\si{\micro s},
+TL071 では 10 V/\si{\micro s} となった。
+この数字が大きければ大きいほど応答が早いということがわかるので
+
+\subsection{2 次のローパス・フィルタ回路}
+2 次のローパス・フィルタ回路の周波数特性は図\ref{graph:no5}のようになった。
+
 
 \section{考察}
+\subsection{反転増幅回路における高周波での出力波形が三角波になる要因}
 
 \section{結論}
 
