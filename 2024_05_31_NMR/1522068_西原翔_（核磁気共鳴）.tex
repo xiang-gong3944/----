@@ -23,6 +23,8 @@
 \usepackage{here}
 \usepackage[margin=15mm]{geometry} %余白の削除
 
+\newcommand{\cc}{\text{(c.c.)}}
+
 \graphicspath{{./image/}}
 
 \begin{document}
@@ -95,5 +97,211 @@ Slichter \cite{Slichter_1990}
 \bibliographystyle{junsrt}
 \bibliography{reference}
 \section*{付録}
+\section{量子光学}
+この実験で扱った NMR の系は磁気双極子が外場である磁場の応答を見るという系になっている。
+物質の光学応答を見る系は、電気双極子が外場である光電場に対する応答を見る系になっていて計算上の手続きは全くと言っていいほど同じようにできる。
+この節では自分の復習として量子光学のテキスト\cite{Matsuoka_2000}を参考にまとめてみる。
+\subsection{物質中の線形光学}
+\subsubsection{2準位系と密度演算子}
+原子には電子の取ることができる準位が多数ある。
+入射した光に共鳴するような状態を考えるときには、
+入射した光の振動数に対応する2つの準位を取り上げれば十分である。
+この2準位系にて電子がどう振る舞うかを考える。
+
+まず基準となる2準位系を表すハミルトニアンを\(\hat{H}_0\)とし、それらの固有状態と固有エネルギーを
+\begin{equation}
+	\hat{H}_0 \ket{g} = E_g \ket{g} \qquad \qquad \hat{H}_0 \ket{e} = E_e \ket{e}
+\end{equation}
+のようにおく。
+また行列表示の際には
+\begin{equation}
+	\ket{g} =
+	\begin{pmatrix}
+		0\\
+		1
+	\end{pmatrix}
+	\qquad
+	\ket{e} =
+	\begin{pmatrix}
+		1 \\
+		0
+	\end{pmatrix}
+\end{equation}
+として書く。
+\footnote{\(g\) は ground state, \(e\) は excited state の頭文字である。}
+
+この系に光電場\(\vb*{E}\)が入ってくるわけだがこの電場と系との相互作用は電気双極子によるものと考える。
+このとき電気双極子モーメントは量子力学的に、光電場は古典的に扱う半古典論で考える。
+電気双極子モーメント演算子を考える。
+基底状態と励起状態では電子雲の描像で考えると原子は電荷の片寄りがない。
+そのためその状態では原子は電気双極子モーメントを持たない。
+一方状態が遷移しているときには電子雲は揺らいでいてこれにより電子双極子モーメントを持つと考える。
+\(\hat{\vb*{r}}\) を電荷の位置とすると、
+電気双極子モーメントの演算子は
+\begin{equation}
+	\hat{\vb*{p}} = q \hat{\vb*{r}}
+\end{equation}
+で表される。
+これよりそこにできる双極子モーメントは
+\begin{equation}
+	\vb*{p}_{ge} = \bra{g}q\hat{\vb*{r}}\ket{e},\qquad \vb*{p}_{eg} = \vb*{p}_{ge}^{*}
+\end{equation}
+となる。
+\footnote{この演算子のによる電気双極子モーメントの描像は丁寧に記述された文献はあまりないように感じる。
+そのためあっているかは自信はあまりないが、
+自分の解釈では以上のような状態が量子力学的な電気双極子モーメントであると考えている。
+この描像は古典的な電気双極子モーメントの描像と大分違うように感じる。}
+これはお気持ち程度の解釈ではあるが、
+厳密には多極子のパリティに関して Wigner-Eckart の定理というのがあり、
+これにより\(\bra{g}\hat{\vb*{p}}\ket{g}\)といった対角成分は \(0\) になることがわかる。
+摂動ハミルトニアン\(H_1\) は
+古典的な双極子モーメントのポテンシャルエネルギー\(-\vb*{p}\cdot\vb*{E}\)を参考にして
+\begin{equation}
+	\hat{H}_1 = - \hat{\vb*{p}}\cdot\vb*{E}
+\end{equation}
+となる。
+これによりハミルトニアンに非対角項が生じ、
+基底状態から励起状態、励起状態から基底状態への遷移が起こるようになる。
+以降摂動も含めた系のハミルトニアンを \(\hat{H} := \hat{H}_0 + \hat{H}_1\) と書く。
+
+この系を表す状態\(\ket{\psi}\)の時間発展を考える。
+これらは摂動がないときの固有状態の線形結合としてかけ、
+その線形結合の係数によって時間の様子を表すと考える。
+よってこの系の状態ケットは
+\begin{equation}
+	\ket{\psi} = c_g (t) \ket{g} + c_e (t) \ket{e}
+\end{equation}
+と書ける。\(\rho_{gg}:=|c_g(t)|^2,\,\rho_{ee}:=|c_g(t)|^2\) という量はそれぞれの基底状態にある確率を表す。
+また双極子モーメント演算子と合わせて使う際、状態の遷移を表すのに必要な量も導入する。
+基底状態から励起状態への遷移は\(\rho_{ge} := c_g c_e^*\),
+励起状態から基底状態への遷移は\(\rho_{eg} := c_e c_g^*\)
+となる。
+これらの量はまとめて行列として次のように表す。
+\begin{equation}
+	\hat{\rho} := c_g \ket{g}\bra{g} c_g^*
+	+ c_g \ket{g}\bra{e} c_e^*
+	+ c_e \ket{e}\bra{g} c_g^*
+	+ c_e \ket{e}\bra{e} c_e^*
+	=
+	\begin{pmatrix}
+		\rho_{ee} & \rho_{eg}\\
+		\rho_{ge} & \rho_{gg}
+	\end{pmatrix}
+	=
+	\begin{pmatrix}
+		|c_g(t)|^2 & c_e c_g^*\\
+		c_g c_e^* & |c_g(t)|^2
+	\end{pmatrix}
+\end{equation}
+これを密度演算子(密度行列)と呼ぶ。
+これの時間発展方程式を求めていく。
+
+系の状態ケットをシュレディンガー方程式に入れると
+\begin{equation}
+	i\hbar\qty(\pdv{c_g}{t}\ket{g}+\pdv{c_e}{t}\ket{e}) = \hat{H}\bigl(c_g (t) \ket{g} + c_e (t) \ket{e}\bigr)
+\end{equation}
+となる。この式の両辺に左から\(\bra{g},\,\bra{e}\)を掛けたものを行列を用いて表すと
+\begin{equation}
+	i\hbar\pdv{t}
+	\begin{pmatrix}
+		c_e\\
+		c_g
+	\end{pmatrix}
+	=
+	\begin{pmatrix}
+		H_{ee} & H_{eg}\\
+		H_{ge} & H_{gg}
+	\end{pmatrix}
+	\begin{pmatrix}
+		c_e\\
+		c_g
+	\end{pmatrix}
+\end{equation}
+となる。
+なので密度行列の成分\(\rho_{ij}\)の時間発展は
+\begin{align}
+	i\hbar\pdv{\rho_{ij}}{t} &= i\hbar\pdv{c_i}c_j^*+i\hbar c_i \pdv{c_j^*}{t}\\
+	&= H_{ik} c_k c_j^* - c_i c_k^* H_{kj}\\
+	&= (\hat{H}\hat{\rho}-\hat{\rho}\hat{H})_{ij}
+\end{align}
+よって密度行列の時間発展は
+\begin{equation}
+	i\hbar \pdv{t} \hat{\rho} = [\hat{H},\,\hat{\rho}]
+\end{equation}
+と表わされる。(von Neumann 方程式)
+
+\subsection{線形電気感受率}
+\subsubsection{ローレンツモデル}
+量子光学とは離れるが、イオン分極の古典的なモデルであるローレンツモデルを用いて電気感受率を示してみる。
+陽イオンと電子がバネでつながれていて粘性抵抗がある中の外力として電場のあるときの強制振動を
+イオン分極とみなしてニュートン方程式を立てると
+\begin{equation}
+	m\ddot{u} + m\gamma\dot{u} +m\omega_0^2 u = -eE(\omega)e^{-i\omega t}
+\end{equation}
+両辺をフーリエ変換して整理すると
+\begin{equation}
+	u = \frac{-e}{m}\frac{1}{\omega_0^2-\omega^2 + i\gamma\omega} E(\omega)
+\end{equation}
+電気双極子モーメントは\(p = - eu\) と書け、
+分極は単位体積当たりの電気双極子モーメントの数のことであるので\(P = Np/V\)と書ける。
+これらをまとめて電場と分極の関係式にすると
+\begin{equation}
+	P(\omega) = \frac{e^2N}{mV} \frac{1}{\omega_0^2-\omega^2+i\gamma\omega} E(\omega)
+\end{equation}
+これより線形電気感受率\(\chi(\omega)\)は
+\begin{equation}
+	\chi(\omega) = \frac{e^2N}{mV} \frac{1}{\omega_0^2-\omega^2+i\gamma\omega}
+\end{equation}
+となる。
+
+\subsubsection{量子光学による説明}
+古典的なモデルで示された線形電気感受率はもちろん量子光学でも説明できる。
+2準位系の各準位のエネルギーを\(E_i = \hbar \omega_i\) のように書き、
+共鳴する入射光の振動数を\(\omega := \omega_e -\omega_g\)とする。
+また電気双極子モーメントは
+\begin{equation}
+	\vb*{p}_{ge}(t) = \bra{g}c_g^*(t)\,\hat{\vb*{p}}\,c_e(t)\ket{e} = \rho_{eg}\vb*{p}_{ge}
+\end{equation}
+である。この式を見ると密度行列の非対角成分の時間発展を追えばよいことがわかる。
+この系のハミルトニアンは
+\begin{equation}
+	\hat{H} =
+	\begin{pmatrix}
+		\hbar \omega_e  & -\vb{p}_{eg}\cdot\vb*{E}\\
+		-\vb{p}_{ge}\cdot\vb*{E} & \hbar \omega_g
+	\end{pmatrix}
+\end{equation}
+となる。これを von Neumann 方程式に入れて\(\rho_{eg}\)の時間発展を求めると
+\begin{align}
+	i\hbar \pdv{\rho_{eg}}{t} &= H_{ee}\rho_{eg} + H_{eg}\rho_{gg} - \rho_{ee} H_{eg} - \rho_{eg} H_{gg}\\
+	\pdv{\rho_{eg}}{t} &= -i\omega_0\rho_{eg} -i\frac{\vb*{p}_{eg}\cdot \vb*{E}}{\hbar}(\rho_{ee}-\rho_{gg})
+\end{align}
+のようになる。同様に\(\rho_{ge}\)についてもやると
+\begin{equation}
+	\pdv{\rho_{ge}}{t} = i\omega_0\rho_{ge} +i\frac{\vb*{p}_{ge}\cdot \vb*{E}}{\hbar}(\rho_{ee}-\rho_{gg})
+\end{equation}
+というのが得られる。
+実際には\(\rho_{eg}\)は電気双極子モーメントに相当するため、これらの時間発展の式に緩和項を入れる。
+すると
+\begin{align}
+	\pdv{\rho_{eg}}{t} &= -i\omega_0\rho_{eg} -\gamma\rho_{eg} -i\frac{\vb*{p}_{eg}\cdot \vb*{E}}{\hbar}(\rho_{ee}-\rho_{gg})\\
+	\pdv{\rho_{ge}}{t} &=  i\omega_0\rho_{ge} -\gamma\rho_{ge} +i\frac{\vb*{p}_{ge}\cdot \vb*{E}}{\hbar}(\rho_{ee}-\rho_{gg})
+\end{align}
+となる。
+ここから電気双極子と電場は z 成分だけを考え、電場は振幅と振動成分を分けて
+\begin{equation}
+	E(t) = E(\omega)e^{-i\omega t} + \cc
+\end{equation}
+とする。また、密度行列の非対角成分もフーリエ変換したものを考える。
+密度行列の非対角成分は双極子モーメントの値に比例しているので実数であることや、
+\(\rho_{ge} = \rho_{eg}^*\)に注意して式に起こすと
+\begin{equation}
+	\rho_{eg}(t) = \rho_{eg}(\omega) e^{-i\omega t} \qquad	\rho_{ge}(t) = \rho_{ge}(-\omega) e^{i\omega}
+\end{equation}
+となる。
+
+通常の光では励起状態に飽和するほどの光子は系に入らず、
+2準位系のエネルギー差は eV オーダーなのに対し、熱ゆらぎは 10 meV のオーダーであるためであるため、
+励起した電子はすぐさま基底状態に戻ると考えられる。これより\(\rho_{gg} = 1,\,\rho_{ee} = 0\)とできる。
 
 \end{document}
