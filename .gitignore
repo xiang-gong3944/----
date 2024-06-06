@@ -1,2 +1,9 @@
 # git に残さない拡張子
 *.log
+*.gz
+*.fls
+*.dvi
+*.fdb_latexmk
+*.blg
+*.bbl
+*.aux
