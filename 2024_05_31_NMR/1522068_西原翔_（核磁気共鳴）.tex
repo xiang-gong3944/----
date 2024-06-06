@@ -23,7 +23,7 @@
 \usepackage{here}
 \usepackage[margin=15mm]{geometry} %余白の削除
 
-\newcommand{\cc}{\text{(c.c.)}}
+\newcommand{\cc}{\text{(C.C.)}}
 
 \graphicspath{{./image/}}
 
@@ -100,7 +100,8 @@ Slichter \cite{Slichter_1990}
 \section{量子光学}
 この実験で扱った NMR の系は磁気双極子が外場である磁場の応答を見るという系になっている。
 物質の光学応答を見る系は、電気双極子が外場である光電場に対する応答を見る系になっていて計算上の手続きは全くと言っていいほど同じようにできる。
-この節では自分の復習として量子光学のテキスト\cite{Matsuoka_2000}を参考にまとめてみる。
+この節では自分の復習として量子光学のテキストとして松岡先生\cite{Matsuoka_2000}のを中心に
+櫛田先生\cite{Kushida_1991}のも参考にしながらまとめてみる。
 \subsection{物質中の線形光学}
 \subsubsection{2準位系と密度演算子}
 原子には電子の取ることができる準位が多数ある。
@@ -110,7 +111,7 @@ Slichter \cite{Slichter_1990}
 
 まず基準となる2準位系を表すハミルトニアンを\(\hat{H}_0\)とし、それらの固有状態と固有エネルギーを
 \begin{equation}
-	\hat{H}_0 \ket{g} = E_g \ket{g} \qquad \qquad \hat{H}_0 \ket{e} = E_e \ket{e}
+	\hat{H}_0 \ket{g} = E_g \ket{g}, \qquad \qquad \hat{H}_0 \ket{e} = E_e \ket{e}
 \end{equation}
 のようにおく。
 また行列表示の際には
@@ -267,8 +268,8 @@ Slichter \cite{Slichter_1990}
 \begin{equation}
 	\hat{H} =
 	\begin{pmatrix}
-		\hbar \omega_e  & -\vb{p}_{eg}\cdot\vb*{E}\\
-		-\vb{p}_{ge}\cdot\vb*{E} & \hbar \omega_g
+		\hbar \omega_e  & -\vb*{p}_{eg}\cdot\vb*{E}\\
+		-\vb*{p}_{ge}\cdot\vb*{E} & \hbar \omega_g
 	\end{pmatrix}
 \end{equation}
 となる。これを von Neumann 方程式に入れて\(\rho_{eg}\)の時間発展を求めると
@@ -276,16 +277,17 @@ Slichter \cite{Slichter_1990}
 	i\hbar \pdv{\rho_{eg}}{t} &= H_{ee}\rho_{eg} + H_{eg}\rho_{gg} - \rho_{ee} H_{eg} - \rho_{eg} H_{gg}\\
 	\pdv{\rho_{eg}}{t} &= -i\omega_0\rho_{eg} -i\frac{\vb*{p}_{eg}\cdot \vb*{E}}{\hbar}(\rho_{ee}-\rho_{gg})
 \end{align}
-のようになる。同様に\(\rho_{ge}\)についてもやると
-\begin{equation}
-	\pdv{\rho_{ge}}{t} = i\omega_0\rho_{ge} +i\frac{\vb*{p}_{ge}\cdot \vb*{E}}{\hbar}(\rho_{ee}-\rho_{gg})
-\end{equation}
+のようになる。
+% 同様に\(\rho_{ge}\)についてもやると
+% \begin{equation}
+% 	\pdv{\rho_{ge}}{t} = i\omega_0\rho_{ge} +i\frac{\vb*{p}_{ge}\cdot \vb*{E}}{\hbar}(\rho_{ee}-\rho_{gg})
+% \end{equation}
 というのが得られる。
 実際には\(\rho_{eg}\)は電気双極子モーメントに相当するため、これらの時間発展の式に緩和項を入れる。
 すると
 \begin{align}
 	\pdv{\rho_{eg}}{t} &= -i\omega_0\rho_{eg} -\gamma\rho_{eg} -i\frac{\vb*{p}_{eg}\cdot \vb*{E}}{\hbar}(\rho_{ee}-\rho_{gg})\\
-	\pdv{\rho_{ge}}{t} &=  i\omega_0\rho_{ge} -\gamma\rho_{ge} +i\frac{\vb*{p}_{ge}\cdot \vb*{E}}{\hbar}(\rho_{ee}-\rho_{gg})
+	% \pdv{\rho_{ge}}{t} &=  i\omega_0\rho_{ge} -\gamma\rho_{ge} +i\frac{\vb*{p}_{ge}\cdot \vb*{E}}{\hbar}(\rho_{ee}-\rho_{gg})
 \end{align}
 となる。
 ここから電気双極子と電場は z 成分だけを考え、電場は振幅と振動成分を分けて
@@ -293,15 +295,55 @@ Slichter \cite{Slichter_1990}
 	E(t) = E(\omega)e^{-i\omega t} + \cc
 \end{equation}
 とする。また、密度行列の非対角成分もフーリエ変換したものを考える。
-密度行列の非対角成分は双極子モーメントの値に比例しているので実数であることや、
-\(\rho_{ge} = \rho_{eg}^*\)に注意して式に起こすと
+密度行列の非対角成分は双極子モーメントの値に比例しているので実数であること
+% や、\(\rho_{ge} = \rho_{eg}^*\)
+に注意して式に起こすと
 \begin{equation}
-	\rho_{eg}(t) = \rho_{eg}(\omega) e^{-i\omega t} \qquad	\rho_{ge}(t) = \rho_{ge}(-\omega) e^{i\omega}
+	\rho_{eg}(t) = \rho_{eg}( \omega) e^{-i\omega t} + \rho_{eg}(-\omega) e^{ i\omega t}
+	% , \qquad \rho_{ge}(t) = \rho_{ge}(-\omega) e^{ i\omega t} + \rho_{ge}( \omega) e^{-i\omega t}
 \end{equation}
 となる。
-
-通常の光では励起状態に飽和するほどの光子は系に入らず、
+これらを時間発展の式に入れると
+\begin{align}
+	0 =& \qty(-i(\omega_0-\omega)\rho_{eg}( \omega) -\gamma\rho_{eg}( \omega) -i\frac{p_{eg}E( \omega)}{\hbar}(\rho_{ee}-\rho_{gg})-i\frac{p_{eg}E(-\omega)e^{ 2i\omega t}}{\hbar}(\rho_{ee}-\rho_{gg}))e^{-i\omega t} \notag\\
+	  &+ \qty(-i(\omega_0+\omega)\rho_{eg}(-\omega) -\gamma\rho_{eg}(-\omega) -i\frac{p_{eg}E(-\omega)}{\hbar}(\rho_{ee}-\rho_{gg})-i\frac{p_{eg}E( \omega)e^{-2i\omega t}}{\hbar}(\rho_{ee}-\rho_{gg}))e^{ i\omega t}
+\end{align}
+忘れてなければ後に示すが
+\(e^{2i\omega t}, e^{-2i\omega t}\)の項はこの2準位系に同時に2つの光子が入ったときに生じる過程によるものなのである。
+そのような寄与は光子が1つだけ入って相互作用物に比べて頻度が少ないため
+この項は無視する。このような近似を回転波近似という。\footnote{回転してるようなイメージはないけど、どこから来た名称なのだろう。}
+また、通常の光では励起状態に飽和するほどの光子は系に入らない。
 2準位系のエネルギー差は eV オーダーなのに対し、熱ゆらぎは 10 meV のオーダーであるためであるため、
-励起した電子はすぐさま基底状態に戻ると考えられる。これより\(\rho_{gg} = 1,\,\rho_{ee} = 0\)とできる。
+励起した電子はすぐさま基底状態に戻ると考えられる。
+これより\(\rho_{gg} = 1,\,\rho_{ee} = 0\)とできる。
+また\(e^{i\omega t}, e^{-i\omega t}\) は線形独立な基底とみなせるのでそれぞれ前についている係数は 0 となる。
+よって
+\begin{align}
+	\rho_{eg}(t)
+	= \frac{p_{eg}}{\hbar}\frac{e^{-i\omega t}}{\omega_0 - \omega - i\gamma} E( \omega)
+	  \frac{p_{eg}}{\hbar}\frac{e^{ i\omega t}}{\omega_0 + \omega - i\gamma} E(-\omega)
+\end{align}
+が得られる。
+これより電気双極子モーメントの期待値は
+\begin{align}
+	\ev{p} &= \tr\qty[\hat{\vb*{p}}\hat{\rho}]\\
+	&=p_{ge}\rho_{eg}+\cc\\
+	&=\frac{\abs{p_{eg}^2}}{\hbar}\frac{e^{-i\omega t}}{\omega_0 - \omega - i\gamma} E( \omega)
+	+ \frac{\abs{p_{eg}}^2}{\hbar}\frac{e^{ i\omega t}}{\omega_0 + \omega - i\gamma} E(-\omega)
+	+ \cc\\
+	&=\frac{\abs{p_{eg}^2}}{\hbar}\qty[
+		 \frac{1}{\omega_0 - \omega - i\gamma}
+		+\frac{1}{\omega_0 + \omega + i\gamma}]
+	e^{-i\omega t}E(\omega) + \cc\\
+	&=\frac{\abs{p_{eg}^2}}{\hbar}
+	\frac{2\omega_0}{\omega_0^2-\omega^2 + \gamma^2 -2i\gamma\omega}
+	e^{-i\omega t} E(\omega) + \cc
+\end{align}
+分極は\(P=N\ev{p}/V\)より
+\begin{equation}
+	P(\omega) = \frac{N\abs{p_{eg}^2}}{V\hbar}
+	\frac{2\omega_0}{\omega_0^2-\omega^2 + \gamma^2 -2i\gamma}\omega E(\omega)
+\end{equation}
+となる。\(\gamma \ll 1\) であることが多いので
 
 \end{document}
