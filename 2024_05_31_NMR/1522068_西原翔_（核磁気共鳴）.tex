@@ -81,6 +81,9 @@
 \section{目的}
 
 \section{原理}
+\subsection{Bloch 方程式と緩和}
+
+\subsection{Lande の g 因子}
 
 \section{実験}
 
@@ -91,12 +94,14 @@
 \section{結論}
 
 
-J.J. Sakurai \cite{Sakurai_Napolitano_2020}
-Slichter \cite{Slichter_1990}
+% J.J. Sakurai \cite{Sakurai_Napolitano_2020}
+% Slichter \cite{Slichter_1990}
 
 \bibliographystyle{junsrt}
 \bibliography{reference}
 \section*{付録}
+\section{摂動論}% もしかしたらまとめるかも
+
 \section{量子光学}
 この実験で扱った NMR の系は磁気双極子が外場である磁場の応答を見るという系になっている。
 物質の光学応答を見る系は、電気双極子が外場である光電場に対する応答を見る系になっていて計算上の手続きは全くと言っていいほど同じようにできる。
@@ -140,12 +145,12 @@ Slichter \cite{Slichter_1990}
 \(\hat{\vb*{r}}\) を電荷の位置とすると、
 電気双極子モーメントの演算子は
 \begin{equation}
-	\hat{\vb*{p}} = q \hat{\vb*{r}}
+	\hat{\vb*{\mu}} = q \hat{\vb*{r}}
 \end{equation}
 で表される。
 これよりそこにできる双極子モーメントは
 \begin{equation}
-	\vb*{p}_{ge} = \bra{g}q\hat{\vb*{r}}\ket{e},\qquad \vb*{p}_{eg} = \vb*{p}_{ge}^{*}
+	\vb*{\mu}_{ge} = \bra{g}q\hat{\vb*{r}}\ket{e},\qquad \vb*{\mu}_{eg} = \vb*{\mu}_{ge}^{*}
 \end{equation}
 となる。
 \footnote{この演算子のによる電気双極子モーメントの描像は丁寧に記述された文献はあまりないように感じる。
@@ -154,18 +159,20 @@ Slichter \cite{Slichter_1990}
 この描像は古典的な電気双極子モーメントの描像と大分違うように感じる。}
 これはお気持ち程度の解釈ではあるが、
 厳密には多極子のパリティに関して Wigner-Eckart の定理というのがあり、
-これにより\(\bra{g}\hat{\vb*{p}}\ket{g}\)といった対角成分は \(0\) になることがわかる。
+これにより\(\bra{g}\hat{\vb*{\mu}}\ket{g}\)といった対角成分は \(0\) になることがわかる。
 摂動ハミルトニアン\(H_1\) は
-古典的な双極子モーメントのポテンシャルエネルギー\(-\vb*{p}\cdot\vb*{E}\)を参考にして
+古典的な双極子モーメントのポテンシャルエネルギー\(-\vb*{\mu}\cdot\vb*{E}\)を参考にして
 \begin{equation}
-	\hat{H}_1 = - \hat{\vb*{p}}\cdot\vb*{E}
+	\hat{H}_1 = - \hat{\vb*{\mu}}\cdot\vb*{E}
 \end{equation}
-となる。
+となる。\footnote{光を量子化して電子と光子の相互作用の摂動を展開しても出る。
+すると多極子の相互作用も現れる。時間に余裕があれば後ほど記述したい。}
 これによりハミルトニアンに非対角項が生じ、
 基底状態から励起状態、励起状態から基底状態への遷移が起こるようになる。
 以降摂動も含めた系のハミルトニアンを \(\hat{H} := \hat{H}_0 + \hat{H}_1\) と書く。
 
-この系を表す状態\(\ket{\psi}\)の時間発展を考える。
+この系を表す状態の時間発展を考える。
+まず始めに状態ケット\(\ket{\psi}\)の表示から考える。
 これらは摂動がないときの固有状態の線形結合としてかけ、
 その線形結合の係数によって時間の様子を表すと考える。
 よってこの系の状態ケットは
@@ -195,6 +202,7 @@ Slichter \cite{Slichter_1990}
 	\end{pmatrix}
 \end{equation}
 これを密度演算子(密度行列)と呼ぶ。
+こういった系ではケットで状態を表すよりかは密度行列で表した方がよいので密度演算子で考える。
 これの時間発展方程式を求めていく。
 
 系の状態ケットをシュレディンガー方程式に入れると
@@ -243,8 +251,8 @@ Slichter \cite{Slichter_1990}
 \begin{equation}
 	u = \frac{-e}{m}\frac{1}{\omega_0^2-\omega^2 + i\gamma\omega} E(\omega)
 \end{equation}
-電気双極子モーメントは\(p = - eu\) と書け、
-分極は単位体積当たりの電気双極子モーメントの数のことであるので\(P = Np/V\)と書ける。
+電気双極子モーメントは\(\mu = - eu\) と書け、
+分極は単位体積当たりの電気双極子モーメントの数のことであるので\(P = N\mu/V\)と書ける。
 これらをまとめて電場と分極の関係式にすると
 \begin{equation}
 	P(\omega) = \frac{e^2N}{mV} \frac{1}{\omega_0^2-\omega^2+i\gamma\omega} E(\omega)
@@ -261,21 +269,22 @@ Slichter \cite{Slichter_1990}
 共鳴する入射光の振動数を\(\omega := \omega_e -\omega_g\)とする。
 また電気双極子モーメントは
 \begin{equation}
-	\vb*{p}_{ge}(t) = \bra{g}c_g^*(t)\,\hat{\vb*{p}}\,c_e(t)\ket{e} = \rho_{eg}\vb*{p}_{ge}
+	\vb*{\mu}_{ge}(t) = \bra{g}c_g^*(t)\,\hat{\vb*{\mu}}\,c_e(t)\ket{e}
+	= \rho_{eg}\vb*{\mu}_{ge}
 \end{equation}
 である。この式を見ると密度行列の非対角成分の時間発展を追えばよいことがわかる。
 この系のハミルトニアンは
 \begin{equation}
 	\hat{H} =
 	\begin{pmatrix}
-		\hbar \omega_e  & -\vb*{p}_{eg}\cdot\vb*{E}\\
-		-\vb*{p}_{ge}\cdot\vb*{E} & \hbar \omega_g
+		\hbar \omega_e  & -\vb*{\mu}_{eg}\cdot\vb*{E}\\
+		-\vb*{\mu}_{ge}\cdot\vb*{E} & \hbar \omega_g
 	\end{pmatrix}
 \end{equation}
 となる。これを von Neumann 方程式に入れて\(\rho_{eg}\)の時間発展を求めると
 \begin{align}
 	i\hbar \pdv{\rho_{eg}}{t} &= H_{ee}\rho_{eg} + H_{eg}\rho_{gg} - \rho_{ee} H_{eg} - \rho_{eg} H_{gg}\\
-	\pdv{\rho_{eg}}{t} &= -i\omega_0\rho_{eg} -i\frac{\vb*{p}_{eg}\cdot \vb*{E}}{\hbar}(\rho_{ee}-\rho_{gg})
+	\pdv{\rho_{eg}}{t} &= -i\omega_0\rho_{eg} -i\frac{\vb*{\mu}_{eg}\cdot \vb*{E}}{\hbar}(\rho_{ee}-\rho_{gg})
 \end{align}
 のようになる。
 % 同様に\(\rho_{ge}\)についてもやると
@@ -286,7 +295,7 @@ Slichter \cite{Slichter_1990}
 実際には\(\rho_{eg}\)は電気双極子モーメントに相当するため、これらの時間発展の式に緩和項を入れる。
 すると
 \begin{align}
-	\pdv{\rho_{eg}}{t} &= -i\omega_0\rho_{eg} -\gamma\rho_{eg} -i\frac{\vb*{p}_{eg}\cdot \vb*{E}}{\hbar}(\rho_{ee}-\rho_{gg})\\
+	\pdv{\rho_{eg}}{t} &= -i\omega_0\rho_{eg} -\gamma\rho_{eg} -i\frac{\vb*{\mu}_{eg}\cdot \vb*{E}}{\hbar}(\rho_{ee}-\rho_{gg})\\
 	% \pdv{\rho_{ge}}{t} &=  i\omega_0\rho_{ge} -\gamma\rho_{ge} +i\frac{\vb*{p}_{ge}\cdot \vb*{E}}{\hbar}(\rho_{ee}-\rho_{gg})
 \end{align}
 となる。
@@ -305,45 +314,69 @@ Slichter \cite{Slichter_1990}
 となる。
 これらを時間発展の式に入れると
 \begin{align}
-	0 =& \qty(-i(\omega_0-\omega)\rho_{eg}( \omega) -\gamma\rho_{eg}( \omega) -i\frac{p_{eg}E( \omega)}{\hbar}(\rho_{ee}-\rho_{gg})-i\frac{p_{eg}E(-\omega)e^{ 2i\omega t}}{\hbar}(\rho_{ee}-\rho_{gg}))e^{-i\omega t} \notag\\
-	  &+ \qty(-i(\omega_0+\omega)\rho_{eg}(-\omega) -\gamma\rho_{eg}(-\omega) -i\frac{p_{eg}E(-\omega)}{\hbar}(\rho_{ee}-\rho_{gg})-i\frac{p_{eg}E( \omega)e^{-2i\omega t}}{\hbar}(\rho_{ee}-\rho_{gg}))e^{ i\omega t}
+	&\pdv{\rho_{eg}(\omega)}{t}e^{-i\omega t} + \pdv{\rho_{eg}(-\omega)}{t}e^{i\omega t} \notag\\
+	  &\quad = \qty(-i(\omega_0-\omega)\rho_{eg}( \omega) -\gamma\rho_{eg}( \omega) -i\frac{\mu_{eg}E( \omega)}{\hbar}(\rho_{ee}-\rho_{gg})-i\frac{\mu_{eg}E(-\omega)e^{ 2i\omega t}}{\hbar}(\rho_{ee}-\rho_{gg}))e^{-i\omega t} \notag\\
+	  &\qquad + \qty(-i(\omega_0+\omega)\rho_{eg}(-\omega) -\gamma\rho_{eg}(-\omega) -i\frac{\mu_{eg}E(-\omega)}{\hbar}(\rho_{ee}-\rho_{gg})-i\frac{\mu_{eg}E( \omega)e^{-2i\omega t}}{\hbar}(\rho_{ee}-\rho_{gg}))e^{ i\omega t}
 \end{align}
 忘れてなければ後に示すが
 \(e^{2i\omega t}, e^{-2i\omega t}\)の項はこの2準位系に同時に2つの光子が入ったときに生じる過程によるものなのである。
-そのような寄与は光子が1つだけ入って相互作用物に比べて頻度が少ないため
-この項は無視する。このような近似を回転波近似という。\footnote{回転してるようなイメージはないけど、どこから来た名称なのだろう。}
+そのような寄与は光子が1つだけ入って相互作用物に比べて頻度が少ないためこの項は無視する。
+また定常状態を考えるため左辺の時間微分は 0 とみなす。
+このような近似を回転波近似という。\footnote{回転してるようなイメージはないけど、どこから来た名称なのだろう。}
 また、通常の光では励起状態に飽和するほどの光子は系に入らない。
 2準位系のエネルギー差は eV オーダーなのに対し、熱ゆらぎは 10 meV のオーダーであるためであるため、
 励起した電子はすぐさま基底状態に戻ると考えられる。
 これより\(\rho_{gg} = 1,\,\rho_{ee} = 0\)とできる。
+ここの値を適切に考えることでレーザー光のような強い光で飽和した状態を考えることもできる。
 また\(e^{i\omega t}, e^{-i\omega t}\) は線形独立な基底とみなせるのでそれぞれ前についている係数は 0 となる。
 よって
 \begin{align}
 	\rho_{eg}(t)
-	= \frac{p_{eg}}{\hbar}\frac{e^{-i\omega t}}{\omega_0 - \omega - i\gamma} E( \omega)
-	  \frac{p_{eg}}{\hbar}\frac{e^{ i\omega t}}{\omega_0 + \omega - i\gamma} E(-\omega)
+	= \frac{\mu_{eg}}{\hbar}\frac{e^{-i\omega t}}{\omega_0 - \omega - i\gamma} E( \omega)
+	+ \frac{\mu_{eg}}{\hbar}\frac{e^{ i\omega t}}{\omega_0 + \omega - i\gamma} E(-\omega)
 \end{align}
 が得られる。
 これより電気双極子モーメントの期待値は
 \begin{align}
-	\ev{p} &= \tr\qty[\hat{\vb*{p}}\hat{\rho}]\\
-	&=p_{ge}\rho_{eg}+\cc\\
-	&=\frac{\abs{p_{eg}^2}}{\hbar}\frac{e^{-i\omega t}}{\omega_0 - \omega - i\gamma} E( \omega)
-	+ \frac{\abs{p_{eg}}^2}{\hbar}\frac{e^{ i\omega t}}{\omega_0 + \omega - i\gamma} E(-\omega)
+	\ev{\mu} &= \tr\qty[\hat{\vb*{\mu}}\hat{\rho}]\\
+	&=\mu_{ge}\rho_{eg}+\cc\\
+	&=\frac{\abs{\mu_{eg}}^2}{\hbar}\frac{e^{-i\omega t}}{\omega_0 - \omega - i\gamma} E( \omega)
+	+ \frac{\abs{\mu_{eg}}^2}{\hbar}\frac{e^{ i\omega t}}{\omega_0 + \omega - i\gamma} E(-\omega)
 	+ \cc\\
-	&=\frac{\abs{p_{eg}^2}}{\hbar}\qty[
+	&=\frac{\abs{\mu_{eg}}^2}{\hbar}\qty[
 		 \frac{1}{\omega_0 - \omega - i\gamma}
 		+\frac{1}{\omega_0 + \omega + i\gamma}]
 	e^{-i\omega t}E(\omega) + \cc\\
-	&=\frac{\abs{p_{eg}^2}}{\hbar}
+	&=\frac{\abs{\mu_{eg}}^2}{\hbar}
 	\frac{2\omega_0}{\omega_0^2-\omega^2 + \gamma^2 -2i\gamma\omega}
 	e^{-i\omega t} E(\omega) + \cc
 \end{align}
-分極は\(P=N\ev{p}/V\)より
+分極は\(P=N\ev{\mu}/V\)より
 \begin{equation}
-	P(\omega) = \frac{N\abs{p_{eg}^2}}{V\hbar}
-	\frac{2\omega_0}{\omega_0^2-\omega^2 + \gamma^2 -2i\gamma}\omega E(\omega)
+	P(\omega) = \frac{\abs{\mu_{eg}}^2N}{\hbar V}
+	\frac{2\omega_0}{\omega_0^2-\omega^2 + \gamma^2 -2i\gamma}E(\omega)
 \end{equation}
-となる。\(\gamma \ll 1\) であることが多いので
+となる。これは適切に計算すると\(\abs{\mu_{eg}}^2/\hbar\)という量子論的な部分を
+古典的な量に直すことができる。
+そして\(\gamma \ll 1\) であることが多いので分母の\(\gamma^2\)は無視すると思うことが多い。
+このようにして古典論のローレンツモデルと一致する。
+
+% またこの式から\(\abs{\mu_{eg}}^2/\hbar\)を消して古典的な量にする。
+% Heisenberg 方程式より
+% \begin{align}
+% 	\dv{\hat{\vb*{\mu}}}{t} &= \frac{1}{i\hbar}\qty[\hat{\vb*{\mu}},\hat{H}]\\
+% 	% -e\dv{\hat{\vb*{r}}}{t}
+% 	&= \frac{-e}{2im\hbar}\qty[\hat{\vb*{x}},\hat{\vb*{p}}^2]\\
+% 	% \dv{\hat{\vb*{r}}}{t}
+% 	&= \frac{-e}{m}\hat{\vb*{p}}
+% \end{align}
+
+\subsection{光 Bloch 方程式の導出}
+
+\subsection{光の量子化}
+
+\subsection{Fermi の黄金律}
+
+\subsection{自然放出}
 
 \end{document}
