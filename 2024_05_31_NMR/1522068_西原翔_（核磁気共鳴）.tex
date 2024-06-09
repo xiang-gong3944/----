@@ -10,7 +10,7 @@
 % \usepackage{caption} %番号なしキャプションを書く
 % \usepackage{cancel} %式中に斜線を入れる
 % \usepackage{tensor} %テンソルの添え字を書く
-% \usepackage{tikz} %図を書く
+\usepackage{tikz} %図を書く
 % \usepackage{ascmac} %四角い枠の中に文章を書く
 % \usepackage{float} %figureで[hbp]オプションを使う
 % \usepackage{hyperref}  \usepackage{pxjahyper} %ハイパーリンクをつかう
@@ -79,11 +79,198 @@
 
 % \twocolumn
 \section{目的}
+角運動量を持った量子は外部磁場のもとでは Zeeman 効果によりエネルギー準位が分裂する。
+さらにその分裂した準位のうち2つの準位と共鳴するような電磁波を入射すると、
+分裂した準位間で光子を吸収したり放出したりして量子が周期的に遷移するようになる(誘導吸収・誘導放出)。
+これを Rabi 振動という。
+とくに原子核の持つスピン角運動量についての Zeeman 分裂に外部振動磁場を入射して共鳴させるのを
+核磁気共鳴(Nuclear magnetism Resonance, NMR) と呼ぶ。
+
+静磁場がある中、振動外場をパルス的に入射したとき、
+原子核スピンは乱雑な向きを持つ共鳴状態から緩和していき、
+原子核スピンの向きが揃った熱平衡状態に戻っていく。
+その時、原子核スピンの周囲に緩和時間の速い電子スピンがある、言い換えると原子が磁性を持っているとき、
+はじめにかけた静磁場に加え電子スピンによる磁場が加わるため、原子核スピンの緩和時間も短くなる。
+また、周囲に電子スピンがなかったとしても周囲の原子核スピンによる磁場による緩和時間の変化もある。
+つまり、この緩和の様子を調べることで原子核の周りにある系の性質を調べることができる。
+
+この実験では純水、塩化ナトリウム水溶液、硫酸銅水溶液、硫酸亜鉛水溶液、硫酸鉄(II)水溶液の磁性を有無を
+水素原子核の核磁気共鳴状態からの緩和の様子を通して調べた。
 
 \section{原理}
-\subsection{Bloch 方程式と緩和}
+\subsection{Zeeman 分裂}
+量子系を半古典論で扱う時、外部磁場は摂動として
+\begin{equation}
+	\hat{H}_1 = -\hat{\vb*{\mu}}\cdot \vb*{H}
+\end{equation}
+というように表わされる。
+磁気モーメント演算子は角運動量を用いて
+\begin{equation}
+	\hat{\vb*{\mu}} = \frac{ge}{2m}\hat{\vb*{J}} = \gamma\frac{\hat{\vb*{J}}}{\hbar}
+\end{equation}
+というように表わされる。ここで\(g\)は g 因子と呼ばれる量で、
+古典的な角運動量による磁気モーメントとのずれを調整する量になっている。
+電子の場合、Dirac 方程式からほぼ正確な値が導かれ \(g_e = - 2\) である。
+% (付録 : 電子の g 因子) % TODO 電子の g 因子の導出
+また、\(\gamma = gq/2m\) は磁気回転比というものになっている。
+NMR の系ではは陽子を扱う。陽子の角運動量は\(J=\pm\hbar/2\)である。
+磁場は\(z\) 成分しかないものと考えてやると、 1 次の摂動エネルギーは
+\begin{equation}
+	E_1 = \pm\frac{\gamma\hbar H}{2}
+\end{equation}
+というようになる。
+% (付録:摂動論) % TODO 一次の摂動論のエネルギー
+よって Zeeman 効果によるエネルギー準位の分裂幅\(\hbar\omega_0\)は
+\begin{align}
+	\hbar\omega &= \hbar \gamma H\\
+	\omega_0 &= \gamma H
+\end{align}
+というようになる。
+これは外部磁場の強さに対する磁気モーメントの歳差運動の周波数を関係づける式とみなせる。 % (付録)
 
-\subsection{Lande の g 因子}
+\subsection{Rabi 振動}
+水素原子核の NMR におけるスピンの状態は Bloch ベクトル\(M = (x,\,y,\,z)\)で表され、
+共鳴状態における Bloch ベクトルの時間発展は Bloch 方程式
+\begin{equation}
+	\dv{t}
+	\begin{pmatrix}
+		x\\ y\\ z
+	\end{pmatrix}
+	=
+	\begin{pmatrix}
+		-\gamma & -(\omega-\omega_0) & 0\\
+		\omega -\omega_0 & -\gamma & -2\gamma_p H\\
+		0 & 2\gamma_p H & -\Gamma
+	\end{pmatrix}
+	\begin{pmatrix}
+		x\\ y\\ z
+	\end{pmatrix}
+\end{equation}
+で記述される(付録 : Bloch 方程式の導出)。
+ここで
+\(\omega\)は入射した振動磁場の周波数、\(\omega_0\)は共鳴周波数、
+\(\gamma_p\) は陽子の磁気回転比、\(H\)は振動外部磁場の強さである。
+また\(\gamma\)は横緩和、\(\Gamma\) は縦緩和という量で
+前者はスピンの向きが弾性散乱により乱されるデコヒーレンスの速さを表す量で、
+後者は非弾性散乱により、励起した準位の持つエネルギーが熱になってを失っていく速さをを表している。
+
+まず緩和のないときを考える。すると Bloch 方程式は振動数\(\omega-\omega_0\)で回転する系における見かけの磁場
+\begin{equation}
+	\gamma_p \vb*{\tilde{H}} = \qty(2\gamma H,\,0,\,\omega-\omega_0)
+\end{equation}
+を用いて
+\begin{equation}
+	\dv{\vb*{M}}{t} = \gamma_p \vb*{\tilde{H}} \times \vb*{M}
+\end{equation}
+と書ける。
+
+\begin{figure}
+	\centering
+	\begin{minipage}[t]{0.48\columnwidth}
+		\centering
+		\tikz{
+			\tikzstyle{st}=[gray, fill, fill opacity=0.1]
+			\coordinate(o)at(0,0);
+			\draw(o)circle(2cm);
+			\draw[fill](o)circle(1.5pt);%origin
+			\draw[st](o)--(90:0.6)arc(90:150:0.6)--cycle;%theta angle
+			\draw(-0.6,0.9)node[fill=white]{$\tiny{2\gamma_p Ht}$};
+			\draw[->](o)--(224.28:1.5) node[below left]{$x$};%x
+			\draw[->](o)--(2.5,0)node[right]{$y$};%y
+			\draw[->](o)--(0,2.5)node[below right]{$z$};%z
+			\draw[rotate around={0.:(0.,0.)},dashed](0,0)ellipse(2cm and 0.9cm);%ellipse
+			\draw[thick,->](o)--(150:2)node[above left]{$\vb*{M}$};%state vector
+			\draw[thick,->](o)--(224.28:1.1)node[above=3mm]{$\vb*{\tilde{H}}$};%rotate axis vector
+			\draw[densely dotted,-](o)--(0,-2);
+		  }
+		\subcaption{初期状態\(\vb*{M}=(0,\,0,\,1)\)から大きさが\(H\)の共鳴外部磁場を入射して \(t\) 秒後の水素原子核のスピンの状態を Bloch 球で表したもの。
+		共鳴磁場をかけたときには\(\vb*{\tilde{H}}=(H,\,0,\,0)\) なので状態 \(\vb*{M}\) は \(x\) 軸を回転軸として
+		振動数 \(2\gamma_p H\) で回転(振動)する。}
+	\end{minipage}
+	\hfill
+	\begin{minipage}[t]{0.48\columnwidth}
+		\centering
+		\tikz{
+			\tikzstyle{st}=[lightgray, fill, fill opacity=0.1]
+			\coordinate(o)at(0,0);
+			\draw(o)circle(2cm);
+			\draw[fill](o)circle(1.5pt);%origin
+			\draw[st](o)--(-135.7:0.6)arc(-135.7:-159:0.6)--cycle;%varphi angle
+			\draw(-0.9,0.1)node{$-\omega_0t$};
+			\draw[->](o)--(224.28:1.5) node[below left]{$x$};%x
+			\draw[->](o)--(2.5,0)node[right]{$y$};%y
+			\draw[->](o)--(0,2.5)node[below right]{$z$};%z
+			\draw[rotate around={0.:(0.,0.)},dashed](0,0)ellipse(2cm and 0.9cm);%ellipse
+			\draw[thick,->](o)--(-1.2,1.07)node[above]{$\vb*{M}$};%state vector
+			\draw[thick,->](o)--(0,-1.8)node[above right]{\(\vb*{\tilde{H}}\)};
+			\draw[densely dotted,-](o)--(0,-2);
+			\draw[dotted](o)--(-1.2,-0.46)--(-1.2,1);%triangle
+		  }
+		\subcaption{始状態が\(\vb*{M} = (\sin\theta_0,\,0,\,\cos\theta_0)\)の水素原子核のスピンが
+		外部振動磁場のない条件で \(t\) 秒経った時の状態を Bloch 球で表したもの。
+		このとき\(\vb*{\tilde{H}} = (0,\, 0,\, -\omega_0)\)なので状態 \(\vb*{M}\) は \(z\) 軸を回転軸として
+		振動数 \(-\omega_0\) で回転する。}
+	\end{minipage}
+	\caption{緩和がないときの Bloch 方程式の解の示すスピンの状態の変化を Bloch 球上で表したもの。}
+	% https://qiita.com/ThomsonKernel/items/1b105370fb5ce94b2cd3
+\end{figure}
+
+
+この方程式の振舞いについて考える。
+はじめ静磁場がかかっているときにはスピンの向きはすべて上向きで揃っているので
+始状態は\(\vb*{M}=(0,\,0,\,1)\)
+である。
+このとき、外部磁場はかかっていないので\(\vb*{\tilde{H}}=(0,\,0,\,-\omega_0)\)
+となり、磁場とスピンの向きが揃っているため状態は状態の時間微分は変化せず一定のままとわかる。
+
+つぎに共鳴磁場を入れたときには\(\vb*{\tilde{H}}=(H,\,0,\,0)\)となり、
+磁場とスピンの向きが直交するため時間変化を始める。その解は
+\begin{equation}
+	(x,\,y,\,z) = \qty(0,\,-\sin(2\gamma_p Ht),\,\cos(2\gamma_p Ht))
+\end{equation}
+というように \(x\) 軸を軸として回転していく。
+これを量子力学的なエネルギー準位の描像で見ると、
+共鳴磁場を入れたとき Zeeman 分裂した2準位の基底状態と励起状態を行き来しているのがわかる。
+これを Rabi 振動といい、振動数 \(2\gamma_p H\) を Rabi 周波数と呼ぶ。
+
+共鳴磁場を切った後の状態の変化を考える。
+始状態が\(\vb*{M}=(\sin\theta_0,\,0,\,\cos\theta_0)\)のとき、Bloch 方程式を解くと
+\begin{equation}
+	(x,\,y,\,z) =
+	\qty(\sin\theta_0\cos(-\omega_0 t),\,
+	\sin\theta_0\sin(-\omega_0 t),\,\cos\theta_0)
+\end{equation}
+というように \(z\) 軸を中心として回転するようになる。
+量子力学的な描像では基底状態と励起状態の重ねあわせ状態になっている。
+
+緩和 のない Bloch 方程式の振る舞いを見たことで NMR の実験系を考える上で大事なことが分かった。
+それは共鳴磁場を入れる時間によってスピンの \(z\) 成分の大きさを指定することができることである。
+
+スピンの向きが下向きの励起状態にしたいときには、
+スピンの向きが上向きの揃っている基底状態となっている時刻から、
+共鳴磁場を入れて \(x\) 軸を回転軸として\(t=2\gamma_pH/\pi\)の時間回転させる。
+その後共鳴磁場を切ると \(z\) 軸を回転軸として回るようになるが、
+スピンの向きは \(z\) 軸を向いているため状態はずっと励起状態になる。
+スピンを基底状態と励起状態の重ね合わせ状態にさせたいときには
+スピンの向きが上向きに揃っている基底状態となっている時刻から
+共鳴磁場を入れて \(x\) 軸を回転軸として\(t=\gamma_pH/\pi\)の時間回転させる。
+その後共鳴磁場を切ると \(x-y\) 平面の円周上のを回るようになる。
+前者の操作を\(\pi\)パルス、後者の操作を\(\pi/2\)パルスという。
+また回転させる天頂角\(\theta\)をパルス面積と言ったりする。
+
+今回の実験では\(\pi/2\)パルスを入れた状態の緩和を見ていくことになる。
+
+\subsection{状態の緩和}
+緩和を考えない Bloch 方程式では一度共鳴磁場を入れてそれを切るとスピンの \(z\) 成分は保存されるのであったが、
+実際にはスピンの外部の系との相互作用により熱平衡状態へ緩和していくことが予想される。
+実際緩和のある Bloch 方程式を解くと、始状態\(\vb*{M}=\qty(x_0,\,y_0,\,z_0)\), 熱平衡状態を\((0,\,0,\,1)\)
+として
+\begin{align}
+	x(t) + iy(t) &= (x_0 + iy_0) e^{i(\omega-\omega_0)t}e^{-\gamma t}\\
+	z(t) - 1 &= (z_0 -1) e^{-\Gamma t}
+\end{align}
+が得られる。
+
 
 \section{実験}
 
@@ -102,13 +289,13 @@
 \section*{付録}
 \section{摂動論}% もしかしたらまとめるかも
 
+\section{電子の g 因子の導出}
+
 \section{量子光学}
 この実験で扱った NMR の系は磁気双極子が外場である磁場の応答を見るという系になっている。
-物質の光学応答を見る系は、電気双極子が外場である光電場に対する応答を見る系になっていて計算上の手続きは全くと言っていいほど同じようにできる。
-この節では自分の復習として量子光学のテキストとして松岡先生\cite{Matsuoka_2000}のを中心に
-櫛田先生\cite{Kushida_1991}のも参考にしながらまとめてみる。
-\subsection{物質中の線形光学}
-\subsubsection{2準位系と密度演算子}
+物質の光学応答を見る系は、電気双極子が外場である光電場に対する応答を見る系になっていて計算上の手続きはまったくと言っていいほど同じようにできる。
+この節では松岡先生の書いた量子光学の教科書\cite{Matsuoka_2000}を参考にしながらまとめてみる。
+\subsection{2準位系と密度演算子}
 原子には電子の取ることができる準位が多数ある。
 入射した光に共鳴するような状態を考えるときには、
 入射した光の振動数に対応する2つの準位を取り上げれば十分である。
@@ -154,14 +341,14 @@
 \end{equation}
 となる。
 \footnote{この演算子のによる電気双極子モーメントの描像は丁寧に記述された文献はあまりないように感じる。
-そのためあっているかは自信はあまりないが、
+そのためあっているかは自信はあまりないものの、
 自分の解釈では以上のような状態が量子力学的な電気双極子モーメントであると考えている。
-この描像は古典的な電気双極子モーメントの描像と大分違うように感じる。}
+この描像は古典電磁気学的な電気双極子モーメントの描像と大分違うように感じる。}
 これはお気持ち程度の解釈ではあるが、
 厳密には多極子のパリティに関して Wigner-Eckart の定理というのがあり、
 これにより\(\bra{g}\hat{\vb*{\mu}}\ket{g}\)といった対角成分は \(0\) になることがわかる。
 摂動ハミルトニアン\(H_1\) は
-古典的な双極子モーメントのポテンシャルエネルギー\(-\vb*{\mu}\cdot\vb*{E}\)を参考にして
+古典電磁気学の双極子モーメントのポテンシャルエネルギー\(-\vb*{\mu}\cdot\vb*{E}\)を参考にして
 \begin{equation}
 	\hat{H}_1 = - \hat{\vb*{\mu}}\cdot\vb*{E}
 \end{equation}
@@ -238,33 +425,14 @@
 	i\hbar \pdv{t} \hat{\rho} = [\hat{H},\,\hat{\rho}]
 \end{equation}
 と表わされる。(von Neumann 方程式)
+また、導出は省くが密度演算子を使った物理量\(\hat{M}\)の期待値は
+\begin{equation}
+	\ev{\hat{M}} = \tr[\hat{\rho}\hat{M}]
+\end{equation}
+で表わされる。
 
 \subsection{線形電気感受率}
-\subsubsection{ローレンツモデル}
-量子光学とは離れるが、イオン分極の古典的なモデルであるローレンツモデルを用いて電気感受率を示してみる。
-陽イオンと電子がバネでつながれていて粘性抵抗がある中の外力として電場のあるときの強制振動を
-イオン分極とみなしてニュートン方程式を立てると
-\begin{equation}
-	m\ddot{u} + m\gamma\dot{u} +m\omega_0^2 u = -eE(\omega)e^{-i\omega t}
-\end{equation}
-両辺をフーリエ変換して整理すると
-\begin{equation}
-	u = \frac{-e}{m}\frac{1}{\omega_0^2-\omega^2 + i\gamma\omega} E(\omega)
-\end{equation}
-電気双極子モーメントは\(\mu = - eu\) と書け、
-分極は単位体積当たりの電気双極子モーメントの数のことであるので\(P = N\mu/V\)と書ける。
-これらをまとめて電場と分極の関係式にすると
-\begin{equation}
-	P(\omega) = \frac{e^2N}{mV} \frac{1}{\omega_0^2-\omega^2+i\gamma\omega} E(\omega)
-\end{equation}
-これより線形電気感受率\(\chi(\omega)\)は
-\begin{equation}
-	\chi(\omega) = \frac{e^2N}{mV} \frac{1}{\omega_0^2-\omega^2+i\gamma\omega}
-\end{equation}
-となる。
-
-\subsubsection{量子光学による説明}
-古典的なモデルで示された線形電気感受率はもちろん量子光学でも説明できる。
+外部電場に対する原子に束縛された電子ど原子核が作る分極の応答の関係を表す電気感受率を導出する。
 2準位系の各準位のエネルギーを\(E_i = \hbar \omega_i\) のように書き、
 共鳴する入射光の振動数を\(\omega := \omega_e -\omega_g\)とする。
 また電気双極子モーメントは
@@ -296,44 +464,52 @@
 すると
 \begin{align}
 	\pdv{\rho_{eg}}{t} &= -i\omega_0\rho_{eg} -\gamma\rho_{eg} -i\frac{\vb*{\mu}_{eg}\cdot \vb*{E}}{\hbar}(\rho_{ee}-\rho_{gg})\\
-	% \pdv{\rho_{ge}}{t} &=  i\omega_0\rho_{ge} -\gamma\rho_{ge} +i\frac{\vb*{p}_{ge}\cdot \vb*{E}}{\hbar}(\rho_{ee}-\rho_{gg})
+	\pdv{\rho_{ge}}{t} &=  i\omega_0\rho_{ge} -\gamma\rho_{ge} +i\frac{\vb*{\mu}_{ge}\cdot \vb*{E}}{\hbar}(\rho_{ee}-\rho_{gg})
 \end{align}
 となる。
 ここから電気双極子と電場は z 成分だけを考え、電場は振幅と振動成分を分けて
 \begin{equation}
-	E(t) = E(\omega)e^{-i\omega t} + \cc
+	E(t) = E(\omega)e^{-i\omega t} + E(-\omega) e^{i\omega t} \label{eq:E_fourier}
 \end{equation}
-とする。また、密度行列の非対角成分もフーリエ変換したものを考える。
-密度行列の非対角成分は双極子モーメントの値に比例しているので実数であること
-% や、\(\rho_{ge} = \rho_{eg}^*\)
-に注意して式に起こすと
+とする。\footnote{電場の位置依存性を調べたいときには\(e^{-i\omega t} \rightarrow e^{-i(\omega t +kz)}\)とする。}
+また密度行列の非対角成分について、強制振動の系であることから
 \begin{equation}
-	\rho_{eg}(t) = \rho_{eg}( \omega) e^{-i\omega t} + \rho_{eg}(-\omega) e^{ i\omega t}
-	% , \qquad \rho_{ge}(t) = \rho_{ge}(-\omega) e^{ i\omega t} + \rho_{ge}( \omega) e^{-i\omega t}
+	\rho_{eg}(t) = \rho_{eg}^{(\omega)} e^{-i\omega t}
+	, \qquad \rho_{ge}(t) = \rho_{ge}^{(-\omega)} e^{ i\omega t}  \label{eq:rho_fourier}
 \end{equation}
-となる。
+というように置きなおすと便利になるであろう。これはちょうど振動数\(\omega\)で回転する系でこの現象を見るのと同じ変換になっている。
+これはフーリエ変換した表示ではないので\(\rho_{eg}^{(\omega)}\)は時間に依存に注意することは必要である。
 これらを時間発展の式に入れると
 \begin{align}
-	&\pdv{\rho_{eg}(\omega)}{t}e^{-i\omega t} + \pdv{\rho_{eg}(-\omega)}{t}e^{i\omega t} \notag\\
-	  &\quad = \qty(-i(\omega_0-\omega)\rho_{eg}( \omega) -\gamma\rho_{eg}( \omega) -i\frac{\mu_{eg}E( \omega)}{\hbar}(\rho_{ee}-\rho_{gg})-i\frac{\mu_{eg}E(-\omega)e^{ 2i\omega t}}{\hbar}(\rho_{ee}-\rho_{gg}))e^{-i\omega t} \notag\\
-	  &\qquad + \qty(-i(\omega_0+\omega)\rho_{eg}(-\omega) -\gamma\rho_{eg}(-\omega) -i\frac{\mu_{eg}E(-\omega)}{\hbar}(\rho_{ee}-\rho_{gg})-i\frac{\mu_{eg}E( \omega)e^{-2i\omega t}}{\hbar}(\rho_{ee}-\rho_{gg}))e^{ i\omega t}
+	\pdv{\rho_{eg}^{(\omega)}}{t}
+	  &= -i(\omega_0-\omega)\rho_{eg}^{( \omega)} -\gamma\rho_{eg}^{( \omega)} -i\frac{\mu_{eg}E( \omega)}{\hbar}(\rho_{ee}-\rho_{gg})-i\frac{\mu_{eg}E(-\omega)e^{ 2i\omega t}}{\hbar}(\rho_{ee}-\rho_{gg})\\
+	\pdv{\rho_{ge}^{(-\omega)}}{t}
+	  &=  i(\omega_0-\omega)\rho_{ge}^{(-\omega)} -\gamma\rho_{ge}^{(-\omega)} +i\frac{\mu_{ge}E(-\omega)}{\hbar}(\rho_{ee}-\rho_{gg})+i\frac{\mu_{ge}E(\omega)e^{-2i\omega t}}{\hbar}(\rho_{ee}-\rho_{gg})
 \end{align}
-忘れてなければ後に示すが
-\(e^{2i\omega t}, e^{-2i\omega t}\)の項はこの2準位系に同時に2つの光子が入ったときに生じる過程によるものなのである。
-そのような寄与は光子が1つだけ入って相互作用物に比べて頻度が少ないためこの項は無視する。
-また定常状態を考えるため左辺の時間微分は 0 とみなす。
-このような近似を回転波近似という。\footnote{回転してるようなイメージはないけど、どこから来た名称なのだろう。}
-また、通常の光では励起状態に飽和するほどの光子は系に入らない。
+\(e^{2i\omega t}, e^{-2i\omega t}\)の項は注目している振動数の第二高調波に相当するためこの項を無視する。
+なので時間発展は
+\begin{align}
+	\pdv{\rho_{eg}^{(\omega)}}{t}
+	  &= -i(\omega_0-\omega)\rho_{eg}^{( \omega)} -\gamma\rho_{eg}^{( \omega)} -i\frac{\mu_{eg}E( \omega)}{\hbar}(\rho_{ee}-\rho_{gg})\\
+	\pdv{\rho_{ge}^{(-\omega)}}{t}
+	  &=  i(\omega_0-\omega)\rho_{ge}^{(-\omega)} -\gamma\rho_{ge}^{(-\omega)} +i\frac{\mu_{ge}E(-\omega)}{\hbar}(\rho_{ee}-\rho_{gg})
+\end{align}
+と書ける。
+このように回転する系の中で\(2\omega \)の項を無視する近似を回転波近似という。
+
+誘電率を考えるときには定常状態とみなすため左辺の時間微分は 0 とみなす。
+通常の光では励起状態に飽和するほどの光子は系に入らない。
 2準位系のエネルギー差は eV オーダーなのに対し、熱ゆらぎは 10 meV のオーダーであるためであるため、
 励起した電子はすぐさま基底状態に戻ると考えられる。
 これより\(\rho_{gg} = 1,\,\rho_{ee} = 0\)とできる。
 ここの値を適切に考えることでレーザー光のような強い光で飽和した状態を考えることもできる。
-また\(e^{i\omega t}, e^{-i\omega t}\) は線形独立な基底とみなせるのでそれぞれ前についている係数は 0 となる。
+
 よって
 \begin{align}
-	\rho_{eg}(t)
-	= \frac{\mu_{eg}}{\hbar}\frac{e^{-i\omega t}}{\omega_0 - \omega - i\gamma} E( \omega)
-	+ \frac{\mu_{eg}}{\hbar}\frac{e^{ i\omega t}}{\omega_0 + \omega - i\gamma} E(-\omega)
+	\rho_{eg}^{(\omega)}
+	&= \frac{\mu_{eg}}{\hbar}\frac{1}{\omega_0 - \omega - i\gamma} E( \omega)\\
+	\rho_{ge}^{(-\omega)}
+	&= \frac{\mu_{ge}}{\hbar}\frac{1}{\omega_0 - \omega + i\gamma} E(-\omega)\\
 \end{align}
 が得られる。
 これより電気双極子モーメントの期待値は
@@ -341,42 +517,124 @@
 	\ev{\mu} &= \tr\qty[\hat{\vb*{\mu}}\hat{\rho}]\\
 	&=\mu_{ge}\rho_{eg}+\cc\\
 	&=\frac{\abs{\mu_{eg}}^2}{\hbar}\frac{e^{-i\omega t}}{\omega_0 - \omega - i\gamma} E( \omega)
-	+ \frac{\abs{\mu_{eg}}^2}{\hbar}\frac{e^{ i\omega t}}{\omega_0 + \omega - i\gamma} E(-\omega)
 	+ \cc\\
 	&=\frac{\abs{\mu_{eg}}^2}{\hbar}\qty[
-		 \frac{1}{\omega_0 - \omega - i\gamma}
-		+\frac{1}{\omega_0 + \omega + i\gamma}]
-	e^{-i\omega t}E(\omega) + \cc\\
-	&=\frac{\abs{\mu_{eg}}^2}{\hbar}
-	\frac{2\omega_0}{\omega_0^2-\omega^2 + \gamma^2 -2i\gamma\omega}
-	e^{-i\omega t} E(\omega) + \cc
+		 \frac{1}{\omega_0 - \omega - i\gamma}]
+	E(\omega)e^{-i\omega t} + \cc
 \end{align}
-分極は\(P=N\ev{\mu}/V\)より
+分極は\(P=N\ev{\mu}/V=\varepsilon_0\xi E\)より電気感受率は
 \begin{equation}
-	P(\omega) = \frac{\abs{\mu_{eg}}^2N}{\hbar V}
-	\frac{2\omega_0}{\omega_0^2-\omega^2 + \gamma^2 -2i\gamma}E(\omega)
+	\xi(\omega) = \frac{\abs{\mu_{eg}}^2N}{\varepsilon_0\hbar V}\frac{1}{\omega_0-\omega -i\gamma}
 \end{equation}
-となる。これは適切に計算すると\(\abs{\mu_{eg}}^2/\hbar\)という量子論的な部分を
-古典的な量に直すことができる。
-そして\(\gamma \ll 1\) であることが多いので分母の\(\gamma^2\)は無視すると思うことが多い。
-このようにして古典論のローレンツモデルと一致する。
+となる。
 
-% またこの式から\(\abs{\mu_{eg}}^2/\hbar\)を消して古典的な量にする。
-% Heisenberg 方程式より
-% \begin{align}
-% 	\dv{\hat{\vb*{\mu}}}{t} &= \frac{1}{i\hbar}\qty[\hat{\vb*{\mu}},\hat{H}]\\
-% 	% -e\dv{\hat{\vb*{r}}}{t}
-% 	&= \frac{-e}{2im\hbar}\qty[\hat{\vb*{x}},\hat{\vb*{p}}^2]\\
-% 	% \dv{\hat{\vb*{r}}}{t}
-% 	&= \frac{-e}{m}\hat{\vb*{p}}
-% \end{align}
+\subsection{光学的 Bloch 方程式の導出}
+飽和状態のようなときには
+密度行列の対角成分の時間発展を考える。
+von Neumann 方程式を考える。
+励起状態から基底状態に落ちる緩和を表す項として\(\Gamma\rho_{gg}\)を入れると
+\begin{align}
+	\pdv{\rho_{ee}}{t} &= -\Gamma\rho_{ee}+\frac{1}{i\hbar} \qty(H_{ee}\rho_{ee} + H_{eg}\rho_{ge}
+	- \rho_{ee}H_{ee} - \rho_{eg}H_{ge})\\
+	\pdv{\rho_{gg}}{t} &= \quad\Gamma\rho_{ee}+\frac{1}{i\hbar} \qty(H_{ge}\rho_{eg} + H_{gg}\rho_{gg}
+	- \rho_{ge}H_{eg} - \rho_{gg}H_{gg})\\
+\end{align}
+となる。この右辺に(\ref{eq:E_fourier})式や(\ref{eq:rho_fourier})式等を入れて回転波近似を入れながら
+整理していくと
+\begin{align}
+	\pdv{\rho_{ee}}{t} &= -\Gamma\rho_{ee} -\frac{i}{\hbar}
+	\bigl\{-\mu_{eg}E(\omega)\rho_{ge}^{(-\omega)}
+	+\mu_{ge}E(-\omega)\rho_{eg}^{(\omega)} \bigr\}\\
+	\pdv{\rho_{gg}}{t} &= \quad\Gamma\rho_{ee} -\frac{i}{\hbar}
+	\bigl\{-\mu_{ge}E(-\omega)\rho_{eg}^{(\omega)}
+	+\mu_{eg}E(\omega)\rho_{ge}^{(-\omega)} \bigr\}
+\end{align}
+これら2式の差を取ると
+\begin{equation}
+	\pdv{t}(\rho_{ee}-\rho_{gg}) = - 2\Gamma\rho_{ee}
+	- \frac{2i}{\hbar}\Bigl\{\mu_{ge}E(-\omega)\rho_{eg}^{(\omega)}
+	-\mu_{eg}E(\omega)\rho_{ge}^{(-\omega)} \Bigr\}
+\end{equation}
+という時間発展の式が得られる。
+% TODO 熱平衡状態についての記述
 
-\subsection{光 Bloch 方程式の導出}
+密度行列をSU(2)の直交基底
+\((\hat{I},\,\hat{\sigma}_x.\,\hat{\sigma}_y,\,\hat{\sigma}_z)\)で展開することを考える。
+密度行列の成分は回転座標系の下で
+\begin{equation}
+	\hat{\rho} =
+	\begin{pmatrix}
+		\rho_{ee} & \rho_{eg}^{(\omega)}\\
+		\rho_{ge}^{(-\omega)} & \rho_{gg}
+	\end{pmatrix}
+\end{equation}
+と書ける。Hilbert-Schmidt 内積をとると
+\begin{align}
+	w &=\frac{1}{2} \tr [\hat{\rho}\hat{I}]
+	= \frac{1}{2}\qty(\rho_{ee}+\rho_{gg}) = \frac{1}{2}\\
+	x &=\frac{1}{2} \tr [\hat{\rho}\hat{\sigma}_x]
+	= \frac{1}{2}\qty(\rho_{eg}^{(\omega)}+\rho_{ge}^{(-\omega)})\\
+	y &=\frac{1}{2} \tr [\hat{\rho}\hat{\sigma}_y]
+	= \frac{i}{2}\qty(\rho_{eg}^{(\omega)}-\rho_{ge}^{(-\omega)})\\
+	z &=\frac{1}{2} \tr [\hat{\rho}\hat{\sigma}_z]
+	= \frac{1}{2}\qty(\rho_{ee}-\rho_{gg}).
+\end{align}
+これを用いると
+\begin{equation}
+	\hat{\rho} = \frac{1}{2}\hat{I}+x\hat{\sigma}+y\hat{\sigma}_y+z\hat{\sigma}_z
+\end{equation}
+と書ける。この\(\vb*{R} := (x,\,y,\,z)\)というベクトルは大きさが 1 になっていて、
+半径 1 の球面上の点を指す。このベクトルを Bloch ベクトル、その球を Bloch 球と呼ぶ。
+% また、Bloch ベクトルの成分はスピン演算子の期待値になっているのがわかる。
+% これはつまり磁気モーメントを古典的な矢印と見なしてもよいことがわかる。
+実数となるように電場の位相をずらしてやると
+\begin{equation}
+	\mu E := \mu_{eg}E(\omega) = \mu_{ge}E(-\omega)
+\end{equation}
+というようにすることができる。
+\(\vb*{R} = (x,\,y,\,z)\)の時間発展方程式は今までの結果を用いると
+\begin{equation}
+	\dv{t}
+	\begin{pmatrix}
+		x\\ y\\ z
+	\end{pmatrix}
+	=
+	\begin{pmatrix}
+		-\gamma & -(\omega-\omega_0) & 0\\
+		\omega -\omega_0 & -\gamma & -2\mu E/\hbar\\
+		0 & 2\mu E/\hbar & -\Gamma
+	\end{pmatrix}
+	\begin{pmatrix}
+		x\\ y\\ z
+	\end{pmatrix}
+\end{equation}
+と書ける。
+これを緩和のある Bloch 方程式という。
+\(\omega-\omega_0\)という成分は
+回転する座標系における見かけの電場電場として取り込まれる。
+その見かけの電場\({\vb*{\tilde{E}}}\)は
+\begin{equation}
+	\vb*{\tilde{E}} := \qty(2E,\,0,\,\frac{\hbar(\omega-\omega_0)}{\mu})
+\end{equation}
+となる。
+緩和の項\(\Gamma,\,\gamma\)を 0 すると
+BLoch 方程式は
+\begin{equation}
+	\dv{\vb*{R}}{t} = \frac{\mu}{\hbar}\vb*{\tilde{E}}\times\vb*{R}
+\end{equation}
+というように書ける。
+これは NMR の系を古典電磁気学や半古典論に分析すると得られる式
+\begin{equation}
+	\dv{\vb*{M}}{t} = \gamma_g \vb*{\tilde{H}} \times \vb*{M}
+\end{equation}
+と同じものになっている。
 
-\subsection{光の量子化}
+\subsection{Bloch ベクトルの古典電磁気学的な描像}
 
-\subsection{Fermi の黄金律}
+% \subsection{光の量子化}
 
-\subsection{自然放出}
+% \subsection{Fermi の黄金律}
+
+% \subsection{自然放出}
 
 \end{document}
