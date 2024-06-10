@@ -163,7 +163,7 @@ H-NMR におけるスピンの量子力学的状態は Bloch ベクトル\(M = (
 また\(\gamma\)は横緩和、\(\Gamma\) は縦緩和という量で
 前者はスピンの向きが弾性散乱により乱されるデコヒーレンスの速さを表す量で、
 後者は非弾性散乱により、励起した準位の持つエネルギーが熱になってを失っていく速さをを表している。
-Bloch ベクトルは古典的な描像としてスピンの持つ磁気モーメントの向く方向とみなすこともできるのでこれらを二つの描像を使っていく。
+Bloch ベクトルは古典的な描像としてスピンの持つ磁気モーメントの向く方向とみなすこともできるのでこれら2つの描像を使っていく。
 
 \begin{figure}[htb]
 	\centering
@@ -218,7 +218,8 @@ Bloch ベクトルは古典的な描像としてスピンの持つ磁気モー�
 	% https://qiita.com/ThomsonKernel/items/1b105370fb5ce94b2cd3
 \end{figure}
 
-まず緩和のないときを考える。すると Bloch 方程式は振動数\(\omega_0\)で回転する系における見かけの磁場
+まず緩和のないときを考える。すると Bloch 方程式は振動数\(\omega_0\) %TODO 確認する
+で回転する系における見かけの磁場
 \begin{equation}
 	\gamma_p \vb*{\tilde{H}} = \qty(2\gamma H,\,0,\,\omega-\omega_0)
 \end{equation}
@@ -279,7 +280,14 @@ Bloch ベクトルは古典的な描像としてスピンの持つ磁気モー�
 
 今回の実験では\(\pi/2\)パルスを入れた状態の緩和を見ていくことになる。
 
+\subsection{緩和の測定}
+測定パルスが何回転させるパルスなのかわからないよ～
+
+\subsection{ホモダイン検出・ロックイン検出}
+
 \section{実験}
+
+
 
 \section{結果}
 
@@ -287,12 +295,15 @@ Bloch ベクトルは古典的な描像としてスピンの持つ磁気モー�
 \subsection{状態の緩和}
 緩和を考えない Bloch 方程式では一度共鳴磁場を入れてそれを切るとスピンの \(z\) 成分は保存されるのであったが、
 実際にはスピンの外部の系との相互作用により熱平衡状態へ緩和していくことが予想される。
-実際緩和のある Bloch 方程式を解くと、始状態\(\vb*{M}=\qty(x_0,\,y_0,\,z_0)\), 熱平衡状態を\((0,\,0,\,1)\)
+実際緩和のある Bloch 方程式を解くと、始状態\(\vb*{M}=\qty(x_0,\,y_0,\,z_0)\), 熱平衡状態を\((0,\,0,\,z_{\infty})\)
 として
-\begin{align}
-	x(t) + iy(t) &= (x_0 + iy_0) e^{i(\omega-\omega_0)t}e^{-\gamma t}\\
-	1 - z(t) &= (1- z_0) e^{-\Gamma t}
-\end{align}
+\begin{equation}
+	\left\{\quad
+	\begin{aligned}
+		x(t) + iy(t) &= (x_0 + iy_0) e^{i(\omega-\omega_0)t}e^{-\gamma t}\\
+		z(t) &= z_0 e^{-\Gamma t} + z_{\infty}(1-e^{-\Gamma t})
+	\end{aligned}\right. \label{eq:relaxed_Bloch_sol}
+\end{equation}
 が得られる。
 これより縦緩和 \(\Gamma\) と横緩和 \(\gamma\) の意味が分かりやすくなる。
 
@@ -300,7 +311,7 @@ Bloch ベクトルは古典的な描像としてスピンの持つ磁気モー�
 \(z=1\) というのはつまり系が基底準位にあるということなので、
 縦緩和は振動外場によって原子核が得たエネルギーが失われていってこれ以上落ち込むことのできない
 基底準位になる過程を表す。
-この緩和の要因としては原子核の周りにある電子のスピンによる磁性等がある。
+この緩和の要因としては原子核の周りにある電子のスピンによる磁性等がある。% TODO 確認する
 
 横緩和については少しわかりくい。
 系の持つエネルギーは \(z\) 成分で表されるため、これは系のエネルギーの変化による緩和ではない。
@@ -327,6 +338,7 @@ Bloch ベクトルは古典的な描像としてスピンの持つ磁気モー�
  \(\gamma_{\text{pure}} = 1\) のときは純粋状態、そうでないときは混合状態である(証明略)。
 
 この系における Purity の時間発展を求める。
+Purity は Bloch ベクトルので表すと
 \begin{align}
 	\gamma_{\text{pure}}(t) &= \tr[\hat{\rho}^2] \notag\\
 	&=\frac{1}{4}\tr[
@@ -334,11 +346,21 @@ Bloch ベクトルは古典的な描像としてスピンの持つ磁気モー�
 			1 + z(t) & x(t)- iy(t)\\
 			x(t) + iy(t) & 1 - z(t)
 		\end{pmatrix}^2]\notag\\
-	&=\frac{(1+z(t))^2+2x^2(t)+2y^2(t) + (1-z(t))^2}{4} \notag\\
-	&=1 + \frac{x_0^2+y_0^2}{2}e^{-2\gamma t} +\frac{(1-z_0)^2}{2}e^{-2\Gamma t} - (1-z_0)e^{-\Gamma t}
+	&=\frac{1}{2}\qty(1+x^2(t)+y^2(t)+z^2(t)) \notag\\
 \end{align}
-となる。\footnote{\url{https://www.desmos.com/calculator/xp2zwzkpzr}で実際に Purity の振る舞いをパラメータを変化させながら見ることができる。}
-このパラメーターの振る舞いを見ると Purity の値の範囲より\(\Gamma < \gamma\) であることがわかる。
+とである。
+これに緩和のある Bloch 方程式の解である(\ref{eq:relaxed_Bloch_sol})式を入れると、
+\begin{equation}
+	\gamma_{\text{pure}} = \frac{1}{2}\Bigl\{1+(x_0^2+y_0^2)e^{-2\gamma t}+(z_0 e^{-\Gamma t} + z_{\infty}(1-e^{-\Gamma t}))^2\Bigr\}
+\end{equation}
+となる。
+このパラメーターの振る舞いを見ると Purity の取るべき値の範囲より\(\Gamma < 2\gamma\) であることがわかる。
+\footnote{\url{https://www.desmos.com/calculator/xp2zwzkpzr}で実際に Purity の振る舞いをパラメータを変化させながら見ることができる。}
+これは緩和時間\(T_1 := 1/\Gamma,\,T_2 := 1/\gamma\)で表すと、
+\begin{equation}
+	T_2 \le 2T_1
+\end{equation}
+という関係が示せる。
 そして横緩和の影響は縦緩和があるときにはあまり見えず、
 縦緩和がまったくないときには失われた情報は戻ってこず Purity は 1 に戻らないことがわかる。
 
@@ -353,9 +375,9 @@ Bloch ベクトルは古典的な描像としてスピンの持つ磁気モー�
 \bibliographystyle{junsrt}
 \bibliography{reference}
 \section*{付録}
-\section{摂動論}% もしかしたらまとめるかも
+% \section{摂動論}% もしかしたらまとめるかも
 
-\section{電子の g 因子の導出}
+% \section{電子の g 因子の導出}
 
 \section{量子光学}
 この実験で扱った NMR の系は磁気双極子が外場である磁場の応答を見るという系になっている。
@@ -695,7 +717,7 @@ BLoch 方程式は
 \end{equation}
 と同じものになっている。
 
-\subsection{Bloch ベクトルの古典電磁気学的な描像}
+% \subsection{Bloch ベクトルの古典電磁気学的な描像}
 
 % \subsection{光の量子化}
 
