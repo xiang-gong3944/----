@@ -16,7 +16,7 @@
 % \usepackage{hyperref}  \usepackage{pxjahyper} %ハイパーリンクをつかう
 % \usepackage{tablefootnote} %表中に注釈をいれる
 % \usepackage[thicklines]{cancel} %数式中の取り消し線
-% \usepackage[version=4]{mhchem} %化学式の入力
+\usepackage[version=4]{mhchem} %化学式の入力
 \usepackage{pdfpages}
 % \usepackage{wrapfig} %文章の回り込み
 \usepackage[subrefformat=parens]{subcaption} %(a)図のようにすることができるやつ
@@ -391,14 +391,13 @@ Bloch ベクトルは古典的な描像としてスピンの持つ磁気モー�
 \(5\times 10^{-3}\) mol/L の硫酸銅(II)水溶液に
 塩化ナトリウム、硫酸亜鉛、硫酸鉄(II)
 をそれぞれ加え、これら試料を入れなかったときの緩和時間と比較した。
-磁性が何もないと予想される純水の核磁気共鳴の緩和の出力信号を記録し、
-それをフーリエ変換したスペクトル分布を測定した。
+磁性が何もないと予想される純水の核磁気共鳴の緩和の出力信号を記録し縦緩和と横緩和について調べた。
 
 \subsection{装置の概要}
 実際の測定装置は図\ref{pic:machine}のである。
 試料は溶液であるため試験管に入れて、
 装置に取り付けたソレノイドコイルにセットしておく。
-\begin{figure}
+\begin{figure}[H]
 	\centering
 	\includegraphics[width=0.5\columnwidth]{/pic/01.JPG}
 	\caption{実際の使用した装置。
@@ -426,6 +425,80 @@ NMR の縦緩和を調べるのが目的であるため、
 縦軸が磁気モーメントの大きさを表し、磁気モーメントの振幅の大きさとして縦緩和が見ることができる。
 
 \section{結果}
+測定した試料の縦緩和の緩和時間は表\ref{table:relax}のようになった。
+
+\begin{table}[H]
+	\centering
+	\caption{table}
+	\label{table:relax}
+	\begin{tabular}{cccc}
+		\hline\hline
+		緩和時間 & \ce{CuSO4} (\(20\times 10^{-3}\) mol/L) & \ce{CuSO4} (\(10\times 10^{-3}\) mol/L) & \ce{CuSO4} (\(5\times 10^{-3}\) mol/L) \\
+		\hline
+		T1 (ms) & 49.4 & 87.5 &  174.2\\
+		T2 (\si{\micro s})& - & - & -\\
+		\hline \hline
+		 & & & \\
+		\hline \hline
+		\ce{NaCl} & \ce{ZnSO4} & \ce{FeSO4} & 純水\\
+		\hline
+		202.8 & 174.7 & 31.4 & 2706.8\\
+		- & - & - & 834.9\\
+		\hline \hline
+	\end{tabular}
+\end{table}
+
+硫酸銅(II)水溶液の濃度を変えた時の縦緩和の様子は図\ref{graph:T1_con}のようになった。
+濃度が上がれば上がるほど緩和が速くなっているのがわかる。
+硫酸銅(II)水溶液に塩化ナトリウム、硫酸亜鉛、硫酸鉄(II) を入れたときの縦緩和の様子は図\ref{graph:T1_var}のようになった。
+塩化ナトリウムを加えたものは緩和が少し遅くなり、硫酸鉄(II) を加えたものは緩和がとても速くなったのがわかる。
+\begin{figure}[H]
+	\centering
+	\begin{minipage}[t]{0.48\columnwidth}
+		\centering
+		\includegraphics[width=\columnwidth]{graph/T1_con.png}
+		\caption{a}
+		\label{graph:T1_con}
+	\end{minipage}
+	\hfill
+	\begin{minipage}[t]{0.48\columnwidth}
+		\centering
+		\includegraphics[width=\columnwidth]{graph/T1_var.png}
+		\caption{a}
+		\label{graph:T1_var}
+	\end{minipage}
+\end{figure}
+
+純水の横緩和の様子は図\ref{graph:water_ex}のようになった。
+この測定データにはノイズが多いため、
+減衰振動となっている部分のデータを用いてフィッティングを行ったのが図\ref{graph:water_fit}である。
+またこのフィッティングにより減衰振動の振幅として現れる縦緩和をプロットしたのが図\ref{graph:T1_water}である。
+縦緩和の時間スケールが硫酸銅水溶液を用いた時に比べ桁違いに遅いことがわかる。
+その他このデータ振舞いは考察にて触れる。
+\begin{figure}[H]
+	\centering
+	\begin{minipage}[t]{0.48\columnwidth}
+		\centering
+		\includegraphics[width=\columnwidth]{graph/relaxation_water_ex.png}
+		\subcaption{横緩和の測定結果}
+		\label{graph:water_ex}
+	\end{minipage}
+	\hfill
+	\begin{minipage}[t]{0.48\columnwidth}
+		\centering
+		\includegraphics[width=\columnwidth]{graph/relaxation_water_fit.png}
+		\subcaption{横緩和の測定をフィッティングしたもの}
+		\label{graph:water_fit}
+	\end{minipage}\\
+	\begin{minipage}[t]{0.48\columnwidth}
+		\centering
+		\includegraphics[width=\columnwidth]{graph/T1_water.png}
+		\subcaption{横緩和の測定結果}
+		\label{graph:T1_water}
+	\end{minipage}
+	\caption{水の横緩和の様子。}
+	\label{graph:water}
+\end{figure}
 
 \section{考察}
 \subsection{状態の緩和と情報}
@@ -510,7 +583,14 @@ Purity は増加していく。
 高温極限では外部磁場はないのと同じであるため、
 スピンは完全に乱雑な方向を向き系についての情報を何も持たない\(\gamma_{\text{pure}}=1/2\)の完全混合状態となる。
 
+\section{課題}
+\subsection{水素原子核の磁気モーメントの大きさ}
 
+\subsection{イオンの磁性}
+
+\subsection{硫酸銅(II)水溶液の濃度と緩和時間}
+
+\subsection{純水の緩和}
 
 \section{結論}
 
