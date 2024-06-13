@@ -103,21 +103,44 @@
 また緩和のある Bloch 方程式の解の振る舞いを量子情報の観点から分析をした。
 
 \section{原理}
+\subsection{\(g\) 因子}
+古典電磁気学によると質量\(m\)で角運動量\(\vb*{J}\)を持ち電荷\(q\)を持つ粒子は磁気モーメント\(\vb*{\mu}\)を持ち、
+\begin{equation}
+	\vb*{\mu} = \frac{q}{2m} \vb*{J}
+\end{equation}
+となる。
+
+量子が持つ内部自由度にはスピンというものがありこれは角運動量を持つため、
+スピンは磁気モーメントとなる。
+しかしスピンの持つ磁気モーメントは古典電磁気学の結果とは違う。
+角運動量を\(\hbar\vb*{S}\)とすると比例定数\(g\)を用いて
+\begin{equation}
+	\vb*{\mu}_z = g\frac{q\hbar}{2m} \vb*{S}_z
+\end{equation}
+となる。この比例定数を\(g\)因子という。
+電子の\(g\)因子は\(g \simeq -2.0\)で、電子は電荷\(-e\), スピン角運動量は\(\hbar/2\)であるので磁気モーメントは
+\begin{equation}
+	\mu_B = \frac{e\hbar}{2m_e}
+\end{equation}
+となる。これをボーア磁子という。
+今回の実験では水素原子核、つまり陽子の磁気モーメントを調べる。
+原子核スピンの\(g\)因子は同様に
+\begin{equation}
+	\mu = g \frac{q}{2m} S
+\end{equation}
+で定義される。
+
 \subsection{Zeeman 分裂}
 量子系を半古典論で扱う時、外部磁場は摂動として
 \begin{equation}
 	\hat{\mathcal{H}}_1 = -\hat{\vb*{\mu}}\cdot \vb*{H}
 \end{equation}
 というように表わされる。
-磁気モーメント演算子は角運動量を用いて
+磁気モーメント演算子は磁気回転比\(\gamma = gq/2m\)を用いると、
 \begin{equation}
 	\hat{\vb*{\mu}} = \frac{ge}{2m}\hat{\vb*{J}} = \gamma\frac{\hat{\vb*{J}}}{\hbar}
 \end{equation}
-というように表わされる。ここで\(g\)は g 因子と呼ばれる量で、
-古典的な角運動量による磁気モーメントとのずれを調整する量になっている。
-電子の場合、Dirac 方程式からほぼ正確な値が導かれ\(g_e = - 2\)である。
-% (付録 : 電子の g 因子) % TODO 電子の g 因子の導出
-また、\(\gamma = gq/2m\)は磁気回転比というものになっている。
+というように表わされる。
 今回行う H-NMR の系では水素原子核である陽子のスピンの状態を扱う。
 陽子の角運動量は\(J=\pm\hbar/2\)である。
 磁場は\(z\)成分しかないものと考えてやると、
@@ -394,7 +417,7 @@ Bloch ベクトルは古典的な描像としてスピンの持つ磁気モー�
 磁性が何もないと予想される純水の核磁気共鳴の緩和の出力信号を記録し縦緩和と横緩和について調べた。
 
 \subsection{装置の概要}
-実際の測定装置は図\ref{pic:machine}のである。
+実際の測定装置は図\ref{pic:machine}である。
 試料は溶液であるため試験管に入れて、
 装置に取り付けたソレノイドコイルにセットしておく。
 \begin{figure}[H]
@@ -425,49 +448,11 @@ NMR の縦緩和を調べるのが目的であるため、
 縦軸が磁気モーメントの大きさを表し、磁気モーメントの振幅の大きさとして縦緩和が見ることができる。
 
 \section{結果}
-測定した試料の縦緩和の緩和時間は表\ref{table:relax}のようになった。
-
-\begin{table}[H]
-	\centering
-	\caption{table}
-	\label{table:relax}
-	\begin{tabular}{cccc}
-		\hline\hline
-		緩和時間 & \ce{CuSO4} (\(20\times 10^{-3}\) mol/L) & \ce{CuSO4} (\(10\times 10^{-3}\) mol/L) & \ce{CuSO4} (\(5\times 10^{-3}\) mol/L) \\
-		\hline
-		T1 (ms) & 49.4 & 87.5 &  174.2\\
-		T2 (\si{\micro s})& - & - & -\\
-		\hline \hline
-		 & & & \\
-		\hline \hline
-		\ce{NaCl} & \ce{ZnSO4} & \ce{FeSO4} & 純水\\
-		\hline
-		202.8 & 174.7 & 31.4 & 2706.8\\
-		- & - & - & 834.9\\
-		\hline \hline
-	\end{tabular}
-\end{table}
 
 硫酸銅(II)水溶液の濃度を変えた時の縦緩和の様子は図\ref{graph:T1_con}のようになった。
 濃度が上がれば上がるほど緩和が速くなっているのがわかる。
 硫酸銅(II)水溶液に塩化ナトリウム、硫酸亜鉛、硫酸鉄(II) を入れたときの縦緩和の様子は図\ref{graph:T1_var}のようになった。
 塩化ナトリウムを加えたものは緩和が少し遅くなり、硫酸鉄(II) を加えたものは緩和がとても速くなったのがわかる。
-\begin{figure}[H]
-	\centering
-	\begin{minipage}[t]{0.48\columnwidth}
-		\centering
-		\includegraphics[width=\columnwidth]{graph/T1_con.png}
-		\caption{a}
-		\label{graph:T1_con}
-	\end{minipage}
-	\hfill
-	\begin{minipage}[t]{0.48\columnwidth}
-		\centering
-		\includegraphics[width=\columnwidth]{graph/T1_var.png}
-		\caption{a}
-		\label{graph:T1_var}
-	\end{minipage}
-\end{figure}
 
 純水の横緩和の様子は図\ref{graph:water_ex}のようになった。
 この測定データにはノイズが多いため、
@@ -475,7 +460,27 @@ NMR の縦緩和を調べるのが目的であるため、
 またこのフィッティングにより減衰振動の振幅として現れる縦緩和をプロットしたのが図\ref{graph:T1_water}である。
 縦緩和の時間スケールが硫酸銅水溶液を用いた時に比べ桁違いに遅いことがわかる。
 その他このデータ振舞いは考察にて触れる。
-\begin{figure}[H]
+こうして得られたデータを解析して得られた試料の縦緩和の緩和時間は表\ref{table:relax}のようになった。
+\begin{figure}[h]
+	\centering
+	\begin{minipage}[t]{0.48\columnwidth}
+		\centering
+		\includegraphics[width=\columnwidth]{graph/T1_con.png}
+		\caption{\ce{CuSO4}水溶液の濃度を変えたときの縦緩和の様子。
+		縦軸が状態\(\vb*{M}\)の\(z\)成分を表し、横軸が縦緩和の時間を表している。}
+		\label{graph:T1_con}
+	\end{minipage}
+	\hfill
+	\begin{minipage}[t]{0.48\columnwidth}
+		\centering
+		\includegraphics[width=\columnwidth]{graph/T1_var.png}
+		\caption{\(5\times 10^{-3}\) mol/L \ce{CuSO4} 水溶液に各試料を入れたときの緩和の時間。
+		control は何も入れていないときの緩和時間の変化を表していて、\ce{ZnSO4}のデータの重なっている。
+		縦軸が状態\(\vb*{M}\)の\(z\)成分を表し、横軸が縦緩和の時間を表している。}
+		\label{graph:T1_var}
+	\end{minipage}
+\end{figure}
+\begin{figure}[h]
 	\centering
 	\begin{minipage}[t]{0.48\columnwidth}
 		\centering
@@ -493,14 +498,51 @@ NMR の縦緩和を調べるのが目的であるため、
 	\begin{minipage}[t]{0.48\columnwidth}
 		\centering
 		\includegraphics[width=\columnwidth]{graph/T1_water.png}
-		\subcaption{横緩和の測定結果}
+		\subcaption{横緩和の測定結果。縦緩和しきったか不明であるため、縦軸は装置の出力電圧にしてある。
+		またフィッティング曲線は原点からの指数緩和ではなく、初期時刻からの指数緩和とした(考察)。}
 		\label{graph:T1_water}
 	\end{minipage}
-	\caption{水の横緩和の様子。}
+	\caption{純水の緩和の様子。図\ref{graph:water_ex} は横緩和実験結果であり、
+	二つの\(\pi/2\)パルスの間隔\(t_j\)を変えたときの出力波形をまとめてプロットしたものである。
+	\(t_j\)が小さいときほど振幅(縦緩和の量)が小さいことがわかる。
+	図\ref{graph:water_fit}は図\ref{graph:water_ex}のうち、
+	点線で囲った領域を減衰振動としてフィッティングして得られた波形である。
+	横緩和時間\(T_2\)や周期は同じものとして、
+	\(T_2\), 周期、振幅、初期位相をフィッティングパラメータとした。
+	そうして得られた振幅をプロットしたしたのが図\ref{graph:T1_water}である。}
 	\label{graph:water}
 \end{figure}
+\begin{table}[h]
+	\centering
+	\caption{各試料中における水素原子核磁気共鳴の縦緩和\(T_1\)と横緩和時間\(T_2\).
+	\ce{NaCl}, \ce{ZnSO4, \ce{FeSO4}} は \(5\times 10^{-3}\) mol/L \ce{CuSO4} 水溶液に入れたときのものである。
+	- はデータがなく未測定。}
+	\label{table:relax}
+	\begin{tabular}{cccc}
+		\hline\hline
+		緩和時間 & \ce{CuSO4} (\(20\times 10^{-3}\) mol/L) & \ce{CuSO4} (\(10\times 10^{-3}\) mol/L) & \ce{CuSO4} (\(5\times 10^{-3}\) mol/L) \\
+		\hline
+		\(T_1\) (ms) & 49.4 & 87.5 &  174.2\\
+		\(T_2\) (\si{\micro s})& - & - & -\\
+		\hline \hline
+		 & & & \\
+		\hline \hline
+		\ce{NaCl} & \ce{ZnSO4} & \ce{FeSO4} & 純水\\
+		\hline
+		202.8 & 174.7 & 31.4 & 2706.8\\
+		- & - & - & 834.9\\
+		\hline \hline
+	\end{tabular}
+\end{table}
+
+% \newpage
+\clearpage
 
 \section{考察}
+\subsection{純水の緩和}
+\subsubsection*{2種類の縦緩和}
+\subsubsection*{横緩和の原因}
+
 \subsection{状態の緩和と情報}
 
 量子情報の観点からスピンの状態の緩和を調べる。
@@ -585,8 +627,56 @@ Purity は増加していく。
 
 \section{課題}
 \subsection{水素原子核の磁気モーメントの大きさ}
+\(I = 28.2\) A の電流を電磁石に流し \(0.298\) T の静磁場を
+\(20\times 10^{-3}\) mol/L の硫酸銅(II)水溶液に加えた。
+これによるエネルギー準位の Zeeman 分裂幅に対応する共鳴周波数は
+\begin{equation}
+	\omega_0 = 12.7  \text{Hz}
+\end{equation}
+であった。これにより陽子の磁気回転比\(\gamma_p\)は
+\begin{equation}
+	\gamma_p = 2.67 \times 10^8 \text{rad/T・s}
+\end{equation}
+とわかった。
+これにより、陽子の磁気モーメントは
+\begin{equation}
+	\mu_p = 1.41 \times 10^{-26} \text{J/T}
+\end{equation}
+とわかった。
+ボーア磁子は\(\mu_B = 9.27 \times 10^{-24} \text{J/T}\)であり、
+で電子と陽子の質量比は 1840 程度であるため、陽子の\(g\)因子は
+\begin{equation}
+	g_p = \frac{m_p\mu_p}{m_e\mu_b}|g_e| =5.582
+\end{equation}
+と測定された。
+CODATA の陽子の\(g\)因子の推奨値は
+\begin{equation}
+	g_p = 5.5856946893 \pm 0.0000000016
+\end{equation}
+である。
+比較すると、今回の実験で得られた陽子の磁気モーメントの大きさはよいものだったとわかる。
 
 \subsection{イオンの磁性}
+イオンに磁性があるのは原子核の周りの電子に不対スピンがあるときである。
+そうしたとき、スピンによる内部磁場により原子核の感じる磁場は強くなり、緩和時間は短くなる。
+今回測定した試料中に含まれる原子の電子構造は表\ref{table:atom_structure}の通りである。
+\begin{table}
+	\centering
+	\caption{測定した試料に含まれる原子とその電子構造。
+	水素と酸素と硫黄は共有結合しているため不対電子がないとみなし省く。}
+	\label{table:atom_structure}
+	\begin{tabular}[t]{cl}
+		\hline
+		原子 & 電子構造 \\
+		\hline \hline
+		\ce{Na+} & \([1s^2][2s^2][2p^6]\)\\
+		\ce{Cl-} & \([1s^2][2s^2][2p^6][3s^2][3p^6]\)\\
+		\ce{Fe^2+} & \([1s^2][2s^2][2p^6][3s^2][3p^6][3d^6]\) \\
+		\ce{Cu^2+} & \([1s^2][2s^2][2p^6][3s^2][3p^6][3d^6][3d^9]\) \\
+		\ce{Zn^2+}& \([1s^2][2s^2][2p^6][3s^2][3p^6][3d^6][3d^9]\)\\
+		\hline
+	\end{tabular}
+\end{table}
 
 \subsection{硫酸銅(II)水溶液の濃度と緩和時間}
 
@@ -603,7 +693,7 @@ Purity は増加していく。
 \section*{付録}
 % \section{摂動論}% もしかしたらまとめるかも
 
-% \section{電子の g 因子の導出}
+% \section{電子の \(g\) 因子の導出}
 
 \section{量子光学}
 この実験で扱った NMR の系は磁気双極子が外場である磁場の応答を見るという系になっている。
