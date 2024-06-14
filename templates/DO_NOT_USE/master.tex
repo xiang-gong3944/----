@@ -1,4 +1,8 @@
-\documentclass[11pt,dvipdfmx,a4paper]{jsarticle}
+\documentclass[11pt,dvipdfmx,a4paper]{jsreport}
+
+\usepackage[margin=15mm]{geometry} %余白の削除
+
+\newcommand{\ifdraft}{false}
 
 \usepackage{amsmath,amssymb}
 \usepackage{bm}
@@ -6,6 +10,11 @@
 \usepackage{physics} % http://mirrors.ibiblio.org/CTAN/macros/latex/contrib/physics/physics.pdf
 \usepackage{siunitx} %SI単位を楽に出力
 \usepackage{mathtools} %環境の追加
+\usepackage{pdfpages}
+\usepackage[subrefformat=parens]{subcaption} %(a)図のようにすることができるやつ
+\usepackage{here}
+\usepackage{mathrsfs}
+\usepackage{url}
 % \usepackage{circuitikz} %電気回路をtex中で書く
 % \usepackage{caption} %番号なしキャプションを書く
 % \usepackage{cancel} %式中に斜線を入れる
@@ -17,10 +26,7 @@
 % \usepackage{tablefootnote} %表中に注釈をいれる
 % \usepackage[thicklines]{cancel} %数式中の取り消し線
 % \usepackage[version=4]{mhchem} %化学式の入力
-\usepackage{pdfpages}
 % \usepackage{wrapfig} %文章の回り込み
-\usepackage[subrefformat=parens]{subcaption} %(a)図のようにすることができるやつ
-\usepackage{here}
 
 % \graphicspath{{./image/}}
 
@@ -28,7 +34,7 @@
 
 \title{...}
 % \author{しゃんごん (@CEY3944)}
-% \author{1522068 西原翔}
+\author{1522068 西原翔}
 % \author{1522068 Sho Nishihara}
 \date{\today}
 
@@ -37,9 +43,13 @@
 % \twocolumn
 
 \maketitle
+\tableofcontents
 
+前書き
 
-さらなる検討の例\cite{huga}も存在するが、この説明では不十分とする場合もある\cite{hoge}。
+% コメントアウトにより master に入れるか入れないかを決める。
+% \include{./content/01/01.tex}
+
 
 \bibliographystyle{junsrt}
 \bibliography{reference}
