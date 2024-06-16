@@ -1,0 +1,60 @@
+\documentclass[11pt,dvipdfmx,a4paper]{jsreport}
+
+\usepackage[margin=15mm]{geometry} %余白の削除
+
+\usepackage{subfiles}
+
+\usepackage{amsmath,amssymb}
+\usepackage{bm}
+\usepackage[dvipdfmx]{graphicx}
+\usepackage{physics} % http://mirrors.ibiblio.org/CTAN/macros/latex/contrib/physics/physics.pdf
+\usepackage{siunitx} %SI単位を楽に出力
+\usepackage{mathtools} %環境の追加
+\usepackage{pdfpages}
+\usepackage[subrefformat=parens]{subcaption} %(a)図のようにすることができるやつ
+\usepackage{here}
+\usepackage{mathrsfs}
+\usepackage{url}
+% \usepackage{circuitikz} %電気回路をtex中で書く
+% \usepackage{caption} %番号なしキャプションを書く
+% \usepackage{cancel} %式中に斜線を入れる
+% \usepackage{tensor} %テンソルの添え字を書く
+% \usepackage{tikz} %図を書く
+% \usepackage{ascmac} %四角い枠の中に文章を書く
+% \usepackage{float} %figureで[hbp]オプションを使う
+% \usepackage{hyperref}  \usepackage{pxjahyper} %ハイパーリンクをつかう
+% \usepackage{tablefootnote} %表中に注釈をいれる
+% \usepackage[thicklines]{cancel} %数式中の取り消し線
+% \usepackage[version=4]{mhchem} %化学式の入力
+% \usepackage{wrapfig} %文章の回り込み
+
+% \graphicspath{{./image/}}
+
+% \numberwithin{equation}{section} %式番号を(セクション.式番号)にする
+
+\title{多極子と物性物理}
+\author{東京理科大学理学部第一部応用物理学科 西原翔}
+\date{\today}
+
+\begin{document}
+
+% \twocolumn
+
+\maketitle
+\tableofcontents
+
+2024年度東京理科大学理学部第一部応用物理学科遠山研プレ配属にて、
+雑誌固体物理の多極子の連載を読むゼミを行った。
+その際、関連することや記述の足りない部分をこの文章にまとめることにした。
+
+ゼミにて指導してくだっさった、遠山先生、議論に付き合ってくれた同期の上原君に感謝する。
+
+% コメントアウトにより master に入れるか入れないかを決める。
+\clearpage
+\subfile{./content/01/01.tex}
+
+
+\bibliographystyle{junsrt}
+\bibliography{reference}
+
+\end{document}
