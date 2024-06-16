@@ -1,0 +1,195 @@
+%@QuantumAtsuo
+%2023/12/24
+%ver3.0
+
+%使い方：
+% 	適用したいtexファイルのプリアンブルに
+% 		\usepackage{QuantumAtsuoPack}
+% 	を挿入してください
+% 	https://storytellphys.wordpress.com/tips/latex-style-package/ よりダウンロード
+
+%便利なpackage
+	\usepackage[dvipdfmx]{graphicx} %図の挿入
+	\usepackage{amsmath,amssymb} %数式特殊記号
+	\usepackage{type1cm} %文字サイズ変更
+	%\usepackage{euler} %Eulerフォント
+	\usepackage{mathrsfs} %mathscrスクリプト体
+	\usepackage{comment} %複数行にわたるコメントアウト
+	\usepackage{ascmac} %囲み枠
+	%\usepackage{color} %文字色変更
+	\usepackage{wrapfig} %テキストの回り込み 余白，文字サイズに注意!
+	\usepackage{url} %URLのエスケープ \uql
+	\usepackage{here} %図位置の固定
+	\usepackage{cancel} %数式のキャンセル（文字にスラッシュ）
+	\usepackage {diagbox} %表に斜線を入れる
+
+%便利なコマンドの定義
+	\newcommand{\fracdel}[2]{\frac{\partial #1}{\partial #2}} %偏微分演算子
+	\newcommand{\dfracdel}[2]{\dfrac{\partial #1}{\partial #2}} %偏微分演算子 displaystyle
+	\newcommand{\fracdif}[2]{\frac{\mathrm{d} #1}{\mathrm{d} #2}} %全微分演算子
+	\newcommand{\dfracdif}[2]{\dfrac{\mathrm{d} #1}{\mathrm{d} #2}} %全微分演算子 displaystyle
+	\newcommand{\fracfunc}[2]{\frac{\delta #1}{\delta #2}} %汎函数微分
+	\newcommand{\dfracfunc}[2]{\dfrac{\delta #1}{\delta #2}} %汎函数微分 displaystyle
+	\newcommand{\bs}[1]{\boldsymbol{#1}} %太字
+	\newcommand{\ev}[1]{\langle #1\rangle} %期待値
+	\newcommand{\dev}[1]{\left\langle #1\right\rangle} %期待値 displaystyle
+	\newcommand{\ket}[1]{\left|#1\right\rangle} %ケット
+	\newcommand{\dket}[1]{\left|#1\right\rangle} %ケット displaystyle
+	\newcommand{\bra}[1]{\left\langle#1\right|} %ブラ
+	\newcommand{\dbra}[1]{\left\langle#1\right|} %ブラ displaystyle
+	\newcommand{\grad}{\boldsymbol{\nabla}}%勾配
+	\newcommand{\func}[1]{\mathrm{#1}\,} %特殊な函数
+	\newcommand{\rmd}{\mathrm{d}} %外微分記号
+	\newcommand{\transpose}{\mathsf{T}} %転置行列
+
+%必ずしも便利でないコマンドの定義
+	\newcommand{\intal}{\int^{+\infty}_{-\infty}\rmd} %実数上の積分
+	\newcommand{\poisson}[2]{\left\{ #1,\,#2\right\}_{\mathrm{P}}} %Poisson括弧
+	\newcommand{\lagrange}[2]{\left\{ #1,\,#2\right\}_{\mathrm{L}}} %Lagrange括弧
+	\newcommand{\cpair}[1]{#1,\overline{#1}} %複素座標
+	\newcommand{\norder}[1]{{}:\! #1 \colon} %正規順序積
+
+%見出しのスタイル
+%partの再定義
+	\newcounter{parts}
+	\renewcommand{\theparts}{\Roman{parts}}
+	\setcounter{parts}{0}
+	\renewcommand{\part}[2][]{
+		\refstepcounter{parts}#1 %カウントを1増加，参照用
+		\newpage
+		\vspace*{\stretch{1}}
+		\begin{center}
+			\textrm{\huge PART \theparts}\\\vspace{3mm} {\Huge #2}
+		\end{center}
+		\vspace*{\stretch{1}}
+		\setcounter{nombre}{0}%章番号のリセット
+		%\setcounter{thesection}{0}
+		\thispagestyle{empty}
+		\markboth{PART \theparts　#2}{}%ヘッダのスタイル
+		\addcontentsline{toc}{part}{PART \theparts　#2}%目次へ追加
+		\newpage%中扉のスタイル
+	}
+
+%newchapterの定義
+	\newcounter{nombre}
+	\renewcommand{\thenombre}{\arabic{nombre}}
+	\setcounter{nombre}{0}
+	\newcommand{\newchapter}[2][]{
+		\refstepcounter{nombre}#1 \newpage　\vspace{15mm}
+		\begin{center}
+			{\LARGE 第 \thenombre 章}　{\LARGE #2}
+		\end{center}
+		\vspace{10mm}
+		\markboth{ 第 \thenombre 章  #2}{}%ヘッダのスタイル
+		\addcontentsline{toc}{chapter}{第 \thenombre 章 #2}%目次へ追加
+	}
+
+%sectionの再定義
+	\newcounter{thesection}%カウンタの定義
+	\renewcommand{\thesection}{\arabic{thesection}}%カウンタの表示コマンド
+	\renewcommand{\section}[2][]{
+		\refstepcounter{thesection}#1 %カウントを1増加，参照用
+		\vspace{8mm} \noindent\textbf{$\bs{\S\,\thesection. }$　#2 }
+		\nopagebreak
+		\vspace{2mm}
+		\markright{\hfil\S\,\thesection. #2}{}%ヘッダのスタイル
+		\addcontentsline{toc}{subsection}{\S\thesection　#2}%目次への追加
+		\nopagebreak
+	}
+
+%theequation式番号の変更
+	\makeatletter%定義の中に@があるとき必要な環境
+	\renewcommand{\theequation}{\thesection.\arabic{equation}}
+	\@addtoreset{equation}{thesection}%thesectionが増加したときequationをリセット
+	\makeatother
+
+%subsubsectionの再定義
+	\newcounter{nombresectwo}[section]
+	\renewcommand{\thenombresectwo}{\arabic{nombresectwo}}
+	\renewcommand{\subsubsection}[2][]{
+		\refstepcounter{nombresectwo}#1 \par\vspace{10mm} \textbf{\large $\bs{\S\,\thenombresectwo. }$　#2}
+		\vspace{3mm}
+		\markright{\S\thenombresectwo. #2}%ヘッダのスタイル
+		\addcontentsline{toc}{subsection}{\S\thenombresectwo　#2}
+	}
+
+% microsectionの定義
+	\newcommand{\microsection}[1]{
+		\vskip\baselineskip\noindent
+		\textbf{[#1]}
+	}
+
+%問題の見出し
+	\newcommand{\jproblem}{\vspace{5mm}
+		\begin{center}
+			\textbf{問　　題}
+		\end{center}}
+	\newcommand{\problem}{\vspace{5mm}
+		\begin{center}
+			\textbf{PROBLEM}
+		\end{center}}
+	\newcommand{\problems}{\vspace{5mm}
+		\begin{center}
+			\textbf{PROBLEMS}
+		\end{center}}
+
+%問題文のスタイル
+	\newcounter{prob}%カウンタの定義
+	\newcommand{\probtxt}[1]{
+		\stepcounter{prob}
+		\vspace{2mm} \noindent
+		% \textsc{Problem \theprob.}{\small#1}
+		{\small\textsc{Problem \theprob.}#1}
+	}
+	\newcommand{\jprobtxt}[1]{
+		\stepcounter{prob}
+		\vspace{2mm} \noindent
+		% \textsc{Problem \theprob.}{\small#1}
+		{\small\textbf{問 \theprob.}#1}
+	}
+	\makeatletter%定義の中に@があるとき必要な環境
+	\@addtoreset{prob}{thesection}%thesectionが増加したときtheprobをリセット
+	\makeatother
+
+%解答文のスタイル
+	\newcommand{\soltxt}[1]{
+		\vspace{2mm} \noindent
+		% \textsc{Solution. }{\small#1}
+		{\small\textsc{Solution. }#1}
+	}
+	\newcommand{\jsoltxt}[1]{
+		\vspace{2mm} \noindent
+		% \textsc{Solution. }{\small#1}
+		{\small\textbf{解 }#1}
+	}
+
+%脚注のスタイル
+	\renewcommand{\thefootnote}{\arabic{footnote}}
+	\makeatletter
+		\@addtoreset{footnote}{nombre}
+	\makeatother
+
+%ヘッダのスタイル変更
+	\pagestyle{myheadings}
+	\makeatletter
+	\def\@oddhead{\rightmark\hfil\thepage}
+	\def\@evenhead{\thepage \hfil\leftmark\hfil}
+	\makeatother
+
+%目次のスタイル
+	\setcounter{tocdepth}{3}%目次のレベル
+
+%索引の生成
+	\usepackage{makeidx}
+	\makeindex
+	%ターミナル：mendex {filename}.idx
+
+%余白の調整
+	\usepackage[top=20truemm,bottom=20truemm,left=20truemm,right=20truemm]{geometry}
+
+%ハイパーリンク
+	%\usepackage[dvipdfmx]{hyperref}
+	%\usepackage{pxjahyper}
+	%\hypersetup{%
+		%bookmarksnumbered=true,%
+		%bookmarksopen=true}

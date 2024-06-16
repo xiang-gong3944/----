@@ -1,0 +1,74 @@
+
+
+\makeatletter
+\def\@jikken{応 用 物 理 学 実 験} %this can be changed for 1OB and 2OB
+\def\cycle#1{\def\@cycle{#1}}
+\def\id#1{\def\@id{#1}}
+\def\acay#1{\def\@acay{#1}}
+\def\department#1{\def\@department{#1}}
+\def\collabo#1{\def\@collabo{#1}}
+\def\subdate#1{\def\@subdate{#1}}
+\def\exdateone#1{\def\@exdateone{#1}}
+\def\exdatetwo#1{\def\@exdatetwo{#1}}
+\def\@affa{東 京 理 科 大 学 理 学 部 第 1 部}
+\def\@affb{応 用 物 理 学 教 室}
+	
+
+
+\def\@maketitle{
+	\begin{center}
+		{{\fontsize{28pt}{0pt}\selectfont \textsf{第 \@cycle 回} } \par} %回数が表示される部分
+		\vspace{2mm}
+		{{\fontsize{28pt}{0pt}\selectfont \textsf{ \@jikken }}\par} %応用物理学実験と記載される部分
+		\vspace{3mm}
+		%25.4 times 38.8 + 111.2
+		
+		\begin{table}[htbp]
+		\begin{center}
+				\begin{tabular}{|p{35mm}|p{90mm}|}\hline
+					\parbox[c][25.4mm][c]{0cm}{}{\fontsize{28pt}{0pt}\selectfont \textsf{ 題　目 }} &　{\fontsize{20pt}{0pt}\selectfont \textsf{ \@title }} \\\hline
+				\end{tabular}
+			\end{center}
+		\end{table}
+		
+		\vspace{3mm}
+		
+		\begin{table}[htbp]
+			\begin{center}
+				\begin{tabular}{p{127.5mm}}\hline
+					\parbox[c][15.4mm][c]{0cm}{}{\fontsize{18pt}{0pt}\selectfont \textsf{ 氏　名 : \@author }}  \\
+					\hline
+					\parbox[c][10.4mm][c]{0cm}{}{\fontsize{18pt}{0pt}\selectfont \textsf{ 学籍番号 : \@id}}  \\
+					\parbox[c][10.4mm][c]{0cm}{}{\fontsize{18pt}{0pt}\selectfont \textsf{ 学部学科学年：理学部第１部応用物理学科 \@acay 年 }}  \\
+					\hline
+				\end{tabular}
+			\end{center}
+		\end{table}
+	
+		
+		\begin{table}[htbp]
+		\begin{center}
+			\begin{tabular}{p{35mm} p{75mm}}
+				{\fontsize{18pt}{0pt}\selectfont \textsf{共同実験者 \mbox{ ( 学籍番号 ) }}} & {\fontsize{10.5pt}{0pt}\selectfont \textsf{\@collabo }}  \\
+			\end{tabular}
+		\end{center}
+		\end{table}
+		
+		\begin{table}[htbp]
+			\begin{center}
+				\begin{tabular}{p{35mm} p{60mm}}
+					{\fontsize{18pt}{0pt}\selectfont \textsf{提出年月日：}} & {\fontsize{18pt}{0pt}\selectfont \textsf{\@subdate }}  \\
+					{\fontsize{18pt}{0pt}\selectfont \textsf{実験年月日：}} & {\fontsize{18pt}{0pt}\selectfont \textsf{\@exdateone }}  \\
+					{\fontsize{18pt}{0pt}\selectfont } & {\fontsize{18pt}{0pt}\selectfont \textsf{\@exdatetwo }}  
+				\end{tabular}
+			\end{center}
+		\end{table}
+		
+		\vspace{4mm}
+		
+		{{\fontsize{16pt}{5pt}\selectfont \textsf{\@affa} } \par}
+		{{\fontsize{16pt}{0pt}\selectfont \textsf{\@affb} }} 
+	\end{center}
+	\par\vskip 1.5em
+}
+\makeatother
