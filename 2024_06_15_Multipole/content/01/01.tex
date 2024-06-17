@@ -497,13 +497,13 @@
 \(m\)を磁気量子数という。
 これらの演算子は次の交換関係を満たす
 \begin{align}
-	\qty[\hat{\vb*{L}}_i,\,\hat{\vb*{L}}_i] &= i\epsilon_{ijk}\hat{\vb*{L}}_k\\
-	\qty[\hat{\vb*{L}}^2\,\hat{\vb*{L}}_i]&=0.
+	\qty[\hat{\vb*{L}}_i,\,\hat{\vb*{L}}_i] & = i\epsilon_{ijk}\hat{\vb*{L}}_k \\
+	\qty[\hat{\vb*{L}}^2\,\hat{\vb*{L}}_i]  & =0.
 \end{align}
 唐突だか、この角運動量演算子を組み合わせて次の演算子を新に定義する。
 \begin{align}
-	\hat{L}_+ &= \hat{L}_x + i\hat{L}_y = e^{ i\varphi}\qty( \pdv{\theta} +i\cot\theta\pdv{\varphi})\\
-	\hat{L}_- &= \hat{L}_x - i\hat{L}_y	= e^{-i\varphi}\qty(-\pdv{\theta} +i\cot\theta\pdv{\varphi})
+	\hat{L}_+ & = \hat{L}_x + i\hat{L}_y = e^{ i\varphi}\qty( \pdv{\theta} +i\cot\theta\pdv{\varphi}) \\
+	\hat{L}_- & = \hat{L}_x - i\hat{L}_y	= e^{-i\varphi}\qty(-\pdv{\theta} +i\cot\theta\pdv{\varphi})
 \end{align}
 この後に使うのでこの演算子の持つ性質を調べていこう。
 これらの演算子はエルミート共役をとるともう一方の演算子となる。
@@ -514,16 +514,16 @@
 という関係が成り立つような演算子\(\hat{A}^\dag\)のことである。
 実際
 \begin{align}
-	\int dx \qty(\hat{L}_+ g(x))f(x)\\
-	&= \cdots\\
-	&=\int dx g^*(x) \hat{L}_- f(x)
+	\int dx \qty(\hat{L}_+ g(x))f(x)  \\
+	 & = \cdots                       \\
+	 & =\int dx g^*(x) \hat{L}_- f(x)
 \end{align}
 となる。 % TODO ちゃんと書く。
 また
 \begin{align}
-	\hat{L}_- \hat{L}_+ &= \qty(\hat{L}_x - i \hat{L}_y)\qty(\hat{L}_x + i\hat{L}_y)\\
-	&=\hat{L}_x^2+\hat{L}_y^2 + \hat{L}_z^2 - \hat{L}_z^2 + i\qty[\hat{L}_x,\,\hat{L}_y] \\
-	&=\hat{\vb*{L}}^2 -\hat{L}_z^2 -\hat{L}_z
+	\hat{L}_- \hat{L}_+ & = \qty(\hat{L}_x - i \hat{L}_y)\qty(\hat{L}_x + i\hat{L}_y)                         \\
+	                    & =\hat{L}_x^2+\hat{L}_y^2 + \hat{L}_z^2 - \hat{L}_z^2 + i\qty[\hat{L}_x,\,\hat{L}_y] \\
+	                    & =\hat{\vb*{L}}^2 -\hat{L}_z^2 -\hat{L}_z
 \end{align}
 という関係も成り立っていることがわかる。
 
@@ -532,12 +532,12 @@
 	\qty[\hat{L}_z,\,\hat{L}_\pm] = \pm \hat{L}_\pm
 \end{equation}
 というのが成り立っている。\footnote{これは微分演算子の交換関係を直接用いるのではなく、
-\([\hat{L}_i,\,\hat{L}_j]=\varepsilon_{ijk}\hat{L}_k\)を使って計算するとよい。}
+	\([\hat{L}_i,\,\hat{L}_j]=\varepsilon_{ijk}\hat{L}_k\)を使って計算するとよい。}
 これを使ってやると次のような変形ができる。
 \begin{align}
 	\hat{L}_z\hat{L}_+ \Phi_m
-	&= \qty(\hat{L}_+\hat{L}_z + \hat{L}_+)\Phi_m\\
-	&= (m+1)\hat{L}_+\Phi_m.
+	 & = \qty(\hat{L}_+\hat{L}_z + \hat{L}_+)\Phi_m \\
+	 & = (m+1)\hat{L}_+\Phi_m.
 \end{align}
 この式は何を意味しているかというと
 \begin{equation}
@@ -555,23 +555,25 @@
 \begin{align}
 	\int d\Omega\qty(\hat{L}_+ Y_{l}^m(\theta,\,\varphi))^*
 	\qty(\hat{L}_+ Y_{l}^m(\theta,\,\varphi))
-	&= \int d\Omega\, Y_{l}^{m*}(\theta,\,\varphi)\hat{L}_-\hat{L}_+Y_{l}^m(\theta,\,\varphi)\\
-	\abs{a}^2&=\int d\Omega\, Y_{l}^{m*}(\theta,\,\varphi)
+	          & = \int d\Omega\, Y_{l}^{m*}(\theta,\,\varphi)\hat{L}_-\hat{L}_+Y_{l}^m(\theta,\,\varphi) \\
+	\abs{a}^2 & =\int d\Omega\, Y_{l}^{m*}(\theta,\,\varphi)
 	\qty(\hat{\vb*{L}}^2 -\hat{L}_z^2 -\hat{L}_z)
-	Y_{l}^m(\theta,\,\varphi)\\
-	&=(l-m)(l+m+1)
+	Y_{l}^m(\theta,\,\varphi)                                                                            \\
+	          & =(l-m)(l+m+1)
 \end{align}
 となるので
 \begin{align}
-	a &= \sqrt{(l-m)(l+m+1)}\\
-	\hat{L}_+Y_l^m(\theta,\,\varphi) &= \sqrt{(l-m)(l+m+1)}Y_l^{m+!}(\theta,\,\varphi)
+	a                                & = \sqrt{(l-m)(l+m+1)}                            \\
+	\hat{L}_+Y_l^m(\theta,\,\varphi) & = \sqrt{(l-m)(l+m+1)}Y_l^{m+1}(\theta,\,\varphi)
 \end{align}
-となる。
+となる。これより\(m\leq l\) がわかる。
 また同様に考えていくと
 \begin{align}
-	b &= \sqrt{(l+m)(l-m+1)}\\
-	\hat{L}_+Y_l^m(\theta,\,\varphi) &= \sqrt{(l+m)(l-m+1)}Y_{\lambda_1}^{m-!}(\theta,\,\varphi)
+	b                                & = \sqrt{(l+m)(l-m+1)}                                      \\
+	\hat{L}_+Y_l^m(\theta,\,\varphi) & = \sqrt{(l+m)(l-m+1)}Y_{\lambda_1}^{m-1}(\theta,\,\varphi)
 \end{align}
+となる。これより\(-l\leq m\) がわかる。
+2つの結果をまとめると\(-l \leq m \leq m\)というのが\(m\)のとる条件である。
 これで量子力学パートは終了だ。
 
 \subsubsection*{ルジャンドル陪多項式と昇降演算子}
@@ -584,10 +586,72 @@
 このとき\(m=0\)としたときの解がルジャンドル多項式と同じであった。
 規格化定数を\(a\)とすると
 \begin{equation}
-	\Theta_{l}^0(\theta) = aP(\cos\theta)
+	\Theta_{l}^0(\theta) = aP_l(\cos\theta)
 \end{equation}
 である。
-% TODO この規格化定数を求めて昇降演算子を作用させていくルートか
-% 上昇演算子の Ker から下げていくルートどっちにするか。
+規格化定数は
+\begin{align}
+	1
+	 & = \int_{0}^{\theta} \Bigl\{aP_l(\cos\theta)\Bigr\}^* \Bigl\{aP_1(\cos\theta)\Bigr\} \sin\theta d\theta \\
+	 & = \abs{a}^2 \int_{-1}^{1} P_l^2(x) dx                                                  \\
+	 & = \abs{a}^2 \frac{2}{2l+1}
+\end{align}
+より
+\begin{align}
+	a &= \sqrt{\frac{2l+1}{2}}\\
+	\Theta_l^0(\theta) &= \sqrt{\frac{2l+1}{2}}P_l(\cos\theta)
+\end{align}
+となる。
+なので
+\begin{equation}
+	Y_l^0(\theta,\,\varphi) = \sqrt{\frac{2l+1}{2}}P_l(\cos\theta)\times\frac{1}{\sqrt{2\pi}}e^{i0\varphi}
+\end{equation}
+\(0\)だった磁気量子数を上昇演算子に作用させていこう。
+\begin{align}
+	Y_l^1(\theta,\varphi)
+		&= \sqrt{(l-0)(l+0+1)}\qty{e^{i\varphi}\qty(\pdv{\theta}+i\cot\theta\pdv{\varphi})}\sqrt{\frac{2l+1}{2}}P_l(\cos\theta)\times\frac{1}{\sqrt{2\pi}}\\
+		&=	\sqrt{l(l+1)}\sqrt{\frac{2l+1}{2}}\pdv{\theta}P_l(\cos\theta)\times\frac{1}{\sqrt{2\pi}}e^{i\phi}
+\end{align}
+\begin{align}
+	Y_l^2(\theta,\varphi)
+		&=\sqrt{(l-1)(l+1+1)}\qty{e^{i\varphi}\qty(\pdv{\theta}+i\cot\theta\pdv{\varphi})}\sqrt{l(l+1)}\sqrt{\frac{2l+1}{2}}\pdv{\theta}P_l(\cos\theta)\times\frac{1}{\sqrt{2\pi}}e^{i\phi}\\
+		&=\sqrt{l(l-1)(l+1)(l+2)}\sqrt{\frac{2l+1}{2}}\qty(\pdv{\theta}-\cot\theta\pdv{\theta})\pdv{\theta}P_l(\cos\theta)\times\frac{1}{\sqrt{2\pi}}e^{2i\phi}
+\end{align}
+\begin{align}
+	Y_l^3(\theta,\,\varphi)
+		&=\sqrt{\frac{l!}{(l-3)!}\frac{(l+3)!}{l!}}\sqrt{\frac{2l+1}{2}}\qty(\pdv{\theta}-2\cot\theta)\qty(\pdv{\theta}-\cot\theta\pdv{\theta})\pdv{\theta}P_l(\cos\theta)\times\frac{1}{\sqrt{2\pi}}e^{3i\phi}
+\end{align}
+\begin{align}
+	Y_l^m(\theta,\,\varphi)
+		&=\sqrt{\frac{l!}{(l-m)!}\frac{(l+m)!}{l!}}\sqrt{\frac{2l+1}{2}} \prod_{k=0}^{m-1}\qty(\pdv{\theta}-k\cot\theta)P_l(\cos\theta)\times\frac{1}{\sqrt{2\pi}}e^{im\varphi}\\
+		&=\sqrt{\frac{2l+1}{2}\frac{(l+m)!}{(l-m)!}} \prod_{k=0}^{m-1}\qty{\sin^k\theta\qty(\pdv{\theta}\frac{1}{\sin^k\theta})}P_l(\cos\theta)\times\frac{1}{\sqrt{2\pi}}e^{im\varphi}\\
+		&=\sqrt{\frac{2l+1}{2}\frac{(l+m)!}{(l-m)!}} \sin^{m-1}\theta\pdv[m-1]{P_l(\cos\theta)}{\theta}\times\frac{1}{\sqrt{2\pi}}e^{im\varphi}
+\end{align}
+となる。
+また同様に\(P_l(\cos\theta)\)に下降演算子を作用させていこう。
+\begin{align}
+	Y_l^{-1}(\theta,\varphi)
+		&= \sqrt{(l+0)(l-0+1)}\qty{e^{-i\varphi}\qty(\pdv{\theta}-i\cot\theta\pdv{\varphi})}\sqrt{\frac{2l+1}{2}}P_l(\cos\theta)\times\frac{1}{\sqrt{2\pi}}\\
+		&=	\sqrt{l(l+1)}\sqrt{\frac{2l+1}{2}}\pdv{\theta}P_l(\cos\theta)\times\frac{1}{\sqrt{2\pi}}e^{-i\phi}
+\end{align}
+\begin{align}
+	Y_l^{-2}(\theta,\varphi)
+		&=\sqrt{(l+2)(l-2+1)}\qty{e^{-i\varphi}\qty(\pdv{\theta}-i\cot\theta\pdv{\varphi})}\sqrt{l(l+1)}\sqrt{\frac{2l+1}{2}}\pdv{\theta}P_l(\cos\theta)\times\frac{1}{\sqrt{2\pi}}e^{-i\phi}\\
+		&=\sqrt{l(l-1)(l+1)(l+2)}\sqrt{\frac{2l+1}{2}}\qty(\pdv{\theta}+\cot\theta\pdv{\theta})\pdv{\theta}P_l(\cos\theta)\times\frac{1}{\sqrt{2\pi}}e^{-2i\phi}
+\end{align}
+\begin{align}
+	Y_l^{-3}(\theta,\,\varphi)
+		&=\sqrt{\frac{l!}{(l-3)!}\frac{(l+3)!}{l!}}\sqrt{\frac{2l+1}{2}}\qty(\pdv{\theta}+2\cot\theta)\qty(\pdv{\theta}+\cot\theta\pdv{\theta})\pdv{\theta}P_l(\cos\theta)\times\frac{1}{\sqrt{2\pi}}e^{-3i\phi}
+\end{align}
+\begin{align}
+	Y_l^{-m}(\theta,\,\varphi)
+		&=\sqrt{\frac{l!}{(l-m)!}\frac{(l+m)!}{l!}}\sqrt{\frac{2l+1}{2}} \prod_{k=0}^{k-1}\qty(\pdv{\theta}+k\cot\theta)P_l(\cos\theta)\times\frac{1}{\sqrt{2\pi}}e^{-im\varphi}\\
+		&=\sqrt{\frac{2l+1}{2}\frac{(l+m)!}{(l-m)!}} \prod_{k=0}^{m-1}\qty{\frac{1}{\sin^k\theta}\qty(\pdv{\theta}\sin^k\theta)}P_l(\cos\theta)\times\frac{1}{\sqrt{2\pi}}e^{-im\varphi}\\
+		&=\sqrt{\frac{2l+1}{2}\frac{(l+m)!}{(l-m)!}} \frac{1}{\sin^{m-1}\theta}\pdv[m-1]{P_l(\cos\theta)}{\theta}\times\frac{1}{\sqrt{2\pi}}e^{-im\varphi}
+\end{align}
+となる。
+% TODO Y の位置を左で揃えたい。
+% TODO 何か計算結果が違う気がする。
+
 
 \end{document}
