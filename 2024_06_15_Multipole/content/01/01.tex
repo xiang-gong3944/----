@@ -213,6 +213,13 @@
 	\frac{1}{\sin\theta}\dv{t}\qty(\sin\theta\dv{\theta}P_n(\cos\theta)) + n(n+1)P_n(\cos\theta) =0 \label{eq:legendre_dif_eq2}
 \end{equation}
 となる。この式は球面調和関数のところでまた出会うだろう。
+また、この式は固有値方程式
+\begin{equation}
+	-\frac{1}{\sin\theta}\dv{t}\qty(\sin\theta\dv{\theta}P_n(\cos\theta)) = n(n+1)P_n(\cos\theta) =0
+\end{equation}
+とみなせる。
+つまり、左のような微分演算子がかかったときの固有値は0以上の整数
+\(n\)を用いて\(n(n+1)\)という形になる。
 
 \subsection{ルジャンドル多項式のパリティ}
 ポアソン方程式の解の空間反転のパリティを見たい時がある。
@@ -414,12 +421,12 @@
 	\frac{1}{\sin\theta}\dv{\theta} \qty(\sin\theta\pdv{\Theta}{\theta}) + \qty(\lambda_1-\frac{m^2}{\sin^2\theta})\Theta=0
 	\label{eq:legendre_poly_dif_eq}
 \end{equation}
-この式は\(m=0,\,\lambda=n(n+1)\)としてやれば
+この式は\(m=0\)としてやれば
 \begin{equation}
 	\frac{1}{\sin\theta}\dv{t}\qty(\sin\theta\dv{\theta}P_n(\cos\theta)) + n(n+1)P_n(\cos\theta) =0
 	\tag*{(\ref{eq:legendre_dif_eq2})再掲}
 \end{equation}
-と同じ形になっている。
+と同じ形になっている。これより\(\lambda_1=l(l+1),\,(l\geq 0)\)というように置きなおすとよいことがわかる。
 \(m=0\)ということは、解に方位角の依存性を落としたものに相当している。
 なのでルジャンドル多項式はポアソン方程式の一般解の一部にはなっていることがわかる。
 ということはルジャンドル多項式は拡張できることが示唆される。
@@ -439,12 +446,28 @@
 	              & = r\vb*{e}_r \times \qty(-i\nabla)                                                       \\
 	              & =-i\qty(\vb*{e}_{\varphi}\pdv{\theta}-\vb*{e}_{\theta}\frac{1}{\sin\theta}\pdv{\varphi})
 \end{align}
-であり、基底の微分も考慮しなければならないことを注意しながら次の量を計算すると
+であり\footnote{\(\hbar=1\)としている}、基底の微分も考慮しなければならないことを注意しながら次の量を計算すると
 \begin{align}
 	\hat{\vb*{L}}^2 & = -\qty(\vb*{e}_{\varphi}\pdv{\theta}-\vb*{e}_{\theta}\frac{1}{\sin\theta}\pdv{\varphi})\cdot\qty(\vb*{e}_{\varphi}\pdv{\theta}-\vb*{e}_{\theta}\frac{1}{\sin\theta}\pdv{\varphi}) \\
 	                & = -\qty{\frac{1}{\sin\theta}\pdv{\theta}\qty(\sin\theta\pdv{\theta})+\frac{1}{\sin^2\theta}\pdv[2]{\varphi}}
 \end{align}
 というように3次元ラプラシアンの角度成分が得られる。
+これを使うと角度方向の微分方程式は
+\begin{equation}
+	\hat{\vb*{L}}^2 Y(\theta,\,\varphi) = l(l+1) Y(\theta,\,\varphi)
+\end{equation}
+という\(l(l+1)\)の固有値を持った固有値方程式だとみなせる。
+固有値\(l(l+1),\,m\)を持った固有状態を
+\begin{equation}
+	Y_l^m(\theta,\,\varphi) = \Theta_l^m(\theta)\Phi_m(\varphi)
+\end{equation}
+というように書く。
+そしてこれは
+\begin{align}
+	\int d\Omega ,\, Y_{l}^{m*}(\theta,\,\varphi)Y_{l}^m(\theta,\,\varphi) = 1
+\end{align}
+というように規格化されているものとする。
+
 なのでいったんルジャンドル陪多項式とは何だろうかという疑問からはいったん離れて角運動量演算子の代数的性質を見ていく。
 
 \subsubsection*{磁気量子数と昇降演算子}
@@ -454,21 +477,22 @@
 \(\hat{\vb*{L}}\)と\(\vb*{e}_x,\,\vb*{e}_y,\,\vb*{e}_z\)の内積をとればよい。
 すると
 \begin{align}
-	\hat{\vb*{L}}_x
+	\hat{L}_x
 	 & = -i(\sin\theta\cos\varphi \vb*{e}_r + \cos\theta\cos\varphi \vb*{e}_\theta - \sin\theta \vb*{e}_\varphi) \cdot
 	\qty(\vb*{e}_{\varphi}\pdv{\theta}-\vb*{e}_{\theta}\frac{1}{\sin\theta}\pdv{\varphi}) \notag                       \\
 	 & = i\qty(\cot\theta\cos\varphi\pdv{\varphi}+\sin\varphi\pdv{\theta})                                             \\
-	\hat{\vb*{L}}_y
+	\hat{L}_y
 	 & = -i(\sin\theta\sin\varphi \vb*{e}_r + \cos\theta\sin\varphi \vb*{e}_\theta + \cos\theta \vb*{e}_\varphi) \cdot
 	\qty(\vb*{e}_{\varphi}\pdv{\theta}-\vb*{e}_{\theta}\frac{1}{\sin\theta}\pdv{\varphi}) \notag                       \\
 	 & = i\qty(\cot\theta\sin\varphi\pdv{\varphi}-\cos\varphi\pdv{\theta})                                             \\
-	\hat{\vb*{L}}_z
+	\hat{L}_z
 	 & = -i(\cos\theta\vb*{e}_r -\sin\theta\vb*{e}_\theta) \cdot
 	\qty(\vb*{e}_{\varphi}\pdv{\theta}-\vb*{e}_{\theta}\frac{1}{\sin\theta}\pdv{\varphi}) \notag                       \\
 	 & = -i\pdv{\varphi}
 \end{align}
 となる。
-これより\(\Phi(\varphi)\)というのは\(\hat{\vb*{L}}_z\)角運動量の\(z\)成分の演算子の固有状態になっていることがわかる。
+これより\(\Phi_m\)というのは\(\hat{\vb*{L}}_z\)角運動量の\(z\)成分の演算子の
+固有値\(m\)の固有状態になっていることがわかる。
 角運動量の\(z\)成分は磁場との相互作用をし、その大きさは分離定数\(m\)に比例するものから、
 \(m\)を磁気量子数という。
 これらの演算子は次の交換関係を満たす
@@ -476,7 +500,94 @@
 	\qty[\hat{\vb*{L}}_i,\,\hat{\vb*{L}}_i] &= i\epsilon_{ijk}\hat{\vb*{L}}_k\\
 	\qty[\hat{\vb*{L}}^2\,\hat{\vb*{L}}_i]&=0.
 \end{align}
+唐突だか、この角運動量演算子を組み合わせて次の演算子を新に定義する。
+\begin{align}
+	\hat{L}_+ &= \hat{L}_x + i\hat{L}_y = e^{ i\varphi}\qty( \pdv{\theta} +i\cot\theta\pdv{\varphi})\\
+	\hat{L}_- &= \hat{L}_x - i\hat{L}_y	= e^{-i\varphi}\qty(-\pdv{\theta} +i\cot\theta\pdv{\varphi})
+\end{align}
+この後に使うのでこの演算子の持つ性質を調べていこう。
+これらの演算子はエルミート共役をとるともう一方の演算子となる。
+演算子\(\hat{A}\)のエルミート共役とは
+\begin{equation}
+	\int dx \qty(\hat{A}g(x)) f(x) = \int dx g^*(x) \hat{A}^\dag f(x)
+\end{equation}
+という関係が成り立つような演算子\(\hat{A}^\dag\)のことである。
+実際
+\begin{align}
+	\int dx \qty(\hat{L}_+ g(x))f(x)\\
+	&= \cdots\\
+	&=\int dx g^*(x) \hat{L}_- f(x)
+\end{align}
+となる。 % TODO ちゃんと書く。
+また
+\begin{align}
+	\hat{L}_- \hat{L}_+ &= \qty(\hat{L}_x - i \hat{L}_y)\qty(\hat{L}_x + i\hat{L}_y)\\
+	&=\hat{L}_x^2+\hat{L}_y^2 + \hat{L}_z^2 - \hat{L}_z^2 + i\qty[\hat{L}_x,\,\hat{L}_y] \\
+	&=\hat{\vb*{L}}^2 -\hat{L}_z^2 -\hat{L}_z
+\end{align}
+という関係も成り立っていることがわかる。
 
+このこの演算子と\(\hat{L}_z\)との交換関係を調べてみると
+\begin{equation}
+	\qty[\hat{L}_z,\,\hat{L}_\pm] = \pm \hat{L}_\pm
+\end{equation}
+というのが成り立っている。\footnote{これは微分演算子の交換関係を直接用いるのではなく、
+\([\hat{L}_i,\,\hat{L}_j]=\varepsilon_{ijk}\hat{L}_k\)を使って計算するとよい。}
+これを使ってやると次のような変形ができる。
+\begin{align}
+	\hat{L}_z\hat{L}_+ \Phi_m
+	&= \qty(\hat{L}_+\hat{L}_z + \hat{L}_+)\Phi_m\\
+	&= (m+1)\hat{L}_+\Phi_m.
+\end{align}
+この式は何を意味しているかというと
+\begin{equation}
+	\hat{L}_+ \Phi_m = a \Phi_{m+1}
+\end{equation}
+というように\(\hat{L}_+\)は磁気量子数を1つ増やす演算子になっていることである(\(a\)は比例定数)。
+同様に\(\hat{L}_-\)ついても計算していくと
+\begin{equation}
+	\hat{L}_- e^{im\varphi} =b e^{i(m-1)\varphi}.
+\end{equation}
+これより\(\hat{L}_-\)は磁気量子数を1つ減らす演算子とわかる。
+なので\(\hat{L}_+,\,\hat{L}_-\)という演算子を昇降演算子と呼ぶ。
 
+では比例定数を求めてみよう。
+\begin{align}
+	\int d\Omega\qty(\hat{L}_+ Y_{l}^m(\theta,\,\varphi))^*
+	\qty(\hat{L}_+ Y_{l}^m(\theta,\,\varphi))
+	&= \int d\Omega\, Y_{l}^{m*}(\theta,\,\varphi)\hat{L}_-\hat{L}_+Y_{l}^m(\theta,\,\varphi)\\
+	\abs{a}^2&=\int d\Omega\, Y_{l}^{m*}(\theta,\,\varphi)
+	\qty(\hat{\vb*{L}}^2 -\hat{L}_z^2 -\hat{L}_z)
+	Y_{l}^m(\theta,\,\varphi)\\
+	&=(l-m)(l+m+1)
+\end{align}
+となるので
+\begin{align}
+	a &= \sqrt{(l-m)(l+m+1)}\\
+	\hat{L}_+Y_l^m(\theta,\,\varphi) &= \sqrt{(l-m)(l+m+1)}Y_l^{m+!}(\theta,\,\varphi)
+\end{align}
+となる。
+また同様に考えていくと
+\begin{align}
+	b &= \sqrt{(l+m)(l-m+1)}\\
+	\hat{L}_+Y_l^m(\theta,\,\varphi) &= \sqrt{(l+m)(l-m+1)}Y_{\lambda_1}^{m-!}(\theta,\,\varphi)
+\end{align}
+これで量子力学パートは終了だ。
+
+\subsubsection*{ルジャンドル陪多項式と昇降演算子}
+もとの解きたい微分方程式は
+\begin{equation}
+	\qty[\frac{1}{\sin\theta}\dv{\theta} \qty(\sin\theta\pdv{\theta}) + \qty(l(l+1)-\frac{m^2}{\sin^2\theta})]\Theta_{\lambda_1}^m=0
+	\tag{\ref{eq:legendre_poly_dif_eq} 再掲}
+\end{equation}
+であった。
+このとき\(m=0\)としたときの解がルジャンドル多項式と同じであった。
+規格化定数を\(a\)とすると
+\begin{equation}
+	\Theta_{l}^0(\theta) = aP(\cos\theta)
+\end{equation}
+である。
+% TODO この規格化定数を求めて昇降演算子を作用させていくルートか
+% 上昇演算子の Ker から下げていくルートどっちにするか。
 
 \end{document}
