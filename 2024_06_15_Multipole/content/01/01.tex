@@ -140,20 +140,20 @@
 	\caption{ルジャンドル多項式を\(n=6\)まで求めたもの。}
 	\begin{tabular}{cl}
 		\hline
-		次数\(n\) & ルジャンドル多項式\(P_n(x)\)                                  \\
+		次数\(n\) & ルジャンドル多項式\(P_n(x)\)                                   \\
 		\hline \hline
-		\(n=0\) & \(P_0(x)= 1\)\\
-		\(n=1\) & \(P_1(x)= x\)\\
+		\(n=0\) & \(P_0(x)= 1\)                                         \\
+		\(n=1\) & \(P_1(x)= x\)                                         \\
 		\(n=2\) & \(P_2(x)= \dfrac{1}{2}\qty(3x^2-1)\)
-		\rule[-4.5mm]{0mm}{9mm}\\
+		\rule[-4.5mm]{0mm}{9mm}                                         \\
 		\(n=3\) & \(P_3(x)= \dfrac{1}{2}\qty(5x^2-3x)\)
-		\rule[-4.5mm]{0mm}{9mm}\\
+		\rule[-4.5mm]{0mm}{9mm}                                         \\
 		\(n=4\) & \(P_4(x)= \dfrac{1}{8}\qty(35x^4-30x^2+3)\)
-		\rule[-4.5mm]{0mm}{9mm}\\
+		\rule[-4.5mm]{0mm}{9mm}                                         \\
 		\(n=5\) & \(P_5(x)= \dfrac{1}{8}\qty(63x^4-70x^2+15x)\)
-		\rule[-4.5mm]{0mm}{9mm}\\
+		\rule[-4.5mm]{0mm}{9mm}                                         \\
 		\(n=6\) & \(P_6(x)= \dfrac{1}{16}\qty(231x^6-315x^4+105x^2-5)\)
-		\rule[-4.5mm]{0mm}{9mm}\\
+		\rule[-4.5mm]{0mm}{9mm}                                         \\
 		\hline
 	\end{tabular}
 \end{table}
@@ -286,7 +286,7 @@
 	- \int_{-1}^{1}P_m'(x)\dv[n-1]{x}(x^2-1)^n dx
 	)                                                                           \\
 	 & \qquad=-\frac{1}{2^n n!}\int_{-1}^{1}P_m'(x)\dv[n-1]{x}(x^2-1)^n dx      \\
-	 & \qquad=\frac{1}{2^n n!}\int_{-1}^{1} P_m^{(n)}(x)(1-x^2)^n dx
+	 & \qquad=\frac{(-1)^n}{2^n n!}\int_{-1}^{1} P_m^{(n)}(x)(1-x^2)^n dx
 \end{align}
 \(P_m(x)\)は\(m\)次の多項式である。そのため\(m<n\)のときには\(P_m^{(n)}(x)=0\)である。
 \(m=n\)のときにはルジャンドル多項式の級数表示により
@@ -477,7 +477,7 @@
 
 なのでいったんルジャンドル陪多項式とは何だろうかという疑問からはいったん離れて角運動量演算子の代数的性質を見ていく。
 
-\subsection{角運動量代数}
+% \subsection{角運動量代数}
 % 角運動量の x, y, z を考える理由
 
 角運動量の各成分を計算するには
@@ -562,8 +562,8 @@
 \begin{align}
 	\int d\Omega\qty(\hat{L}_+ Y_{l}^m(\theta,\,\varphi))^*
 	\qty(\hat{L}_+ Y_{l}^m(\theta,\,\varphi))
-	          & = \int d\Omega\, Y_{l}^{m*}(\theta,\,\varphi)\hat{L}_-\hat{L}_+Y_{l}^m(\theta,\,\varphi) \\
-	\abs{a}^2 & =\int d\Omega\, Y_{l}^{m*}(\theta,\,\varphi)\qty(\hat{\vb*{L}}^2 -\hat{L}_z^2 -\hat{L}_z)Y_{l}^m(\theta,\,\varphi)                                                                            \\
+	          & = \int d\Omega\, Y_{l}^{m*}(\theta,\,\varphi)\hat{L}_-\hat{L}_+Y_{l}^m(\theta,\,\varphi)                           \\
+	\abs{a}^2 & =\int d\Omega\, Y_{l}^{m*}(\theta,\,\varphi)\qty(\hat{\vb*{L}}^2 -\hat{L}_z^2 -\hat{L}_z)Y_{l}^m(\theta,\,\varphi) \\
 	          & =(l-m)(l+m+1)
 \end{align}
 となるので
@@ -575,7 +575,7 @@
 また同様に考えていくと
 \begin{align}
 	b                                & = \sqrt{(l+m)(l-m+1)}                                      \\
-	\hat{L}_+Y_l^m(\theta,\,\varphi) & = \sqrt{(l+m)(l-m+1)}Y_{\lambda_1}^{m-1}(\theta,\,\varphi)
+	\hat{L}_-Y_l^m(\theta,\,\varphi) & = \sqrt{(l+m)(l-m+1)}Y_{\lambda_1}^{m-1}(\theta,\,\varphi)
 \end{align}
 となる。これより\(-l\leq m\) がわかる。
 2つの結果をまとめると\(-l \leq m \leq m\)というのが\(m\)のとる条件である。
@@ -628,10 +628,10 @@
 \end{align}
 \begin{align}
 	Y_l^m(\theta,\,\varphi)
-	 & =\sqrt{\frac{l!}{(l+m)!}\frac{(l-m)!}{l!}}\sqrt{\frac{2l+1}{2}} \prod_{k=0}^{m-1}\qty(\pdv{\theta}-k\cot\theta)P_l(\cos\theta)\times\frac{1}{\sqrt{2\pi}}e^{im\varphi}         \\
-	 & =\sqrt{\frac{2l+1}{2}\frac{(l-m)!}{(l+m)!}} \prod_{k=0}^{m-1}\qty{\sin^k\theta\qty(\pdv{\theta}\frac{1}{\sin^k\theta})}P_l(\cos\theta)\times\frac{1}{\sqrt{2\pi}}e^{im\varphi} \\
-	 & =\sqrt{\frac{2l+1}{2}\frac{(l-m)!}{(l+m)!}} \prod_{k=0}^{m-1}\qty{\sin^{k+1}\theta\qty(\pdv{(\cos\theta)}\frac{1}{\sin^k\theta})}P_l(\cos\theta)\times\frac{1}{\sqrt{2\pi}}e^{im\varphi} \\
-	 & =\sqrt{\frac{2l+1}{2}\frac{(l-m)!}{(l+m)!}} \sin^{m}\theta\pdv[m]{P_l(\cos\theta)}{(\cos\theta)}\times\frac{1}{\sqrt{2\pi}}e^{im\varphi}
+	 & =\sqrt{\frac{l!}{(l+m)!}\frac{(l-m)!}{l!}}\sqrt{\frac{2l+1}{2}} \prod_{k=0}^{m-1}\qty(\pdv{\theta}-k\cot\theta)P_l(\cos\theta)\times\frac{1}{\sqrt{2\pi}}e^{im\varphi}                    \\
+	 & =\sqrt{\frac{2l+1}{2}\frac{(l-m)!}{(l+m)!}} \prod_{k=0}^{m-1}\qty{\sin^k\theta\qty(\pdv{\theta}\frac{1}{\sin^k\theta})}P_l(\cos\theta)\times\frac{1}{\sqrt{2\pi}}e^{im\varphi}            \\
+	 & =\sqrt{\frac{2l+1}{2}\frac{(l-m)!}{(l+m)!}} \prod_{k=0}^{m-1}\qty{-\sin^{k+1}\theta\qty(\pdv{(\cos\theta)}\frac{1}{\sin^k\theta})}P_l(\cos\theta)\times\frac{1}{\sqrt{2\pi}}e^{im\varphi} \\
+	 & =(-1)^m\sqrt{\frac{2l+1}{2}\frac{(l-m)!}{(l+m)!}} \sin^{m}\theta\pdv[m]{P_l(\cos\theta)}{(\cos\theta)}\times\frac{1}{\sqrt{2\pi}}e^{im\varphi}
 \end{align}
 となる。
 また同様に\(P_l(\cos\theta)\)に下降演算子を作用させていこう。
@@ -643,24 +643,24 @@
 \begin{align}
 	Y_l^{-2}(\theta,\varphi)
 	 & =-\frac{1}{\sqrt{(l+2)(l-2+1)}}\qty{e^{-i\varphi}\qty(-\pdv{\theta}+i\cot\theta\pdv{\varphi})}\sqrt{l(l+1)}\sqrt{\frac{2l+1}{2}}\pdv{\theta}P_l(\cos\theta)\times\frac{1}{\sqrt{2\pi}}e^{-i\phi} \\
-	 & =\frac{1}{\sqrt{l(l-1)(l+1)(l+2)}}\sqrt{\frac{2l+1}{2}}\qty(\pdv{\theta}-\cot\theta\pdv{\theta})\pdv{\theta}P_l(\cos\theta)\times\frac{1}{\sqrt{2\pi}}e^{-2i\phi}
+	 & =\frac{1}{\sqrt{l(l-1)(l+1)(l+2)}}\sqrt{\frac{2l+1}{2}}\qty(\pdv{\theta}-\cot\theta)\pdv{\theta}P_l(\cos\theta)\times\frac{1}{\sqrt{2\pi}}e^{-2i\phi}
 \end{align}
 \begin{align}
 	Y_l^{-3}(\theta,\,\varphi)
-	 & =(-1)^3\sqrt{\frac{l!}{(l+3)!}\frac{(l-3)!}{l!}}\sqrt{\frac{2l+1}{2}}\qty(\pdv{\theta}-2\cot\theta)\qty(\pdv{\theta}-\cot\theta\pdv{\theta})\pdv{\theta}P_l(\cos\theta)\times\frac{1}{\sqrt{2\pi}}e^{-3i\phi}
+	 & =-\sqrt{\frac{l!}{(l+3)!}\frac{(l-3)!}{l!}}\sqrt{\frac{2l+1}{2}}\qty(\pdv{\theta}-2\cot\theta)\qty(\pdv{\theta}-\cot\theta\pdv{\theta})\pdv{\theta}P_l(\cos\theta)\times\frac{1}{\sqrt{2\pi}}e^{-3i\phi}
 \end{align}
 \begin{align}
 	Y_l^{-m}(\theta,\,\varphi)
-	 & =(-1)^m\sqrt{\frac{l!}{(l+m)!}\frac{(l-m)!}{l!}}\sqrt{\frac{2l+1}{2}} \prod_{k=0}^{k-1}\qty(\pdv{\theta}-k\cot\theta)P_l(\cos\theta)\times\frac{1}{\sqrt{2\pi}}e^{-im\varphi}         \\
-	 & =(-1)^m\sqrt{\frac{2l+1}{2}\frac{(l-m)!}{(l+m)!}} \prod_{k=0}^{m-1}\qty{\sin^k\theta\qty(\pdv{\theta}\frac{1}{\sin^k\theta})}P_l(\cos\theta)\times\frac{1}{\sqrt{2\pi}}e^{-im\varphi} \\
-	 & =(-1)^m\sqrt{\frac{2l+1}{2}\frac{(l-m)!}{(l+m)!}} \prod_{k=0}^{m-1}\qty{\sin^{k+1}\theta\qty(\pdv{(\cos\theta)}\frac{1}{\sin^k\theta})}P_l(\cos\theta)\times\frac{1}{\sqrt{2\pi}}e^{-im\varphi} \\
-	 & =(-1)^m\sqrt{\frac{2l+1}{2}\frac{(l-m)!}{(l+m)!}} \sin^{m}\theta\pdv[m]{P_l(\cos\theta)}{(\cos\theta)}\times\frac{1}{\sqrt{2\pi}}e^{-im\varphi}
+	 & =(-1)^m\sqrt{\frac{l!}{(l+m)!}\frac{(l-m)!}{l!}}\sqrt{\frac{2l+1}{2}} \prod_{k=0}^{k-1}\qty(\pdv{\theta}-k\cot\theta)P_l(\cos\theta)\times\frac{1}{\sqrt{2\pi}}e^{-im\varphi}                    \\
+	 & =(-1)^m\sqrt{\frac{2l+1}{2}\frac{(l-m)!}{(l+m)!}} \prod_{k=0}^{m-1}\qty{\sin^k\theta\qty(\pdv{\theta}\frac{1}{\sin^k\theta})}P_l(\cos\theta)\times\frac{1}{\sqrt{2\pi}}e^{-im\varphi}            \\
+	 & =(-1)^m\sqrt{\frac{2l+1}{2}\frac{(l-m)!}{(l+m)!}} \prod_{k=0}^{m-1}\qty{-\sin^{k+1}\theta\qty(\pdv{(\cos\theta)}\frac{1}{\sin^k\theta})}P_l(\cos\theta)\times\frac{1}{\sqrt{2\pi}}e^{-im\varphi} \\
+	 & =\sqrt{\frac{2l+1}{2}\frac{(l-m)!}{(l+m)!}} \sin^{m}\theta\pdv[m]{P_l(\cos\theta)}{(\cos\theta)}\times\frac{1}{\sqrt{2\pi}}e^{-im\varphi}
 \end{align}
 となる。
 % TODO Y の位置を左で揃えたい。
 よって変数分離して得られた天頂角成分の固有関数は
 \begin{equation}
-	\Theta_l^m(\theta) = (-1)^{\frac{m+\abs{m}}{2}}\sqrt{\frac{2l+1}{2}\frac{(l+\abs{m})!}{(l-\abs{m})!}} \sin^{\abs{m}}\theta\pdv[\abs{m}]{P_l(\cos\theta)}{(\cos\theta)}
+	\Theta_l^m(\theta) = (-1)^{\frac{m+\abs{m}}{2}}\sqrt{\frac{2l+1}{2}\frac{(l-\abs{m})!}{(l+\abs{m})!}} \sin^{\abs{m}}\theta\pdv[\abs{m}]{P_l(\cos\theta)}{(\cos\theta)}
 \end{equation}
 となる。
 この式の形を決めている部分を\(x=\cos\theta\)として
@@ -669,44 +669,258 @@
 	P_l^m(x) &=(1-x^2)^{m/2}\dv[m]{P_l(x)}{x}
 \end{align}
 とやる。これがルジャンドル陪多項式である。
-これを使うと
+\(m\)が負のとき、微分がよくわからなくなるように見える。
+これはロドリゲスの公式をつかってルジャンドル多項式を展開してあげると意味のある式になっていることがわかる。
+天頂角成分の解は
 \begin{equation}
-	\Theta_l^m(\theta) = (-1)^{\frac{m+\abs{m}}{2}}\sqrt{\frac{2l+1}{2}\frac{(l+\abs{m})!}{(l-\abs{m})!}} P_l^{\abs{m}}(\cos\theta)
+	\Theta_l^m(\theta) = (-1)^{\frac{m+\abs{m}}{2}}\sqrt{\frac{2l+1}{2}\frac{(l-\abs{m})!}{(l+\abs{m})!}} P_l^{m}(\cos\theta)
 \end{equation}
 となる。
 以上よりポアソン方程式の一般解のうち角度成分の関数形がわかった。
 それを書くと、
 \begin{equation}
-	Y_l^m(\theta,\,\varphi) = (-1)^{\frac{m+\abs{m}}{2}}\sqrt{\frac{2l+1}{4\pi}\frac{(l+\abs{m})!}{(l-\abs{m})!}}P_l^{\abs{m}}(\cos\theta)e^{im\varphi}
+	Y_l^m(\theta,\,\varphi) = (-1)^{\frac{m+\abs{m}}{2}}\sqrt{\frac{2l+1}{4\pi}\frac{(l-\abs{m})!}{(l+\abs{m})!}}P_l^{m}(\cos\theta)e^{im\varphi}
 \end{equation}
 というようになる。これが球面調和関数と呼ばれるものである。
+
+\subsection{球面調和関数の関数形の覚え方・導出の仕方}
+多極子を扱う上で球面調和関数の形や関数形は覚えておくとよい。
+おそらくf電子系までの多極子であるため\(l=4\)まで覚えた方がよいのだろう。
+球面調和関数の形を覚える・導出するうえで便利な関係式をまとめる。
+
+まず初めに、\(m=l\)の状態を考える。
+これは上昇演算子を作用させたときに\(0\)となる関数であるので、
+\begin{equation}
+	e^{i\varphi}\qty(\pdv{\theta}+i\cot\theta\pdv{\varphi})Y_l^l(\theta,\varphi)=0.
+\end{equation}
+球面調和関数に\(\partial_\varphi\)を作用させると\(im\)が下りてくるので、
+\begin{align}
+	\qty(\pdv{\theta} - \cot\theta) Y_l^l(\theta,\,\varphi) = 0 \\
+	\sin^l\theta\pdv{\theta}\qty(\frac{1}{\sin^l \theta}Y_l^l(\theta,\,\varphi))=0
+\end{align}
+これより
+\begin{equation}
+	Y_l^l =a \sin^l\theta\, e^{il\varphi}
+\end{equation}
+とわかる。
+規格化定数\(a\)を求める。
+ちょっと考えると規格化の積分の式は次のようになる。
+\begin{align}
+	1 & = \abs{a}^2 \int_{0}^{\pi} d\theta \sin^{2l+1}\theta \int_{0}^{2\pi} d\varphi              \\
+	  & = 4\pi \abs{a}^2 \int_{0}^{\pi} \cos^{2l+1}\theta d\theta                                 \\
+	a & = \sqrt{\frac{1}{4\pi}\times\frac{(2l+1)(2l-1)\cdots 3\cdot 1}{2l(2l-2) \cdots 4\cdot 2}}
+\end{align}
+とわかる。
+最後の行へはウォリスの公式を使った。
+というようにして\(-1\)の分の位相も考慮して
+\begin{equation}
+	Y_l^l(\theta,\,\varphi)
+	= (-1)^l\sqrt{\frac{1}{4\pi}\times\frac{(2l+1)(2l-1)\cdots 3\cdot 1}{2l(2l-2) \cdots 4\cdot 2}}
+	\sin^l \theta \, e^{il\varphi}
+\end{equation}
+だとわかる。
+また磁気量子数を\(-m\)へとしたものは元の球面調和関数を見てやると
+\begin{equation}
+	Y_l^{-m}(\theta,\,\varphi) = (-1)^l Y_l^{m*}(\theta,\,\varphi)
+	= \sqrt{\frac{2l}{4\pi}\frac{(l-m)!}{(l+m)!}}P_l^m(\cos\theta)e^{-im\varphi}
+\end{equation}
+だとわかる。
+つまり方位角のところを\(-m\)にして、天頂角はそのまま、
+規格化定数は\((-1)^m\)を無視してやればよい。
+
+つぎに\(m=l-1\)をやってみる。
+これは下降演算子を作用させればよい。
+下降演算子が効くところだけ抜き出すと
+\begin{align}
+	& \frac{1}{\sqrt{(l+l)(l-l+1)}}e^{-i\varphi}\qty(-\pdv{\theta}-\cot\theta\pdv{\varphi})\sin^l\theta \, e^{il\varphi}\\
+	& =\frac{-1}{\sqrt{2l}}\qty(l\cos\theta\sin^{l-1}+l\frac{\cos\theta}{\sin\theta}\sin^l\theta)1e^{i(l-1)\varphi} \\
+	& =-\sqrt{2l}\cos\theta\sin^{l-1}\theta\,e^{i(l-1)\varphi}.
+\end{align}
+つまり\(\sin^l\theta\rightarrow(-\sqrt{2l}\cos\theta)\sin^{l-1}\theta\)というように、
+\(\sin\)の\(l\)を1つ減らして、かわりに\(-\sqrt{2l}\cos\theta\)を付け加えればよいことがわかる。
+よって
+\begin{equation}
+	Y_{l}^{l-1}(\theta,\,\varphi)=(-1)^l
+	\sqrt{\frac{1}{4\pi}\times\frac{(2l+1)(2l-1)\cdots 3\cdot 1}{2l(2l-2) \cdots 4\cdot 2}}
+	\underline{\qty(-\sqrt{2l}\cos\theta)\sin^{l-1}\theta} \, e^{i(l-1)\varphi}
+\end{equation}
+さらに下げていこう。
+これまた下降演算子が効くところだけ抜き出して、
+\begin{align}
+	 & \frac{-\sqrt{2l}}{\sqrt{(l+(l-1))(l-(l-1)+1)}}e^{-i\varphi}\qty(-\pdv{\theta} + i\cot\theta\pdv{\varphi})\cos\theta\sin^{l-1}\theta,\,e^{i(l-1)\varphi} \notag \\
+	 & \quad=\frac{1}{\sqrt{2l-1}}
+	\qty{\cos\theta\qty(\pdv{\theta}\sin^{l-1}\theta)
+	-\sin^{l-1}\theta\qty(\sin\theta\pdv{(\cos\theta)}\cos\theta) + (l-1)\cot\theta\cos\theta\sin^{l-1}\theta}e^{i(l-2)\varphi}                                       \\
+	 & \quad=\frac{1}{\sqrt{2l-1}}\sin^{l-2}\theta\Bigr\{(2l-1)\cos^2\theta-1\Bigl\}e^{i(l-2)\varphi}
+\end{align}
+つまり、\(Y_l^l(\theta,\,\varphi)\)の結果を\(\sin\)の\(l\)を2つ減らして、
+代わりに\(\qty{(2l-1)\cos^2\theta-1}/\sqrt{2l-1}\)を付け加えればよい。
+\begin{equation}
+	Y_l^{l-2}(\theta,\,\varphi)
+	= (-1)^l\sqrt{\frac{1}{4\pi}\times\frac{(2l+1)(2l-1)\cdots 3\cdot 1}{2l(2l-2) \cdots 4\cdot 2}}
+	\underline{\frac{1}{\sqrt{2l-1}}\sin^{l-2}\theta\Bigr\{(2l-1)\cos^2\theta-1\Bigl\}} \, e^{i(l-2)\varphi}
+\end{equation}
+
+% \(Y_l^{l-3}(\theta,\,\varphi)\)についても同様に下降演算子を作用させると
+% \begin{align}
+% 	&\frac{-1}{\sqrt{2l-1}\sqrt{(l+l-2)(l-(l-2)+1)}}\qty(\pdv{\theta}+(l-2)\cot\theta)\sin^{l-2}\theta\Bigr\{(2l-1)\cos^2\theta-1\Bigl\}e^{i(l-3)\varphi}\notag\\
+% 	&\quad=\frac{-1}{\sqrt{6(l-1)(2l-1)}}\Bigg[
+% 		\Bigl\{(2l-1)\cos^2\theta-1\Bigr\}\pdv{\theta}\sin^{l-2}\theta
+% 		-\sin^{l-1}\pdv{(\cos\theta)}\Bigl\{(2l-1)\cos^2\theta-1\Bigr\}\notag\\
+% 		&\qquad+(l-2)\sin^{l-3}\theta\cos\theta\Bigl\{(2l-1)\cos^2\theta-1\Bigr\}
+% 	\Biggl]\\
+% 	&=-\sqrt{\frac{2}{3(l-1)(2l-1)}}\sin^{l-3}\theta\cos\theta\Bigl\{(2l-1)(l-1)\cos^2\theta-3l+1\Bigr\}
+% \end{align}
+
+そして
+\(Y_l^0(\theta,\,\varphi)\)であるが、これはルジャンドル多項式の引数を\(\cos\theta\)にしたものである。
+なのでルジャンドル多項式を\(l=4\)まで覚えよう。
+規格化因子は方位角からくる\(1/\sqrt{2\pi}\)とルジャンドル多項式の直交性からくる\(\sqrt{(2l+1)/2}\)があるので
+\begin{equation}
+	Y_l^0 = \sqrt{\frac{2l+1}{4\pi}} P_l(\cos\theta)
+\end{equation}
+である。
+\(Y_l^1(\theta,\,\varphi)\)はこれに上昇演算子を作用させるとよい。
+\(m=0\)に注意すると
+\begin{equation}
+	Y_l^1(\theta,\,\varphi) = -\frac{1}{\sqrt{l(l+1)}}\sqrt{\frac{2l+1}{4\pi}}\sin\theta\pdv{P_l(\cos\theta)}{(\cos\theta)}e^{i\varphi}
+\end{equation}
+となる。
+これらの関係式とルジャンドル多項式を覚えれば\(l=4\)まではその場で計算して導出できるだろう。
+
+
 % TODO 表の作成
 \begin{table}[h]
 	\centering
 	\caption{球面調和関数の関数形を
-	\(0\leq l \leq 4\)まですべて書き下したもの。}
+		\(0\leq l \leq 4\)まですべて書き下したもの。}
 	\begin{tabular}[t]{ll}
 		\hline
-		\multicolumn{2}{c}{球面調和関数\(Y_l^m(\theta,\,\varphi)\)}\\
+		\multicolumn{2}{c}{球面調和関数\(Y_l^m(\theta,\,\varphi)\)}                                                                 \\
 		\hline \hline
-		\(Y_0^{0}(\theta,\,\varphi) =\) & \(\dfrac{1}{\sqrt{4\pi}}\)
-		\rule[-6mm]{0mm}{12mm}\\
-		\hline
-		\(Y_1^{-1}(\theta,\,\varphi) =\) & \(\sqrt{\dfrac{3}{8\pi}}\sin\theta e^{-i\varphi}\)
-		\rule[-6mm]{0mm}{12mm}\\
-		\(Y_1^{0}(\theta,\,\varphi) =\) & \(\sqrt{\dfrac{3}{4\pi}}\cos\theta\)
-		\rule[-6mm]{0mm}{12mm}\\
-		\(Y_1^{1}(\theta,\,\varphi) =\) & \(-\sqrt{\dfrac{3}{8\pi}}\sin\theta e^{i\varphi}\)
-		\rule[-6mm]{0mm}{12mm}\\
+		\(Y_0^{0}(\theta,\,\varphi)=\dfrac{1}{\sqrt{4\pi}}\) &
+		\rule[-5mm]{0mm}{12mm}                                                                                                \\
+		\(Y_1^{0}(\theta,\,\varphi) =\sqrt{\dfrac{3}{4\pi}}\cos\theta\)                                &
+		\(Y_1^{\pm 1}(\theta,\,\varphi) =\mp\sqrt{\dfrac{3}{8\pi}}\sin\theta \,e^{\pm i\varphi}\)
+		\rule[-5mm]{0mm}{10mm}                                                                                                \\
+		\(Y_2^{0}(\theta,\,\varphi) =\sqrt{\dfrac{5}{16\pi}}\qty(3\cos^2\theta-1)\)                    &
+		\(Y_2^{\pm 1}(\theta,\,\varphi) =\mp\sqrt{\dfrac{15}{8\pi}}\cos\theta\sin\theta \,e^{\pm i\varphi}\)
+		\rule[-5mm]{0mm}{10mm}                                                                                                \\
+		\(Y_2^{\pm 2}(\theta,\,\varphi) =\sqrt{\dfrac{15}{32\pi}}\sin^2\theta \,e^{\pm 2 i\varphi}\)&
+		\rule[-5mm]{0mm}{10mm}                                                                                                \\
+		\(Y_3^0(\theta,\,\varphi) =\dfrac{1}{2}\sqrt{\dfrac{7}{4\pi}}(5\cos^3\theta-3\cos\theta)\) &
+		\(Y_3^{\pm 1}(\theta,\,\varphi) =\mp\sqrt{\dfrac{35}{64\pi}}\sin\theta(5\cos^2\theta-1) e^{\pm i\varphi}\)
+		\rule[-5mm]{0mm}{10mm}\\
+		\(Y_3^{\pm 2}(\theta,\,\varphi) =\sqrt{\dfrac{105}{32\pi}}\sin^2\theta\cos\theta \,e^{\pm 2i\varphi}\) &
+		\(Y_3^{\pm 3}(\theta,\,\varphi) =\mp\sqrt{\dfrac{35}{64\pi}}\sin^3\theta \,e^{\pm 3i\varphi}\)
+		\rule[-5mm]{0mm}{10mm}\\
+		\(Y_4^0(\theta,\,\varphi) =\dfrac{1}{8}\sqrt{\dfrac{9}{4\pi}}(35\cos^4\theta-30\cos^2\theta+3)\) &
+		\rule[-5mm]{0mm}{10mm}\\
+		\(Y_4^{\pm 1}(\theta,\,\varphi) =\mp\sqrt{\dfrac{45}{64\pi}}\sin\theta(7\cos^3\theta-3\cos\theta) e^{\pm 2i\varphi}\)&
+		\(Y_4^{\pm 2}(\theta,\,\varphi) =\sqrt{\dfrac{45}{64\pi}}\sin^2\theta(7\cos^2\theta-1) e^{\pm 2i\varphi}\)
+		\rule[-5mm]{0mm}{10mm}\\
+		\(Y_4^{\pm 3}(\theta,\,\varphi) =\mp\sqrt{\dfrac{315}{64\pi}}\sin^3\theta\cos\theta \,e^{\pm 3i\varphi}\) &
+		\(Y_4^{\pm 4}(\theta,\,\varphi) =\sqrt{\dfrac{315}{512\pi}}\sin^4\theta \,e^{\pm 4i\varphi}\)
+		\rule[-5mm]{0mm}{10mm}\\
 		\hline
 	\end{tabular}
 	\renewcommand{\arraystretch}{1.0}
 \end{table}
 % TODO プロットの作成
+\subsection{ルジャンドル陪多項式と球面調和関数のパリティ}
+球面調和関数のパリティというのは物理的にも重要なものである。
+そのためパリティを調べていこう。
+まず初めにルジャンドル陪多項式をロドリゲスの公式を使って書くと
+\begin{equation}
+	P_l^{m}(x) = (1-x^2)^{m/2}\dv[m]{P_l(x)}{x}
+\end{equation}
+これより
+\begin{equation}
+	P_l^m(-x) = (-1)^{l+m}P_l^m(x)
+\end{equation}
+だとわかる。
+
+3次元極座標において原点に関して反転させる操作は
+\begin{equation}
+	(r,\,\theta,\,\varphi)\rightarrow (r,\,\pi-\theta,\,\varphi\pm\pi)
+\end{equation}
+で与えれられる。
+これを使ってもルジャンドル陪多項式のパリティは
+\begin{align}
+	P_l^m(\cos(\pi-\theta)) &= \sin^m(\pi-\theta)\pdv[m]{(\cos(\pi-\theta))}P_l(\cos(\pi-\theta))\\
+	P_l^m(-\cos\theta) &= (-1)^{l+m} \sin\theta\pdv[m]{(\cos\theta)}P_l(\cos\theta) =(-1)^{l+m} P_l^m(\cos\theta)
+\end{align}
+と示せる。
+また、球面調和関数のパリティは
+\begin{align}
+	Y_l^m(\pi-\theta,\,\varphi\pm\pi)
+	&=(-1)^{\frac{m+\abs{m}}{2}}\sqrt{\frac{2l+1}{4\pi}\frac{(l-\abs{m})!}{(l+\abs{m})!}}P_l^m(-\cos\theta)e^{im(\varphi\pm\pi)}\\
+	&=(-1)^{l+2m}(-1)^{\frac{m+\abs{m}}{2}}\sqrt{\frac{2l+1}{4\pi}\frac{(l-\abs{m})!}{(l+\abs{m})!}}P_l^m(\cos\theta)e^{im\varphi}\\
+	&=(-1)^lY_l^m(\theta,\,\varphi)
+\end{align}
+というようなパリティを持つ。
+
+\subsection{球面調和関数の直交性}
+球面調和関数は直交性を持っている。
+実際\(e^{im\varphi}\)の部分はフーリエ級数からもわかるように正規直交系をなしている。
+残るルジャンドル陪多項式の直交性を見ていこう
+ルジャンドル陪多項式はルジャンドル多項式のロドリゲスの公式も組み合わせて書くと
+\begin{equation}
+	P_l^m(x) = \frac{(1-x^2)^{m/2}}{2^l l!}\dv[l+m]{x}\qty(x^2-1)^l
+\end{equation}
+である。
+\(e^{im\varphi}\)の直交性により\(P_l^m,\,P_{l'}^m\)の直交性だけ調べればよい。
+\(l\leq l'\)としても一般性を失わない。
+部分積分を繰り返して
+\begin{align}
+	\int_{-1}^{1} &P_{l'}^{m}(x)\qty{(1-x^2)^{m/2}\dv[l+m]{x}\qty(x^2-1)^l} dx \notag\\
+	&= \frac{(-1)^{l+m}}{2^l l!}\int_{-1}^{1} \dv[l+m]{x}\Bigl\{(1-x^2)^{m/2}P_{l'}^{m}(x)\Bigr\}\qty(x^2-1)^l dx\\
+	&\frac{(-1)^{l+m}}{2^l l!}\int_{-1}^{1} \dv[l+m]{x}\qty{(1-x^2)^{m}\dv[l'+m]{x}(x^2-1)^l}\qty(x^2-1)^l dx\\
+	&\frac{(-1)^{l+m}}{2^{l+l'} l!l'!}\sum_{k=0}^{l+m} \frac{(l+m)!}{k!(l+m-k)!}
+	\int_{-1}^{1}\qty(\dv[l+m-k]{x}(1-x^2)^m)\qty(\dv[l'+m+k]{x}(x^2-1)^l)(x^2-1)^l dx
+\end{align}
+微分の次数に注目すると
+\begin{equation}
+	l+m-k \leq 2m,\qquad l'+m+k \leq 2l
+\end{equation}
+これより総和で生き残る\(k\)は
+\begin{equation}
+	l-m\leq k \leq 2l - l' -m
+\end{equation}
+\(l<l'\)ではそもそもこれは満たさない。
+これより\(l=l'\)でなければ個の積分の値は残らないことがわかる。
+その積分の値は\(k=l-m\)を入れて
+\begin{align}
+	\int_{-1}^{1} (P_l^m(x))^2 dx
+	&=\frac{(-1)^{l+m}}{2^{2l}l!l!}\frac{(l+m)!}{(l-m)!(2m)!}
+	\int_{-1}^{1}\qty(\dv[2m]{x}(1-x^2)^m)\qty(\dv[2l]{x}(x^2-1)^l)(x^2-1)^l dx\\
+	&=\frac{(-1)^l}{2^{2l}l!l!}\frac{(l+m)!}{(l-m)!m!}(2l)!
+	\int_{-1}^{1}(x^2-1)^l dx\\
+	&=\frac{(-1)^l}{2^{2l}l!l!}\frac{(l+m)!}{l!m!}(2l)!\frac{(-1)^l2^{2l+1}l!l!}{(2l+1)!}\\
+	&=\frac{2}{2l+1}\frac{(l+m)!}{(l-m)!}
+\end{align}
+となる。
+よって
+\begin{align}
+	\int_{0}^{\pi} &d\theta \sin\theta \int_{0}^{2\pi} Y_{l'}^{m'*}(\theta,\,\varphi) Y_l^m(\theta,\,\varphi) \notag\\
+	&= (-1)^{m+\abs{m}}\sqrt{\frac{(2l+1)(2l'+1)}{(4\pi)^2}\frac{(l-\abs{m})!(l'-\abs{m'})!}{(l+\abs{m})!(l+\abs{m'})!}}
+	\int_{0}^{2\pi}d\varphi e^{i(m-m')\varphi} \int_{0}^{\pi} d(\cos\theta) P_{l'}^{m'}(\cos\theta)P_l^m(\cos\theta)\\
+	&=\delta_{m,\,m'}\delta_{l,\,l'}
+\end{align}
+となり直交性を示せた。
+
+また、球面調和関数は完全系をなしているため任意の角度方向の関数は
+\begin{align}
+	f(\theta,\,\varphi) &= \sum_{l=0}^{\infty}\sum_{m=l}^{l} a_{lm}Y_l^m(\theta,\,\varphi)\\
+	a_{lm} &=\int_{0}^{\pi} d\theta\sin\theta\int_{0}^{2\pi}d\varphi f(\theta,\,\varphi)Y_l^{m*}(\theta,\,\varphi)
+\end{align}
+というように展開できる。
+
+\subsection{球面調和関数の加法定理}
 
 \subsection{ルジャンドル陪多項式と球面調和関数の位相(余談)}
 
-位相の付け方については文献や数値計算ライブラリでの表記ゆれがとくにひどい。
+ルジャンドル陪多項式の位相の付け方については文献や数値計算ライブラリでの表記ゆれがとくにひどい。
 この\((-1)\)の位相をルジャンドル陪多項式やもっと前のルジャンドル多項式に押し付けている文献もあれば、
 \(m\) の符号で球面調和関数の定義を分けるものもある。
 ルジャンドル陪多項式の\(m\)を負の符号で定義するかしないかも
@@ -718,5 +932,13 @@
 これを導入すると角運動量の合成の観点からもっとも自然であるそうだが、
 よくわからない。まったく、統一してほしいものだ。
 
+\section{ベクトル球面調和関数}
+ここまでではスカラー場\(\phi\)に関するラプラス方程式を解くために、
+球面調和関数を導入した。
+世の中もちろんスカラー場だけではなくベクトル場もあり、
+これのラプラシアンをとるような微分方程式もある。
+これを3次元極座標のもとで解くとなったとき、
+似たような系であることから球面調和関数が使えると想像できる。
+これがベクトル球面調和関数である。
 
 \end{document}
