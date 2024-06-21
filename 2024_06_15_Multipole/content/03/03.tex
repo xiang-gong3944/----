@@ -1,0 +1,235 @@
+\documentclass[../../master.tex]{subfiles}
+
+\graphicspath{{./image/}}
+
+\begin{document}
+
+\chapter{多極子展開}
+\section{古典多極子}
+\subsection{電気多極子}
+\subsubsection*{スカラーポテンシャル}
+cgs-Gauss 単位におけるスカラーポテンシャルのポアソン方程式は
+\begin{equation}
+    \laplacian \phi(\vb*{r}) = -4\pi\rho(\vb*{r})
+\end{equation}
+である。これの解はルジャンドル多項式と球面調和関数の加法定理を用いて
+\begin{align}
+    \phi(\vb*{r})
+    &= \int d\vb*{r} \frac{\rho(\vb*{r'})}{\abs{\vb*{r}-\vb*{r'}}}\\
+    &= \sum_{l=0}^{\infty} \frac{1}{r^{l+1}} \int d\vb*{r'} {r'}^{l} P_l(\cos\theta')\\
+    &= \sum_{l=0}^{\infty} \sum_{m=-l}^{l} \frac{1}{r^{l+1}}\int d\vb*{r'} \rho(\vb*{r'}){r'}^l Z_l^m(\theta,\,\varphi) Z_l^{m*} (\theta',\,\varphi')\\
+    &= \sum_{l=0}^{\infty} \sum_{m=-l}^{l} \frac{1}{r^{l+1}}Z_l^m(\theta,\,\varphi) \qty[\int d\vb*{r'} O_l^{m} (\theta',\,\varphi')\rho(\vb*{r'})]\\
+    &=:\sum_{l=0}^{\infty} \sum_{m=-l}^{l} \frac{1}{r^{l+1}}Z_l^m(\theta,\,\varphi) Q_l^m
+\end{align}
+というように整理できる。
+Notation が増えて申しわけないが、
+途中で導入した\(O_l^m(\theta,\,\varphi),\,Q_l^m\)は
+\begin{align}
+    O_l^m(\vb*{r}) &:= r^l Z_l^{*}(\theta,\,\varphi) = \sqrt{\frac{4\pi}{2l+1}}r^lY_l^{m*}(\theta,\,\varphi)\\
+    Q_l^m &:= \int d\vb*{r'} O_l^{m} (\theta',\,\varphi') \rho(\vb*{r'})
+\end{align}
+というのを導入した。
+これは電気多極子モーメントになっている。
+実際展開して計算してみよう。
+\(l=0,\,m=0\)は
+\begin{align}
+    Q_0^0
+    &= \int d\vb*{r'}  Z_0^0 (\theta',\,\varphi') \rho(\vb*{r'})\\
+    &= \int d\vb*{r'} \rho(\vb*{r'})
+\end{align}
+で全電荷になっている。
+電気双極子に相当するものとして
+\(l=1\)のものがある。
+\(l=1,\,m = 1\)では
+\begin{align}
+    Q_1^{ 1}
+    &= \int d\vb*{r'}  r' Z_1^{1*} (\theta',\,\varphi') \rho(\vb*{r'})\\
+    &= \int d\vb*{r'} \qty{- \frac{r'\sin\theta'}{\sqrt{2}}e^{- i\varphi'}} \rho(\vb*{r'})\\
+    &= \int d\vb*{r'} \qty{- \frac{x+iy}{\sqrt{2}}} \rho(\vb*{r'}),
+\end{align}
+\(l=1,\,m=0\)では
+\begin{align}
+    Q_1^0
+    &= \int d\vb*{r'}  r' Z_1^0 (\theta',\,\varphi') \rho(\vb*{r'})\\
+    &= \int d\vb*{r'}  r' \cos\theta' \rho(\vb*{r'})\\
+    &= \int d\vb*{r'} z \rho(\vb*{r}),
+\end{align}
+\(l=1,\,m=-1\) では
+\begin{align}
+    Q_1^{- 1}
+    &= \int d\vb*{r'}  r' Z_1^{- 1*} (\theta',\,\varphi') \rho(\vb*{r'})\\
+    &= \int d\vb*{r'} \frac{r'\sin\theta'}{\sqrt{2}}e^{- i\varphi'} \rho(\vb*{r'})\\
+    &= \int d\vb*{r'} \frac{x+iy}{\sqrt{2}} \rho(\vb*{r'}),
+\end{align}
+というようになっている。
+これは
+\(m=0\)では電気双極子モーメントの\(z\)成分、
+\(m=1\)では電気双極子モーメントの\(-(x+iy)/\sqrt{2}\)成分、
+\(m=-1\)では電気双極子モーメントの\((x-iy)/\sqrt{2}\)成分、
+を表している。
+ここで変な方向の成分が出てきた。
+これは Spherical basis と呼ばれる基底である。
+通常の光を直線変更で表したものに対し、円偏光で表したものに相当すると思われる。
+
+% % TODO なんで相当するものになるかの説明
+% 書き下すと\(z\)方向に進む光は
+% \begin{align}
+%     E(z,\,t)
+%     &= \vb*{e}_x E_x \cos(kz-\omega t) + \vb*{e}_y E_y \cos(kz-\omega t)\\
+%     &= -\frac{\vb*{e}_x+i\vb*{e}_y}{\sqrt{2}}\frac{-E_x+iE_y}{\sqrt{2}} \cos(kz-\omega)
+%     + \frac{\vb*{e}_x - i\vb*{e}_y}{\sqrt2}\frac{E_x+iE_y}{\sqrt{2}} \cos(kz-\omega t)
+% \end{align}
+
+また、上の計算を見てわかるように\(O_l^{m*}(\vb*{r})\)というのが
+多極子モーメントの形を決めるのがわかる。
+\(l=2\)の電気四重極子の形を見るため、\(O_l^m\)を整理していこう。
+\(l=2,\,m=2\)のとき、
+\begin{align}
+    O_2^{2}(\vb*{r})
+    &= r^2\sqrt{\frac{4\pi}{5}}Y_2^{2*}(\theta,\,\varphi)\\
+    &= r^2\sqrt{\frac{3}{8}} \sin^2\theta(\cos\varphi - i\sin\varphi)^2\\
+    &= r^2\sqrt{\frac{3}{8}}\sin^2\theta(\cos^2\varphi-\sin^2\varphi - 2i\cos\varphi\sin\varphi)\\
+    &=\sqrt{\frac{3}{8}}(x^2-y^2-2ixy)
+    =\sqrt{\frac{3}{8}}(x-iy)^2,
+\end{align}
+\(l=2,\,m=1\)のとき
+\begin{align}
+    O_2^{1}(\vb*{r})
+    &= r^2 \sqrt{\frac{4\pi}{5}}Y_2^{1*}(\theta,\,\varphi)
+    = -\sqrt{\frac{3}{2}}r^2\sin\theta\cos\theta (\cos\varphi - i\sin\varphi)\\
+    &= \sqrt{\frac{3}{2}}(-xz+iyz) = -\sqrt{\frac{3}{2}}z(x-iy),
+\end{align}
+\(l=2,\,m=0\)のとき
+\begin{align}
+    O_2^{0}
+    &= r^2 \sqrt{\frac{4\pi}{5}}Y_2^{0*}(\theta,\,\varphi)\\
+    &= \frac{r^2}{2}(3\cos^2\theta-1) = \frac{3z^2-r^2}{2},
+\end{align}
+\(l=2,\,m=-1\)のとき
+\begin{align}
+    O_2^{-1}(\vb*{r})
+    &= r^2 \sqrt{\frac{4\pi}{5}}Y_2^{-1*}(\theta,\,\varphi)\\
+    &= \sqrt{\frac{3}{2}}r^2\sin\theta\cos\theta (\cos\varphi + i\sin\varphi)\\
+    &= \sqrt{\frac{3}{2}}(xz+iyz) = \sqrt{\frac{3}{2}}z(x+iy),
+\end{align}
+\(l=2,\,m=-2\)のとき、
+\begin{align}
+    O_2^{-2}(\vb*{r})
+    &= r^2\sqrt{\frac{4\pi}{5}}Y_2^{2*}(\theta,\,\varphi)
+    = r^2\sqrt{\frac{3}{8}} \sin^2\theta(\cos\varphi + i\sin\varphi)^2\\
+    &= r^2\sqrt{\frac{3}{8}} \sin^2\theta(\cos^2\varphi-\sin^2\varphi + 2i\cos\varphi\sin\varphi)\\
+    &=\sqrt{\frac{3}{8}}(x^2-y^2+2ixy) = \sqrt{\frac{3}{8}}(x+iy)^2,
+\end{align}
+というようになっていく。
+くどいようだが、最終的には\(f\)電子の物性を考えたいため\(l=3\)の電気八極子も展開していく。
+\(l=3,\,m=3\)のとき
+\begin{align}
+    O_3^3(\vb*{r})
+    &= r^3 \sqrt{\frac{4\pi}{7}} Y_3^{3*}(\theta,\,\varphi)
+    = -\frac{\sqrt{5}r^3}{4} \sin^3\theta (\cos\varphi-i\sin\varphi)^3\\
+    &= -\frac{\sqrt{5}r^3}{4} \sin^3\theta (\cos^3\varphi - 3\cos\varphi\sin^2\varphi + i(\sin^3\varphi - 3\cos^2\varphi\sin\varphi))\\
+    &= -\frac{\sqrt{5}}{4} \Big\{x^3-3xy^2+i(y^3- 3x^2y)\Big\}
+    = -\frac{\sqrt{5}}{4} (x-iy)^3,
+\end{align}
+\(l=3,\,m=2\)のとき
+\begin{align}
+    O_3^2(\vb*{r})
+    &= r^3 \sqrt{\frac{4\pi}{7}} Y_3^{2*}(\theta,\,\varphi)
+    = \frac{\sqrt{30}r^3}{8} \sin^2\theta \cos\theta (\cos\varphi-i\sin\varphi)^2\\
+    &= \frac{\sqrt{30}r^3}{8} \sin^2\theta \cos\theta (\cos^2\varphi - \sin^2\varphi - 2i\cos\varphi\sin\varphi)\\
+    &= \frac{\sqrt{30}}{8} \Big\{zx^2-zy^2 -2ixyz\Big\}
+    = \frac{\sqrt{30}}{8} z(x-iy)^2,
+\end{align}
+\(l=3,\,m=1\)のとき
+\begin{align}
+    O_3^1(\vb*{r})
+    &= r^3 \sqrt{\frac{4\pi}{7}} Y_3^{1*}(\theta,\,\varphi)\\
+    &= -r^3 \sqrt{\frac{3}{16}} \sin\theta(5\cos^2\theta-1)(\cos\varphi-i\sin\varphi)\\
+    &= -r^3 \sqrt{\frac{3}{16}} \sin\theta(5\cos^2\theta-1)
+    \Bigl\{\cos\varphi-i\sin\varphi\Bigr\}\\
+    &=-\sqrt{\frac{3}{16}}(5z^2-r^2)(x-iy),
+\end{align}
+\(l=3,\,m=0\)のとき
+\begin{align}
+    O_3^(\vb*{r})
+    &= r^3 \sqrt{\frac{4\pi}{7}} Y_3^{0}(\theta,\,\varphi)\\
+    &= \frac{r^3}{2}  (5\cos^2\theta-3\cos\theta)\\
+    &= \frac{z(5z^2-3r^2)}{2},
+\end{align}
+\(l=3,\,m=-1\)のとき
+\begin{align}
+    O_3^{-1}(\vb*{r})
+    &= r^3 \sqrt{\frac{4\pi}{7}} Y_3^{-1*}(\theta,\,\varphi)\\
+    &= r^3 \sqrt{\frac{3}{16}} \sin\theta(5\cos^2-1)(\cos\varphi+i\sin\varphi)\\
+    &= r^3 \sqrt{\frac{3}{16}} \sin\theta(5\cos^2-1)
+    \Bigl\{\cos\varphi+i\sin\varphi\Bigr\}\\
+    &=-\sqrt{\frac{3}{16}}(5z^2-r^2)(x+iy),
+\end{align}
+\(l=3,\,m=-2\)のとき
+\begin{align}
+    O_3^{-2}(\vb*{r})
+    &= r^3 \sqrt{\frac{4\pi}{7}} Y_3^{-2*}(\theta,\,\varphi)
+    = \frac{\sqrt{30}r^3}{8} \sin^2\theta \cos\theta (\cos\varphi+i\sin\varphi)^2\\
+    &= \frac{\sqrt{30}r^3}{8} \sin^2\theta \cos\theta (\cos^2\varphi - \sin^2\varphi + 2i\cos\varphi\sin\varphi)\\
+    &= \frac{\sqrt{30}}{8} \Big\{zx^2-zy^2 + 2ixyz\Big\}
+    = \frac{\sqrt{30}}{8} z(x+iy)^2,
+\end{align}
+\(l=3,\,m=-3\)のとき
+\begin{align}
+    O_3^3(\vb*{r})
+    &= r^3 \sqrt{\frac{4\pi}{7}} Y_3^{3*}(\theta,\,\varphi)
+    = \frac{\sqrt{5}r^3}{4} \sin^3\theta (\cos\varphi+i\sin\varphi)^3\\
+    &= \frac{\sqrt{5}r^3}{4} \sin^3\theta (\cos^3\varphi - 3\cos\varphi\sin^2\varphi + i(-\sin^3\varphi - 3\cos^2\varphi\sin\varphi))\\
+    &= \frac{\sqrt{5}}{4} \Big\{x^3-3xy^2+i(-y^3-+3x^2y)\Big\}
+    = \frac{\sqrt{5}}{4} (x+iy)^3,
+\end{align}
+というようになる。
+これで多極子展開したときのスカラーポテンシャル
+\begin{equation}
+    \phi(\vb*{r}) = \sum_{l=0}^{\infty} \sum_{m=-l}^{l} Q_l^m\frac{Z_l^m(\theta,\,\varphi)}{r^{l+1}}
+\end{equation}
+の中身がわかった。
+
+\subsubsection*{電場}
+スカラーポテンシャルがわかったら、電場を調べたくなるものである。
+なので電場を調べよう。
+電場はスカラーポテンシャルの勾配であるので、
+多極子展開したスカラーポテンシャルをいれて計算していくと
+\begin{align}
+    \vb*{E}(\vb*{r}) &= -\grad \phi(\vb*{r})\\
+    &= \sum_{l=0}^{\infty} \sum_{m=-l}^{l} Q_l^m \grad\qty(\frac{Z_l^m(\theta,\,\varphi)}{r^{l+1}})\\
+    &= \sum_{l=0}^{\infty} \sum_{m=-l}^{l} Q_l^m \qty(-\frac{(l+1)Z_l^m(\theta,\,\varphi)}{r^{l+2}}\vb*{e}_r+\frac{\grad Z_l^m(\theta,\,\varphi)}{r^{l+1}})\\
+\end{align}
+ここで球面調和関数の微分を行う前に角運動量演算子を思い出そう。
+3次元極座標における角運動量演算子は
+\begin{align}
+    \hat{\vb*{L}} &= \hat{\vb*{r}} \times \hat{\vb*{p}}\\
+    &= -i\qty(\vb*{e}_\varphi \pdv{\theta} -\vb*{e}_\theta \frac{1}{\sin\theta}\pdv{\varphi})
+\end{align}
+であった。
+これを次のようにする。
+\begin{align}
+    \frac{i}{r}\vb*{e}_r \times \hat{\vb*{L}} &= \frac{1}{r}\qty(\vb*{e}_\theta \pdv{\theta} +\vb*{e}_\varphi \frac{1}{\sin\theta}\pdv{\varphi})
+\end{align}
+これはまさに3次元極座標における勾配の\(\theta,\,\varphi\)成分である。
+よって電場は
+\begin{equation}
+    \vb*{E}(\vb*{r}) = \sum_{l=0}^{\infty} \sum_{m=-l}^{l}\frac{Q_l^m}{r^{l+2}}
+    \qty(\frac{(l+1)\vb*{r}Z_l^m(\theta,\,\varphi)+i\vb*{r}\times\qty(\hat{\vb*{L}}Z_l^m(\theta,\,\varphi))}{r})
+\end{equation}
+となる。後ろの括弧で囲まれた項がベクトル球面調和関数の1つとして知られ、
+都合によりこれを\(\sqrt{l+1}\)で割ったもの、
+\begin{align}
+    \vb*{Z}_{lm}^{(l+1)}(\theta,\,\varphi) &:=-\frac{(l+1)\vb*{r}Z_l^m(\theta,\,\varphi)+i\vb*{r}\times\qty(\hat{\vb*{L}}Z_l^m(\theta,\,\varphi))}{r\sqrt{2l+1}}\\
+    \vb*{Y}_{lm}^{(l+1)}(\theta,\,\varphi) &:=-\frac{(l+1)\vb*{r}Y_l^m(\theta,\,\varphi)+i\vb*{r}\times\qty(\hat{\vb*{L}}Y_l^m(\theta,\,\varphi))}{r\sqrt{(l+1)(2l+)}}\\
+\end{align}
+で定義される。これを使うと電場は
+\begin{align}
+    \vb*{E}(\vb*{r})
+    &= \sum_{l=0}^{\infty} \sum_{m=-l}^{l}\frac{Q_l^m}{r^{l+2}} \vb*{Z}_{lm}^{(l+1)}(\theta,\,\varphi)\\
+    &= \sum_{l=0}^{\infty} \sum_{m=-l}^{l}\sqrt{4\pi(l+1)}\frac{Q_l^m}{r^{l+2}} \vb*{Y}_{lm}^{(l+1)}(\theta,\,\varphi)\\
+\end{align}
+と書ける。
+
+
+\end{document}

@@ -48,6 +48,7 @@
 	G(\vb*{r})=\frac{1}{(2\pi^3)}\int_{-\infty}^{\infty} \frac{e^{i\vb*{k}\cdot\vb*{r}}}{\vb*{k}^2}d^3k
 \end{equation}
 となる。この積分を極座標で実行していく。
+原点と\(\vb*{r}\)の示す方向を極座標の軸として
 すると
 \begin{align*}
 	G(\vb*{r}) & =\frac{1}{(2\pi^3)}\int_{-\infty}^{\infty} \frac{e^{i\vb*{k}\cdot\vb*{r}}}{\vb*{k}^2}d^3k                                  \\
@@ -58,10 +59,10 @@
 となる。
 これよりポアソン方程式の特解は
 \begin{equation}
-	\phi(\vb*{r}) = \frac{1}{4\pi\varepsilon_0}\int_{-\infty}^{\infty} d\vb*{r}
+	\phi(\vb*{r}) = \frac{1}{4\pi\varepsilon_0}\int d\vb*{r}
 	\frac{\rho(\vb*{r'})}{\abs{\vb*{r'}-\vb*{r}}}
 \end{equation}
-となる。極座標では
+となる。極座標では\(r>r'\)では
 \begin{equation}
 	\frac{1}{\abs{\vb*{r'}-\vb*{r}}} = \frac{1}{r}\frac{1}{\sqrt{1-2\cos\theta(r'/r) + (r'/r)^2}}
 \end{equation}
@@ -216,12 +217,12 @@
 
 もともと考えていたポアソン方程式では\(x=\cos\theta\)のことであったのでこれで書き直すと
 \begin{equation}
-	\frac{1}{\sin\theta}\dv{t}\qty(\sin\theta\dv{\theta}P_n(\cos\theta)) + n(n+1)P_n(\cos\theta) =0 \label{eq:legendre_dif_eq2}
+	\frac{1}{\sin\theta}\dv{\theta}\qty(\sin\theta\dv{\theta}P_n(\cos\theta)) + n(n+1)P_n(\cos\theta) =0 \label{eq:legendre_dif_eq2}
 \end{equation}
 となる。この式は球面調和関数のところでまた出会うだろう。
 また、この式は固有値方程式
 \begin{equation}
-	-\frac{1}{\sin\theta}\dv{t}\qty(\sin\theta\dv{\theta}P_n(\cos\theta)) = n(n+1)P_n(\cos\theta) =0
+	-\frac{1}{\sin\theta}\dv{\theta}\qty(\sin\theta\dv{\theta}P_n(\cos\theta)) = n(n+1)P_n(\cos\theta) =0
 \end{equation}
 とみなせる。
 つまり、左のような微分演算子がかかったときの固有値は0以上の整数
@@ -809,7 +810,7 @@
 		\(Y_2^{\pm 2}(\theta,\,\varphi) =\sqrt{\dfrac{15}{32\pi}}\sin^2\theta \,e^{\pm 2 i\varphi}\)&
 		\rule[-5mm]{0mm}{10mm}                                                                                                \\
 		\(Y_3^0(\theta,\,\varphi) =\dfrac{1}{2}\sqrt{\dfrac{7}{4\pi}}(5\cos^3\theta-3\cos\theta)\) &
-		\(Y_3^{\pm 1}(\theta,\,\varphi) =\mp\sqrt{\dfrac{35}{64\pi}}\sin\theta(5\cos^2\theta-1) e^{\pm i\varphi}\)
+		\(Y_3^{\pm 1}(\theta,\,\varphi) =\mp\sqrt{\dfrac{21}{64\pi}}\sin\theta(5\cos^2\theta-1) e^{\pm i\varphi}\)
 		\rule[-5mm]{0mm}{10mm}\\
 		\(Y_3^{\pm 2}(\theta,\,\varphi) =\sqrt{\dfrac{105}{32\pi}}\sin^2\theta\cos\theta \,e^{\pm 2i\varphi}\) &
 		\(Y_3^{\pm 3}(\theta,\,\varphi) =\mp\sqrt{\dfrac{35}{64\pi}}\sin^3\theta \,e^{\pm 3i\varphi}\)
@@ -917,6 +918,92 @@
 というように展開できる。
 
 \subsection{球面調和関数の加法定理}
+もとのポアソン方程式を解くときの座標の取り方を思い出そう。
+このとき、極座標の軸は\(\vb*{r}\)の方向としていた。
+座標系の取り方に恣意性があるのはあまりよくはないと考えるのは物理である。
+なので座標系によらない表示を考える。
+
+ある3次元極座標のもと2点\((r_1,\,\theta_1,\,\varphi_1),\quad (r_2,\,\theta_2,\,\varphi_2)\)に
+電荷\(q_1,\,q_2\)があるとし、この二点の間の角度を\(\gamma\)とする。
+\(r_1>r_2\)のとき\(q_1\)の感じる位置エネルギーはルジャンドル多項式による展開を用いて
+\begin{equation}
+	\phi = \frac{q_1 q_2}{4\pi\varepsilon r_1} \sum_{l=0}^{\infty}P_l(\cos\gamma)\qty(\frac{r_2}{r_1})^l
+\end{equation}
+というように書ける。
+この式が
+\begin{equation}
+	\phi = \frac{q_1 q_2}{4\pi\varepsilon r_1}
+	\sum_{l=0}^{\infty}\frac{4\pi}{2l+1}\sum_{m=-l}^{l} Y_l^m(\theta_1,\,\varphi_1) Y_l^{m*}(\theta_2,\,\varphi_2)\qty(\frac{r_2}{r_1})^l
+\end{equation}
+と書ける、つまり
+\begin{equation}
+	P_l(\cos\gamma) = \frac{4\pi}{2l+1}\sum_{m=-l}^{l} Y_l^m(\theta_1,\,\varphi_1) Y_l^{m*}(\theta_2,\,\varphi_2)
+\end{equation}
+が成り立つことを示すのがこの節の目標である。
+証明の過程でわかるが、球面調和関数についている\(*\)はどちらの球面調和関数についてもよい。
+
+% TODO 以下の証明はよくわかっていないので加筆が必要
+いま
+\begin{equation}
+	P_l(\cos\gamma) = \sum_{m=-l}^{l} A_{lm}Y_l^m(\theta_1,\,\varphi_1)
+\end{equation}
+というように\(l\)次のルジャンドル多項式であるため、\(l\)次の球面調和関数で展開できるとする。% 特にここ!
+球面調和関数の直交性より
+\begin{equation}
+	A_{lm} = \int_{0}^{\pi} d\theta_1 \sin\theta_1 \int_{0}^{2\pi} d\varphi_1 Y_l^{m*}(\theta_1,\,\varphi_1) P_l(\cos\gamma).
+\end{equation}
+
+\((r_2,\,\theta_2,\,\varphi_2)\)の点の方向を軸とした極座標系で\(e_1\)の置かれた点の座標を書くと
+方位角は適当に\(\psi\)として\((r_1,\,\gamma,\,\psi)\)とおける。
+すると球面調和関数\(Y_l^{m*}(\theta_1,\,\varphi_1)\)は
+\begin{equation}
+	Y_l^{m*}(\theta_1,\,\varphi_1) = \sum_{m'=-l}^{l} a_{lm'}Y_l^{m'}(\gamma,\,\psi)
+\end{equation}
+である。
+右辺を\(\gamma=0\)としたとき左辺の引数は\((\theta_2,\,\varphi_2)\)となっているはずなので
+\begin{equation}
+	Y_l^{m*}(\theta_2,\,\varphi_2) = \sum_{m'=-l}^{l} a_{lm'}Y_l^{m'}(0,\,\psi)
+\end{equation}
+である。
+\(m'\neq0\)の時には必ず\(\sin\theta\)の項が入るので
+\begin{align}
+	Y_l^{m'}(0,\,\psi) &= 0 \qquad (m'\neq 0) \\
+	Y_l^{0}(0,\,\psi) &= \sqrt{\frac{2l+1}{4\pi}}
+\end{align}
+となる。
+これより
+\begin{align}
+	Y_l^{m*}(\theta_2,\,\varphi_2) &= a_{l0}\sqrt{\frac{2l+1}{4\pi}}\\
+	a_{l0}& = \sqrt{\frac{4\pi}{2l+1}} Y_l^{m*}(\theta_2,\,\varphi_2)
+\end{align}
+これを\(A_{lm}\)の展開係数の式に入れると\(\theta_1,\,\varphi_1\)の引数が\(\gamma,\,\psi\)に変換されていることに注意すると
+% TODO どういうこと?
+\begin{align}
+	A_{lm} &=\int_{0}^{\pi} d\gamma \sin\gamma \int_{0}^{2\pi} d\psi
+	P_l(\cos\gamma)\sum_{m'=-l}^{l}a_{lm'}Y_l^{m'}(\gamma,\,\psi)\\
+	&=\sqrt{\frac{4\pi}{2l+1}}a_{l0}\\
+	&=\frac{4\pi}{2l+1}Y_l^{m*}(\theta_2,\,\varphi_2)
+\end{align}
+式変形の途中で球面調和関数の直交性を使った。
+以上より
+\begin{equation}
+	P_l(\cos\gamma) = \frac{4\pi}{2l+1}\sum_{m=-l}^{l} Y_l^m(\theta_1,\,\varphi_1) Y_l^{m*}(\theta_2,\,\varphi_2)
+\end{equation}
+というのが言えた。
+この式は多極子を考える際にはよく使うものである。
+すると因子\(4\pi/(2l+1)\)がうっとうしくなるので
+\begin{equation}
+	Z_l^m(\theta,\,\varphi) := \sqrt{\frac{4\pi}{2l+1}} Y_l^m(\theta,\,\varphi)
+	= (-1)^{\frac{m+\abs{m}}{2}}\sqrt{\frac{(l-\abs{m})!}{(l+\abs{m})!}}P_l^m(\cos\theta)e^{im\varphi}
+\end{equation}
+という Racah の規格化をとることが多い。
+
+おまけに、この加法定理は実関数を用いて表すと
+\begin{equation}
+	P_l(\cos\gamma) = P_l(\cos\theta_1)P_l(\cos\theta_2)
+	+ 2\sum_{m=1}^{l}\frac{(l-m)!}{(l+m)!}P_l^m(\cos\theta_1)P_l^m(\cos\theta_2)\cos m(\varphi_1-\varphi_2)
+\end{equation}
+と書ける。
 
 \subsection{ルジャンドル陪多項式と球面調和関数の位相(余談)}
 
@@ -940,5 +1027,7 @@
 これを3次元極座標のもとで解くとなったとき、
 似たような系であることから球面調和関数が使えると想像できる。
 これがベクトル球面調和関数である。
+
+ただ、これはここで一般論をやるよりかは、多極子と一緒に学んだ方がよいと思われるのでこの章では扱わない。
 
 \end{document}
