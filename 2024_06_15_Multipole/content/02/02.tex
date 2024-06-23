@@ -4,18 +4,147 @@
 
 \begin{document}
 
-\chapter{Wigner-Eckert の定理}
-多極子の話では露わには使わないと思われるが、
-この定理により正当化されているように見える。
+\chapter{角運動量の理論}
+角運動量の理論は束縛電子系では大事なように思われる。
+そこで多極子に関係しそうな部分を J.J. Sakurai \cite{JJSakurai} の第3章をつまみ食いして
+勉強したのでここにまとめる。
 
-\section{Clebsch-Gordan 係数}
+\section{回転変換}
+\subsection{無限小回転変換}
 
-\section{Wigner の 3j 記号}
+回転する演算子を\(R\)とし、\(i\)軸方向に\(\theta\)だけ回転させる演算子を\(R_i(\theta)\)とする。
+またこの章では回転といったとき、実際の物理系は回転しているのではなく、座標系が回転するものとする。
+回転\(R\)が量子力学的な状態\(\ket{\alpha}\)にどう作用していくか見ていく。
+回転によりケットに作用する演算子\(\mathcal{D}(R)\)を
+\begin{equation}
+    \ket{\alpha}_R = \mathcal{D}(R) \ket{\alpha}
+\end{equation}
+とする。もちろんケットの空間の次元に応じて\(\mathcal{D}(R)\)の表現行列の次元は変わる。
 
-\section{Wigner-Eckert の定理}
+状態の変換は無限小変換から考えるものである。
+空間並進であれば大雑把な導出としては
+\begin{align}
+    \ket{x+ dx}
+    &= \ket{x} + \dv{x}\ket{x} dx \\
+    &= \qty(1-i\frac{\hat{p}}{\hbar}dx)\ket{x}\\
+    &= \exp(-\frac{i\hat{p}}{\hbar}dx)\ket{x}
+\end{align}
+というようにして無限小変換から導出できる。
+無限小変換は無限小変換パラメータ\(\varepsilon\)とエルミート演算子\(G\)を用いて
+\begin{equation}
+    U(\varepsilon) = 1-iG\varepsilon
+\end{equation}
+と表せる。
+\(G\)は生成子と呼ばれ、
+空間併進の場合、位置に共役な運動量演算子を\(\hbar\)で割ったものになっている。
+なので回転の無限小変換も角度に共役な運動量である角運動量演算子\(\hat{J}\)を\(\hbar\)で割ったものと推測される。
+% TODO 気が向いたらリー群リー代数の話にしたいね。
 
-\section{ベクトル球面調和関数}
+回転の場合は回転軸の指定が必要であるため、
+回転演算子は回転軸を\(\vb*{n}\)として
+\begin{equation}
+    \mathcal{D}(\vb*{n},\,d\theta) = 1-i\qty(\frac{\vb*{J}\cdot\vb*{n}}{\hbar})d\phi
+\end{equation}
+とできる。
+ここで古典力学と違うのは
+角運動量は軌道角運動量\(\vb*{L}\)とスピン角運動量\(\vb*{S}\)が合わさったものになっている。
+J.J. の本ではこれが角運動量の定義であるとしている。
 
+回転演算は群をなしている。
+ケット空間の回転も同様に群をなす。
+式にすると次である。
+\begin{align}
+    R\cdot 1 = R &\rightarrow \mathcal{D}(R) \cdot R = \mathcal{D}(R)\\
+    R_1 R_2 =R_3 &\rightarrow \mathcal{D}(R_1)\mathcal{D}(R_2) = \mathcal{D}(R_1R_2)\\
+    RR^{-1}=1 &\rightarrow \mathcal{D}(R)\mathcal{D}^{-1}(R)=1\\
+    R_1(R_2R_3) = (R_1R_2)R_3
+        &\rightarrow \mathcal{D}(R_1) [\mathcal{D}(R_2)\mathcal{D}(R_3)] = [\mathcal{D}(R_1) \mathcal{D}(R_2)]\mathcal{D}(R_3)
+\end{align}
 
+\subsection{回転演算子の表現}
+角運動量の固有状態\(\ket{j,\,m}\)の回転を考える。
+これを行列表現するとき、その行列要素は
+\begin{equation}
+    \mathcal{D}_{m'm}^{(j)}(R) = \bra{j,\,m'} \exp(\frac{-i\vb*{J}\cdot\vb*{n}}{\hbar}\theta)\ket{j,\,m}
+\end{equation}
+と書ける。この行列要素はウィグナー関数とも呼ばれる。
+このとき、ブラとケットで同じ\(j\)となっているが、
+これは次のようにしてわかる。
+回転演算の中身はある一方向の角運動量演算子\(\vb*{J}\cdot\vb*{n}\)のべき乗になっているため、
+\(\vb*{J}^2\)とは可換となっている。
+これより同時固有状態となっていることから\(\mathcal{D}(R)\ket{j,\,m}\)は\(\ket{j,\,m}\)と同じ固有値を持つため、
+違う\(j'\neq j\)でである場合
+\begin{equation}
+    \bra{j',\,m'} \exp(\frac{-i\vb*{J}\cdot\vb*{n}}{\hbar}\theta)\ket{j,\,m} = 0
+\end{equation}
+となるためである。
+
+\(\mathcal{D}_{m'm}^{(j)}(R)\)によって作られる\((2j+1)\times(2j+1)\)行列を\(\mathcal{D}(R)\)の既約表現と呼ばれることが多い。
+適当な基底を取ればブロック対角化される。
+
+あるきまった\(j\)で特徴づけられる回転行列は群を作る。
+演算は
+\begin{equation}
+    \sum_{m'=-j}^{j}\mathcal{D}{m''m'}^{(j)}(R_1)\mathcal{D}{m'm}^{(j)}(R_2) = \mathcal{D}{m''m}^{(j)}(R_1R_2)
+\end{equation}
+としてやると単位元、逆元、結合則が成り立つことがわかる。
+また回転演算子はユニタリ行列であることから
+\begin{equation}
+    \mathcal{D}{m''m}^{(j)}(R^{-1})=\mathcal{D}{m'm'}^{(j)*}(R)
+\end{equation}
+という関係が成り立つ。
+
+回転演算子を状態\(\ket{j,\, m}\)に作用させると角運動量の大きさは変わらないが、
+向きは変わることから推測できるように\(j\)は変わらないものの、\(m\)は変わる。
+では\(\ket{j,\,m'}\)が見いだされる確率を求めるため回転後の状態を次のように展開する。
+\begin{align}
+    \mathcal{D}(R) &= \sum_{m'=-l}^{l} \ketbra{j,\,m'} \mathcal{D}(R) \ket{j,\,m}\\
+    &= \sum_{m'=-l}^{l} \ket{j,\,m'} \mathcal{D}_{m'm}^{(j)}(R)
+\end{align}
+
+また、任意の剛体の姿勢はオイラー角\((\alpha,\,\beta,\,\gamma\))を使って表せる。
+どのような操作かというと
+\begin{equation}
+    R_z(\alpha)R_y(\beta)R_z(\gamma)
+\end{equation}
+というように右から順に作用させていく。
+これを量子力学的な状態に適用すると
+\begin{align}
+    \mathcal{D}_{m'm}^{(j)}(\alpha,\,\beta,\,\gamma)
+    &= \bra{j,\,m'}\exp(\frac{-iJ_z}{\hbar}\alpha)\exp(\frac{-iJ_y}{\hbar}\beta)\exp(\frac{-iJ_z}{\hbar}\gamma)\\
+    &= e^{-i(m'\alpha+m\gamma)}\bra{j,\,m'}\exp(\frac{-iJ_y}{\hbar}\beta)\ket{j,\,m}
+\end{align}
+となる。残った部分は新しい行列
+\begin{equation}
+    d_{m'm}^{(j)}(\beta) = \bra{j,\,m'}\exp(\frac{-iJ_y}{\hbar}\beta)\ket{j,\,m}
+\end{equation}
+を導入するとのちのち便利になる。
+% TODO 例が欲しいね
+
+\section{角運動量の合成}
+\subsection{角運動量1/2の系の合成}
+スピン角運動量 1/2 の粒子が2つある系の状態をどのように記述するかというのを考える。
+素直に考えれば各粒子の全角運動量\(\vb*{S}_1^2,\,\vb*{S}_2^2\)と、
+ある方向の角運動量\(S_{1z},\,S_{2z}\)を指定する方法である。
+この方法だと状態は両方とも\(j=1/2\)であり、
+\(m=\pm1/2\)なのでこれの符号で状態を書くと
+\begin{equation}
+    \ket{++},\quad\ket{+-},\quad\ket{-+},\quad\ket{--}
+\end{equation}
+となる。
+もう1つ別の表示があって、それは系全体の角運動量と磁気量子数で状態を指定する方法である。
+全体の角運動量演算子は
+\begin{equation}
+    \vb*{S} = \vb*{S}_1 + \vb*{S}_2 \equiv \vb*{S}_1 \otimes I_2 + I_1 \otimes \vb*{S}_2
+\end{equation}
+と書ける。
+これより全角運動量\(\vb*{S}^2\)は
+\begin{align}
+    \vb*{S}^2
+    &= (\vb*{S}_1+\vb*{S}_2)^2\\
+    &= \vb*{S}_1^2 + \vb*{S}_2^2 + 2 \vb*{S}_1 \cdot \vb*{S}_2\\
+    &= \vb*{S}_1^2 + \vb*{S}_2^2 + 2S_{1z}S_{2z} + S_{1+}S_{2-} + S_{1-}S_{2+}
+\end{align}
+と書ける。
 
 \end{document}
