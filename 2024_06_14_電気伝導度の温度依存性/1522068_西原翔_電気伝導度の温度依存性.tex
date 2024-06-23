@@ -141,47 +141,197 @@
 
 なので
 \begin{equation}
-	\qty(-\frac{\hbar^2}{2m^*}+\hat{H}'(r))F() = (E-E_c)F(r)
+	\qty(-\frac{\hbar^2}{2m^*}+\hat{H}'(r))F(r) = (E-E_c)F(r)
 \end{equation}
 とできる。ドープした原子は陽イオンとみなせるため
 \begin{equation}
 	\hat{H}'(r) = -\frac{e^2}{4\pi\varepsilon r}
 \end{equation}
 とできる。するとこれは水素原子と同じ問題になるため、この固有値方程式の固有値は
+\begin{align}
+	E-E_c &= -\frac{m^*}{2}\qty(\frac{e^2}{4\pi\hbar\varepsilon})^2\frac{1}{n^2}\\
+    E &= E_c -\qty(\frac{m^*}{m(\varepsilon/\varepsilon_0)^2})\frac{1}{n^2}\times\frac{m}{2\hbar^2}\qty(\frac{e^2}{4\pi \hbar\varepsilon_0})
+\end{align}
+というように不純物により新しい準位ができていることがわかる。
+これをドナー準位という。
+この式に\ce{AsGa}の各物理量の値を入れていくと
 \begin{equation}
-	E-E_c = -\frac{m^*}{2}\qty(\frac{e^2}{4\pi\varepsilon})\frac{1}{n^2}
+    E-E_c = 6\,\si{meV}
 \end{equation}
+というようになる。
+100 K の温度によるゆらぎ\(k_B T\) はおおよそ 8 meV であるため、
+ドナー準位は温度による影響を考えなければならないことがわかる。
 
-
-\subsection{四端子法}
+\subsection*{4端子法}
+オームの法則の式を変形して測定しやすい形にすると
+\begin{equation}
+  \sigma = \frac{J}{E} = \frac{I}{S} \times \frac{l}{V} = \frac{l}{SR}
+\end{equation}
+となる。つまり試料の断面積・長さを計測したのち、ある電流値を流したときの電圧差を測定すればよいというのがわかる。
+この実験系を素直に組むと次の図2のようになる。この測定の仕方を2端子法という。
+\begin{figure}[h]
+  \centering
+  \begin{minipage}[t]{0.49\columnwidth}
+    \includegraphics[width=\columnwidth]{/fig/fig2.png}
+    \subcaption{2端子法}
+  \end{minipage}
+  \begin{minipage}[t]{0.49\columnwidth}
+    \includegraphics[width=\columnwidth]{/fig/fig3.png}
+    \subcaption{4端子法}
+  \end{minipage}
+  \caption{回路図。接触抵抗・導線の抵抗をまとめて$r$電流を$I_R$、
+  試料の抵抗を$R$電流を$I_V$、総電流を$I$、とおいている}
+\end{figure}\\
+普段の測定の場合接触抵抗\(r\)は十分小さいと考えられるため、
+接触抵抗の存在を無視して試料の抵抗値を電流・電圧計から読み取った値からそのまま計算することで
+試料の抵抗値を計測できる。これは回路方程式で表すと
+\begin{equation}
+  V=I(R+2r)=IR(1+\frac{2r}{R}) \stackrel{r<<R}{=} IR
+\end{equation}
+しかし試料の抵抗値がこの接触抵抗と同じほどの大きさの場合にはこのように考えることはできず
+計測の意味がなくなる。これを解消するのに次の図3で示されるような4端子法という方法で行う。
+試料にかかる電圧と接続抵抗・電圧計にかかる電圧に関しての等式は電圧計の内部抵抗を$R_m$とおくと
+\begin{align}
+  I_R R &= I_V (R_m + 2r)\\
+  I_V &= \frac{IR}{R_m + 2r + R}
+\end{align}
+これより電圧計に表示される値は
+\begin{equation}
+  V=\frac{R_m}{R_m+ +2r + R} IR \stackrel{R_m>>r,R}{=} IR
+\end{equation}
+よって4端子法をつかうことで接続抵抗と試料の抵抗が同じほどの抵抗値を持っていたとしても、
+電流計・電圧計から読み取った値を素直に使っても正確な試料の抵抗値が求まることがわかる。
 
 \section{実験}
 金属、p 型半導体、超伝導体の電気伝導度の温度依存性を調べるため、
 金属として \ce{Pt}, p 型半導体として \ce{n-Ge}, 超伝導体として \ce{Nb} を試料とし、
 断熱して温度を下げやすくするため、真空中に端子づけした試料をいれ、
 四端子法と二端子法にて185 K から \ce{Nb} が超伝導相へと相転移する 8 K 程度まて
-電気伝導度を測定した。その際に使った真空ポンプの様子は図\ref{pic:measure_system}
-
+電気伝導度を測定した。その際に使った真空ポンプの様子は図\ref{pic:measure_system},
 この系の電気回路は図\ref{fig:circuit_system}の通りになっている。
 
 \begin{figure}[h]
 	\centering
-	% \includegraphics[width=0.5\columnwidth]{pic/01.JPG}
+	\includegraphics[width=0.5\columnwidth]{pic/01.jpg}
 	\caption{
 		電気伝導度を真空中で測定する装置。
 		上部から出ている管は試料室の温度を下げるための冷媒が流れている。
 		下部には今回測定する 3 つの試料、\ce{Pt}, \ce{n-Ge}, \ce{Nb} が端子づけされた状態で入っている。
+        これの温度や電流電圧値はデジタルマルチメータで測定する。
 		左には真空へと排気するポンプへつながる管がつながっている。
 	}
 	\label{pic:measure_system}
 \end{figure}
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.75\columnwidth]{fig/fig4.png}
+	\caption{測定する系の電気回路図。
+    直流電源によって抵抗値\(R_x\)の抵抗に電圧をかける。
+    \(R_s\)は標準抵抗で電流値を測定するためのもの。
+    残りの抵抗は配線と接触抵抗をまとめたもの。
+    左の電圧計は2端子法、右の電圧計は4端子法での測定用のもの。
+    黒い三角は電流計。
+	}
+	\label{fig:circuit_system}
+\end{figure}
 
+\clearpage
 \section{結果}
-\ce{n-Ge} の電気伝導度を二端子法と四端子法で測定した結果をアレニウスプロットする図\ref{graph:n-Ge_ex}のようになった。
+\ce{n-Ge} の電気伝導度を二端子法と四端子法で測定した結果をアレニウスプロットすると図\ref{graph:n-Ge_ex}のようになった。
+4端子法の結果をみると、
+始め高温では電気伝導度が増えていく出払い領域が見られる。
+30 K 以下の不純物領域では電気伝導度は減少していき、直線近似できる部分が2箇所あるのがわかる。
+
+また、今回測定した試料の特徴的な値をまとめると表\ref{table:parameter}のようになった。
+\begin{table}
+    \centering
+    \caption{\ce{n-Ge}, \ce{Pt}, \ce{Nb} の各パラメータ}
+    \label{table:parameter}
+    \begin{tabular}[pos]{llll}
+        \hline
+         & \ce{n-Ge} & \ce{Pt} & \ce{Nb}\\
+         \hline
+         デバイ温度\(T_D\) (K) & 374 & 240 & 275\\
+         \(R(T_D)\) (\si{\ohm}) & - & 863 & 6.63\\
+         残留抵抗 (\si{\ohm}) & \\
+         残留抵抗非 & & &\\
+         超伝導転移温度 & & & \\
+         \hline
+    \end{tabular}
+\end{table}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.5\columnwidth]{/graph/graph01.png}
+    \caption{n-Ge の電気伝導度の温度依存性を2端子法と4端子法で測定したものをアレニウスプロットしたもの。
+    4端子法では左から出払い領域、と直線状になっている不純物領域が二つあるのがわかる。
+    2端子法の結果を見ると電気抵抗が4端子法に比べ高く、意図しない抵抗の温度特性を測定していることになっているのがわかる。}
+    \label{graph:n-Ge_ex}
+\end{figure}
 
 
+\section{課題・考察}
+\subsection*{課題１}
+金属のフェルミ準位はバンドの中を通るのに対し、
+半導体はバンドの中を通らない。
+金属と半導体を接合する際にはフェルミ準位が同じになるように
+バンドは接合される。
+すると金属と半導体の伝導電子のバンドに差が大きくできてしまう。
+これによる障壁は半導体のバンドギャップ\(E_g\)程度のオーダーであるため、
+電圧に直すと 0.5 V 程度の電圧が接合面にかかっているといえる。
+これより、接触抵抗が想定されるものよりも大きくなる。
 
-\section{考察}
+\subsection*{課題2}
+図\ref{graph:n-Ge_ex}を見ると 30 K より高温では、
+ドナー準位からキャリアが出ていく、出払い領域になっているとわかる。
+30 K で電気伝導度の上昇が終わることから、ドナー準位と伝導バンドのエネルギーギャップは
+\begin{equation}
+    E_c - E \sim k_B T = meV
+\end{equation}
+オーダーであると推定できる。
+
+\subsection*{課題3}
+電気伝導度はキャリア密度に比例し、
+またキャリア密度はグランドカノニカル分布から計算すると低温では
+\begin{equation}
+    n \propto \exp(-\frac{E_d}{2k_bT})
+\end{equation}
+になる。
+つまり電気伝導度の対数を取ったものは
+\begin{equation}
+    \ln \sigma = -\frac{E_d}{2000k_b} \frac{1000}{T} + \text{const.}.
+\end{equation}
+これよりアレニウスプロットで電気伝導度が下がる不純物領域の傾きを見ることで
+ドナー準位と伝導体とのエネルギー差を求めることができる。
+今回の測定結果では直線とみなせる部分が2箇所あるのでそこの傾きでエネルギー差を求めると
+\begin{equation}
+    E_d = 20 \text{ meV},\quad 1.57 \text{ meV}
+\end{equation}
+となった。
+
+\subsection*{課題4}
+この測定結果では不純物領域のアレニウスプロットの傾きが2通りあるのがわかる。
+これはつまり電気伝導度を単にキャリア密度に比例するものだと考えてはならないことを意味する。
+ドゥルーデモデルでは
+\begin{equation}
+    \sigma = \frac{ne^{*2}\tau}{m^*}
+\end{equation}
+であった。
+今回使った\ce{Ge}半導体は\(\Gamma\)点からの直接遷移型の半導体であり、
+有効質量となる\(\Gamma\)点でのバンドの曲率は温度に依存しない。
+電子の散乱を表す\(\tau\)の項がどのように効くか考える。
+バンド電子が散乱するのは不純物、格子欠陥、フォノン
+といったようにさまざまな要因が考えられる。
+不純物や格子欠陥は温度によって増えたりするようなものではなく、
+一定である。
+フォノンによる散乱も低温では少ない。
+
+これより残る要因としてはキャリアの有効電荷の
+変化によるものである。
+実際ホール効果を用いて有効電荷を測定した結果\cite{Hung-1950}\cite{Fritzsche-1958}
+によるとこれによる寄与だとしている。
+
+\subsection*{課題5}
+
 
 \section{結論}
 
@@ -237,7 +387,7 @@
 \begin{align}
     \pdv{f_0}{E} \sim -\delta(E-E_F) % \tag{9.53}
 \end{align}
-というようにする。\footnote{自明とか言ってるけど温度無視していいのかしら?}\\
+というようにする。%\footnote{自明とか言ってるけど温度無視していいのかしら?}\\
 また角波数空間の積分を同じエネルギーを持つ面の面素\(df_E\)と
 それに垂直な方向\(dk_{\perp}\)に分けると
 \begin{align}
@@ -274,13 +424,13 @@
     n = \frac{2 \times 4 \pi k_F^3/3}{(2\pi)^3} \qquad \leftrightarrow \qquad
     k_F^3 = 3\pi^2n % \tag{9.57c}
 \end{align}
-となっている。\footnote{スピン自由度のせいで体積がは2倍になっている。}
+となっている。%\footnote{スピン自由度のせいで体積がは2倍になっている。}
 では表面積は
 \begin{align}
     \int_{E=E_F} df_E &= 4\pi k_F^2\\ % \tag{9.57b}\\
     &=\frac{12\pi^3n}{m^*v(E_F)/\hbar}
 \end{align}
-となる。\footnote{スピン自由度のせいで表面積は2倍になっていると思いきやフェルミ面の"表面積"を考えてるのでいらない。}
+となる。%\footnote{スピン自由度のせいで表面積は2倍になっていると思いきやフェルミ面の"表面積"を考えてるのでいらない。}
 よって
 \begin{align}
     \sigma &= \frac{e^2}{4\pi^3\hbar}\times \frac{\ev{v}\ev{\tau}}{3}\int_{E=E_F} df_E\\
@@ -312,18 +462,18 @@ ph は phonon, def は defect の略。
 
 この取り扱いの右辺の各項の性質を考えると電気伝導度が出る。
 まず、単位時間当たりの衝突回数は散乱断面積\(\Sigma\)と粒子測度の積に比例する。
-\footnote{ぶつかる面が大きかったら当たりやすいし、速度が速かったらいっぱい動き回るので衝突回数も増える。}
+%\footnote{ぶつかる面が大きかったら当たりやすいし、速度が速かったらいっぱい動き回るので衝突回数も増える。}
 \begin{align}
     \frac{1}{\tau} \propto \Sigma v
 \end{align}
 金属の伝導電子に関しては\(v\)はフェルミ面付近の電子なのでフェルミ速度\(v(E_F)\)に他ならず、温度によらない。
 
 散乱中心が欠陥の場合には散乱断面積\(\Sigma\)も温度によらない。
-\footnote{そうなの?}
+%\footnote{そうなの?}
 つまり欠陥による電気伝導度は温度によらない。
 
 フォノン散乱による場合は波数ベクトル\(q\)各振動数\(\omega_q\)のフォノンの振幅の2乗平均
-\(\ev{s^2(q)}\)に比例し、\footnote{見つからない\dots}
+\(\ev{s^2(q)}\)に比例し、%\footnote{見つからない\dots}
 十分高温のとき、エネルギー等分配則から
 \begin{align}
     M\omega_q^2\ev{s^2(q)} = k_BT % \tag{9.60}
@@ -349,176 +499,18 @@ ph は phonon, def は defect の略。
 \end{align}
 となり電気抵抗率は温度は比例する。(マティーセンの規則)
 
-低温でグリュナイゼン(1933)は
-\footnote{ドイツ語の原論文(\url{https://sci-hub.hkvisa.net/10.1002/andp.19334080504})
-どうやって式を出したかわからないし、ぱっと見同じ式には見えない。この中で引用されている E. Gruneisen, Leipziger Vortrage 1930 にあるのかもしれない。
-しかしこれが見つからない。}
+低温でグリュナイゼン\cite{Grueneisen}は
+%\footnote{ドイツ語の原論文(\url{https://sci-hub.hkvisa.net/10.1002/andp.19334080504})
+% どうやって式を出したかわからないし、ぱっと見同じ式には見えない。この中で引用されている E. Gruneisen, Leipziger Vortrage 1930 にあるのかもしれない。
+% しかしこれが見つからない。}
 \begin{align}
     \varrho_{ph}=A\qty(\frac{T}{\Theta})^5\int_0^{\Theta/T} \frac{x^5dx}{(e^x-1)(1-e^{-x})} % \tag{9.62}
 \end{align}
 この式を用いていろんな金属の電気抵抗率の測定値と比較してうまくいったことを言ってる。
-つまり
-\begin{align}
-    \varrho_{ph}(T) \propto T^5
-\end{align}
+しかし原論文を読んでみたが、導出はされていないように見えた。
 % \begin{figure}[h]
 %     \centering
 %     \includegraphics[width=0.94\columnwidth]{fig1.JPG}
 % \end{figure}
-
-\section{熱電効果}
-\subsection{温度勾配と電流密度}
-電気伝導度を導出するときの近似をゆるめて考える。
-分布関数が位置に依存すると考える。
-\begin{align}
-    f(k) = f_0(k) + \frac{e}{\hbar} \tau\mathscr{E} \cdot \nabla_k f - \tau v \cdot \nabla_r f % \tag{9.64}
-\end{align}
-そして
-\begin{align}
-    \nabla_r f(k,\, T(r)) = \pdv{f}{T} \nabla_r T
-\end{align}
-なので摂動が小さいときを考えて
-\begin{align}
-    f(k) = f_0(k) + \frac{e}{\hbar} \mathscr{E} \cdot \nabla_k f - \tau \pdv{f_0}{T} v \cdot \nabla_r T % \tag{9.65}
-\end{align}
-なので電流密度は
-\begin{align}
-    j_x &= \frac{-e\times 2}{(2\pi)^3} \int d^3k \, v(k)
-    \qty(\underset{=0}{\underline{f_0(k)}}
-    + \underset{\text{電気伝導度}}{\underline{\frac{e}{\hbar} \mathscr{E} \cdot \nabla_k f}} - \tau \pdv{f_0}{T} v \cdot \nabla_r T)\\
-    &= \sigma \mathscr{E}_x + \frac{e}{4\pi^3}\int d^3k \, \tau v_x^2 \pdv{f_0}{T} \pdv{T}{x}\\ % \tag{9.66}\\
-    &= \sigma \mathscr{E}_x + \frac{e}{4\pi^3}\int \underset{(7.41)式}{\underline{\frac{1}{|\nabla_k E|} df_E}} \, dE  \, \tau v_x^2 \pdv{f_0}{T} \pdv{T}{x}\\
-    &= \sigma \mathscr{E}_x + e\int dE \, \tau {v_x^2} D(E) \pdv{f_0}{T} \pdv{T}{x}\\
-    &= \sigma \mathscr{E}_x + \frac{e}{3}\int dE \, \tau v^2 D(E) \pdv{f_0}{T} \pdv{T}{x} % \tag{9.67}
-\end{align}
-積分の中身について
-\begin{align}
-    \pdv{f_0}{T} = \pdv{f_0}{E} \pdv{E}{T}
-\end{align}
-これはフェルミエネルギー付近でしか値を持たないので(9.67)式の積分の中身を定数として
-\begin{align}
-    j_x &= \sigma \mathscr{E}_x + \frac{e}{3} \tau_F v_F^2  \pdv{T}{x} \int dE \, D(E) \pdv{f_0}{T}\\
-    &= \sigma \mathscr{E}_x + \frac{e}{3} \tau v_F^2  \pdv{T}{x} \int dE \, \qty(1+D'(E)\,(E-E_F)) \pdv{f_0}{T}\\
-    &= \sigma \mathscr{E}_x + \frac{e}{3} \tau v_F^2  \pdv{T}{x} \int dE \, \underset{奇関数}{\underline{\pdv{f_0}{T}}}
-    + \sigma \mathscr{E}_x + \frac{e}{3} \tau v_F^2  \pdv{T}{x} \underset{p147}{\underline{\int dE \, D'(E)\,(E-E_F)\times\pdv{f_0}{T}}}\\
-    &=\sigma \mathscr{E}_x + \frac{e}{3} \tau v_F^2  \pdv{T}{x} \underset{E=E_Fのみ値がある}{\underline{D'(E_F)}}\int \, dE\,(E-E_F)\times\pdv{f_0}{T}\\
-    &=\sigma \mathscr{E}_x + \frac{e}{3} \tau v_F^2  \pdv{T}{x} D'(E_F)\times k_B^2T \frac{\pi^2}{3}\\
-    &=\sigma \mathscr{E}_x + \frac{\pi^2}{9} e v_F^2\tau_F k_B^2 T D'(E_F) \pdv{T}{x} % \tag{9.68}
-\end{align}
-比例定数は置いといて、温度勾配と電流が関係してることがわかる。
-
-ここまでの話はフェルミエネルギー\(E_F\)が位置によらない定数として扱えると仮定した。
-ただし半導体の pn 接合を考えるときにはフェルミエネルギーは場所による。
-\footnote{温度勾配によりフェルミエネルギーの空間変化が生じると言ってるが詳細はわからない。}
-% \begin{figure}[h]
-%     \centering
-%     \includegraphics[width=0.5\columnwidth]{PN.png}
-% \end{figure}
-\newline
-なので温度勾配により生じる電流密度をテンソルである輸送係数\(\mathscr{L}\)をもちいて
-\begin{align}
-    j_x = \sigma \mathscr{E}'_x + \mathscr{L}_{xx}^{12}\qty(-\pdv{T}{x}) % \tag{6.69}\\
-    % j = \sigma \mathscr{E}' +
-\end{align}
-ここで電場についてるプライムは空間変化するフェルミエネルギーの効果を含めた一般化された電場で
-\begin{align}
-    \mathscr{E}' &= \mathscr{E} + e^{-1}\nabla_r E_F(r)\\
-    - e\mathscr{E}' - (-e\mathscr{E}) &= -\nabla_r E_F(r)
-\end{align}
-というようになっている。
-この式を解釈すると、フェルミエネルギーの勾配により電子は力を受けてしまうがそれを電場に押し付けた形になっている。
-
-\subsection*{粒子流と熱流}
-ボルツマン方程式は熱流に対しても使うことができる。
-熱力学より
-\begin{align}
-    d\mathcal{Q} = T dS = du - E_F dn % \tag{9.70}
-\end{align}
-となる。\footnote{熱力学的には\(E_F\)は化学ポテンシャルのことだから。}
-この全微分を流れの密度とみなすと
-\begin{align}
-    j_\mathcal{Q} = j_E - E_F j_n % \tag{9.71}
-\end{align}
-ここで粒子流密度\(j_n\)は以前の結果より(9.69)式の両辺を\(-e\)で割ってやればわかり、
-エネルギー流密度\(j_E\)は
-\begin{align}
-    j_E &= \frac{1}{(2\pi)^3} \int d^3k \, E(k)v(k)f(k,r)\\
-    &=\frac{1}{(2\pi)^3} \int d^3k \, E(k)v(k)\qty(f_0 + \frac{e}{\hbar}\nabla_k f_0 - \tau v\cdot\nabla_r f_0)\\
-\end{align}
-\(E(k)\)は偶関数なので\(f_0\)の部分は対称性から消える。
-\(\nabla_k f(0)\)の項については\(k\)はフェルミ面付近での積分がほとんどだから\(E(k) = E_F\)と考えていいので、
-結局\(\mathscr{E}\)に比例するのが出る。
-そして\(\nabla_r f_0\)の項も同様に\(\nabla_r T\)の項に比例する感じとなる。
-\footnote{ちゃんと計算したら?}
-よって電流と熱流の関係として
-\begin{align}
-    j &= \mathscr{L}^{11} \mathscr{E}' + \mathscr{L}^{12}(-\nabla_r T)% \tag{9.72a}\\
-    j_{\mathcal{Q}} &= \mathscr{L}^{21} \mathscr{E}' + \mathscr{L}^{22}(-\nabla_r T)% \tag{9.72b}
-\end{align}
-となる。このときの輸送係数\(\mathscr{L}\)は対称テンソルになっていて
-\begin{align}
-    \mathscr{L}^{12} = \mathscr{L}^{21}
-\end{align}
-になっていたりするらしい。\footnote{オンガーサの相反定理。ランジュバン方程式から頑張るとわかるらしい。}
-
-(9.72)式の解釈をしていく。
-電場と温度勾配はいずれも熱流と電流の両方を誘起する。
-\footnote{対角項はわかりやすいが、非対角項はちょっと以外であるように感じる。}
-いま、2つの異なる金属A, B からなるループがあってこれが開いているか電圧計に接続されているものとする。
-\footnote{前者は熱電対温度計、後者はペルチェ素子と呼ばれるもの}
-% \begin{figure}[h]
-%     \centering
-%     \includegraphics[width=\columnwidth]{9.9.png}
-% \end{figure}
-\newline
-\subsubsection*{ゼーベック効果}
-左の図9.9a について考える。
-このループは回路になっているので\(\mathscr{E}'=\mathscr{E}\).
-それと電流はないため(9.72a)式より
-\begin{align}
-    0 &= j = \mathscr{L}^{11} \mathscr{E}' + \mathscr{L}^{12}(-\nabla_r T)\\ % \tag{9.72a}\\
-    \mathscr{E}_x &= \qty(\mathscr{L}^{11})^{-1}(\mathscr{L}^{12})\pdv{T}{x}
-    = K \pdv{T}{x} % \tag{9.73}
-\end{align}
-ここで\(K\)は絶対熱電能と呼ばれる物質固有の定数。
-これをループの経路に従って積分して電圧計に表示される値を求める。
-\begin{align}
-    V &= \int_0^1 \mathscr{E} B dx + \int_1^2 \mathscr{E}_A dx + \int_2^0 \mathscr{E}_B dx\\
-    &= \int_2^1 \mathscr{E} B dx + \int_1^2 \mathscr{E}_A dx \\
-    &= -\int_1^2 \mathscr{E} B dx + \int_1^2 \mathscr{E}_A dx \\
-    &= \int_1^2 (\mathscr{E}_A-\mathscr{E}_B)dx\\
-    &= \int_1^2(K_A-K_B)\pdv{T}{x} dx\\
-    &= \int_{T_1}^{T_2} (K_A-K_B) dT % \tag{9.74}
-\end{align}
-というようになる。
-この2種類の金属をつなげたものに温度勾配をかけると起電力が生じる現象を
-熱電効果あるいはゼーベック効果と呼ばれる。
-(9.74)式を見ると絶対熱電能\(K\)の温度特性をわかった上で起電力を測定できたとすると、
-この端子間の温度差が測定できることから温度計としても使える。
-この温度計はつなぎ合わせる金属の種類を組み合わせてやることでいろんな温度を測定できる。
-\footnote{たしか -100℃ - 700 ℃ とかだった気がする。}
-
-\subsubsection*{ペルチェ効果}
-右の図9.9b について考える。
-このループでは温度は一定に保たれていて温度勾配がないとする。
-つまり
-\begin{align}
-    \pdv{T}{x} = 0
-\end{align}
-より
-\begin{align}
-    j &= \mathscr{L}^{11}\mathscr{E}\\
-    j_\mathcal{Q} &= \mathscr{L}^{21} \mathscr{E} % \tag{9.75}
-\end{align}
-が成り立つ。これを組み合わせて。
-\begin{align}
-    j_Q = \mathscr{L}^{21}(\mathscr{L}^{11})^{-1} j =: \Pi j % \tag{9.76}
-\end{align}
-この式を使って各金属やそれ同士の系都合部の熱流を考える。
-すると電流を流す、
-つまり金属対に電圧をかけると熱流に差ができるため片方の接合部で冷却、
-もう片方の接合部で加熱されることがわかる。
-この現象をペルチェ効果という。
-\footnote{これつかってデスクトップパソコンのCPUの冷却をするグッズがあるがそんなに効率はよくないらしい。}
 
 \end{document}
