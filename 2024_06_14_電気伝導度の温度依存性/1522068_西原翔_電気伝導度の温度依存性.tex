@@ -245,17 +245,17 @@
 また、今回測定した試料の特徴的な値をまとめると表\ref{table:parameter}のようになった。
 \begin{table}
     \centering
-    \caption{\ce{n-Ge}, \ce{Pt}, \ce{Nb} の各パラメータ}
+    \caption{\ce{n-Ge}, \ce{Pt}, \ce{Nb} の各パラメータ。ただし、残留抵抗抵抗比はデバイ温度との比になっている。}
     \label{table:parameter}
-    \begin{tabular}[pos]{llll}
+    \begin{tabular}[pos]{lccc}
         \hline
          & \ce{n-Ge} & \ce{Pt} & \ce{Nb}\\
          \hline
          デバイ温度\(T_D\) (K) & 374 & 240 & 275\\
          \(R(T_D)\) (\si{\ohm}) & - & 863 & 6.63\\
-         残留抵抗 (\si{\ohm}) & \\
-         残留抵抗非 & & &\\
-         超伝導転移温度 & & & \\
+         残留抵抗 (\si{\ohm}) & 42.3 & 8.65 & - \\
+         残留抵抗比 & - & 99.8 & -\\
+         超伝導転移温度(K) & - & - & 8.1 \\
          \hline
     \end{tabular}
 \end{table}
@@ -268,8 +268,28 @@
     \label{graph:n-Ge_ex}
 \end{figure}
 
+\begin{figure}
+    \centering
+    \begin{minipage}[t]{0.48\columnwidth}
+        \centering
+        \includegraphics[width=\columnwidth]{graph/graph02.png}
+        \subcaption{\ce{Pt}の抵抗率の測定結果。残留抵抗を取り除いてある。}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.48\columnwidth}
+        \centering
+        \includegraphics[width=\columnwidth]{graph/graph03.png} % TODO legend が変
+        \subcaption{\ce{Nb}の抵抗率の測定結果}
+    \end{minipage}
+    \caption{金属と超伝導体の電気抵抗率の測定結果。
+    デバイ温度とそこにおける抵抗率で規格化してある。
+    測定結果とグリュナイゼンの式の結果。
+    超伝導転移する\ce{Nb}は抵抗率をプロットする際に、
+    測定値を規格化したものと、超伝導転移温度における抵抗率の寄与を取り除いたものをプロットした。
+    また、\ce{Nb} には測定していない温度における抵抗率を外挿した。}
+\end{figure}
 
-\section{課題・考察}
+\section{課題}
 \subsection*{課題１}
 金属のフェルミ準位はバンドの中を通るのに対し、
 半導体はバンドの中を通らない。
@@ -331,7 +351,47 @@
 によるとこれによる寄与だとしている。
 
 \subsection*{課題5}
+\ce{Pt} の抵抗率はグリュナイゼンの式とよく合った一方、
+\ce{Nb} の抵抗率はそのままではまったく合わなかった。
+超伝導臨界温度\(T_c\)における抵抗の値を引いたもの、
+つまり
+\begin{equation}
+    \frac{\rho(T)-\rho(T_c)}{\rho(T_d)-\rho(T_c)}
+\end{equation}
+としてプロットするとグリュナイゼンの式とおおよそおなじような振る舞いをするようになった。
+ただそれでも式とのずれというのは確認できた。
+具体的には、全体的に抵抗率が高い点や、
+抵抗率の値を外挿した際、(1, 1)の点を通るはずなのに通っていないというのがあげられる。
 
+\section{考察}
+\subsection{超伝導体として\ce{Nb}をつかう理由}
+\ce{Nb} の超伝導臨界温度は文献値\cite{rikanenpyo}だと 9.23 K であるが、
+実際の測定値では 8.1 K 程度であった。
+このずれは、\ce{Nb} の隣にある \ce{Pt} や \ce{n-Ge} を流れる電流による磁場なのではないことを示す。
+臨界磁場の温度依存性についてのパラボリック則
+\begin{equation}
+    H_c(T) = H_c(0)\qty(1-\qty(\frac{T}{T_c})^2)
+\end{equation}
+を用いて考えると
+\begin{equation}
+    H_c(8.1) = 0.23 H_c(0)
+\end{equation}
+となり、文献値\cite{rikanenpyo}の値を使うと
+\begin{equation}
+    B_c(8.1) = 45.5 \text{ mT}
+\end{equation}
+となる。
+一方直線電流が作る磁場の大きさは
+\begin{equation}
+    H(r) = \frac{I}{2\pi r}
+\end{equation}
+である。これに実際流れていた電流値 4.3 mA を入れると、
+二本の導線の距離は
+\begin{equation}
+    r \simeq 10^{-8} \text{ m}
+\end{equation}
+でなければならない。
+つまり臨界磁場が高いため、隣接する試料の影響を考えなくてもよいというのも選ばれた理由の1つなのであろう。
 
 \section{結論}
 
@@ -341,11 +401,8 @@
 % グリュナイゼンの論文
 
 \section*{付録}
-今回の実験に関係する理論を教科書\cite{ibach-luth}を使って学んだときのノートを付録に追記する。
+今回の実験に関係する理論を教科書\cite{ibach-luth}を使って学んだノートを付録に追記する。
 \section{金属の電気伝導度}
-
-
-
 \subsection{ボルツマン方程式による電気伝導度の導出}
 % 9.2 節でホールを扱ったがここでやったのと同じように
 量子・古典対応を使いながら考えてみる。
