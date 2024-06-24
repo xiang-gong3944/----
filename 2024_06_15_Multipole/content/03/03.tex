@@ -80,7 +80,7 @@ Notation が増えて申しわけないが、
 % \end{align}
 
 また、上の計算を見てわかるように\(O_l^{m*}(\vb*{r})\)というのが
-多極子モーメントの形を決めるのがわかる。
+多極子の形を決めるのがわかる。
 \(l=2\)の電気四重極子の形を見るため、\(O_l^m\)を整理していこう。
 \(l=2,\,m=2\)のとき、
 \begin{align}
@@ -235,7 +235,7 @@ Notation が増えて申しわけないが、
 \subsection{電気多極子のパリティ}
 電気多極子の定義は
 \begin{equation}
-    Q_l^m = \int \vb*{r} r^l Z_l^m(\theta,\,)\rho(\vb*{r})
+    Q_l^m = \int d\vb*{r}\, r^l Z_l^m(\theta,\,\varphi)\rho(\vb*{r})
 \end{equation}
 であった。空間反転では\(\theta\rightarrow\pi-\theta,\quad\varphi\rightarrow\varphi\pm 2\pi\)としてやればよいので、
 空間反転に関するパリティは球面調和関数による\((-1)^l\)である。
@@ -277,8 +277,9 @@ Notation が増えて申しわけないが、
 どうやらベクトルポテンシャルのゲージ不変性で不都合が出るらしい\cite{Stefan2016}。
 総和の中は以下のように変形できる。
 
-\clearpage
 以下この節は工事中
+
+\clearpage
 
 目標:
 \begin{align}
@@ -295,8 +296,8 @@ Notation が増えて申しわけないが、
 % と書ける。
 % これより
 % \begin{equation}
-%     \frac{1}{c}\int d\vb*{r} \vb*{j}(\vb*{r}) r^l Z_l^{m*}(\theta,\,\varphi)
-%     = \int d\vb*{r} \qty(\curl\vb*{M}(\vb*{r})) O_l^m (\theta,\,\varphi).
+%     \frac{1}{c}\int d\vb*{r}\, \vb*{j}(\vb*{r}) r^l Z_l^{m*}(\theta,\,\varphi)
+%     = \int d\vb*{r}\, \qty(\curl\vb*{M}(\vb*{r})) O_l^m (\theta,\,\varphi).
 % \end{equation}
 変形していく。
 \begin{align}
@@ -335,7 +336,7 @@ Notation が増えて申しわけないが、
 では4種類目はどこから現れるかというと、
 電荷\(\rho\)と電流\(\vb*{j}\)を磁荷\(\rho_m\)と磁化電流密度\(\vb*{j}_m\)に置き換えたものを考えることで得られる。
 
-まず初めに電気多極子モーメントの電荷密度を置き換えたものを見る。
+まず初めに電気多極子の電荷密度を置き換えたものを見る。
 電荷と分極密度\(\vb*{P}\)の間には
 \begin{equation}
     \rho(\vb*{r}) = -\div\vb*{P}(\vb*{r})
@@ -346,23 +347,189 @@ Notation が増えて申しわけないが、
     \rho_m(\vb*{r}) = -\div\vb*{M}(\vb*{r})
 \end{equation}
 という関係が成り立っているとする。
-このとき、電気多極子モーメントの電荷を磁荷に置き換えたものを\(\tilde{Q}_l^m\)とすると
+このとき、電気多極子の電荷を磁荷に置き換えたものを\(\tilde{Q}_l^m\)とすると
 \begin{align}
     \tilde{Q}_l^m
-    &= \int d\vb*{r} O_l^m(\vb*{r})\rho_m(\vb*{r})\\
-    &= -\int d\vb*{r} O_l^m(\vb*{r})\div\vb*{M}(\vb*{r})\\
-    &= \int d\vb*{r} \vb*{M}(\vb*{r})\cdot \nabla O_l^m(\vb*{r})
+    &= \int d\vb*{r}\, O_l^m(\vb*{r})\rho_m(\vb*{r})\\
+    &= -\int d\vb*{r}\, O_l^m(\vb*{r})\div\vb*{M}(\vb*{r})\\
+    &= \int d\vb*{r}\, \vb*{M}(\vb*{r})\cdot \nabla O_l^m(\vb*{r})
 \end{align}
 ここで、
 \begin{align}
-    \int d\vb*{r} (\vb*{r}O_l^m(\vb*{r}))\cdot(\curl \vb*{j}(\vb*{r}))
-    &= \int d\vb*{r} \varepsilon_{ijk} x_i O_l^m(\vb*{r}) \partial_j j_k(\vb*{r})\\
-    &= \varepsilon_{ijk} \int d\vb*{r} \partial_j \Bigl\{ x_i O_l^m(\vb*{r}) j_k(\vb*{r})\Bigr\}
-    - \int d\vb*{r} \varepsilon_{ijk}\partial_j\Bigl\{x_i O_l^m(\vb*{r})\Bigr\} j_k(\vb*{r})\\
-    &= \int d\vb*{r}\varepsilon_{ikj} x_i j_k(\vb*{r}) (\partial_j O_l^m(\vb*{r}))\\
-    &= \int d\vb*{r} (\vb*{r}\times\vb*{j}(\vb*{r}))\cdot \grad O_l^m(\vb*{r})\\
-    &= \int d\vb*{r} (\vb*{r}\times(c \curl \vb*{M}(\vb*{r})))\cdot \grad O_l^m(\vb*{r})\\
+    \frac{1}{c}\int d\vb*{r}\, (\vb*{r}O_l^m(\vb*{r}))\cdot(\curl (\curl\vb*{M}(\vb*{r})))
+    &=\int d\vb*{r}\, (\vb*{r}O_l^m(\vb*{r}))\cdot(\curl \vb*{j}(\vb*{r}))\\
+    &=\int d\vb*{r}\, \varepsilon_{ijk} x_i O_l^m(\vb*{r}) \partial_j j_k(\vb*{r})\\
+    &=\varepsilon_{ijk} \int d\vb*{r}\, \partial_j \Bigl\{ x_i O_l^m(\vb*{r}) j_k(\vb*{r})\Bigr\}
+    - \int d\vb*{r}\, \varepsilon_{ijk}\partial_j\Bigl\{x_i O_l^m(\vb*{r})\Bigr\} j_k(\vb*{r})\\
+    &=\int d\vb*{r}\varepsilon_{ikj} x_i j_k(\vb*{r}) (\partial_j O_l^m(\vb*{r}))\\
+    &=\int d\vb*{r}\, (\vb*{r}\times\vb*{j}(\vb*{r}))\cdot \grad O_l^m(\vb*{r})
 \end{align}
+であり、また
+\begin{align}
+    \int d\vb*{r}\, (\vb*{r}O_l^m(\vb*{r}))\cdot(\curl (\curl\vb*{M}(\vb*{r})))
+    &=\int d\vb*{r}\, \varepsilon_{ijk}\varepsilon_{kpq} x_i O_l^m \partial_j \partial_p M_q\\
+    &=\int d\vb*{r}\, \varepsilon_{ijk}\varepsilon_{kpq}
+    \qty{\partial_j(x_i O_l^m \partial_p M_q)-\partial_j(x_i O_l^m)\partial_p M_q}\\
+    &=\int d\vb*{r}\, \varepsilon_{ijk}\varepsilon_{kpq}
+    \qty{-\partial_p(\partial_j(x_i O_l^m)\partial_p M_q)+ \partial_p\partial_j(x_iO_l^m)M_m}\\
+    &=\int d\vb*{r}\, \varepsilon_{ijk}\varepsilon_{kpq}
+    \partial_p(\delta_{ij}O_l^m + x_i\partial_jO_l^m)M_m\\
+    &= \int d\vb*{r}\, \vb*{M}(\vb*{r})\cdot\Bigl[
+        \curl (\vb*{r}\times \grad O_l^m(\vb*{r}))
+    \Bigr]\\
+    &= \int d\vb*{r}\, \vb*{M}(\vb*{r})\cdot\Bigl[
+        \curl (i\hat{\vb*{L}}O_l^m(\vb*{r}))
+    \Bigr]\\
+    & \cdots \notag\\
+    &= (l+1)\int d\vb*{r}\, \vb*{M}(\vb*{r})\cdot\grad O_l^m(\vb*{r})
+\end{align}
+という関係式を使うと
+\begin{align}
+    \tilde{Q}_l^m &= \int d\vb*{r}\, \vb*{M}(\vb*{r}) \cdot \grad O_l^m(\vb*{r}) \\
+    &=\frac{1}{c(l+1)}\int d\vb*{r}\,(\vb*{r}\times \vb*{J}(\vb*{r}))\cdot \grad O_l^m(\vb*{r}) = M_l^m
+\end{align}
+というように磁気多極子を得られた。
+では電流を磁流に置き換える。
+電流は\(\vb*{j}=c\curl \vb*{M}\)であるので、
+磁流を\(\vb*{j}_m=c\curl \vb*{P}\)であると考える。
+\(M_l^m\)の電流を磁流に置き換えたものを\(\tilde{M}_l^m\)とすると
+先ほどの変形を使って
+\begin{align}
+    \tilde{M}_l^m
+    &= \frac{1}{c(l+1)}\int d\vb*{r}\, (\vb*{r}\times \vb*{j}_m(\vb*{r}))\cdot\grad O_l^m\\
+    &= \frac{1}{l+1}\int d\vb*{r}\, (\vb*{r}\times (\curl \vb*{P}(\vb*{r}))) \cdot\grad O_l^m\\
+    &= \int d\vb*{r}\, \,\vb*{P}(\vb*{r}) \cdot \grad O_l^m(\vb*{r})
+    = \int d\vb*{r}\, \,\rho(\vb*{r}) O_l^m(\vb*{r})
+\end{align}
+というように電気多極子\(Q_l^m\)が得られる。
+では、相方がまだ出ていない時期トロイダル多極子に対しても電荷・磁荷変換を行う。
+そうしたものを\(\tilde{T}_l^m\)として、
+\(\vb*{P} =\curl \vb*{G}\)という量も導入すると、
+\begin{align}
+    \tilde{T}_l^m
+    &= \frac{1}{c(l+1)} \int d\vb*{r}\, (\vb*{r}\cdot \vb*{j}_m(\vb*{r}))O_l^m(\vb*{r})
+    = \frac{1}{l+1} \int d\vb*{r}\, (\vb*{r}\cdot (\curl \vb*{P}(\vb*{r})))O_l^m(\vb*{r})\\
+    &= \frac{1}{l+1} \int d\vb*{r}\, \varepsilon_{ijk} \partial_j(r_i P_k O_l^m(\vb*{r}))
+    - \frac{1}{l+1} \int d\vb*{r}\, \varepsilon_{ijk} \partial_j(r_i) P_k O_l^m(\vb*{r})
+    - \frac{1}{l+1} \int d\vb*{r}\, \varepsilon_{ijk} r_i P_k \partial_jO_l^m(\vb*{r})\\
+    &= \frac{1}{l+1} \int d\vb*{r}\, (\vb*{r}\times \vb*{P}(\vb*{r})) \cdot \grad O_l^m(\vb*{r})
+    = \frac{1}{l+1} \int d\vb*{r}\, (\vb*{r}\times (\curl \vb*{G}(\vb*{r}))) \cdot \grad O_l^m(\vb*{r})\\
+    &= \int d\vb*{r}\, \,\vb*{G}(\vb*{r}) \cdot \grad O_l^m(\vb*{r})
+    \equiv G_l^m
+\end{align}
+というようになにか得られた。
+\(G_l^m\)を電気トロイダル多極子、
+\(\vb*{G}\)を電気トロイダル分極と呼ぶ。
 
+電荷・磁荷変換を施したマクスウェル方程式は
+\begin{align}
+    \div \vb*{E} &= 0\\
+    \div \vb*{B} &= 4\pi \rho_m\\
+    \curl \vb*{E} &= \frac{4\pi}{c}\vb*{j}_m\\
+    \curl \vb*{B} &= 0
+\end{align}
+というようになる。
+この式を見ると
+\(\phi(\vb*{r}),\,\vb*{A}(\vb*{r})\)を電荷・磁荷変換を施したポテンシャル
+\(\tilde{\phi}(\vb*{r}),\,\vb*{\tilde{A}}(\vb*{r})\)は
+\begin{align}
+    \vb*{B} &= -\grad{\tilde{\phi}(\vb*{r})}\\
+    \vb*{E} &= \curl \vb*{\tilde{A}}(\vb*{r})
+\end{align}
+となる。
+これを解くと
+\begin{align}
+    \tilde{\phi}(\vb*{r})
+    &= \sum_{l=0}^{\infty} \sum_{m=-l}^{l} M_l^m \frac{Z_l^m(\theta,\,\varphi)}{r^{l+1}}\\
+    \vb*{\tilde{A}}(\vb*{r})
+    &= \sum_{l=0}^{\infty} \sum_{m=-l}^{l}\qty[
+        \sqrt{\frac{4\pi(l+1)}{(2l+1)l}}Q_l^m \frac{\vb*{Y}_{lm}^{(l)}}{ir^{l+1}}
+        -\sqrt{4\pi(l+1)} G_l^m \frac{\vb*{Y}_{lm}^{(l+1)}}{r^{l+2}}
+    ]
+\end{align}
+となることが予想される。
+
+\section{まとめ}
+いろいろな量が出てきた。それらの関係をまとめておこう。
+電荷・磁荷・電流・磁流、分極・磁化・磁気トロイダル分極・電気トロイダル分極
+の関係は次のようになっている。
+\begin{align}
+    \rho(\vb*{r}) = -\div \vb*{P}(\vb*{r}), \quad & \quad \rho_m(\vb*{r}) = -\div \vb*{M}(\vb*{r})\\
+    \vb*{j}(\vb*{r}) = c\curl \vb*{M}(\vb*{r}), \quad & \quad \vb*{j}_m(\vb*{r}) = c \curl \vb*{P}(\vb*{r})\\
+    \vb*{M}(\vb*{r}) = \curl \vb*{T}(\vb*{r}), \quad & \quad \vb*{P}(\vb*{r}) = \curl \vb*{G}(\vb*{r})\\
+    \vb*{T} = \frac{1}{l+1}\, \vb*{r}\times\vb*{M}(\vb*{r}), \quad & \quad \vb*{G}(\vb*{r}) = \frac{1}{l+1}\, \vb*{r}\times\vb*{P}(\vb*{r})
+\end{align}
+こうして得られた多極子をまとめると、
+\begin{align}
+    &Q_l^m
+    = \int d\vb*{r}\, \rho(\vb*{r})O_l^m(\vb*{r})
+    = \int d\vb*{r}\, \vb*{P}(\vb*{r}) \cdot \grad O_l^m(\vb*{r})
+    = \frac{1}{c(l+1)}\int d\vb*{r}\, (\vb*{r}\times \vb*{j}_m(\vb*{r})) \cdot \grad O_l^m(\vb*{r})\\
+    &M_l^m
+    = \int d\vb*{r}\, \rho_m(\vb*{r})O_l^m(\vb*{r})
+    = \int d\vb*{r}\, \vb*{M}(\vb*{r}) \cdot \grad O_l^m(\vb*{r})
+    = \frac{1}{c(l+1)}\int d\vb*{r}\, (\vb*{r}\times \vb*{j}(\vb*{r})) \cdot \grad O_l^m(\vb*{r})\\
+    &T_l^m
+    = \int d\vb*{r}\, \vb*{T}(\vb*{r})\cdot \grad O_l^m(\vb*{r})
+    = \frac{1}{l+1}\int d\vb*{r}\, (\vb*{r} \times \vb*{P}(\vb*{r}))\cdot \grad O_l^m(\vb*{r})
+    = \frac{1}{c(l+1)}\int d\vb*{r}\, (\vb*{r}\cdot \vb*{j}(\vb*{r})) O_l^m(\vb*{r})\\
+    &G_l^m
+    = \int d\vb*{r}\, \vb*{G}(\vb*{r})\cdot \grad O_l^m(\vb*{r})
+    = \frac{1}{l+1}\int d\vb*{r}\, (\vb*{r} \times \vb*{P}(\vb*{r}))\cdot \grad O_l^m(\vb*{r})
+    = \frac{1}{c(l+1)}\int d\vb*{r}\, (\vb*{r}\cdot \vb*{j}_m(\vb*{r})) O_l^m(\vb*{r})
+\end{align}
+また、空間反転に関するパリティは
+\begin{align}
+    \mathcal{P} \rho(\vb*{r}) = + \rho(\vb*{r}), \qquad
+    \mathcal{P} \rho_m(\vb*{r}) = - \rho_m(\vb*{r}), \qquad&
+    \mathcal{P} \vb*{j}(\vb*{r}) = - \vb*{j}(\vb*{r}), \qquad
+    \mathcal{P} \vb*{j}_m(\vb*{r}) = + \vb*{j}_m(\vb*{r})\\
+    \mathcal{P}Q_l^m = (-1)^{l}Q_l^m,\qquad
+    \mathcal{P}M_l^m = (-1)^{l+1}M_l^m,\qquad&
+    \mathcal{P}T_l^m = (-1)^{l}T_l^m,\qquad
+    \mathcal{P}G_l^m = (-1)^{l+1}G_l^m
+\end{align}
+時間反転に関するパリティは
+\begin{align}
+    \mathcal{T} \rho(\vb*{r}) = + \rho(\vb*{r}), \qquad
+    \mathcal{T} \rho_m(\vb*{r}) = - \rho_m(\vb*{r}), \qquad&
+    \mathcal{T} \vb*{j}(\vb*{r}) = - \vb*{j}(\vb*{r}), \qquad
+    \mathcal{T} \vb*{j}_m(\vb*{r}) = + \vb*{j}_m(\vb*{r})\\
+    \mathcal{T}Q_l^m = +Q_l^m,\qquad
+    \mathcal{T}M_l^m = -M_l^m,\qquad&
+    \mathcal{T}T_l^m = -T_l^m,\qquad
+    \mathcal{T}G_l^m = +G_l^m
+\end{align}
+となる。
+
+\section{分極密度による表示(おまけ)}
+あまりモチベーションはわからないが、トロイダル分極を密度表示するというのも考えられる。
+\begin{equation}
+    \rho_t(\vb*{r}) = -\div \vb*{T}(\vb*{r}) \qquad
+    \rho_g(\vb*{r}) = -\div \vb*{G}(\vb*{r}) \qquad
+\end{equation}
+これを用いて磁気トロイダル多極子と電気トロイダル多極子を表示すると
+\begin{align}
+    &T_l^m
+    = \int d\vb*{r}\, \vb*{T}(\vb*{r})\cdot \grad O_l^m(\vb*{r})
+    = \int d\vb*{r}\, \rho_t(\vb*{r}) O_l^m(\vb*{r})\\
+    &G_l^m
+    = \int d\vb*{r}\, \vb*{G}(\vb*{r})\cdot \grad O_l^m(\vb*{r})
+    = \int d\vb*{r}\, \rho_g(\vb*{r}) O_l^m(\vb*{r})
+\end{align}
+となる。これらトロイダル分極密度のパリティは
+\begin{align}
+    \mathcal{P} \rho_t(\vb*{r}) = + \rho_t(\vb*{r}), \qquad&
+    \mathcal{P} \rho_g(\vb*{r}) = - \rho_g(\vb*{r}) \\
+    \mathcal{T} \rho_t(\vb*{r}) = - \rho_t(\vb*{r}), \qquad&
+    \mathcal{T} \rho_g(\vb*{r}) = + \rho_g(\vb*{r})
+\end{align}
+となる。
+また、密度があるなら流れもあるだろうということで流れを考えると
+\begin{equation}
+    \vb*{j}_t = c \curl \vb*{G} (\vb*{r}) = c \vb*{P} \qquad
+    \vb*{j}_g = c \curl \vb*{T} (\vb*{r}) = c \vb*{M} \qquad
+\end{equation}
+というようになる。
 
 \end{document}
