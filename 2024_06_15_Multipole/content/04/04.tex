@@ -10,14 +10,14 @@
 電荷密度演算子\(\hat{\rho}(\vb*{r})\)を周りの
 位置\(\vb*{r}_j\)にある電子からの寄与として表す。
 \begin{equation}
-    \hat{\rho}(\vb*{r}) = -e\sum_{j} \delta(\vb*{r}-\vb*{r}_j)
+    \hat{\rho}(\vb*{\hat{r}}) = -e\sum_{j} \delta(\vb*{\hat{r}}-\vb*{\hat{r}}_j)
 \end{equation}
 これより、電気多極子演算子は
 \begin{align}
-    \hat{G}_l^m(\vb*{r})
-    = \int d\vb*{r'}\, O_l^m(\vb*{r'}) \hat(\vb*{r'})
-    =-e \sum_{j} \int d\vb*{r'}\, O_l^m(\vb*{r'}) \delta(\vb*{r'}-\vb*{r'})
-    = -e \sum_{j} O_l^m(\vb*{r_j})
+    \hat{Q}_l^m
+    = \int d\vb*{r'}\, O_l^m(\vb*{r'}) \rho(\vb*{r'})
+    =-e \sum_{j} \int d\vb*{r'}\, O_l^m(\vb*{r'}) \delta(\vb*{r'}-\vb*{r}_j)
+    = -e \sum_{j} \hat{O}_l^m(\vb*{r_j})
 \end{align}
 となる。
 
@@ -31,10 +31,12 @@
 軌道運動による磁化は角運動量にボーア磁子をかけたものであることより
 位置\(\vb*{r}_j\)における角運動量の作る磁化を足していくと、
 \begin{equation}
-    \vb*{\hat{M}}^{(o)}(\vb*{r}) := -\mu_B \sum_{j} \vb*{\hat{L}}_j \delta(\vb*{r}-\vb*{r}_j)
+    \vb*{\hat{M}}^{(o)}(\vb*{r}) := -\mu_B \sum_{j} \delta(\vb*{r}-\vb*{r}_j) \vb*{\hat{L}}_j
 \end{equation}
 となる。
 \footnote{この文章内では\(\vb*{\hat{L}}=-i\vb*{r}\times \nabla\)}
+\footnote{量子化する際、角運動量演算子等の微分演算子が\(\grad O_l^m(\vb*{r})\)や\(\delta(\vb*{r})\)にかからないようにして、
+ケットに作用するように作っていることに注意。}
 古典電磁気との類推により
 \begin{equation}
     \vb*{\hat{M}}^{(o)}(\vb*{r}) = \frac{1}{2c}\vb*{r}\times \vb*{\hat{j}}^{(o)}(\vb*{r})
@@ -44,8 +46,8 @@
 これより磁気多極子の軌道成分は
 \begin{align}
     \hat{M}_m^{l(o)}
-    &= \frac{1}{c(l+1)} \int d\vb*{r'}\, (\vb*{r'}\times \vb*{\hat{j}}^{(o)}(\vb*{r'}))\cdot \grad O_l^m(\vb*{r'})\\
-    &= \frac{1}{l+1} \int d\vb*{r'} \qty(-2\mu_B \sum_j \vb*{\hat{L}}_j\delta(\vb*{r'}-\vb*{r}_j)) \cdot \grad O_l^m(\vb*{r'})\\
+    &= \frac{1}{c(l+1)} \int d\vb*{r'}\, \grad O_l^m(\vb*{r'})\cdot(\vb*{r'}\times \vb*{\hat{j}}^{(o)}(\vb*{r'}))\\
+    &= \frac{1}{l+1} \int d\vb*{r'}\, \grad O_l^m(\vb*{r'})\cdot \qty(-2\mu_B \sum_j \delta(\vb*{r'}-\vb*{r}_j)\vb*{\hat{L}}_j)\\
     &= -\mu_B  \sum_j \grad O_l^m(\vb*{r}_j) \cdot \frac{2\vb*{\hat{L}}_j}{l+1}
 \end{align}
 となる。
@@ -61,13 +63,13 @@
 これより
 \begin{align}
     \hat{M}_m^{j(s)}
-    &= \int \vb*{r'}\,\vb*{M}^{(s)} \cdot \grad O_l^m(\vb*{r'})\\
-    &= -\mu_B  \int d\vb*{r'}\,\qty{\sum_j \sigma_j \delta(\vb*{r'}-\vb*{r}_j)} \cdot \grad O_l^m(\vb*{r'})\\
+    &= \int d\vb*{r'}\,\grad O_l^m(\vb*{r'}) \cdot \vb*{M}^{(s)} \\
+    &= -\mu_B  \int d\vb*{r'}\,\grad O_l^m(\vb*{r'})\cdot\qty{\sum_j \sigma_j \delta(\vb*{r'}-\vb*{r}_j)} \\
     &= -\mu_B  \sum_{j}  \grad O_l^m(\vb*{r}_j)\cdot \sigma_j
 \end{align}
 なので磁気多極子演算子は
 \begin{align}
-    &\hat{M}_l^m = -\mu_B  \sum_j \grad O_l^m(\vb*{r}_j) \cdot \vb*{m}_l(\vb*{r}_j)\\
+    &\hat{M}_l^m = -\mu_B  \sum_j \grad \hat{O}_l^m(\vb*{r}_j) \cdot \vb*{m}_l(\vb*{r}_j)\\
     &\vb*{m}_l(\vb*{r}) = \frac{2\vb*{\hat{L}}}{l+1}+\sigma
 \end{align}
 というように得られる。
@@ -102,38 +104,77 @@
 これより、
 \begin{align}
     \hat{T}_l^{m(o)} &= \frac{1}{c(l+1)} \int d\vb*{r}\, (\vb*{r}\cdot \vb*{\hat{j}}^{(o)}(\vb*{r}))O_l^m(\vb*{r})\\
-    &=\frac{1}{c(l+1)(l+2)}\int d\vb*{r}\, (\vb*{r}\times(\vb*{r}\times \vb*{\hat{j}}^{(o)})) \cdot \grad O_l^m(\vb*{r})\\
-    &= \frac{-2\mu_B}{(l+1)(l+2)}\sum_j (\vb*{r}_j\times \vb*{\hat{L}}_j) \cdot \grad O_l^m(\vb*{r}_j)
+    &=\frac{1}{c(l+1)(l+2)}\int d\vb*{r}\, \grad O_l^m(\vb*{r}) \cdot (\vb*{r}\times(\vb*{r}\times \vb*{\hat{j}}^{(o)})) \\
+    &= \frac{-2\mu_B}{(l+1)(l+2)}\sum_j \grad \hat{O}_l^m(\vb*{r}_j) \cdot (\vb*{r}_j\times \vb*{\hat{L}}_j)
 \end{align}
+となる。
 スピンについては
 \begin{equation}
     \vb*{r}\cdot \vb*{\hat{j}}^{(s)}(\vb*{r}) = c\vb*{r}\cdot(\curl \vb*{M}^{(s)}(\vb*{r})) = -c\div(\vb*{r}\times \vb*{M}^{(s)}(\vb*{r}))
 \end{equation}
 を使うと
 \begin{align}
-    T_l^{m(s)}
+    \hat{T}_l^{m(s)}
+    &= \frac{1}{c(l+1)} \int d\vb*{r}\, (\vb*{r}\cdot\vb*{j}(\vb*{r}))O_l^m(\vb*{r})\\
     &= -\frac{1}{l+1} \int d\vb*{r}\, O_l^m(\vb*{r}) \div(\vb*{r}\times \vb*{M}^{(s)}(\vb*{r}))\\
-    &= \frac{1}{l+1} \int d\vb*{r}\, (\vb*{r}\times \vb*{M}^{(s)}(\vb*{r}))\cdot \grad O_l^m(\vb*{r})\\
-    &= -\frac{\mu_B}{l+1}\sum_j (\vb*{r}_j \times \sigma_j)\cdot \grad O_l^m(\vb*{r}_j)
+    &= \frac{1}{l+1} \int d\vb*{r}\, \grad O_l^m(\vb*{r}_j) \cdot (\vb*{r}\times \vb*{M}^{(s)}(\vb*{r})) \\
+    &= -\frac{\mu_B}{l+1}\sum_j \grad \hat{O}_l^m(\vb*{r}_j)\cdot (\vb*{r}_j \times \sigma_j)
 \end{align}
 よって、磁気トロイダル多極子演算子は
 \begin{align}
-    &\hat{T}_l^m = -\mu_B \sum_j \vb*{t}_j(\vb*{r}_j) \cdot \grad O_l^m(\vb*{r}_j)\\
+    &\hat{T}_l^m = -\mu_B \sum_j  \grad \hat{O}_l^m(\vb*{r}_j) \cdot \vb*{t}_j(\vb*{r}_j)
+    = -\mu_B \sum_j   \hat{O}_l^m(\vb*{r}_j)  \overleftarrow{\nabla} \cdot \vb*{t}_j(\vb*{r}_j)\\
     &\vb*{t}_j(\vb*{r}_j) = \frac{\vb*{r_j}}{l+1} \times \qty(\frac{2\vb*{\hat{L}}_j}{l+2}+\sigma_j)
 \end{align}
 となる。
-ただ、実際には\(\vb*{t}_j\)内の演算子を対象化してエルミートにすることで、
+ここで\(\overleftarrow{\nabla}\)は左にある関数を微分しろという意味の演算子である。
+申し訳ないことに変な演算子を導入したが、次の節のためにナブラの位置をずらす必要がある。
+
+実際には\(\vb*{t}_j\)内の演算子を対象化してエルミートにすることで、
 磁気トロイダル多極子演算子の固有値を実数にする必要がある。
 
-% \subsection*{電気トロイダル多極子の導出}
-% 電気トロイダル多極子についても同様にすれば得られるように思われるかもしれない。
-% しかし、古典的な多極子放射で現れないように、演算子の定義にも注意が必要である。
+\subsection*{電気トロイダル多極子の導出}
+電気トロイダル多極子についても同様にすれば得られるように思われるかもしれない。
+しかし、古典的な多極子放射で現れないように、演算子の定義にも注意が必要である。
+いろいろ試す方法はあるけれど、
+電気多極子演算子を再現するような磁流密度をうまく定義して、
+それを電気トロイダル多極子演算子に適用しようとすると、
+\(\hat{G}_l^m=0\)になってしまうようである。
+\footnote{そりゃモノポールなんて存在しないものを使って定義するのは難しいものがあるんじゃない?
+Dirac モノポールとかグローバルに整合するような定義がないのでゲージ変換でつじつま合わせてるし。}
 
-% 今までのように磁化をもとに磁気トロイダル多極子演算子を作ったのと同じように
-% 分極をもとに磁気トロイダル多極子演算子を作ると
-% \(\vb*{P}=-e\vb*{r}\)なので分極演算子を
-% \begin{equation}
-%     \vb*{\hat{P}} = -e\sum_j \vb*{r}\delta(\vb*{r-r_j})
-% \end{equation}
+楠瀬先生のグループが見つけたいい方法を紹介していく。
+電気多極子演算子と磁気トロイダル多極子演算子のパリティに注目すると
+時間反転だけが異なっている。
+多極子演算子の中身を見ると
+\begin{equation}
+    \hat{Q}_l^m= -e \sum_{j} \hat{O}_l^m(\vb*{r_j}), \qquad
+    = -\mu_B \sum_j   \hat{O}_l^m(\vb*{r}_j)  \overleftarrow{\nabla} \cdot \vb*{t}_j(\vb*{r}_j)
+\end{equation}
+となっている。
+これを見てみると、電気素量\(e\)がボーア磁子\(\mu_B\)に代わり、
+右から
+\begin{equation}
+    \overleftarrow{\nabla} \cdot \vb*{t}_j
+\end{equation}
+という演算子が作用した形になっている。
+\footnote{このnotationはオリジナルなのでここからの表記であってるかわからない。}
+電気素量からボーア磁子に変えているのは電気から磁気に変えていると考えると、
+時間反転にかかわる部分は\(\overleftarrow{\nabla} \cdot \vb*{t}_j\)の部分である。
+
+これからの類推をすると、
+磁気多極子演算子をもとに電気トロイダル多極子演算子を考えることができそうである。
+磁気多極子演算子のボーア磁子\(\mu_B\)を電気素量\(e\)に変えて、
+\(\overleftarrow{\nabla} \cdot \vb*{t}_j\)をいい感じのところに入れてみると
+\begin{equation}
+    \hat{G}_l^m = -e\sum_j\Biggl[\Bigl[\grad O_l^m(\vb*{r}_j)\Bigr] \overleftarrow{\nabla} \cdot \vb*{t}_j \Biggr]\cdot\vb*{m}_l
+\end{equation}
+となる。これを成分で書くと意味ありげな、
+\begin{align}
+    &\hat{G}_l^m = -e\sum_j\Bigl[\nabla_\alpha\nabla_\beta O_l^m(\vb*{\hat{r}}_j)\Bigr] g_l^{\alpha \beta}(\vb*{\hat{r}}_j)\\
+    &g_l^{\alpha \beta}(\vb*{r}_j) = t_l^\alpha(\vb*{r}_j)m_l^\beta(\vb*{r}_j)
+\end{align}
+という表式が得られる。
+\footnote{\(O_l^m(\vb*{r})\)の曲率を計量\(g^{\alpha\beta}\)のなかで集めて足した代物のようにも見える。}
 
 \end{document}

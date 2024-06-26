@@ -354,7 +354,7 @@ Notation が増えて申しわけないが、
 ここである恒等式を示す。
 まず
 \begin{align}
-    \frac{1}{c}\int d\vb*{r}\, (\vb*{r}O_l^m(\vb*{r}))\cdot (\curl (\curl\vb*{M}(\vb*{r})))
+    c\int d\vb*{r}\, (\vb*{r}O_l^m(\vb*{r}))\cdot (\curl (\curl\vb*{M}(\vb*{r})))
     &=\int d\vb*{r}\, (\vb*{r}O_l^m(\vb*{r}))\cdot(\curl \vb*{j}(\vb*{r}))
     =\int d\vb*{r}\, \varepsilon_{ijk} x_i O_l^m(\vb*{r}) \partial_j j_k(\vb*{r})\\
     &= \int d\vb*{r}\,\varepsilon_{ijk} \Biggl[\partial_j \Bigl\{ x_i O_l^m(\vb*{r}) j_k(\vb*{r})\Bigr\}
@@ -390,8 +390,8 @@ Notation が増えて申しわけないが、
 第三項の積分の中身は
 \begin{align}
     \partial_p(x_q\partial_p O_l^m) M_q
-    = (\partial_p x_q) \partial_p O_m^l M_q + x_q M_q \partial_p \partial_p O_l^m
-    = \vb*{M} \cdot \grad O_l^m(\vb*{r}) + \vb*{r}\cdot \laplacian O_m^l(\vb*{r})
+    = (\partial_p x_q) \partial_p O_l^m M_q + x_q M_q \partial_p \partial_p O_l^m
+    = \vb*{M} \cdot \grad O_l^m(\vb*{r}) + \vb*{r}\cdot \laplacian O_l^m(\vb*{r})
 \end{align}
 となる。\(O_l^m(\vb*{r})\)はラプラス方程式の解であるのでこれの第二項は 0 となる。
 以上より
