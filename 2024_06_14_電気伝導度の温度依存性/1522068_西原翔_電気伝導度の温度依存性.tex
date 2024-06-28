@@ -79,6 +79,13 @@
 
 % \twocolumn
 \section{目的}
+身の回りのデバイスは基本的に電流を流すことで役割を果たしている。
+半導体デバイスであればドープ等により電流の流れやすさである電気伝導度を変えることができたりする。
+また送電線に使われる材料はなるべく電流が減衰しないようにするため、
+電気抵抗率が低いものを使いたい。
+このように材料の持つ電気伝導度の特性を調べるというのはより良いものを作っていくうえで大切なことであるといえるだろう。
+今回の実験では半導体の\ce{n-Ge}, 金属の\ce{Pt}, \ce{Nb} の3つの試料の電気伝導度（電気抵抗率）の温度特性を 8 K から 160 K を測定した。
+
 
 \section{原理}
 \subsection{ドルーデモデル}
@@ -436,180 +443,187 @@
 
 
 \section{結論}
+半導体である\ce{n-Ge}の電気伝導には単に電子が電流を担うというだけではなく、
+バンド電子や局在電子、ドナー電子といったさまざまな特性を持った電子が関わることが分かった。
+また、金属である\ce{Pt} と \ce{Nb} は温度を下げると格子振動によるキャリアの移動の妨害が小さくなっていくため、
+抵抗率が単調に下がることがわかった。
+\ce{Nb} は金属の抵抗率の温度依存性についてのグリュナイゼンの式と比較すると残留抵抗が大きい金属であると思われたが、
+8 K にすると急激に電気抵抗率が減った。
+これは超伝導体への相転移が起こったというのが関わっている。
 
 
 \bibliographystyle{junsrt}
 \bibliography{reference}
 % グリュナイゼンの論文
 
-\section*{付録}
-今回の実験に関係する理論を教科書\cite{ibach-luth}を使って学んだノートを付録に追記する。
-\section{金属の電気伝導度}
-\subsection{ボルツマン方程式による電気伝導度の導出}
-% 9.2 節でホールを扱ったがここでやったのと同じように
-量子・古典対応を使いながら考えてみる。
-粒子流密度は第一ブリューアンゾーンでの積分を用いて
-\begin{align}
-    j_n = \frac{2}{(2\pi)^3}\int_{\text{1stBZ}} v(k)f(k) d^3k % \tag{9.47}
-\end{align}
-電場がそこまで強くないとき分布関数は
-\begin{align}
-    f(k) = f_0(k) + \frac{e}{\hbar}\tau(k)\mathscr{E}\cdot\nabla_kf_0(k)
-\end{align}
-となるので電場の向きを\(x\)軸とすると、電流密度\(j\)は
-\begin{align}
-    j = -ej_n = -\frac{e}{4\pi^3} \int d^3k\,v(k) \qty(f_0(k)
-    +\frac{e\tau(k)}{\hbar}\mathscr{E}_x\pdv{f_0}{k_x}) % \tag{9.48}
-\end{align}
-平衡状態では\(v(k)f_0(k)\)の積分は対称性から消え、残りの部分は
-\begin{align}
-    \pdv{k_x} = \pdv{E}{k_x}\pdv{E} = \hbar v_x \pdv{E} % \tag{9.50}
-\end{align}
-なので
-\begin{align}
-    j &= -\frac{e^2}{4\pi^3}\mathscr{E}_x\int dk^3 v_x^2(k)\tau(k)\pdv{f_0}{E} \\% \tag{9.52}\\
-    \sigma &= \frac{j}{\mathscr{E}_x} = -\frac{e^2}{4\pi^3}\int dk^3 v_x^2(k)\tau(k)\pdv{f_0}{E} % \tag{9.52}\\
-\end{align}
-平衡状態におけるフェルミ分布関数を考えると
-傾きがあるのはエネルギーがフェルミ準位付近しかなく、
-その傾きは \(-1/4k_BT\)程度である。
-\begin{align}
-    \pdv{E}\,f_0(E_F,T) &= \pdv{E}\qty[\frac{1}{e^{(E-E_f)/k_BT}+1}]_{E=E_F}\\
-    &=\qty[-\frac{e^{(E-E_f)/k_BT}/k_BT}{\qty(e^{(E-E_f)/k_BT}+1)^2}]_{E=E_F}\\
-    &=\frac{1}{4k_BT}
-\end{align}
-なので
-\begin{align}
-    \pdv{f_0}{E} \sim -\frac{1}{4k_BT}\delta(E-E_F)
-\end{align}
-という風に近似しそうだがもっと近似して
-\begin{align}
-    \pdv{f_0}{E} \sim -\delta(E-E_F) % \tag{9.53}
-\end{align}
-というようにする。%\footnote{自明とか言ってるけど温度無視していいのかしら?}\\
-また角波数空間の積分を同じエネルギーを持つ面の面素\(df_E\)と
-それに垂直な方向\(dk_{\perp}\)に分けると
-\begin{align}
-    d^3k =df_Edk_\perp = df_E \frac{dE}{|\nabla_k E|} = df_E \frac{dE}{\hbar v(k)} % \tag{9.54}
-\end{align}
-なので
-\begin{align}
-    \sigma &= -\frac{e^2}{4\pi^3}\int dk^3 v_x^2(k)\tau(k)\pdv{f_0}{E} \\% \tag{9.52}\\
-    &=\frac{e^2}{4\pi^3\hbar}\int df_E \, dE \frac{v_x^2(k)}{v(k)}\tau{k}\delta(E-E_F) \\% \tag{9.55}\\
-    &=\frac{e^2}{4\pi^3\hbar}\int_{E=E_F}\frac{v_x^2(k)}{v(k)}\tau(k) df_E \\% \tag{9.56}
-\end{align}
-となる。
-この積分がどのようなものか少し考える。
-積分の中身の期待値を考え積分の外側に出してみる。
-速度については
-\begin{align}
-    v^2(k) = v_x^2(k) + v_y^2(k) + v_z^2(k) = 3 v_x^2\\
-    \frac{v_x^2}{v} = \frac{v^2(k)}{3v(k)}
-\end{align}
-と考えられるので
-\begin{align}
-    \sigma = \frac{e^2}{4\pi^3\hbar}\times \frac{v(k_F)\ev{\tau}}{3}\int_{E=E_F} df_E
-\end{align}
-残ったフェルミ面の面積を考える。
-フェルミ波数は古典・量子対応関係より運動量を考えて
-\begin{align}
-    m^*v(E_F) = \hbar k_F % \tag{9.57a}
-\end{align}
-の関係がある。
-ほとんど自由な電子ではフェルミ面は球になっていて、また\(k_BT <<E_F\)になっているので
-また体積当たりの電子の数はフェルミ球の体積を\((2\pi)^3\)で割ったものとなる。
-つまり
-\begin{align}
-    n = \frac{2 \times 4 \pi k_F^3/3}{(2\pi)^3} \qquad \leftrightarrow \qquad
-    k_F^3 = 3\pi^2n % \tag{9.57c}
-\end{align}
-となっている。%\footnote{スピン自由度のせいで体積がは2倍になっている。}
-では表面積は
-\begin{align}
-    \int_{E=E_F} df_E &= 4\pi k_F^2\\ % \tag{9.57b}\\
-    &=\frac{12\pi^3n}{m^*v(E_F)/\hbar}
-\end{align}
-となる。%\footnote{スピン自由度のせいで表面積は2倍になっていると思いきやフェルミ面の"表面積"を考えてるのでいらない。}
-よって
-\begin{align}
-    \sigma &= \frac{e^2}{4\pi^3\hbar}\times \frac{\ev{v}\ev{\tau}}{3}\int_{E=E_F} df_E\\
-    &=\frac{e^2\ev{\tau}}{12\pi^3\hbar} v(k_F) \times\frac{24\pi^3n}{m^*v(E_F)/\hbar}\\
-    &=\frac{e^2n\ev{\tau}}{m^*}
-\end{align}
-という風にドルーデモデルで得られた伝導度と同じようになる。
+% \section*{付録}
+% 今回の実験に関係する理論を教科書\cite{ibach-luth}を使って学んだノートを付録に追記する。
+% \section{金属の電気伝導度}
+% \subsection{ボルツマン方程式による電気伝導度の導出}
+% % 9.2 節でホールを扱ったがここでやったのと同じように
+% 量子・古典対応を使いながら考えてみる。
+% 粒子流密度は第一ブリューアンゾーンでの積分を用いて
+% \begin{align}
+%     j_n = \frac{2}{(2\pi)^3}\int_{\text{1stBZ}} v(k)f(k) d^3k % \tag{9.47}
+% \end{align}
+% 電場がそこまで強くないとき分布関数は
+% \begin{align}
+%     f(k) = f_0(k) + \frac{e}{\hbar}\tau(k)\mathscr{E}\cdot\nabla_kf_0(k)
+% \end{align}
+% となるので電場の向きを\(x\)軸とすると、電流密度\(j\)は
+% \begin{align}
+%     j = -ej_n = -\frac{e}{4\pi^3} \int d^3k\,v(k) \qty(f_0(k)
+%     +\frac{e\tau(k)}{\hbar}\mathscr{E}_x\pdv{f_0}{k_x}) % \tag{9.48}
+% \end{align}
+% 平衡状態では\(v(k)f_0(k)\)の積分は対称性から消え、残りの部分は
+% \begin{align}
+%     \pdv{k_x} = \pdv{E}{k_x}\pdv{E} = \hbar v_x \pdv{E} % \tag{9.50}
+% \end{align}
+% なので
+% \begin{align}
+%     j &= -\frac{e^2}{4\pi^3}\mathscr{E}_x\int dk^3 v_x^2(k)\tau(k)\pdv{f_0}{E} \\% \tag{9.52}\\
+%     \sigma &= \frac{j}{\mathscr{E}_x} = -\frac{e^2}{4\pi^3}\int dk^3 v_x^2(k)\tau(k)\pdv{f_0}{E} % \tag{9.52}\\
+% \end{align}
+% 平衡状態におけるフェルミ分布関数を考えると
+% 傾きがあるのはエネルギーがフェルミ準位付近しかなく、
+% その傾きは \(-1/4k_BT\)程度である。
+% \begin{align}
+%     \pdv{E}\,f_0(E_F,T) &= \pdv{E}\qty[\frac{1}{e^{(E-E_f)/k_BT}+1}]_{E=E_F}\\
+%     &=\qty[-\frac{e^{(E-E_f)/k_BT}/k_BT}{\qty(e^{(E-E_f)/k_BT}+1)^2}]_{E=E_F}\\
+%     &=\frac{1}{4k_BT}
+% \end{align}
+% なので
+% \begin{align}
+%     \pdv{f_0}{E} \sim -\frac{1}{4k_BT}\delta(E-E_F)
+% \end{align}
+% という風に近似しそうだがもっと近似して
+% \begin{align}
+%     \pdv{f_0}{E} \sim -\delta(E-E_F) % \tag{9.53}
+% \end{align}
+% というようにする。%\footnote{自明とか言ってるけど温度無視していいのかしら?}\\
+% また角波数空間の積分を同じエネルギーを持つ面の面素\(df_E\)と
+% それに垂直な方向\(dk_{\perp}\)に分けると
+% \begin{align}
+%     d^3k =df_Edk_\perp = df_E \frac{dE}{|\nabla_k E|} = df_E \frac{dE}{\hbar v(k)} % \tag{9.54}
+% \end{align}
+% なので
+% \begin{align}
+%     \sigma &= -\frac{e^2}{4\pi^3}\int dk^3 v_x^2(k)\tau(k)\pdv{f_0}{E} \\% \tag{9.52}\\
+%     &=\frac{e^2}{4\pi^3\hbar}\int df_E \, dE \frac{v_x^2(k)}{v(k)}\tau{k}\delta(E-E_F) \\% \tag{9.55}\\
+%     &=\frac{e^2}{4\pi^3\hbar}\int_{E=E_F}\frac{v_x^2(k)}{v(k)}\tau(k) df_E \\% \tag{9.56}
+% \end{align}
+% となる。
+% この積分がどのようなものか少し考える。
+% 積分の中身の期待値を考え積分の外側に出してみる。
+% 速度については
+% \begin{align}
+%     v^2(k) = v_x^2(k) + v_y^2(k) + v_z^2(k) = 3 v_x^2\\
+%     \frac{v_x^2}{v} = \frac{v^2(k)}{3v(k)}
+% \end{align}
+% と考えられるので
+% \begin{align}
+%     \sigma = \frac{e^2}{4\pi^3\hbar}\times \frac{v(k_F)\ev{\tau}}{3}\int_{E=E_F} df_E
+% \end{align}
+% 残ったフェルミ面の面積を考える。
+% フェルミ波数は古典・量子対応関係より運動量を考えて
+% \begin{align}
+%     m^*v(E_F) = \hbar k_F % \tag{9.57a}
+% \end{align}
+% の関係がある。
+% ほとんど自由な電子ではフェルミ面は球になっていて、また\(k_BT <<E_F\)になっているので
+% また体積当たりの電子の数はフェルミ球の体積を\((2\pi)^3\)で割ったものとなる。
+% つまり
+% \begin{align}
+%     n = \frac{2 \times 4 \pi k_F^3/3}{(2\pi)^3} \qquad \leftrightarrow \qquad
+%     k_F^3 = 3\pi^2n % \tag{9.57c}
+% \end{align}
+% となっている。%\footnote{スピン自由度のせいで体積がは2倍になっている。}
+% では表面積は
+% \begin{align}
+%     \int_{E=E_F} df_E &= 4\pi k_F^2\\ % \tag{9.57b}\\
+%     &=\frac{12\pi^3n}{m^*v(E_F)/\hbar}
+% \end{align}
+% となる。%\footnote{スピン自由度のせいで表面積は2倍になっていると思いきやフェルミ面の"表面積"を考えてるのでいらない。}
+% よって
+% \begin{align}
+%     \sigma &= \frac{e^2}{4\pi^3\hbar}\times \frac{\ev{v}\ev{\tau}}{3}\int_{E=E_F} df_E\\
+%     &=\frac{e^2\ev{\tau}}{12\pi^3\hbar} v(k_F) \times\frac{24\pi^3n}{m^*v(E_F)/\hbar}\\
+%     &=\frac{e^2n\ev{\tau}}{m^*}
+% \end{align}
+% という風にドルーデモデルで得られた伝導度と同じようになる。
 
-ドルーデモデルがなぜうまくいくのかの説明として伝導度と移動度が一致しているからとある。
-これだけだと説明になってない気がするが、おそらくうまいこと非平衡なフェルミ分布関数の積分を取り入れられてるからなのだろう。
-もっと考察できそうだが\dots
+% ドルーデモデルがなぜうまくいくのかの説明として伝導度と移動度が一致しているからとある。
+% これだけだと説明になってない気がするが、おそらくうまいこと非平衡なフェルミ分布関数の積分を取り入れられてるからなのだろう。
+% もっと考察できそうだが\dots
 
-\subsection{電気伝導度と温度の関係}
-電気伝導度の温度変化を考えるには\(\tau(E_F)\)の温度変化を考えればよい。
-というのもキャリアの密度\(n\)は
-\begin{align}
-    n = \frac{2\times 4\pi k_F^3 /3}{(2\pi)^3} % \tag{9.57c}
-\end{align}
-の式を見ると、変数はフェルミ波数つまりフェルミエネルギーだけによるので温度によらないと考えられる。
+% \subsection{電気伝導度と温度の関係}
+% 電気伝導度の温度変化を考えるには\(\tau(E_F)\)の温度変化を考えればよい。
+% というのもキャリアの密度\(n\)は
+% \begin{align}
+%     n = \frac{2\times 4\pi k_F^3 /3}{(2\pi)^3} % \tag{9.57c}
+% \end{align}
+% の式を見ると、変数はフェルミ波数つまりフェルミエネルギーだけによるので温度によらないと考えられる。
 
-\(\tau\)を厳密に量子力学による計算に代わりにフォノン、不純物などの欠陥による散乱の効果を定性的に議論する。
-フォノン散乱、欠陥による散乱は別々のメカニズムであるから
-全散乱確率は両者の散乱確率の和となる。
-緩和時間というのは一回散乱するまでの時間と考えられるので散乱する確率はそれの逆数となる。
-\begin{align}
-    \frac{1}{\tau} = \frac{1}{\tau_{ph}} +\frac{1}{\tau_{def}} % \tag{9.59}
-\end{align}
-ph は phonon, def は defect の略。
+% \(\tau\)を厳密に量子力学による計算に代わりにフォノン、不純物などの欠陥による散乱の効果を定性的に議論する。
+% フォノン散乱、欠陥による散乱は別々のメカニズムであるから
+% 全散乱確率は両者の散乱確率の和となる。
+% 緩和時間というのは1回散乱するまでの時間と考えられるので散乱する確率はそれの逆数となる。
+% \begin{align}
+%     \frac{1}{\tau} = \frac{1}{\tau_{ph}} +\frac{1}{\tau_{def}} % \tag{9.59}
+% \end{align}
+% ph は phonon, def は defect の略。
 
-この取り扱いの右辺の各項の性質を考えると電気伝導度が出る。
-まず、単位時間当たりの衝突回数は散乱断面積\(\Sigma\)と粒子測度の積に比例する。
-%\footnote{ぶつかる面が大きかったら当たりやすいし、速度が速かったらいっぱい動き回るので衝突回数も増える。}
-\begin{align}
-    \frac{1}{\tau} \propto \Sigma v
-\end{align}
-金属の伝導電子に関しては\(v\)はフェルミ面付近の電子なのでフェルミ速度\(v(E_F)\)に他ならず、温度によらない。
+% この取り扱いの右辺の各項の性質を考えると電気伝導度が出る。
+% まず、単位時間当たりの衝突回数は散乱断面積\(\Sigma\)と粒子測度の積に比例する。
+% %\footnote{ぶつかる面が大きかったら当たりやすいし、速度が速かったらいっぱい動き回るので衝突回数も増える。}
+% \begin{align}
+%     \frac{1}{\tau} \propto \Sigma v
+% \end{align}
+% 金属の伝導電子に関しては\(v\)はフェルミ面付近の電子なのでフェルミ速度\(v(E_F)\)に他ならず、温度によらない。
 
-散乱中心が欠陥の場合には散乱断面積\(\Sigma\)も温度によらない。
-%\footnote{そうなの?}
-つまり欠陥による電気伝導度は温度によらない。
+% 散乱中心が欠陥の場合には散乱断面積\(\Sigma\)も温度によらない。
+% %\footnote{そうなの?}
+% つまり欠陥による電気伝導度は温度によらない。
 
-フォノン散乱による場合は波数ベクトル\(q\)各振動数\(\omega_q\)のフォノンの振幅の2乗平均
-\(\ev{s^2(q)}\)に比例し、%\footnote{見つからない\dots}
-十分高温のとき、エネルギー等分配則から
-\begin{align}
-    M\omega_q^2\ev{s^2(q)} = k_BT % \tag{9.60}
-\end{align}
-ここで\(M\)はイオン核の質量で電子質量よりも重いため?
-\begin{align}
-    \frac{1}{\tau_{ph}}\propto \ev{s^2(q)}\propto \frac{k_BT}{M\omega_q^2} % \tag{9.61a}
-\end{align}
-フォノン振動数だとイメージしにくいので見積もりのため、\(\omega_q\)デバイ振動数として
-これをデバイ温度に読み替えたものを考える。
-\begin{align}
-    \hbar \omega_D = k_B \Theta
-\end{align}
-より
-\begin{align}
-    \tau_{ph} \propto \frac{M\Theta^2}{T} % \tag{9.61b}
-\end{align}
+% フォノン散乱による場合は波数ベクトル\(q\)各振動数\(\omega_q\)のフォノンの振幅の2乗平均
+% \(\ev{s^2(q)}\)に比例し、%\footnote{見つからない\dots}
+% 十分高温のとき、エネルギー等分配則から
+% \begin{align}
+%     M\omega_q^2\ev{s^2(q)} = k_BT % \tag{9.60}
+% \end{align}
+% ここで\(M\)はイオン核の質量で電子質量よりも重いため?
+% \begin{align}
+%     \frac{1}{\tau_{ph}}\propto \ev{s^2(q)}\propto \frac{k_BT}{M\omega_q^2} % \tag{9.61a}
+% \end{align}
+% フォノン振動数だとイメージしにくいので見積もりのため、\(\omega_q\)デバイ振動数として
+% これをデバイ温度に読み替えたものを考える。
+% \begin{align}
+%     \hbar \omega_D = k_B \Theta
+% \end{align}
+% より
+% \begin{align}
+%     \tau_{ph} \propto \frac{M\Theta^2}{T} % \tag{9.61b}
+% \end{align}
 
-よってデバイ温度以上の高温では電気抵抗率\(\varrho=1/\sigma\)は
-\begin{align}
-    \rho = \frac{1}{\sigma} = \frac{m^*}{e^2n} \frac{1}{\tau}
-    = \frac{m^*}{e^2n} \qty(\frac{1}{\tau_{def}} + A\frac{T}{M\Theta^2})
-\end{align}
-となり電気抵抗率は温度は比例する。(マティーセンの規則)
+% よってデバイ温度以上の高温では電気抵抗率\(\varrho=1/\sigma\)は
+% \begin{align}
+%     \rho = \frac{1}{\sigma} = \frac{m^*}{e^2n} \frac{1}{\tau}
+%     = \frac{m^*}{e^2n} \qty(\frac{1}{\tau_{def}} + A\frac{T}{M\Theta^2})
+% \end{align}
+% となり電気抵抗率は温度は比例する。(マティーセンの規則)
 
-低温でグリュナイゼン\cite{Grueneisen}は
-%\footnote{ドイツ語の原論文(\url{https://sci-hub.hkvisa.net/10.1002/andp.19334080504})
-% どうやって式を出したかわからないし、ぱっと見同じ式には見えない。この中で引用されている E. Gruneisen, Leipziger Vortrage 1930 にあるのかもしれない。
-% しかしこれが見つからない。}
-\begin{align}
-    \varrho_{ph}=A\qty(\frac{T}{\Theta})^5\int_0^{\Theta/T} \frac{x^5dx}{(e^x-1)(1-e^{-x})} % \tag{9.62}
-\end{align}
-この式を用いていろんな金属の電気抵抗率の測定値と比較してうまくいったことを言ってる。
-しかし原論文を読んでみたが、導出はされていないように見えた。
-% \begin{figure}[h]
-%     \centering
-%     \includegraphics[width=0.94\columnwidth]{fig1.JPG}
-% \end{figure}
+% 低温でグリュナイゼン\cite{Grueneisen}は
+% %\footnote{ドイツ語の原論文(\url{https://sci-hub.hkvisa.net/10.1002/andp.19334080504})
+% % どうやって式を出したかわからないし、ぱっと見同じ式には見えない。この中で引用されている E. Gruneisen, Leipziger Vortrage 1930 にあるのかもしれない。
+% % しかしこれが見つからない。}
+% \begin{align}
+%     \varrho_{ph}=A\qty(\frac{T}{\Theta})^5\int_0^{\Theta/T} \frac{x^5dx}{(e^x-1)(1-e^{-x})} % \tag{9.62}
+% \end{align}
+% この式を用いていろんな金属の電気抵抗率の測定値と比較してうまくいったことを言ってる。
+% しかし原論文を読んでみたが、導出はされていないように見えた。
+% % \begin{figure}[h]
+% %     \centering
+% %     \includegraphics[width=0.94\columnwidth]{fig1.JPG}
+% % \end{figure}
 
 \end{document}
