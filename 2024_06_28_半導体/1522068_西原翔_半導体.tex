@@ -25,6 +25,8 @@
 \usepackage{url} % url を入れる
 \usepackage[margin=15mm]{geometry} %余白の削除
 
+\numberwithin{equation}{section}
+
 \graphicspath{{./image/}}
 
 \begin{document}
@@ -78,6 +80,289 @@
 \section{目的}
 
 \section{原理}
+\subsection*{電気伝導の古典論}
+電気伝導は線形応答理論を用いて量子論的に扱うこともできる。
+しかし、驚くべきことに古典論を使った議論であっても正確な議論ができる。
+この節では電気伝導のオームの法則とホール効果を古典的なモデルで説明していく。
+\subsubsection*{外部磁場がないときの電気伝導}
+量子論以前の1900年頃、
+Drudeは電気伝導について古典的なモデルを立てて議論した。
+電気伝導の担い手は一種類で、外部電場\(\mathscr{E}\)中を動く質量\(m\), 電荷\(q\)を持った理想気体とみなして、
+古典的な運動方程式で記述する。
+電子気体は様々な要因によって散乱されるものとして、
+運動方程式を立てると、
+\begin{equation}
+    m\dot{v} + \frac{m}{\tau}v= q\mathscr{E}.
+\end{equation}
+このときの\(v_D\)はドリフト速度というもので電子の速度から
+電場のない熱平衡状態における電子の速度\(v_{\text{therm}}\)
+を用いて
+\(
+    v_D= v-v_{\text{therm}}
+\)
+と表されるものである。
+電場がないときこの古典的な運動方程式の解は
+\begin{equation}
+    v = v_{\text{therm}}\qty(1-e^{-t/\tau})
+\end{equation}
+である。
+電場があるときには解は\(v_{\text{therm}}\)が十分小さいと考えて、
+\begin{equation}
+    v = \frac{q\mathscr{E}\tau}{m}\qty(1-e^{-t/\tau}).
+\end{equation}
+するとドリフト速度は
+\begin{equation}
+    v_D=\frac{q\tau}{m}\mathscr{E}
+\end{equation}
+となる。
+電流密度はこのドリフト速度を用いて次のように表せる。
+\begin{equation}
+    j = qnv_D = \frac{q^2\tau n}{m}\mathscr{E} = qn\mu\mathscr{E}
+\end{equation}
+このとき\(n\)は自由電子の体積密度、
+\(\mu\)は移動度\footnote{易動度とも書いたりする。英語では mobility というので易動度の方が字が合っているが移動度の方が多く使われている。}
+と呼ばれる量で、
+\begin{equation}
+	\mu = \frac{q\tau}{m}
+\end{equation}
+というようになる。この量はキャリアの電荷が大きければ大きいほど、
+散乱する時間間隔が長ければ長いほど、キャリアの重さが軽ければ軽いほどキャリアが動きやすいということを表している。
+そして、キャリアの持つ電荷の符号も反映している量になっている。
+
+また外部電場と電流密度が比例していることがわかる。
+これをオームの法則という。
+比例定数を電気伝導度\(\sigma\)といい、
+\begin{equation}
+	\sigma := \frac{j}{\mathscr{E}} = qn\mu = \frac{q^2n\tau}{m}
+\end{equation}
+となる。またこれの逆数は抵抗率\(\rho\)と言われる。
+この式で注目すべきことは散乱の度合い\(\tau\)やキャリアの電荷の大きさ\(e\), 質量\(m\)が変わらなければ、
+電気伝導度はキャリアの密度に比例するとみなせる点である。
+なので電気伝導度を測定することでキャリア密度の測定にも使えることがわかる。
+
+この古典論の式を実際の系に当てはめる際に注意点がいくつかある。
+1つは電気伝導の担い手1種類だけではなく、電子と正孔の2種類ある点である。
+これにより電気伝導度は各キャリアごとに考える必要がある。
+電子密度と移動度を\(n,\,\mu_e\), 正孔密度と移動度を\(p,\,\mu_e\), 電気素量を\(e\)として
+\begin{equation}
+	\sigma = -en\mu_e +e p\mu_p
+\end{equation}
+というようにする必要がある。
+
+2つ目はキャリアとなっている電子は準粒子の方の電子である。
+そのため、質量は真空中の電子の質量ではなく有効質量の方で、
+電子密度\(n\)も結晶中全ての電子ではなく準粒子の電子の数となる。
+
+\subsubsection*{外部磁場があるときの電気伝導}
+電流\(I\)が流れる方向に垂直な方向に磁場\(B\)をかけることを考える。
+電流の流れる方向を\(x\)軸、磁場を書ける方向を\(z\)軸とする。
+電荷\(+e\)を持った正孔は\(x\)軸の負の方向へ運動し、
+電荷\(-e\)をもった電子は\(x\)軸の正の方向へ運動する。
+するとローレンツ力\(F = q\vb*{v}\times\vb*{B}\)によって、
+いずれのキャリアも\(y\)軸の負の方向へ偏っていく。
+電子と正孔では有効質量や密度が違うため、
+この電荷の片寄りはキャリアのうち移動しやすく量の多いキャリアが優勢的になる。
+正孔が優勢なときには\(y\)軸の負方向にプラス電荷が多くなるため、
+\(y\)軸の正の方向へ一様な電場が生じる。
+一方、
+電子が優勢なときには\(y\)軸の負方向にマイナス電荷が多くなるため、
+\(y\)軸の正の方向へ一様な電場が生じる。
+つまり、結晶中を流れるキャリアが正孔的なふるまいをするのか、
+電子的な振る舞いをするのかをこの電場の符号を測定すればわかる。
+このようにキャリアの符号により同じ電流の向き、同じ磁場の向きであっても電場の向きが変わる効果をホール効果という。
+
+これを定量的に評価していく。
+電場\(\mathcal{E}=(\mathcal{E}_x,\,\mathcal{E}_y,\,\mathcal{E}_z)\), 磁場\(B=(0,\,0,\,B)\)の下、
+粘性抵抗のあるキャリアの運動方程式は
+\begin{equation}
+	m^*\dv{t}
+	\begin{pmatrix}
+		v_x\\
+		v_y\\
+		v_z
+	\end{pmatrix}
+	=-\frac{m^*}{\tau}
+	\begin{pmatrix}
+		v_x\\
+		v_y\\
+		v_z
+	\end{pmatrix}
+	+ q
+	\begin{pmatrix}
+		\mathscr{E}_x\\
+		\mathscr{E}_y\\
+		\mathscr{E}_z
+	\end{pmatrix}
+	+q
+	\begin{pmatrix}
+		v_x\\
+		v_y\\
+		v_z
+	\end{pmatrix} \times
+	\begin{pmatrix}
+		0\\
+		0\\
+		B
+	\end{pmatrix}
+\end{equation}
+これを定常状態\(\dot{\vb*{v}}=0\)
+のもとで、移動度\(\mu=q\tau/m^*\)を使いながら整理すると、
+\(xy\)成分と\(z\)成分を分離することができる。
+\(j=qnv\)の関係も使うと
+\begin{equation}
+	\begin{pmatrix}
+		j_x\\ \\ \\ j_y
+	\end{pmatrix}
+	= qn\mu
+	\begin{pmatrix}
+		\dfrac{1}{1+(\mu B)^2} & \dfrac{\mu B}{1+(\mu B)^2}\\
+		&\\
+		-\dfrac{\mu B}{1+(\mu B)^2} & \dfrac{1}{1+(\mu B)^2}
+	\end{pmatrix}
+	\begin{pmatrix}
+		\mathscr{E}_x \\ \\ \\ \mathscr{E}_y
+	\end{pmatrix}
+\end{equation}
+\begin{equation}
+	j_z = qn\mu \mathscr{E}_z
+\end{equation}
+となる。これが一般化されたオームの法則である。
+テンソルを用いて書くと\(j_i = \sigma_{ij}\mathscr{E}_j\)である。
+またこの式より、\(\mathscr{E}_y=0\)であっても\(B\neq 0\)でさえあれば\(y\)軸方向にキャリアの符号に応じた向きの電流が発生することがわかる。
+この電流をホール電流という
+これは上で定性的に考察した内容と一致している。
+
+\(\mathscr{E}_y=0\)のときに流れるホール電流を測定することを考える。
+\(y\)軸方向に電流に流れていることから、これを電圧として測定することができる。
+この電圧をホール電圧\(V_H\)という。
+\(y\)軸成分の電流を仮想的な電場\(\mathscr{E}'_y\), 試料の\(y\)軸方向の長さを\(w\)とするとホール電流は
+\begin{equation}
+	j_y = qn\mu\mathscr{E}'_y = \frac{qn\mu V_H}{w}
+\end{equation}
+とかける。
+一方、もとのオームの法則の式より
+\begin{equation}
+	j_y= qn\mu \frac{-\mu B}{1+(\mu B)^2} \mathscr{E}_x = -\mu B j_x = \frac{-\mu B I}{wd}
+\end{equation}
+と書ける。\(d\)は磁場方向の試料の長さで、最後の\(I\)は電流密度と電流の関係\(I=ewj_x\)というのを用いた。
+これより
+\begin{equation}
+	V_H = -\frac{1}{nq} \frac{IB}{d}
+\end{equation}
+という関係が得られる。すると試料の物性による量\(1/nq\)というのが得られた。
+これをホール係数\(R\)と呼び、試料のホール効果の度合いを定量的に比較する際に用いられる。
+
+いまは1種類のキャリアにおける話であった。複数種類のキャリアであるときは次のように考える。
+\(n\)種類目のキャリアの電気伝導度テンソルを\(\sigma_{ij}^{(n)}\)と書く。
+オームの法則は
+\begin{equation}
+	j_i = \sum_n \sigma_{ij}^{(n)}\mathscr{E}_j
+\end{equation}
+というようになる。つまり伝導度テンソルは各キャリアの電気伝導度テンソルを足し合わせたものとみなせばよい。
+また、ホール係数はこのように考える。
+電気伝導度テンソルの逆である電気抵抗テンソル\(\rho_{ij}\)を導入する。
+するとオームの法則は次のように書き直せる。
+\begin{equation}
+	\begin{pmatrix}
+		\mathscr{E}_x\\ \mathscr{E}_y
+	\end{pmatrix}
+	=
+	\begin{pmatrix}
+		\rho_{xx} & \rho_{xy}\\
+		\rho_{yx} & \rho_{yy}
+	\end{pmatrix}
+	\begin{pmatrix}
+		j_x \\j_y
+	\end{pmatrix}
+\end{equation}
+このように書くことで、電流によって電場が作られるというように読むことができる。
+ホール電圧は\(j_x\)が捻じ曲げられてできるホール電流によって作られたものである。
+そのため、\(j_y=0\)としたときの\(\mathscr{E}_y\)というのがホール効果によって作られた電場であると考えることができる。
+\(\mathscr{E}_y \propto j_x B\)と考えられるので、試料特有な量は
+\begin{equation}
+	R = \frac{\mathscr{E}_y}{j_x B} = \frac{\rho_{yx}}{B}
+\end{equation}
+とできる。これが一般の場合のホール係数である。
+
+これはキャリが1種類のときの結果も含んでいる。
+電気抵抗テンソルは
+\begin{equation}
+	\rho_{ij} = \frac{1}{qn\mu}
+	\begin{pmatrix}
+		1 & -\mu B\\
+		\mu B & 1\\
+	\end{pmatrix}
+\end{equation}
+であるので、
+\begin{equation}
+	\frac{\rho_{yx}}{B} = \frac{1}{nq} = R
+\end{equation}
+となり一致する。
+
+では今回の実験するキャリアが電子とホールの2種類ある系のホール係数の形を示していく。
+電気伝導度テンソルは
+\begin{equation}
+	\sigma_{ij} =
+	ep\mu_p
+	\begin{pmatrix}
+		\dfrac{1}{1+(\mu_p B)^2} & \dfrac{\mu_p B}{1+(\mu_p B)^2}\\
+		&\\
+		-\dfrac{\mu_p B}{1+(\mu_p B)^2} & \dfrac{1}{1+(\mu_p B)^2}
+	\end{pmatrix}
+	-
+	en\mu_e
+	\begin{pmatrix}
+		\dfrac{1}{1+(\mu_e B)^2} & \dfrac{\mu_e B}{1+(\mu_e B)^2}\\
+		&\\
+		-\dfrac{\mu_e B}{1+(\mu_e B)^2} & \dfrac{1}{1+(\mu_e B)^2}
+	\end{pmatrix}
+\end{equation}
+これの逆テンソルの\(\rho_{yx}\)は
+\begin{equation}
+	\rho_{yx} = \frac{-\sigma_{xy}}{\sigma_{xx}\sigma_{yy}-\sigma_{xy}\sigma_{yx}}
+\end{equation}
+である。
+磁場が弱いときには磁場の二乗のオーダーを無視すると
+\begin{equation}
+	R = \frac{p\mu_p^2 - n\mu_e^2}{e(p\mu_p+n\mu_e)^2}
+\end{equation}
+となる。
+また磁場が強いときには
+\begin{equation}
+	R = \frac{1}{e(p-n)}
+\end{equation}
+というようになる\cite{kondo-2009}。 % TODO 計算して♡
+
+\clearpage
+\section{実験}
+　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　
+\begin{wrapfigure}{r}[0pt]{0.4\columnwidth}
+	\centering
+	\includegraphics[width=0.4\columnwidth]{fig/fig02.png}
+	\caption{測定装置の模式図。ホール電圧を測定するため\(y\)軸方向に端子をつけホール電圧を測定し、
+	四端子法で電気伝導度を測定する。過熱をするためのヒーターと温度計として熱電対も装置に組み込まれている。}
+	\label{fig:02}
+\end{wrapfigure}
+\ce{n-Ge}と\ce{p-Ge}の電気伝導にかかわるパラメーターとして電気伝導度と磁場をかけたときのホール係数を試料の温度を変えながら測定した。
+測定装置の模式図は図\ref{fig:02}の通りである。
+半導体の電気伝導度を測定するには接触抵抗やショットキー障壁といった要素を取り除くため、4端子法で行う。
+また、電流を流す方向を\(x\)軸としたときホール電圧を測定する方向を\(y\)軸として、\(z\)軸方向に電磁石によって磁場をかける。
+このときホール電圧を測定する端子が\(x\)軸方向へのずれてしまうため、
+測定したホール電圧はそのままではずれが生じていることに注意する必要がある。
+手順としては、電流を流したときの電磁石の出す磁束密度と電流の関係の校正を行ったのち、
+試料のホール電圧の\(x\)軸方向への端子位置のずれを測定するため
+-2.4 mA から 2.4 mAの直流電流を流しとゼロ磁場、室温の下で
+電気伝導度とホール係数を測定した。
+その後、同じ電流の範囲で \(\pm\)50 mT, \(\pm\)100 mT の磁場をかけた下でのホール電圧を測定した。
+室温での測定が終わったら、ヒーターを付け試料の温度を上げていく。
+1 mA の電流を試料に流しながら、ホール電圧と電気伝導度を測定した。
+このとき試料のホール電圧の\(x\)軸方向への端子位置のずれの影響も考慮するため、
+ゼロ磁場と 100 mT の磁場をかけたときの両方のホール電圧を測定する必要がある。
+
+\section{結果}
+
+\clearpage
+\section{考察}
 \subsection{素励起と準粒子}
 結晶中の電子の振舞いについて考える。
 1つの孤立している原子を考える。
@@ -141,28 +426,60 @@ Dirac の海による陽電子の予言の偉いところは Dirac の海のよ�
 真空でもこれと同様なことを思いついた点であるのだろう。ただこの話の証拠はないため私の妄想ではある。}
 フェルミ面を真空としているので、フェルミ面のエネルギーを 0 とすると\footnote{図\ref{graph:01}の縦軸のエネルギーの基準点とは違う基準}、
 この放物線はそれぞれ、
-\begin{align}
-	E(k) &= \frac{E_g}{2} + \frac{\hbar^2k2}{2m_e^*}\\
-	E(k) &= \frac{E_g}{2} - \frac{\hbar^2k2}{2m_p^*}
-\end{align}
-となる。ここで\(m_e^*\)を電子の有効質量、\(m_p^*\)を電子の有効質量とした。
-また簡単のためフェルミ面はエネルギーギャップのちょうど真ん中にあるものとしている。 % TODO ほんまか?
+\begin{equation}
+	E(k) = E_e + \frac{\hbar^2k2}{2m_e^*}, \qquad
+	E(k) = -\qty(E_p + \frac{\hbar^2k2}{2m_p^*})
+\end{equation}
+となる。ここで\(E_e,\,E_p\)を電子と正孔の生成エネルギー、\(m_e^*,\,m_p^*\)を電子と正孔の有効質量とした。
 電子・正孔の分散関係と呼ばれ、分散関係がわかるとエネルギーの幅が\([E,\,E+dE]\)の間にとることのできる状態の数を表す(有効)状態密度\(D(E)dE\)というのも求められる。
 
-エネルギー\(E(k)\)における状態密度は
+エネルギー\(E(k)\)における状態密度は粒子の生成エネルギーを\(E_s\)として
 \begin{align}
 	D(E)
 	&= 2\times\sum_k \delta(E-E(k)) \notag\\
-	&= \frac{2V}{(2\pi^3)}\int d\vb*{k}\, \delta\qty(E-\frac{E_g}{2} - \frac{\hbar^2k^2}{2m^*}) \notag\\
-	&= \frac{V}{\pi^2} \int dk\, k^2\times \frac{1}{2}\sqrt{\frac{\hbar^2}{2m^*(E-E_g/2)}}\qty{\delta\qty(k-\sqrt{\frac{2m^*(E-E_g/2)}{\hbar^2}})+\delta\qty(k+\sqrt{\frac{2m^*(E-E_g/2)}{\hbar^2}})} \notag\\
-	&= \frac{V}{2\pi^2}\qty(\frac{\hbar^2}{2m^*})^{3/2}\sqrt{E-\frac{E_g}{2}}
+	&= \frac{2V}{(2\pi^3)}\int d\vb*{k}\, \delta\qty(E-E_s - \frac{\hbar^2k^2}{2m^*}) \notag\\
+	&= \frac{V}{\pi^2} \int dk\, k^2\times \frac{1}{2}\sqrt{\frac{\hbar^2}{2m^*(E-E_e)}}\qty{\delta\qty(k-\sqrt{\frac{2m^*(E-E_s)}{\hbar^2}})+\delta\qty(k+\sqrt{\frac{2m^*(E-E_s)}{\hbar^2}})} \notag\\
+	&= \frac{V}{2\pi^2}\qty(\frac{2m^*}{\hbar^2})^{3/2}\sqrt{E-E_s}
 \end{align}
 として求められる。
-また、粒子の分布関数はフェルミ分布関数
+
+また、粒子の分布関数はフェルミ分布関数で表される。
+しかし、\(E_e,\, E_p \simeq \text{eV} \simeq 10^4 \text{K}\)であることから、
+\num{e4} K のような高温でない限り、フェルミ分布関数をボルツマン分布とみなしてよい。
 \begin{equation}
-	f(E) = \frac{1}{1+e^{E/k_BT}}
+	f(E) = \frac{1}{1+e^{E/k_BT}} \simeq e^{-E/k_BT}
 \end{equation}
-で表される。
+これより電子と正孔の密度は
+\begin{align}
+	n &= \int_{E_e}^\infty D_e(E) f(E) dE = 2\qty(\frac{m_e^*k_BT}{2\pi\hbar})^{3/2}e^{-E_e/k_BT}\\
+	p &= \int_{E_p}^\infty D_p(E) f(E) dE = 2\qty(\frac{m_p^*k_BT}{2\pi\hbar})^{3/2}e^{-E_p/k_BT}
+\end{align}
+となる。
+この式から質量作用の法則と呼ばれる式
+\begin{equation}
+	pn = 4\qty(\frac{k_B T}{2\pi\hbar})^3\qty(m_p^*m_n^*)^{3/2} e^{-E_g/k_BT}
+\end{equation}
+が得られる。
+結晶内での電荷中性条件\(p=n\)より
+\begin{equation}
+	p=n=2\qty(\frac{k_B T}{2\pi\hbar})^{3/2}\qty(m_p^*m_n^*)^{3/4} e^{-E_g/2k_BT}
+\end{equation}
+が得られる。
+電荷中性条件から別の式を得ることができる。
+\(p/n=1\)より
+\begin{align}
+	1 &= \qty(\frac{m_p^*}{m_e^*})^{3/2}e^{-(E_p-E_c)/k_BT}\\
+	E_p - E_n &= \frac{3}{2}k_BT\ln(\frac{m_p^*}{m_e^*})
+\end{align}
+\(E_g = E_p + E_n\)と合わせて考えると
+\begin{equation}
+	E_p = \frac{E_g}{2} + \frac{3}{4}k_BT\ln(\frac{m_p^*}{m_e^*}), \qquad
+	E_n = \frac{E_g}{2} + \frac{3}{4}k_BT\ln(\frac{m_n^*}{m_p^*})
+\end{equation}
+という式が得られる。
+低温であれば\(E_p=E_n=E_g/2\)であることがわかり、
+温度を上げていくと有効質量の大小によって正孔と電子の生成エネルギーに差ができることがわかる。
+\ce{Ge}ではバンド図(図\ref{graph:01})より\(m_e^* < m_p^*\)であるため正孔の方が大きい。
 
 通常のバンド理論ではフェルミ面より下にあるバンドを価電子帯、上にある伝導帯と呼ばれる。
 この呼び方は次のような描像から来ている。
@@ -189,7 +506,7 @@ Ge 半導体に原子番号が隣の元素である \ce{As} か \ce{Ga} の一�
 \ce{As} に束縛された電子は\ce{Ge}の電子の分散曲線に励起すると自由電子となることから、
 エネルギーは伝導体の下端をエネルギーの基準とした
 \begin{equation}
-	E_n = \frac{E_g}{2} - \frac{m_e^*}{2\hbar^2}\qty(\frac{e^2}{4\pi \varepsilon})^2\frac{1}{n^2}
+	E_n = E_e - \frac{m_e^*}{2\hbar^2}\qty(\frac{e^2}{4\pi \varepsilon})^2\frac{1}{n^2}
 \end{equation}
 というようになる。
 追加する不純物は少量であるため、不純物間の間は十分離れてるとみなせる。
@@ -206,7 +523,7 @@ Ge 半導体に原子番号が隣の元素である \ce{As} か \ce{Ga} の一�
 これはつまり、負の電荷をもった原子核の周りに正の電荷をもった正孔があるという水素原子と同じ系となる。
 なので\ce{As}のときと同様に考えて
 \begin{equation}
-	E_n = \frac{E_g}{2} - \frac{m_e^*}{2\hbar^2}\qty(\frac{e^2}{4\pi \varepsilon})^2\frac{1}{n^2}
+	E_n = E_p - \frac{m_e^*}{2\hbar^2}\qty(\frac{e^2}{4\pi \varepsilon})^2\frac{1}{n^2}
 \end{equation}
 というようなエネルギー準位が表れ、
 熱により、正孔がキャリアとして励起することができる。
@@ -220,38 +537,6 @@ Ge 半導体に原子番号が隣の元素である \ce{As} か \ce{Ga} の一�
 	\caption{不純物を入れたときの簡略化したフェルミ面付近のバンド図}
 	\label{fig:01}
 \end{figure}
-
-
-\subsection{ホール効果}
-
-\section{実験}
-　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　
-\begin{wrapfigure}{r}[0pt]{0.4\columnwidth}
-	\centering
-	\includegraphics[width=0.4\columnwidth]{fig/fig02.png}
-	\caption{測定装置の模式図。ホール電圧を測定するため\(y\)軸方向に端子をつけホール電圧を測定し、
-	四端子法で電気伝導度を測定する。過熱をするためのヒーターと温度計として熱電対も装置に組み込まれている。}
-	\label{fig:02}
-\end{wrapfigure}
-\ce{n-Ge}と\ce{p-Ge}の電気伝導にかかわるパラメーターとして電気伝導度と磁場をかけたときのホール係数を試料の温度を変えながら測定した。
-測定装置の模式図は図\ref{fig:02}の通りである。
-半導体の電気伝導度を測定するには接触抵抗やショットキー障壁といった要素を取り除くため、4端子法で行う。
-また、電流を流す方向を\(x\)軸としたときホール電圧を測定する方向を\(y\)軸として、\(z\)軸方向に電磁石によって磁場をかける。
-このときホール電圧を測定する端子が\(x\)軸方向へのずれてしまうため、
-測定したホール電圧はそのままではずれが生じていることに注意する必要がある。
-手順としては、電流を流したときの電磁石の出す磁束密度と電流の関係の校正を行ったのち、
-試料のホール電圧の\(x\)軸方向への端子位置のずれを測定するため
--2.4 mA から 2.4 mAの直流電流を流しとゼロ磁場、室温の下で
-電気伝導度とホール係数を測定した。
-その後、同じ電流の範囲で \(\pm\)50 mT, \(\pm\)100 mT の磁場をかけた下でのホール電圧を測定した。
-室温での測定が終わったら、ヒーターを付け試料の温度を上げていく。
-1 mA の電流を試料に流しながら、ホール電圧と電気伝導度を測定した。
-このとき試料のホール電圧の\(x\)軸方向への端子位置のずれの影響も考慮するため、
-ゼロ磁場と 100 mT の磁場をかけたときの両方のホール電圧を測定する必要がある。
-
-\section{結果}
-
-\section{考察}
 
 \section{結論}
 
