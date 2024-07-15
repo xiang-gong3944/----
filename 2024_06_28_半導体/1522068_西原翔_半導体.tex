@@ -232,25 +232,54 @@ Drudeは電気伝導について古典的なモデルを立てて議論した。
 この電流をホール電流という
 これは上で定性的に考察した内容と一致している。
 
-\(\mathscr{E}_y=0\)のときに流れるホール電流を測定することを考える。
-\(y\)軸方向に電流に流れていることから、これを電圧として測定することができる。
+\(j=(j_x,\,0,\,0)\)というように電流を流した時のことを考える。
+すると\(j_y=0\)より
+\begin{equation}
+	\mathscr{E}_y = \mu B \mathscr{E}_x
+\end{equation}
+という関係があるのがわかる。
+この電場の傾き\(\mathscr{E}_y/\mathscr{E}_x=\mu B =:\tan\theta\)をホール角という。
+これを用いるとオームの法則は
+\begin{equation}
+	\begin{pmatrix}
+		j_x \\ j_y
+	\end{pmatrix}
+	= qn\mu
+	\begin{pmatrix}
+		\cos^2\theta & \cos\theta\sin\theta\\
+		-\cos\theta\sin\theta & \cos^2\theta
+	\end{pmatrix}
+	\begin{pmatrix}
+		\mathscr{E}_x \\ \mathscr{E}_y
+	\end{pmatrix}
+	= \frac{qn\mu}{2}
+	\begin{pmatrix}
+		1+\cos 2\theta & \sin 2\theta\\
+		-\sin 2\theta & \cos 2\theta
+	\end{pmatrix}
+	\begin{pmatrix}
+		\mathscr{E}_x \\ \mathscr{E}_y
+	\end{pmatrix}
+\end{equation}
+というように書ける。
+
+また\(j_x\)と\(\mathscr{E}_y\)との関係を求めると
+\begin{equation}
+	\mathscr{E}_y = \frac{j_x B}{nq}
+\end{equation}
+というのが得られる。この式のうち\(R=1/nq\)の部分をホール係数と呼び、
+試料のホール効果の度合いを定量的に比較する際に用いられる。
+
+キャリアの符号を測定するのに\(y\)方向の電場、つまり\(y\)方向の電圧を測定すればよいことがわかる。
 この電圧をホール電圧\(V_H\)という。
-\(y\)軸成分の電流を仮想的な電場\(\mathscr{E}'_y\), 試料の\(y\)軸方向の長さを\(w\)とするとホール電流は
-\begin{equation}
-	j_y = qn\mu\mathscr{E}'_y = \frac{qn\mu V_H}{w}
-\end{equation}
-とかける。
-一方、もとのオームの法則の式より
-\begin{equation}
-	j_y= qn\mu \frac{-\mu B}{1+(\mu B)^2} \mathscr{E}_x = -\mu B j_x = \frac{-\mu B I}{wd}
-\end{equation}
-と書ける。\(d\)は磁場方向の試料の長さで、最後の\(I\)は電流密度と電流の関係\(I=ewj_x\)というのを用いた。
-これより
+試料の\(y\)軸方向の長さを\(w\),
+磁場方向の試料の長さを\(d\),
+電流密度と電流の関係\(I=ewj_x\),
+電圧と電場の関係\(V_H = \mathscr{E}_y w\)というのを使うと、
 \begin{equation}
 	V_H = -\frac{1}{nq} \frac{IB}{d}
 \end{equation}
-という関係が得られる。すると試料の物性による量\(1/nq\)というのが得られた。
-これをホール係数\(R\)と呼び、試料のホール効果の度合いを定量的に比較する際に用いられる。
+実際の測定ではこの式をもとに考えていく
 
 いまは1種類のキャリアにおける話であった。複数種類のキャリアであるときは次のように考える。
 \(n\)種類目のキャリアの電気伝導度テンソルを\(\sigma_{ij}^{(n)}\)と書く。
@@ -544,5 +573,10 @@ Ge 半導体に原子番号が隣の元素である \ce{As} か \ce{Ga} の一�
 \bibliographystyle{junsrt}
 \bibliography{reference}
 \section*{付録}
+\section{半導体中の電子の散乱過程}
+この実験するにあたって、半導体中の電子の散乱過程を御子柴先生の
+半導体の物理」\cite{Mikoshiba}を使って学んだ。
+そのノートをここに残す。
+
 
 \end{document}
