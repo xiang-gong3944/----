@@ -368,9 +368,12 @@ Drudeは電気伝導について古典的なモデルを立てて議論した。
 \begin{wrapfigure}{r}[0pt]{0.4\columnwidth}
 	\centering
 	\includegraphics[width=0.4\columnwidth]{fig/fig02.png}
-	\caption{測定装置の模式図。ホール電圧を測定するため\(y\)軸方向に端子をつけホール電圧を測定し、
-	四端子法で電気伝導度を測定する。過熱をするためのヒーターと温度計として熱電対も装置に組み込まれている。}
+	\caption{\small{測定装置の模式図。ホール電圧を測定するため\(y\)軸方向に端子をつけホール電圧を測定し、
+	四端子法で電気伝導度を測定する。過熱をするためのヒーターと温度計として熱電対も装置に組み込まれている。}}
 	\label{fig:02}
+	\includegraphics[width=0.4\columnwidth]{graph/graph02.png}
+	\caption{電磁石に流す電流と磁場の関係の測定結果}
+	\label{graph:02}
 \end{wrapfigure}
 \ce{n-Ge}と\ce{p-Ge}の電気伝導にかかわるパラメーターとして電気伝導度と磁場をかけたときのホール係数を試料の温度を変えながら測定した。
 測定装置の模式図は図\ref{fig:02}の通りである。
@@ -378,7 +381,8 @@ Drudeは電気伝導について古典的なモデルを立てて議論した。
 また、電流を流す方向を\(x\)軸としたときホール電圧を測定する方向を\(y\)軸として、\(z\)軸方向に電磁石によって磁場をかける。
 このときホール電圧を測定する端子が\(x\)軸方向へのずれてしまうため、
 測定したホール電圧はそのままではずれが生じていることに注意する必要がある。
-手順としては、電流を流したときの電磁石の出す磁束密度と電流の関係の校正を行ったのち、
+手順としては、電流を流したときの電磁石の出す磁束密度と電流の関係の校正を行った。
+その結果は図\ref{graph:02}の通りであった。この測定結果をもとに電磁石に流す電流を決めた。
 試料のホール電圧の\(x\)軸方向への端子位置のずれを測定するため
 -2.4 mA から 2.4 mAの直流電流を流しとゼロ磁場、室温の下で
 電気伝導度とホール係数を測定した。
@@ -388,7 +392,89 @@ Drudeは電気伝導について古典的なモデルを立てて議論した。
 このとき試料のホール電圧の\(x\)軸方向への端子位置のずれの影響も考慮するため、
 ゼロ磁場と 100 mT の磁場をかけたときの両方のホール電圧を測定する必要がある。
 
+以上の測定からは試料に流す電流\(I\), 試料にかけた磁場\(B\), 試料の磁場方向の厚さ\(d\),
+電気伝導度\(\sigma\), ホール電圧\(V_H\)が測定できる。
+ここからわかる量として、ホール係数\(R\), キャリア密度\(n\)と\(p\), 移動度\(\mu\)が次の式よりわかる。
+\begin{equation}
+	R = - \frac{V_H d}{IB}, \qquad
+	n = - \frac{1}{eR}, \qquad p = \frac{1}{eR}, \qquad
+	\mu = \sigma R
+\end{equation}
+
+また \ce{n-Ge}に関しては低温における電気伝導度の測定を別のサンプルにて行った。(3OB 実験「電気伝導度の温度特性」)
+
+
 \section{結果}
+
+\begin{wrapfigure}{r}[0pt]{0.4\columnwidth}
+	\centering
+	\includegraphics[width=0.4\columnwidth]{graph/graph03.png}
+	\caption{a}
+	\label{graph:03}
+\end{wrapfigure}
+298 K において試料に流した電流\(I\)とホール電圧\(V_H\)の間の関係は図\ref{graph:03}のようになった。
+磁場\(B\)がないのにも関わらず、ホール電圧\(V_H\)が測定されてしまっているのがわかる。
+これはホール電圧を測定する端子がきれいに\(y\)軸方向に取り付けられていない効果である。
+なのでこの寄与を取り除いた、
+298 K において試料に流した電流\(I\)とホール電圧\(V_H\)の関係は図\ref{graph:04}, 図\ref{graph:05}のようになった。
+確かに\(V_H \propto IB\)の関係が成り立っているのがわかる。
+
+この実験における 298 K から 403 K における\ce{p-Ge}と\ce{n-Ge}の電気伝導度の温度特性の測定結果は図\ref{graph:09}のようになった。
+また、8K から 403K までの\ce{n-Ge}の電気伝導度のアレニウスプロットは図\ref{graph:06}のようになった。
+キャリアが励起に必要なエネルギーと電気伝導度の間には\(\sigma\propto \exp(-E_g/2k_B T)\)の関係があるので、
+アレニウスプロットにより励起に必要なエネルギーが低温では 20 meV, 高温では 0.63 eV であることがわかる。
+
+ホール係数\(R\)とこれの逆数によって得られるキャリア密度\(n\)と\(p\)の温度特性は図\ref{graph:07}, 図\ref{graph:08} のようになった。
+\ce{p-Ge} では 70 ℃ まで、\ce{n-Ge}では 40 ℃ まで温度を上げてもキャリア数は変わらず一定になっているのがわかる。
+熱励起できるキャリアがなくなった出払い領域とわかる。
+出払い領域からさらに温度を上げていくとホール係数\(R\)の大きさが小さくなり、キャリア数が増えていく。
+\ce{p-Ge}おいて 130 ℃を境にホール係数の符号が正から負になっているのもわかる。
+これはキャリアが正孔的な性格から電子的な性格に変わったことを表す。
+
+\begin{figure}[h]
+	\centering
+	\begin{minipage}{0.49\columnwidth}
+		\centering
+		\includegraphics[width=\columnwidth]{graph/graph04.png}
+		\caption{a}
+		\label{graph:04}
+	\end{minipage}
+	\hfil
+	\begin{minipage}{0.49\columnwidth}
+		\centering
+		\includegraphics[width=\columnwidth]{graph/graph05.png}
+		\caption{a}
+		\label{graph:05}
+	\end{minipage}\\
+
+	\begin{minipage}{0.49\columnwidth}
+		\centering
+		\includegraphics[width=\columnwidth]{graph/graph09.png}
+		\caption{\ce{p-Ge}と\ce{n-Ge}の電気伝導度の測定結果}
+		\label{graph:09}
+	\end{minipage}
+	\hfil
+	\begin{minipage}{0.49\columnwidth}
+		\centering
+		\includegraphics[width=\columnwidth]{graph/graph06.png}
+		\caption{a}
+		\label{graph:06}
+	\end{minipage}\\
+
+	\begin{minipage}{0.49\columnwidth}
+		\centering
+		\includegraphics[width=\columnwidth]{graph/graph08.png}
+		\caption{a}
+		\label{graph:07}
+	\end{minipage}
+	\hfil
+	\begin{minipage}{0.49\columnwidth}
+		\centering
+		\includegraphics[width=\columnwidth]{graph/graph08.png}
+		\caption{a}
+		\label{graph:08}
+	\end{minipage}
+\end{figure}
 
 \clearpage
 \section{考察}
