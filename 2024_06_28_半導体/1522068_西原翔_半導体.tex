@@ -24,6 +24,7 @@
 \usepackage{mathrsfs} % フォントの追加
 \usepackage{url} % url を入れる
 \usepackage[margin=15mm]{geometry} %余白の削除
+\usepackage{tcolorbox}
 
 \numberwithin{equation}{section}
 
@@ -78,6 +79,7 @@
 
 % \twocolumn
 \section{目的}
+
 
 \section{原理}
 \subsection*{電気伝導の古典論}
@@ -154,7 +156,7 @@ Drudeは電気伝導について古典的なモデルを立てて議論した。
 電子密度\(n\)も結晶中全ての電子ではなく準粒子の電子の数となる。
 
 \subsubsection*{外部磁場があるときの電気伝導}
-電流\(I\)が流れる方向に垂直な方向に磁場\(B\)をかけることを考える。
+電流\(I\)が流れる方向に垂直な方向に磁場\(B\)をかけることを考える。(参考\cite{kondo-2009})
 電流の流れる方向を\(x\)軸、磁場を書ける方向を\(z\)軸とする。
 電荷\(+e\)を持った正孔は\(x\)軸の負の方向へ運動し、
 電荷\(-e\)をもった電子は\(x\)軸の正の方向へ運動する。
@@ -360,7 +362,7 @@ Drudeは電気伝導について古典的なモデルを立てて議論した。
 \begin{equation}
 	R = \frac{1}{e(p-n)}
 \end{equation}
-というようになる\cite{kondo-2009}。 % TODO 計算して♡
+というようになる。 % TODO 計算して♡
 
 \clearpage
 \section{実験}
@@ -406,23 +408,23 @@ Drudeは電気伝導について古典的なモデルを立てて議論した。
 
 \section{結果}
 
-\begin{wrapfigure}{r}[0pt]{0.4\columnwidth}
+\begin{wrapfigure}[13]{r}[0pt]{0.4\columnwidth}
 	\centering
 	\includegraphics[width=0.4\columnwidth]{graph/graph03.png}
-	\caption{a}
+	\caption{試料に流した電流とホール電圧の測定結果を端子のずれの補正をせずにプロットしたもの。}
 	\label{graph:03}
 \end{wrapfigure}
 298 K において試料に流した電流\(I\)とホール電圧\(V_H\)の間の関係は図\ref{graph:03}のようになった。
 磁場\(B\)がないのにも関わらず、ホール電圧\(V_H\)が測定されてしまっているのがわかる。
 これはホール電圧を測定する端子がきれいに\(y\)軸方向に取り付けられていない効果である。
 なのでこの寄与を取り除いた、
-298 K において試料に流した電流\(I\)とホール電圧\(V_H\)の関係は図\ref{graph:04}, 図\ref{graph:05}のようになった。
+298 K において試料に流した電流\(I\)とホール電圧\(V_H\)の関係は図\ref{graph:04}, 図\ref{graph:05}, 表\ref{table:01}のようになった。
 確かに\(V_H \propto IB\)の関係が成り立っているのがわかる。
 
 この実験における 298 K から 403 K における\ce{p-Ge}と\ce{n-Ge}の電気伝導度の温度特性の測定結果は図\ref{graph:09}のようになった。
 また、8K から 403K までの\ce{n-Ge}の電気伝導度のアレニウスプロットは図\ref{graph:06}のようになった。
-キャリアが励起に必要なエネルギーと電気伝導度の間には\(\sigma\propto \exp(-E_g/2k_B T)\)の関係があるので、
-アレニウスプロットにより励起に必要なエネルギーが低温では 20 meV, 高温では 0.63 eV であることがわかる。
+キャリアが励起に必要なエネルギーと電気伝導度の間には\(\sigma\propto \exp(-E_g/2k_B T)\)の関係より、
+励起に必要なエネルギーが低温では 20 meV, 高温では 0.63 eV であることがわかる。
 
 ホール係数\(R\)とこれの逆数によって得られるキャリア密度\(n\)と\(p\)の温度特性は図\ref{graph:07}, 図\ref{graph:08} のようになった。
 \ce{p-Ge} では 70 ℃ まで、\ce{n-Ge}では 40 ℃ まで温度を上げてもキャリア数は変わらず一定になっているのがわかる。
@@ -431,55 +433,91 @@ Drudeは電気伝導について古典的なモデルを立てて議論した。
 \ce{p-Ge}おいて 130 ℃を境にホール係数の符号が正から負になっているのもわかる。
 これはキャリアが正孔的な性格から電子的な性格に変わったことを表す。
 
-\begin{figure}[h]
+また、移動度の温度特性について両対数プロットしたものが図\ref{graph:10}である。
+これより、\(\mu\propto T^{-3/2}\)となっている領域があるのがわかる。
+
+\begin{figure}[H]
 	\centering
-	\begin{minipage}{0.49\columnwidth}
+	\begin{minipage}[t]{0.45\columnwidth}
 		\centering
 		\includegraphics[width=\columnwidth]{graph/graph04.png}
-		\caption{a}
+		\caption{\small{298 K の室温で
+		\ce{p-Ge}に流した電流\(I\)とホール電圧\(V_H\)の測定結果。(課題2)}}
 		\label{graph:04}
 	\end{minipage}
 	\hfil
-	\begin{minipage}{0.49\columnwidth}
+	\begin{minipage}[t]{0.45\columnwidth}
 		\centering
 		\includegraphics[width=\columnwidth]{graph/graph05.png}
-		\caption{a}
+		\caption{\small{298 K の室温で
+		\ce{n-Ge}に流した電流\(I\)とホール電圧\(V_H\)の測定結果。(課題2)}}
 		\label{graph:05}
-	\end{minipage}\\
-
-	\begin{minipage}{0.49\columnwidth}
+	\end{minipage}
+\end{figure}
+\begin{table}[H]
+	\centering
+	\caption{\small{室温(298 K)におけるホール係数\(R\,(\times 10^{-3} \text{m}^3/\text{C})\),
+	キャリア密度\(n,\, p\, (\times 10^{14}/\text{cm}^3)\), 移動度\(\mu\,(\times 10^{3},\,\text{cm}^2/\text{Vs})\)(課題2)}}
+	\label{table:01}
+	\begin{tabular}[pos]{|c|ccc|ccc|}
+		\hline
+		 & \multicolumn{3}{c|}{\ce{p-Ge}} & \multicolumn{3}{c|}{\ce{n-Ge}}\\
+		\(B\) (mT) & \(R\) & \(p\) & \(\mu\)
+		& \(R\) & \(n\) & \(\mu\)\\
+		\hline
+		100 & 8.59 & 7.27 & 3.48 & -13.22 & 4.71 & 3.99 \\
+		 50 & 8.66 & 7.20 & 3.51 & -12.87 & 4.85 & 3.87 \\
+		-50 & 8.73 & 7.15 & 3.54 & -13.75 & 4.54 & 4.14 \\
+		-100 & 8.71 & 7.27 & 3.52 & -13.81 & 4.51 & 4.16 \\
+		\hline
+		Ave. & 8.67 & 7.20 & 3.51 & -13.42 & 4.65 &4.04 \\
+		\hline
+	\end{tabular}
+\end{table}
+\begin{figure}[H]
+	\begin{minipage}[t]{0.45\columnwidth}
 		\centering
 		\includegraphics[width=\columnwidth]{graph/graph09.png}
-		\caption{\ce{p-Ge}と\ce{n-Ge}の電気伝導度の測定結果}
+		\caption{\small{\ce{p-Ge}と\ce{n-Ge}の電気伝導度の測定結果(課題4, 5)}}
 		\label{graph:09}
 	\end{minipage}
 	\hfil
-	\begin{minipage}{0.49\columnwidth}
+	\begin{minipage}[t]{0.45\columnwidth}
 		\centering
 		\includegraphics[width=\columnwidth]{graph/graph06.png}
-		\caption{a}
+		\caption{\small{\ce{n-Ge}の電気伝導度の測定結果のアレニウスプロット。
+		Sample 2 は別の実験で測定したデータ。(課題4, 5)}}
 		\label{graph:06}
-	\end{minipage}\\
-
-	\begin{minipage}{0.49\columnwidth}
+	\end{minipage}
+\end{figure}
+\begin{figure}[H]
+	\begin{minipage}[t]{0.45\columnwidth}
 		\centering
-		\includegraphics[width=\columnwidth]{graph/graph08.png}
-		\caption{a}
+		\includegraphics[width=\columnwidth]{graph/graph07.png}
+		\caption{\small{ホール係数の温度特性の測定結果。
+		\ce{p-Ge}が高温になると符号が正から負になっていることがわかる。(課題4)}}
 		\label{graph:07}
 	\end{minipage}
 	\hfil
-	\begin{minipage}{0.49\columnwidth}
+	\begin{minipage}[t]{0.45\columnwidth}
 		\centering
 		\includegraphics[width=\columnwidth]{graph/graph08.png}
-		\caption{a}
+		\caption{\small{ホール係数から求めたキャリア密度の温度特性。(課題7)}}
 		\label{graph:08}
 	\end{minipage}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.49\columnwidth]{graph/graph10.png}
+	\caption{\small{移動度の温度特性の測定結果を両対数プロットしたもの。(課題7)}}
+	\label{graph:10}
 \end{figure}
 
 \clearpage
 \section{考察}
 \subsection{素励起と準粒子}
-結晶中の電子の振舞いについて考える。
+結晶中の電子の振舞いを素励起を用いた描像で考えてみる。
 1つの孤立している原子を考える。
 電子はその原子核に束縛され、離散的なエネルギー準位をとるようになる。
 その原子が2つ近づくと、相互作用により元のエネルギー準位が分裂して2つのエネルギー準位をとるようになる。
@@ -516,12 +554,12 @@ Drudeは電気伝導について古典的なモデルを立てて議論した。
 有効質量は定量的にはバンドの曲率として定義される。
 つまり
 \begin{equation}
-	\frac{1}{m_{ij}} = \pdv[2]{E(\vb*{k})}{k_i}{k_j}
+	\frac{1}{m_{ij}} = \frac{1}{\hbar^2}\pdv[2]{E(\vb*{k})}{k_i}{k_j}
 \end{equation}
 として定義される。
 波数空間が等方的であるときには有効質量はテンソル量ではないスカラー量
 \begin{equation}
-	\frac{1}{m} = \pdv[2]{E(\vb*{k})}{k}
+	\frac{1}{m} = \frac{1}{\hbar^2}\pdv[2]{E(\vb*{k})}{k}
 \end{equation}
 となる。
 有効質量によって周期的ポテンシャルというのは準粒子の運動方程式に現れなくなり、
@@ -653,16 +691,140 @@ Ge 半導体に原子番号が隣の元素である \ce{As} か \ce{Ga} の一�
 	\label{fig:01}
 \end{figure}
 
+\section{課題}
+\begin{tcolorbox}[title=課題1]
+	半導体に比べ、金属のホール測定が難しい理由を考察せよ。
+\end{tcolorbox}
+ホール係数は
+\begin{equation}
+	R = \frac{1}{qn} = -\frac{V_H d}{I B}
+\end{equation}
+として表わされる。
+また、電子や正孔の粒子数は
+\begin{equation}
+	p=n=2\qty(\frac{k_B T}{2\pi\hbar})^{3/2}\qty(m_p^*m_n^*)^{3/4} e^{-E_g/2k_BT}
+\end{equation}
+である。金属では\(E_g=0\)であるので、
+同じ温度の元、電子と正孔の質量が同じものとして半導体と金属のホール係数の比は
+\begin{equation}
+	\frac{R_{\text{metal}}}{R_{\text{semi conductor}}}  = e^{-E_g/k_BT}
+\end{equation}
+となる。
+この式に\(E_g\simeq 10^4 \text{K}\)としてオーダーを見積もると
+\begin{equation}
+	\frac{R_{\text{metal}}}{R_{\text{semi conductor}}}\simeq 10^{-9}
+\end{equation}
+というのがわかる。
+半導体と金属で同じ形状をしているとしたら、
+このことはホール電圧が\num{e-9}倍小さい値で測定されることを表している。
+なので金属のホール係数を測定することはこの系では難しいことがわかる。
+\\
+
+\begin{tcolorbox}[title=課題2]
+	\(\Delta V_H\)からホール係数\(R\)を導出し、
+	主たるキャリアの種類を判定せよ。
+	さらに、試料の電気電伝導度\(\sigma\)と併せてキャリア密度\(n\)と移動度\(\mu\)を算出せよ。
+\end{tcolorbox}
+室温(298K)におけるホール係数\(R\), キャリア密度\(n,\, p\), 移動度\(mu\)は
+図\ref{graph:04}, 図\ref{graph:05}, 表\ref{table:01} にて示した。
+それより高温領域のホール係数\(R\)は図\ref{graph:07}, キャリア密度は図\ref{graph:08}, 移動度\(\mu\)は図\ref{graph:10},
+電気伝導度は図\ref{graph:09}, 図\ref{graph:06} に示した。
+
+この結果より\ce{n-Ge}では電荷が負のキャリアである電子が優勢であることがわかる。
+また\ce{p-Ge}では 130 ℃ 未満では電荷が正のキャリアである正孔が、
+130 ℃ 以上ではキャリアが負である電子が優勢であることがわかる。
+\\
+
+\begin{tcolorbox}[title=課題4]
+	\ce{p-Ge}のホール係数\(R\)の温度変化を考察せよ。
+\end{tcolorbox}
+
+電気伝導のキャリアが2種類あるためホール係数\(R\)は
+\begin{equation}
+	R = \frac{p\mu_p^2 - n\mu_e^2}{e(p\mu_p+n\mu_e)^2}
+\end{equation}
+はとして表される。
+つまり、ホール係数の逆数をもとにキャリア密度をプロットした図\ref{graph:08}では、
+キャリアの様子を考えるのには不適切である。
+キャリア密度は散乱の寄与があるものの電気伝導度\(\sigma\)に比例することから、
+図\ref{graph:09}を用いて考えるのがよい。
+
+60 ℃付近まではホール係数\(R\)が一定でであり、
+電気伝導度\(\sigma\)も大きな変化はないことがグラフより確認できる。
+これはアクセプタ準位に不純物によって供給された正孔が大方、
+励起したことによってキャリア数が変化しないという状態になっていると考えられる。
+
+そこから温度を上げていくとホール係数\(R\)は下がって行き、
+130 ℃ ではホール係数\(R\)の符号が正から負に反転している。
+これはホール係数\(R\)の分子の値が徐々に減っていってることを示唆する。
+また電気伝導度\(\sigma\)は増えていってるのがわかる。
+これはキャリア密度の増加を表している。
+この振る舞いは温度を上げることでアクセプタ準位にある正孔だけでなく、
+対生成した電子・正孔がキャリアとして動くようになったからというので説明できる。
+
+ドープした不純物の量は少ない。
+そのため、アクセプタ準位にある正孔の数よりも対生成した電子・正孔の数が温度\(T\)を上げるにつれ多くなっていく。
+なので対生成した電子・正孔だけを考えればよい。
+電荷中性条件より\(n=p\)なので
+\begin{equation}
+	R = \frac{\mu_p-\mu_n}{en(\mu_p+\mu_e)}
+\end{equation}
+これらの動きやすさを表す移動度\(\mu=q\tau/m^*\)というのを考える。
+電子と正孔で電荷の大きさ\(q\)と緩和時間\(\tau\)とみなすと、
+\begin{equation}
+	R = - \frac{m_p^*-m_e^*}{en(m_p^*+m_e^*)}
+\end{equation}
+\ce{Ge}においては図\ref{fig:01}より電子の方が有効質量\(m^*\)が小さいのがわかる。
+これは、十分高温であるときには\(R<0\)となるという実験結果と一致している。
+
+まとめると、ホール係数\(R\)は電子と正孔の有効質量\(m^*\)の差が効いて図\ref{graph:07}のような温度特性となる。
+\\
+
+\begin{tcolorbox}[title=課題5]
+	電気伝導度\(\sigma\)の温度特性のグラフを
+	縦軸を対数プロット、横軸を\(1000/T\)としてアレニウスプロットせよ。
+\end{tcolorbox}
+図\ref{graph:09}の通りである。\\
+
+\begin{tcolorbox}[title=課題6]
+	課題5 のアレニウスプロットにおいて真性領域を明示し、
+	その領域で最小二乗法を用いて\ce{n-Ge}, \ce{p-Ge} のエネルギーギャップ\(E_g\)を導出せよ。
+	これを既知のデータと比較せよ。
+\end{tcolorbox}
+図\ref{graph:09}の真性領域での傾きから
+\ce{p-Ge}の測定結果では\(E_g = 0.60\) eV,
+\ce{n-Ge}の測定結果では\(E_g = 0.63\) eV と求まった。
+理科年表\cite{rikanenpyo}では 0K において \(E_g = 0.785\) eV,
+Ibach, L\"uth\cite{ibach-luth}では 0K において \(E_g = 0.75\) eV, 300K において \(E_g = 0.67\) eV
+となっていた。\footnote{どうやら 0 K における\(E_g\)を求める方法があるみたいですね。}
+
+この値の違いは、この実験において真性領域におけるデータの数が少なく、真性領域の中では低温のデータしか取れていないことにある。
+そのため、真性領域に入り電気伝導が急激に増えていくところの立ち上がりのデータを少しだけとった形になるため、
+少し小さい\(E_g\)の値が求まった。\\
+
+\begin{tcolorbox}[title=課題7]
+	キャリア密度\(n,\,p\)のアレニウスプロットおよび、移動度\(\mu\)と温度\(T\)の両対数プロットを行い、
+	これらのグラフ形状から、キャリアの発生及び散乱について考察せよ。
+\end{tcolorbox}
+キャリアの発生は考察や課題4にて述べた。
+
+移動度\(\mu\)の両対数プロットの結果である図\ref{graph:10}より、
+\begin{equation}
+	\mu \propto T^{-3/2}
+\end{equation}
+で減少していることがわかる。
+これはフォノンとの散乱による温度特性である\cite{ibach-luth}。
+
 \section{結論}
 
 
 \bibliographystyle{junsrt}
 \bibliography{reference}
-\section*{付録}
-\section{半導体中の電子の散乱過程}
-この実験するにあたって、半導体中の電子の散乱過程を御子柴先生の
-半導体の物理」\cite{Mikoshiba}を使って学んだ。
-そのノートをここに残す。
+% \section*{付録}
+% \section{半導体中の電子の散乱過程}
+% この実験するにあたって、半導体中の電子の散乱過程を御子柴先生の
+% 半導体の物理」\cite{Mikoshiba}を使って学んだ。
+% そのノートをここに残す。
 
 
 \end{document}
