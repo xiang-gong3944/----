@@ -104,7 +104,7 @@ SGC ライブラリ「量子多体系とニューラルネットワーク」\cit
 なので物性物理に限らず物理学の世界において理論物理、実験物理に加え、
 新しく計算物理と呼ばれる新領域も物理学会にて作られるようになった。
 
-\section{ニューラルネットワーク量子状態}
+\section{量子状態とボルツマンマシン}
 スピンやボゾン粒子の数といった\(N\)個の離散的な自由度\(\mathcal{S}=(S_1,\,S_2,\,\dots\, S_N)\)をもった量子系を考える。
 関数は定義域から値域への写像だということを思い出すと、
 この系の波動関数を\(N\)次元の集合\(\mathcal{S}\)というのをある複素数へと移すものだと考えることはできる。
@@ -116,10 +116,110 @@ SGC ライブラリ「量子多体系とニューラルネットワーク」\cit
 
 ニューラルネットワークのモデルというのはさまざまある。
 一口に量子多体系といってもそれぞれのモデルがどの問題に適しているかというのはもちろん違う。
-今回は横磁場イジング模型と反強磁性ハイゼンベルグ模型というのを扱う。
-この問題を扱う際には制限ボルツマンマシンというニューラルネットワークモデルを用いる。
+ここでは制限ボルツマンマシンというニューラルネットワークモデルを用いる。
 
-\section{ボルツマンマシン}
+ボルツマンマシンのアイデアを示していく。
+\(N\)個の離散的な自由度\(\mathcal{S}=(\sigma_1^z,\,\sigma_2,\,\dots\, \sigma_N^z)\)を考える。
+\(\mathcal{S}\)の各成分の値にはある関係があり、データ空間のごく一部にしか分布しない。
+そのデータは確率分布\(p(\mathcal{S})\)に従って生成されたと考える。
+するとどのような状態があり得るかどうかという問題は確率分布\(p(\mathcal{S})\)を求める問題となる。
+真の確率分布\(p(\mathcal{S})\)はわからないのであるモデル\(p(\mathcal{S}|w)\)を仮定して
+そのパラメータ\(w\)を調整する(学習する)ことで真のモデルに近づけることを考える。
+
+ではこのモデルとしてどのようなものがあり得るか考える。
+\(\mathcal{S}\)の各成分の値の関係をネットワークにしてそのエッジの重みで状態を表すことが出来そうである。
+この場合各成分の間の関係として疑似相関といったことがあり得る。
+なのでネットワークに隠れ層の補助自由度として\(M\)成分の\((h_1,\,h_2,\,\dots,\, h_M)\)を導入して
+これを通したネットワークになっていると考える。
+そうしたときに確率分布は
+\begin{align}
+    p(\mathcal{S},\,h\, | w ) &= \frac{1}{Z}e^{-E\qty(\mathcal{S},\,h\, | w )}\\
+    E(\mathcal{S},\,h\, | w ) &= -\sum_{i=1}^{N} w_i \sigma_i^z - \sum_{j=1}^{M} {w'}_j h_i - \sum_{ij}w_{ij} \sigma_i^z h_j
+\end{align}
+というようにできそうである。
+ここで\(Z\)は規格化定数、\(E(\mathcal{S},\,h\, | w )\)はエネルギー関数、
+\(w_i\)は\(\mathcal{S}\)へのバイアス、\({w'}_j\)は\(h\)へのバイアス、
+\(w_ij\)は\(\mathcal{S}\)と\(h\)の結合の強さに相当する。
+(模式図:図\ref{fig:01})
+\begin{figure}
+    \centering
+    \includegraphics[width=0.9\columnwidth]{01.png}
+    \caption{制限ボルツマンマシンの模式図(引用\cite{Carleo-2017})}
+    \label{fig:01}
+\end{figure}
+実際には隠れ相は見えないのでこれの状態についてすべての和を取って周辺確率分布
+\begin{equation}
+    p(\mathcal{S}|w)=\sum_h \frac{1}{Z}e^{-E\qty(\mathcal{S},\,h\, | w )}
+\end{equation}
+というのがモデルとなる。
+情報を2進数で表示すると自由度が増える代わりに\(\sigma=\pm 1,\,h=\pm1\)とできる。
+このようにして和を取ると
+\begin{equation}
+    p(\mathcal{S}|w)=\exp(\sum_i w_i\sigma_i^z)\times\prod_j 2\cosh({w'}_j+\sum_i w_{ij}\sigma_i^z)
+\end{equation}
+というようにできる。
+
+何らかのコスト関数を用いてパラメータ\(w\)を変化させていくことで確率分布となる。
+量子力学によると確率分布は波動関数の二乗\(p(\mathcal{S})\abs*{\psi(\mathcal{S})}^2\)で表される。
+また、実際の系で最も安定な状態はエネルギーが低い状態のことである。
+これを量子力学的な表記で表すと
+\begin{align}
+    E &= \frac{\bra{\psi(\mathcal{S}|w)}\mathcal{H}\ket{\psi(\mathcal{S}|w)}}{\braket{\psi(\mathcal{S}|w)}}\\
+    &= \frac{\sum_{\mathcal{S},\, \mathcal{S}'}\psi^*(\mathcal{S}|w)\mathcal{H}(\mathcal{S},\,\mathcal{S}')\psi(\mathcal{S}'|w)}{\sum_\mathcal{S} \abs{\psi(\mathcal{S}|w)}^2}
+\end{align}
+と表される。なのでこの量を最小化するようにパラメータ\(w\)を学習することとなる。
+注意したいのは波動関数自体は複素数なので\(w\)は複素数値になっている。
+
+ここでモデルのパラメータの更新には SR 法と呼ばれる手法で行われている。
+
+\section{物理の模型}
+今回はスピンという磁石のような量についてのモデルである
+% 1次元と2次元の横磁場イジング模型(Trensverse-Field Ising model:TFI)と
+反強磁性ハイゼンベルグ模型(AntiFeromagnetic Heisenberg model:AFH)というのを扱う。
+% これらの模型は
+直感的には、\(d\)次元の格子点の上に強さが同じ磁石(スピン)を載せたモデルである。
+% イジング模型ではスピンの向きは\(z\)軸に関して上向きか下向きかというのだけを見る。
+% 横磁場というのは\(x\)軸方向に磁場がある状態という意味である。
+% この系を表すハミルトニアン\(\mathcal{H}_{\text{TFI}}\)は
+% \begin{equation}
+%     \mathcal{H}_{\text{TFI}} = -h\sum_i \sigma_i^x -\sum_{ij}\sigma_i^z\sigma_j^z
+% \end{equation}
+% としてあらわされる。
+% これは各方向のスピンの値とかかわる。
+% \(h\)の項は横磁場に応答する項、第2項は隣接するスピンと\(z\)軸方向の向きが揃っていたら安定というのを表している。
+
+ハイゼンベルグ模型は各磁石の向きは3次元的な方向として扱う。
+反強磁性というのはスピンの向きが互い違い(反平行)である状態が安定するというようなモデルで
+ハミルトニアン\(\mathcal{H}_{\text{AFH}}\)は
+\begin{equation}
+    \mathcal{H}_{\text{AFH}} = \sum_{ij} \sigma_i^x\sigma_j^x + \sigma_i^y\sigma_j^y+ \sigma_i^z\sigma_j^z
+\end{equation}
+として表される。
+\(\sigma\)はパウリ行列と呼ばれるもので
+\begin{equation}
+    \sigma^x = \begin{pmatrix}
+        0 & 1\\
+        1 & 0
+    \end{pmatrix}, \qquad
+    \sigma^y = \begin{pmatrix}
+        0 & -i\\
+        i & 0
+    \end{pmatrix}, \qquad
+    \sigma^z = \begin{pmatrix}
+        1 & 0\\
+        0 & -1
+    \end{pmatrix}
+\end{equation}
+である。
+
+\newpage
+\section{結果}
+Fortran で実装したコードは今回参考にしているテキスト\cite{SGC191}を書いた野村先生のウェブページ
+(\url{https://sites.google.com/view/yusuke-nomuras-webpage-jp})
+にあり、
+これを python で書き直したのがこのページ(\url{https://ieyasu03.web.fc2.com/Computer/04_RBM.html})
+にあった。
+これをもとに自分でも実装し、パソコンに計算をさせてみた。
 
 
 \bibliographystyle{junsrt}
