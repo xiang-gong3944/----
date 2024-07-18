@@ -40,13 +40,16 @@
 
 \begin{abstract}
     The application of neural networks in condensed matter physics
-     is transforming the field by handling complex and large datasets.
-     Neural networks facilitate rapid material discovery
-     by predicting physical properties like thermal and electrical conductivity from vast datasets,
-     significantly speeding up the process compared to traditional methods.
+    is transforming the field by handling complex and large datasets.
+    Neural networks facilitate rapid material discovery
+    by predicting physical properties like thermal and electrical conductivity from vast datasets,
+    significantly speeding up the process compared to traditional methods.
 
-     In this report, I'm going to introduce the representation of wave functions
-     using neural networks.
+    In this report, I'm going to introduce the representation of wave functions
+    using neural networks and apply 1D AntiFeromagnetic Heisenberg model
+    to obtain ground state of the system and the correlation of each spins.
+    The parameters of the neural networks is optimized
+    by Stochastic Reconfiguration method (SR method).
 \end{abstract}]
 \section{始めに}
 SGC ライブラリ「量子多体系とニューラルネットワーク」\cite{SGC191}
@@ -169,28 +172,16 @@ SGC ライブラリ「量子多体系とニューラルネットワーク」\cit
 \end{align}
 と表される。なのでこの量を最小化するようにパラメータ\(w\)を学習することとなる。
 注意したいのは波動関数自体は複素数なので\(w\)は複素数値になっている。
-
-ここでモデルのパラメータの更新には SR 法と呼ばれる手法で行われている。
+ここでモデルのパラメータの更新には確率的再配置法(Stochastic Reconfiguration method:SR method)と呼ばれる手法で行われている。
+機械学習の分野では、この手法は自然勾配法と呼ばれている方法である。
 
 \section{物理の模型}
 今回はスピンという磁石のような量についてのモデルである
-% 1次元と2次元の横磁場イジング模型(Trensverse-Field Ising model:TFI)と
 反強磁性ハイゼンベルグ模型(AntiFeromagnetic Heisenberg model:AFH)というのを扱う。
-% これらの模型は
 直感的には、\(d\)次元の格子点の上に強さが同じ磁石(スピン)を載せたモデルである。
-% イジング模型ではスピンの向きは\(z\)軸に関して上向きか下向きかというのだけを見る。
-% 横磁場というのは\(x\)軸方向に磁場がある状態という意味である。
-% この系を表すハミルトニアン\(\mathcal{H}_{\text{TFI}}\)は
-% \begin{equation}
-%     \mathcal{H}_{\text{TFI}} = -h\sum_i \sigma_i^x -\sum_{ij}\sigma_i^z\sigma_j^z
-% \end{equation}
-% としてあらわされる。
-% これは各方向のスピンの値とかかわる。
-% \(h\)の項は横磁場に応答する項、第2項は隣接するスピンと\(z\)軸方向の向きが揃っていたら安定というのを表している。
-
-ハイゼンベルグ模型は各磁石の向きは3次元的な方向として扱う。
-反強磁性というのはスピンの向きが互い違い(反平行)である状態が安定するというようなモデルで
-ハミルトニアン\(\mathcal{H}_{\text{AFH}}\)は
+ハイゼンベルグ模型は各磁石の向きは3次元的な方向として扱うモデルで、
+反強磁性というのはスピンの向きが互い違い(反平行)である状態が安定するといった意味である。
+このモデルを表すハミルトニアン\(\mathcal{H}_{\text{AFH}}\)は
 \begin{equation}
     \mathcal{H}_{\text{AFH}} = \sum_{ij} \sigma_i^x\sigma_j^x + \sigma_i^y\sigma_j^y+ \sigma_i^z\sigma_j^z
 \end{equation}
@@ -200,11 +191,11 @@ SGC ライブラリ「量子多体系とニューラルネットワーク」\cit
     \sigma^x = \begin{pmatrix}
         0 & 1\\
         1 & 0
-    \end{pmatrix}, \qquad
+    \end{pmatrix}, \quad
     \sigma^y = \begin{pmatrix}
         0 & -i\\
         i & 0
-    \end{pmatrix}, \qquad
+    \end{pmatrix}, \quad
     \sigma^z = \begin{pmatrix}
         1 & 0\\
         0 & -1
@@ -212,7 +203,6 @@ SGC ライブラリ「量子多体系とニューラルネットワーク」\cit
 \end{equation}
 である。
 
-\newpage
 \section{結果}
 Fortran で実装したコードは今回参考にしているテキスト\cite{SGC191}を書いた野村先生のウェブページ
 (\url{https://sites.google.com/view/yusuke-nomuras-webpage-jp})
@@ -220,7 +210,60 @@ Fortran で実装したコードは今回参考にしているテキスト\cite{
 これを python で書き直したのがこのページ(\url{https://ieyasu03.web.fc2.com/Computer/04_RBM.html})
 にあった。
 これをもとに自分でも実装し、パソコンに計算をさせてみた。
+ただ、ここで実装するうえでは、
+系の対称性としてスピンの\(z\)成分の和が一定であることや周期的境界条件とそれに伴う併進対称性というのも考慮する必要があった。
+なので条件としては、スピンの数が\(N=8\),
+隠れ自由度の数は\(M=N=8\),
+スピンの\(z\)成分の和が 0, パラメータの更新回数は 3000 回
+というような条件で行った。
 
+すると、基底状態のエネルギーは -14.603878 となった。
+厳密解との差は 0.000030 であるのでうまくいっているのがわかる。
+系の波動関数は図\ref{fig:02} となった。
+横軸の\(x\)はスピンの\(z\)成分を符号化したものであり、別に位置座標ではない。
+これを見ると左右対称になっている。
+これは系の\(z\)軸の向きをどちらにとってもよいという反転対称性を表している。
+なので右半分と左半分ではちょうどスピンの向きが反転した状態になっている。
+また、最も高い値が\(x=21, 50\)にある。
+これは反強磁性ハイゼンベルグ模型の基底状態であると解釈でき、
+その中身は
+\begin{equation}
+    \psi = (\uparrow,\,\downarrow,\,\uparrow,\,\downarrow,\,\uparrow,\,\downarrow,\,\uparrow,\,\downarrow,\,)
+\end{equation}
+とこれの上下を反転させたものである。
+確かに、ハミルトニアンから予想されるような基底状態担っているのがわかる。
+\begin{figure}
+    \centering
+    \includegraphics[width=0.9\columnwidth]{02.png}
+    \caption{反強磁性ハイゼンベルグ模型の波動関数}
+    \label{fig:02}
+\end{figure}
+
+ニューラルネットワークの併進対称性を考慮したパラメータ\(w_{i-j}\)は図\ref{fig:03}
+のようになった。
+これを見ると隣接するスピン同士の影響は大きくて、
+遠くにあるほど影響は小さいことがわかる。
+\begin{figure}
+    \centering
+    \includegraphics[width=0.9\columnwidth]{03.png}
+    \caption{制限ボルツマンマシンのパラメータ\(w_{ij}\)の様子}
+    \label{fig:03}
+\end{figure}
+
+\section{終わりに}
+Carleoの元の論文\cite{Carleo-2017}ではこのレポートで見ていったモデルのほかに
+横磁場イジングモデルというのも扱っている。
+さらに1次元だけではなく、2次元での計算も行っている。
+
+それらのモデルは量子多体系では最も基本的なモデルのであるが、
+これをもとに話を発展させていくことが多い。
+この論文により量子多体系においてニューラルネットワークが使えるものであるということがわかったため、
+これ以降、機械学習を使った計算による結果が多く出るようになったようである。
+機械学習の性質上、
+その中のパラメータはブラックボックスになることが多いが、
+今回使った制限ボルツマンマシンは統計力学によって解釈をすることができる。
+このほかにもニューラルネットワークを場の量子論の枠組みから捕えようとする試みもあるようである。
+計算資源が豊富に増えたなか、このリソースを使ってどのような物理ができていくのか楽しみである。
 
 \bibliographystyle{junsrt}
 \bibliography{reference}
