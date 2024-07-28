@@ -1,0 +1,150 @@
+\documentclass[11pt,dvipdfmx,a4paper]{jsarticle}
+
+\usepackage{amsmath,amssymb}
+\usepackage{bm}
+\usepackage[dvipdfmx]{graphicx}
+\usepackage{physics} % http://mirrors.ibiblio.org/CTAN/macros/latex/contrib/physics/physics.pdf
+\usepackage{siunitx} %SI単位を楽に出力
+\usepackage{mathtools} %環境の追加
+% \usepackage{circuitikz} %電気回路をtex中で書く
+% \usepackage{caption} %番号なしキャプションを書く
+% \usepackage{cancel} %式中に斜線を入れる
+% \usepackage{tensor} %テンソルの添え字を書く
+% \usepackage{tikz} %図を書く
+% \usepackage{ascmac} %四角い枠の中に文章を書く
+% \usepackage{float} %figureで[hbp]オプションを使う
+% \usepackage{hyperref}  \usepackage{pxjahyper} %ハイパーリンクをつかう
+% \usepackage{tablefootnote} %表中に注釈をいれる
+% \usepackage[thicklines]{cancel} %数式中の取り消し線
+\usepackage[version=4]{mhchem} %化学式の入力
+\usepackage{pdfpages}
+% \usepackage{wrapfig} %文章の回り込み
+\usepackage[subrefformat=parens]{subcaption} %(a)図のようにすることができるやつ
+\usepackage{here}
+\usepackage{url}
+\usepackage{mathrsfs}
+
+% \graphicspath{{./image/}}
+
+% \numberwithin{equation}{section} %式番号を(セクション.式番号)にする
+
+\title{BEDNORZ and M\"{U}LLERのノーベル賞講演を読んで}
+\author{1522068 西原翔}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+\section{研究の背景}
+チューリッヒにあるIBMの研究所ではおよそ20年間にわたりぺブスカイト型酸化物絶縁体の研究が行われていた。
+この結晶構造は塩化セシウム型の結晶構造の隙間に酸素が入ったような構造をしていて、
+例として\ce{SrTiO3}や\ce{LaAlO3}といった物質があげられる。
+こういった物質は酸素が作る正八面体構造が変わることで生じる強誘電体の相転移や、
+構造の相転移について注目されていた。
+この受賞者の1人の K. Alex M\"{u}ller(KAM) と M. Berlinger は
+電子スピン共鳴を用いて \ce{TiO6}という遷移金属中に不純物が入った系における対称性について調べていた。
+
+KAM が酸化物による高温超電導の可能性に気づいたのは T.Schneider と E. Stoll がした金属水素についての計算を知ったときであった。
+この計算によると、金属水素は 2-3 Mbar の高圧にあるということが推定された。
+そうした金属水素の物性を実現するにはとても\ce{SrTiO3}のような高誘電材料に十分な水素を取り入れるとよいのではないかという議論が
+KAM と T.Schneider の間であったようである。
+そのような金属水素の物性として原子核が最も軽い陽子1つであるのあでデバイ振動数が高い点がある。
+BCS 理論によると、デバイ振動数が高いと超伝導の臨界温度が高くなるというのが知られている。
+そのため、金属水素の超伝導臨界温度は高いと予想される。
+ただ、高誘電材料に十分な水素を取り入れるというアイデアは(水素)密度を高くできないという点でうまく行かないという結論にいたった。
+しかしこの指針は当たっていて、近年は水素化合物超伝導による高圧化の高温超伝導が確認されている。
+
+そして、もう1人の受賞者である J. George Bednorz (JGB)は
+チューリッヒにある ETH 研究所で Ph.D. の論文を書いている間にある実験結果を得た。
+ペロブスカイト構造をとる\ce{SrTiO3}を還元するすることで酸素を取り除くと 0.3 K で超伝導体へ
+相転移をすることを見つけた。このことは温度が低いので始めは注目されなかったが、
+\ce{NbO}に比べキャリアが非常に少ないという点が興味深いことであった。
+
+JGB は 1978 年に Heinrich Rohrer からの電話がきっかけで、
+\ce{SrTi3}に不純物を加えることでキャリア密度が増え、超伝導転移温度が上昇していくことに気付いた。
+これにより 0.3 K から 1.2 K まで上げることができた。
+
+当時、超伝導はBCS理論から説明される合金の転移温度の限界は 30 K 程度であるとわかっていた。
+しかし一方で、BCS 理論の説明する機構でない超伝導物質である \ce{Li-Ti-O}という酸化物系というのもあって、
+酸化物による超伝導というのが当たるのではないかという話はあった。
+
+\section{Jahn-Teller ポーラロン}
+この酸化物による高温超伝導の理論的な話 Jahn-Teller ポーラロンモデルと関連づけられている。
+H\"{o}ck らによによって 1983 年に狭いバンド内の Jahn-Teller ポーラロンについて定式化の研究が行われていた\cite{Hock1983}。
+その論文の中を追ってみる。
+
+この論文では、軌道が縮退した基底状態を持つイオン、
+いわゆる Jahn-Teller イオンを含むような結晶中における電子フォノン結合について考える。
+Jahn-Teller の定理によると、格子の振動があるような系では縮退した基底状態が不安定となる。
+この Jahn-Teller 不安定性は絶縁体結晶だけではなく、いくつかの金属化合物の構造相転移を引き起こしているのがわかった。
+もっとも目立つ結果としては、\ce{Nb3Sn}と\ce{V3Sn}の相転移はいわゆるバンド Jahn-Teller 効果によって引き起こされているというものである。
+そこでは、Jahn-Teller 相互作用は縮退したバンドの変形ポテンシャルと弾性変形との変形ポテンシャルのカップリングを引き起こし、
+高い対称性を持った層を不安定にする可能性がある。
+このバンド Jahn-Teller 機構は \ce{LaAg_xIn_{1-x}}と\ce{La_{1-x}Yb_x Ag_{1-y}In_y}といった金属間化合物
+の構造相転移を引き起こすと予想されていた。
+この論文が出たころの実験との矛盾があるため、この説明では不十分である。
+さらに、この系の Jahn-Teller 安定化エネルギー\(E_{JT}\)は電子のバンド幅よりも広くなっていた。
+なのでバンド幅が狭い遍歴電子系におけるより適切な Jahn-Teller 効果の取扱の方法についての疑問が生じる。
+
+まず第一に Jahn-Teller 効果と結晶中における単一電子の相互作用(Jahn-Teller ポーラロン問題)を調べていく。
+各単胞で電子の軌道縮退がある分子結晶の項とホッピングがあるような系を記述を示す。
+ただ、ここでの模型は遍歴電子系ではあるものの、
+Holstein の他距離力によるハミルトニアンで表されるスモールポーラロンを使って結晶内の強い電子フォノン相互作用を記述していく。
+
+各単位胞内では正四面体対称性を持つような錯体を考える。
+それぞれの錯体の最も低い基底状態は二重縮退した\(\psi_1,\,\psi_2\)であり、
+\(E_g\)軌道ともいわれる。
+この2つの基底状態のダブレットが局在しているとして強束縛近似のもと、
+バンド内を動く電子を考える。
+ホッピングと Jahn-Tellar を考慮したハミルトニアンは\(\psi_1,\,\psi_2\)を基底として
+次のようになる。
+\begin{align}
+    \mathcal{H} &= \mathcal{H}_\text{el} + \mathcal{H}_\text{latt} + \mathcal{H}_\text{JT}\\
+    \mathcal{H}_\text{el} &= \epsilon_0 \sum_l (c_{l1}^{\dagger}c_{l1}+c_{l1}^{\dagger}c_{l1})-\frac{1}{2}\sum_{l\,l',\,\gamma}t_\gamma(l,\,l')c_{l\gamma}^{\dagger}c_{l'\gamma}\\
+    \mathcal{H}_\text{latt} &= \sum_l \qty[\frac{P_l^2}{2M}+\frac{1}{2}M\Omega_s Q_l^2]-\frac{1}{2}\sum_{l\,l'} V_{ll'}Q_lQ_{l'}\\
+    \mathcal{H}_\text{JT} &= -A\sum_l Q_l(c_{l1}^{\dagger}c_{l1}-c_{l2}^{\dagger}c_{l2})
+\end{align}
+ここで、\(l\)や\(\gamma\)は各格子を表し、1,2 の数字は \(E_g\)の二重縮退したそれぞれの状態を表す。
+そして\(\Omega_s\)はデバイ振動数、\(M\)は有効質量で\(Q_l\)は JT-active 座標、
+ \(V_{ll'}\)は格子振動間の相互作用で光学フォノンが生じる。
+最後の項が Jahn-Teller 結合を表していて、サイト\(l\)にあるフォノンと電子の相互作用となる。
+この項の注目すべき特徴として、\(Q_l\)の対称性を破る働きがある。
+普通の電子格子結合は完全に対称的な格子のひずみだけと相互作用をする。
+通常の Jahn-Teller 安定化エネルギー\(E_{JT}=-A^2/2m\Omega_s^2\)は分極のない物質では電子格子間相互作用に比べ二桁大きい、
+半導体中では同じぐらいのオーダーのエネルギーである。
+今知りたいのはバンド幅\(t\)と\(E_{JT}\)が同じぐらいの大きさの時である。
+Jahn-Tellar 結合によって電子の周囲にある格子がひずむ。
+このひずみのパターン\(\{Q_l\}\)により、
+Jahn-Tellar 項は電子にとっての有効ポテンシャルとなり、自己無頓着にこの項は決まる。
+結合が十分強いときには、
+電子はこの自己無頓着なポテンシャルに捕まり、
+電子と周囲の格子ひずみからなる複合体である Jahn-Tellar ポーラロンのみが結晶全体を動き回ることができる。
+これは、従来の完全に対照的なひずみパターンからなるポーラロンと対称的に、
+Jahn-Teller ポーラロンは反転対称性のみある。
+
+波数\(k\)における基底状態をを評価するため、
+変分の試行関数を
+\begin{equation}
+    \begin{split}
+        \ket{\psi_{k\gamma}}
+            &=- c\sum_l e^{i\vb*{k}\cdot\vb*{R}_l}
+            \prod_{l'}\exp[a_{ll'}^{(k\gamma)}(b_{l'}^{\dagger}-b_{l})]
+            \sum_{l''} a_{ll''}^{(k\gamma)}c_{l''\gamma}\ket{0}\\
+        Q_l &= \sqrt{\frac{\hbar}{2M\Omega_s}}(b_l^{\dagger}+b_l)\\
+        P_l &= i\sqrt{\frac{M\hbar\Omega}{2}}(b_l^{\dagger}-b_l)
+    \end{split}
+\end{equation}
+とする。
+ここで、
+\(\prod_{l'}\exp[a_{ll'}^{(k\gamma)}(b_{l'}^\dagger-b_l)]\)の演算子は\(l'\)にある錯体によって
+周囲にあるサイト\(l\)の変形が生じるのを表している。
+その変形の形は変分パラメータ\(a_{ll''}^{(k\gamma)}\)によって決まる。
+\(\sum_{l''}a_{ll''}^{(k\gamma)}c_{l''\gamma}^{\dagger}\)はサイト\(l\)に電子を生成する演算子である。
+
+
+
+
+\bibliographystyle{junsrt}
+\bibliography{reference}
+
+\end{document}
