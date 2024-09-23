@@ -1,0 +1,6 @@
+&bands
+    outdir      = './work_Ag/'
+    prefix      = 'Ag'
+    filband     = 'Ag.band'
+    lsym        = .true.
+/
