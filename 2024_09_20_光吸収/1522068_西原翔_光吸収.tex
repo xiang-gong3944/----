@@ -16,8 +16,8 @@
 % \usepackage{hyperref}  \usepackage{pxjahyper} %ハイパーリンクをつかう
 % \usepackage{tablefootnote} %表中に注釈をいれる
 % \usepackage[thicklines]{cancel} %数式中の取り消し線
-% \usepackage[version=4]{mhchem} %化学式の入力
-\usepackage{pdfpages}
+\usepackage[version=4]{mhchem} %化学式の入力
+% \usepackage{pdfpages}
 % \usepackage{wrapfig} %文章の回り込み
 \usepackage[subrefformat=parens]{subcaption} %(a)図のようにすることができるやつ
 \usepackage{here}
@@ -35,7 +35,7 @@
 
 %texで表紙を書くとき
 \quad\\[35mm]
-\centerline{\Huge{\textsf{第 a 回}}}
+\centerline{\Huge{\textsf{第 6 回}}}
 \quad\\[5mm]
 \centerline{\Huge{\textsf{応 用 物 理 学 実 験}}}
 \quad\\[5mm]
@@ -43,7 +43,7 @@
 	\centering
 	\begin{tabular}{| c | c |}
 		\hline
-		\Huge\textsf{{題目}} & \Huge{\textsf{タイトル}} \rule[-5mm]{0mm}{15mm} \\
+		\Huge\textsf{{題目}} & \Huge{\textsf{光吸収}} \rule[-5mm]{0mm}{15mm} \\
 		\hline
 	\end{tabular}
 \end{table}
@@ -65,9 +65,9 @@
 \centerline{\LARGE{\textsf{\qquad\qquad\quad\;\;1522095 村山涼矢}}}\\[2mm]
 \centerline{\LARGE{\textsf{\qquad\qquad\quad\;\;1522B02 中村洸太}}}\\[2mm]
 \quad\\[10mm]
-\centerline{\LARGE{\textsf{提出年月日:2024年a月a日}}}\\[2mm]
-\centerline{\LARGE{\textsf{実験実施日:2024年a月a日}}}\\[2mm]
-\centerline{\LARGE{\textsf{\qquad\qquad\quad\;2024年a月a日}}}
+\centerline{\LARGE{\textsf{提出年月日:2024年10月03日}}}\\[2mm]
+\centerline{\LARGE{\textsf{実験実施日:2024年09月20日}}}\\[2mm]
+\centerline{\LARGE{\textsf{\qquad\qquad\quad\;2024年09月27日}}}
 \quad\\[10mm]
 \centerline{\LARGE{\textsf{東 京 理 科 大 学 理 学 部 第 1 部}}}\\[2mm]
 \centerline{\LARGE{\textsf{応 用 物 理 学 教 室}}}
@@ -77,10 +77,152 @@
 \addtocounter{page}{-1}
 \newpage
 
-% \twocolumn
 \section{目的}
+新しい試料を作ったときにまず何を測定するのか。
+それはまずサンプルを「見る」ことから始めるものである。
+つまり、物質の光学応答の測定こそが物質を調べる基本なのである。
+
+この実験では分光光度計を使い金属(\ce{Au}, \ce{Ag})の光学応答を波長ごとに調べることで、
+金属の特徴である金属光沢という光学的性質をスペクトル測定をした。
+また、分光は試料の電子構造を知る上で大きな役割を果たしている。
+半導体はエネルギーギャップがあるという特徴的な電子構造を持っている。
+このエネルギーギャップに由来する光学特性を確認するため、半導体である\ce{GaAs}, \ce{CdS}, \ce{SrTiO_3}の光学応答を調べた。
+
+% TODO: DFT の話も入れたいね
 
 \section{原理}
+\subsection{光学応答を表すパラメータ}
+光学応答を表すパラメータは等価なものとして、(複素)誘電率、(複素)屈折率、反射率・透過率、
+の3つがある。
+
+誘電率は光学現象を微視的な観点から説明する際に用いられるものである。
+光は電磁場であることが知られているが、磁場による相互作用は電場に比べて弱い。
+% 例えば電場と磁場を同じ単位として扱う cgs 系でのローレンツ力の表式は
+% \begin{align}
+%     F = q \qty(E + \frac{v}{c} B)
+% \end{align}
+% というように書かれる。荷電粒子の速度\(v\)は光速\(c\)に比べて小さいのでローレンツ力という相互作用では磁場が見えてこない。
+なの基本的には光は磁気相互作用のない電場であると考え、そのような電場を光電場と呼ぶ。
+光電場\(E\)が媒質中に入ったとき、
+媒質中の電荷分布はその光電場によって偏り、分極\(P\)が生じる。
+その関係式を\(P = \epsilon_0\chi E\)というように比例するとしたとき、
+媒質中での電束密度\(D\)は
+\begin{align}
+    D = \epsilon_0 E + P = \epsilon_0(1+\chi)E
+\end{align}
+というように書くことができる。
+このとき、電場によって励起された分極\(P\)の影響を誘電率に取り込んで真空と同じように扱う。
+つまり、媒質中では誘電率が\(\epsilon=\epsilon_0 (1+\chi)\)の真空であると考える。
+この媒質の持つ誘電率というパラメータは実際には相互作用が伝播していく速度が有限であることから、
+周波数に依存すると考えると扱いやすい。
+このように周波数で誘電率を扱ったものを誘電関数という。
+
+実際には光電場はすべて分極を作るのに使われるのではなく、電流や熱になる。
+熱になるのは少なく、電流になるのがほとんどであるのでこれについて考える。
+オームの法則により\(j=\sigma E\)と書ける。
+時間をフーリエ変換したアンペール・マクスウェルの式にこれらの式を入れると
+\begin{align}
+    \curl H(\omega) = j(\omega) - i\omega D = -i\omega \qty(\epsilon+\frac{i\sigma}{\omega}) E(\omega)
+\end{align}
+となる。これを見ると
+\begin{align}
+    \tilde{\epsilon}(\omega) = \epsilon(\omega) + \frac{i\sigma}{\omega}
+\end{align}
+として複素数で誘電関数を書くと真空と同じような形
+\begin{align}
+    \curl H(\omega) = -i\omega \tilde{\epsilon}(\omega) E(\omega)
+\end{align}
+で書くことができる。
+これを複素誘電関数や複素誘電率と呼ぶ。
+このように複素誘電率は電場と分極の関係から導かれたものである。
+電場と電子の相互作用をモデル化すれば具体的な式の形はわかるものの、
+実際の目に見える光学現象との対応がわかりにくく、直接測定することはできない。
+
+これをすこし取り扱いしやすくしたのが屈折率である。
+屈折率は媒質中を通る光電場の様子を用いて光学応答を表すものである。
+複素誘電率\(\tilde{\epsilon}\)の媒質中では、光の速度は
+\begin{align}
+    c' = \frac{c}{\sqrt{\tilde{\epsilon}/\epsilon_0}}
+\end{align}
+と書ける。
+これは光学における媒質による光速の違いを表す式
+\begin{align}
+    c' = \frac{c}{n}
+\end{align}
+に対応している。ここでの\(n\)は屈折率と呼ばれ光学では実数であるが複素数に拡張してみる。
+複素屈折率を
+\begin{align}
+    \tilde{n} &= n + i\kappa = \sqrt{\tilde{\epsilon}/\epsilon_0}
+\end{align}
+というように定義する。これを複素屈折率と呼び
+複素を付けず単に屈折率といったときには複素屈折率の実部を指し、虚部は消衰係数と呼ばれる。
+これと誘電関数の実部と虚部は
+\begin{align}
+    n^2-\kappa^2 = \epsilon_1,\qquad 2n\kappa = \epsilon_2
+\end{align}
+という対応関係がある。(\(\epsilon_1=\Re{\tilde{\epsilon}/\epsilon_0},\,\epsilon_2=\Im{\tilde{\epsilon}/\epsilon_0}\))
+これを使うと複素屈折率\(\tilde{n}\)の媒質中を通る光を次のよう表せる。
+\begin{align}
+    E &= E_0 e^{-i\omega (t - \tilde{n}x/c)} = E_0 e^{-\omega \kappa x / c}e^{-i\omega (t - x/(c/n))}
+\end{align}
+この表式よりに媒質中を通る光の速度とその減衰の様子を表してるのがわかる。
+波動現象によってはこの量は測定しやすい。
+光においてはこの量は干渉計や光の強度を測定することで求めることができるものの、
+これでもまだ煩雑である。
+
+より直接的に測定できる量は反射率と透過率である。
+2つの媒質の境界面に入射する光の強度を\(\abs{E_i}^2\),
+その面で反射する光の強度を\(\abs{E_r}^2\),
+その面を透過する光の強度を\(\abs{E_t}^2\)
+としたときに、反射率 \(R\) と透過率 \(T\) は
+\begin{align}
+    R = \frac{\abs{E_r}^2}{\abs{E_i}^2},\qquad  T = \frac{\abs{E_t}^2}{\abs{E_i}^2}
+\end{align}
+というようにあらわされる量である。
+この量は試料を反射した光との強度を測定することで得られる量である。
+そのため直感的にわかりやすく、測定もしやすい量である。
+
+反射率・透過率、複素屈折率は電場の境界面における境界条件を計算すると結びつけられる。
+複素屈折率が\(\tilde{n}_1\)の媒質から複素屈折率が\(\tilde{n}_2\)の媒質へ垂直に入射するときには
+\begin{align}
+    t = \frac{2\tilde{n}_1}{\tilde{n}_1 + \tilde{n}_2},\qquad  r = \frac{\tilde{n}_2-\tilde{n}_1}{\tilde{n}_1+\tilde{n}_2}
+\end{align}
+という量を用意すると
+この面での反射光と透過光は
+\begin{align}
+    E_{r1} = r_1 E_i, \qquad E_{t1} = t_1 E_i
+\end{align}
+と書ける(p偏光におけるフレネルの式)。
+このとき光のエネルギーについてポインティングベクトルを考慮すると、
+反射光は入射光と同じ媒質を伝播するので単に
+\begin{align}
+    R = \abs{r}^2 = \abs{\frac{\tilde{n}_2-\tilde{n}_1}{\tilde{n}_1+\tilde{n}_2}}^2
+\end{align}
+というように対応づけることができる。
+透過光は伝播する速度が入射光・反射光と違うため\(T\neq\abs{t}^2\)であり、
+\begin{align}
+    T &= 1 - R = \frac{2(\tilde{n}_1^*\tilde{n}_2+\tilde{n}_1\tilde{n}_2^*)}{\abs{\tilde{n}_1+\tilde{n}_2}^2}
+\end{align}
+となる。
+とくに、\(\tilde{n}_1=1, \tilde{n}_2 = \tilde{n}\)のときには
+\begin{align}
+    R & = \abs{\frac{1-\tilde{n}}{1+\tilde{n}}}^2\\
+    T & = \frac{4n}{\abs{1+\tilde{n}}^2}
+\end{align}
+と書ける。
+光が透過するときには実際の試料では光が入射する面と出ていく2つの面があり、
+この2つの面の間で多重反射した光が透過光強度として測定される。
+試料の面の法線方向から\(\theta\)だけ傾いた方向から光が入射したとして、
+試料の厚さを\(d\), 吸収係数と呼ばれる量を\(\alpha=2\omega\kappa/c\)を使うとこのときの透過率\(T'\)と反射率\(R'\)は
+\begin{align}
+    T' &= \frac{(1-R^2)\exp(-\alpha d\cos\theta)}{1-R^2\exp(-2\alpha d\cos\theta)}\\
+    R' &= R(1+T'\exp(-\alpha d\cos\theta))
+\end{align}
+となる。実際に測定される透過率・反射率は試料自身の誘電関数から得られる方ではなくこの量である。
+
+以上より誘電関数と反射率・透過率がきちんと対応することが分かった。
+実験から反射率と透過率を測定し、それを説明するような誘電関数を導くモデルが作れたのなら、
+それが光学現象の機構であると考えれるのがわかる。
 
 \section{実験}
 
