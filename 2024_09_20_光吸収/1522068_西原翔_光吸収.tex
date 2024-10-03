@@ -89,10 +89,11 @@
 半導体はエネルギーギャップがあるという特徴的な電子構造を持っている。
 このエネルギーギャップに由来する光学特性を確認するため、半導体である\ce{SrTi_3}, \ce{CdS}, \ce{GaAs}の光学応答を調べた。
 
-% TODO: DFT の話も入れたいね
+また、光学現象を解析する上で第一原理計算によるバンド図の計算や誘電関数の計算を行い、
+第一原理計算でしめす振る舞いの特徴を調べた。
 
 \section{原理}
-\subsection{光学応答を表すパラメータ}
+\subsection*{光学応答を表すパラメータ}
 光学応答を表すパラメータは等価なものとして、(複素)誘電率、(複素)屈折率、反射率・透過率、
 の3つがある。
 
@@ -106,14 +107,14 @@
 なの基本的には光は磁気相互作用のない電場であると考え、そのような電場を光電場と呼ぶ。
 光電場\(E\)が媒質中に入ったとき、
 媒質中の電荷分布はその光電場によって偏り、分極\(P\)が生じる。
-その関係式を\(P = \epsilon_0\chi E\)というように比例するとしたとき、
+その関係式を\(P = \varepsilon_0\chi E\)というように比例するとしたとき、
 媒質中での電束密度\(D\)は
 \begin{align}
-    D = \epsilon_0 E + P = \epsilon_0(1+\chi)E
+    D = \varepsilon_0 E + P = \varepsilon_0(1+\chi)E
 \end{align}
 というように書くことができる。
 このとき、電場によって励起された分極\(P\)の影響を誘電率に取り込んで真空と同じように扱う。
-つまり、媒質中では誘電率が\(\epsilon=\epsilon_0 (1+\chi)\)の真空であると考える。
+つまり、媒質中では誘電率が\(\varepsilon=\varepsilon_0 (1+\chi)\)の真空であると考える。
 この媒質の持つ誘電率というパラメータは実際には相互作用が伝播していく速度が有限であることから、
 周波数に依存すると考えると扱いやすい。
 このように周波数で誘電率を扱ったものを誘電関数という。
@@ -123,15 +124,15 @@
 オームの法則により\(j=\sigma E\)と書ける。
 時間をフーリエ変換したアンペール・マクスウェルの式にこれらの式を入れると
 \begin{align}
-    \curl H(\omega) = j(\omega) - i\omega D = -i\omega \qty(\epsilon+\frac{i\sigma}{\omega}) E(\omega)
+    \curl H(\omega) = j(\omega) - i\omega D = -i\omega \qty(\varepsilon+\frac{i\sigma}{\omega}) E(\omega)
 \end{align}
 となる。これを見ると
 \begin{align}
-    \tilde{\epsilon}(\omega) = \epsilon(\omega) + \frac{i\sigma}{\omega}
+    \tilde{\varepsilon}(\omega) = \varepsilon(\omega) + \frac{i\sigma}{\omega}
 \end{align}
 として複素数で誘電関数を書くと真空と同じような形
 \begin{align}
-    \curl H(\omega) = -i\omega \tilde{\epsilon}(\omega) E(\omega)
+    \curl H(\omega) = -i\omega \tilde{\varepsilon}(\omega) E(\omega)
 \end{align}
 で書くことができる。
 これを複素誘電関数や複素誘電率と呼ぶ。
@@ -141,9 +142,9 @@
 
 これをすこし取り扱いしやすくしたのが屈折率である。
 屈折率は媒質中を通る光電場の様子を用いて光学応答を表すものである。
-複素誘電率\(\tilde{\epsilon}\)の媒質中では、光の速度は
+複素誘電率\(\tilde{\varepsilon}\)の媒質中では、光の速度は
 \begin{align}
-    c' = \frac{c}{\sqrt{\tilde{\epsilon}/\epsilon_0}}
+    c' = \frac{c}{\sqrt{\tilde{\varepsilon}/\varepsilon_0}}
 \end{align}
 と書ける。
 これは光学における媒質による光速の違いを表す式
@@ -153,13 +154,13 @@
 に対応している。ここでの\(n\)は屈折率と呼ばれ光学では実数であるが複素数に拡張してみる。
 複素屈折率を
 \begin{align}
-    \tilde{n} &= n + i\kappa = \sqrt{\tilde{\epsilon}/\epsilon_0}
+    \tilde{n} &= n + i\kappa = \sqrt{\tilde{\varepsilon}/\varepsilon_0}
 \end{align}
 というように定義する。これを複素屈折率と呼び
 複素を付けず単に屈折率といったときには複素屈折率の実部を指し、虚部は消衰係数と呼ばれる。
-これらと誘電関数の実部と虚部を\(\epsilon_1=\Re(\tilde{\epsilon}/\epsilon_0),\,\epsilon_2=\Im(\tilde{\epsilon}/\epsilon_0)\)の間には
+これらと誘電関数の実部と虚部を\(\varepsilon_1=\Re(\tilde{\varepsilon}/\varepsilon_0),\,\varepsilon_2=\Im(\tilde{\varepsilon}/\varepsilon_0)\)の間には
 \begin{align}
-    n^2-\kappa^2 = \epsilon_1,\qquad 2n\kappa = \epsilon_2
+    n^2-\kappa^2 = \varepsilon_1,\qquad 2n\kappa = \varepsilon_2
 \end{align}
 という対応関係がある
 これを使うと複素屈折率\(\tilde{n}\)の媒質中を通る光を次のよう表せる。
@@ -237,6 +238,8 @@
 
 \section{結果}
 試料の反射率の測定結果は図\ref{graph:01}のようになった。
+ここでの反射率の値は理科年表\cite{rikanenpyo}の値に比べ小さくなっている。
+なので光の散逸がとても大きい結果であることに注意する必要がある。
 金属試料である\ce{Au}と\ce{Ag}、半導体試料である\ce{GaAs}, \ce{CdS}, \ce{SrTiO_3} では反射率の振る舞いが違うのがわかる。
 金属試料は高エネルギーでは反射率が低く、ある波長よりも低エネルギーになると反射率が高くなっているのに対し、
 半導体試料では反射率は金属試料試料ほどの大きな変化はしていない。
@@ -289,18 +292,18 @@ CdS, GaAs ではほとんど垂直に変化している。
 \ce{CdS}と\ce{GaAs}のバンド図を Quantum espresso という第一原理計算のソフトを使ってバンド図を計算すると、
 図\ref{band}のようになった。\footnote{どんなパラメータのもと、どんな疑ポテンシャルを使ったのかは割愛する。}
 これを見ると波数空間の原点である\(\Gamma\)にて直接遷移が起きるのがわかる。
-またこのバンド図よりエネルギーが\ce{CdS}では 2.3 eV, \ce{GaAs}では 1.4 eV であるのも読み取れる。
+またこのバンド図よりエネルギーが\ce{CdS}では 1.4 eV, \ce{GaAs}では 1.2 eV であるのも読み取れる。
 この値が小さく出るのは第一原理計算の仕組み上不可避である。\cite{DFT}
 \begin{figure}[H]
     \begin{minipage}[t]{0.48\columnwidth}
     \centering
-    % \includegraphics[width = \columnwidth]{band/CdS.png}
+    \includegraphics[width = \columnwidth]{band/CdS.png}
     \subcaption{CdS}
     \end{minipage}
     \hfil
     \begin{minipage}[t]{0.48\columnwidth}
         \centering
-        % \includegraphics[width = \columnwidth]{band/GaAs.png}
+        \includegraphics[width = \columnwidth]{band/GaAs.png}
         \subcaption{GaAs}
     \end{minipage}
     \caption{Quantum espresso で計算した直接遷移型の半導体のバンド図}
@@ -329,7 +332,7 @@ CdS, GaAs ではほとんど垂直に変化している。
 バンドギャップ付近だけではなくより高エネルギーにおいても使えるものになっている。
 
 \begin{figure}[H]
-        \begin{minipage}[t]{0.48\columnwidth}
+    \begin{minipage}[t]{0.48\columnwidth}
         \centering
         \includegraphics[width = \columnwidth]{graph/graph3.png}
         \caption{半導体(\ce{GaAs}, ウルツ鉱型\ce{CdS}, \ce{SrTiO_3})の各波長における吸収係数}
@@ -344,6 +347,37 @@ CdS, GaAs ではほとんど垂直に変化している。
     \end{minipage}
 \end{figure}
 
+また吸収係数\(\alpha\)と複素屈折率の虚部\(\kappa\)の間には
+\begin{align}
+    \alpha = \frac{2\omega \kappa}{c}
+\end{align}
+という関係が成り立っている。
+これをこれをもとに複素屈折率の虚部の大きさを調べると\(\kappa\sim 10^{-5}\)のオーダーの量になる。
+つまり今回の測定では試料が厚いため複素屈折率の虚部の虚部は考えずに実部だけを考えればよい。
+これより(15)式より屈折率\(n\)は反射率\(R\)を用いて
+\begin{align}
+    n = \frac{1 + \sqrt{R}}{1 - \sqrt{R}}
+\end{align}
+と書ける。この式を使って各試料の屈折率のスペクトルを求めると図\ref{graph:04}のようになった。
+これは理科年表\cite{rikanenpyo}との値とのずれは大きくはない。
+\begin{figure}[H]
+    \centering
+    \begin{minipage}[t]{0.48\columnwidth}
+        \centering
+        \includegraphics[width = \columnwidth]{graph/graph4.png}
+        \caption{半導体(\ce{GaAs}, ウルツ鉱型\ce{CdS}, \ce{SrTiO_3})の各波長における屈折率}
+        \label{graph:04}
+    \end{minipage}
+    \hfil
+    \begin{minipage}[t]{0.48\columnwidth}
+        \centering
+        \includegraphics[width = \columnwidth]{graph/graph6.png}
+        \caption{分光器の波長を選択するスリット幅を変えて測定したときの GaAs の透過率の測定結果。
+        スリット幅が狭いとノイズがひどくなるのがわかる。}
+        \label{graph:06}
+    \end{minipage}
+\end{figure}
+
 \section{課題}
 \begin{tcolorbox}[title = 課題1]
     マニュアルを参考にし、
@@ -355,6 +389,39 @@ CdS, GaAs ではほとんど垂直に変化している。
     また、実験条件である波長範囲、スリット幅、サンプリング間隔、スキャンスピード
     を決定する際に留意すべき点を記述せよ。
 \end{tcolorbox}
+仕組みとしては以下のとおりである。
+赤外から可視光の範囲ではある 350nm -1100nm の間の光源ではタングステンランプを、
+紫外線である 190 nm - 350 nm では重水素ランプを光源としている分光計である。
+ランプから出た光は反射型回折格子で波長分解能が高くなるよう平行光線になるようにレンズで光線を制御して、
+回折格子の回転角で波長をスリットを通すことで選択する。
+そうして選択された光源はビームスプリッタで半々になるよう分けられる。
+この際、ビームスプリッタによって強度比が 1:1 に分けられるわけではなくどうしても偏りが生じる。
+そのため、ベースライン測定と呼ばれる校正データの測定を行う必要がある。
+片方の光は光の強度の測定基準となり、もう片方の光は試料に当てられ透過率や反射率を測定することとなる。
+2つの光の強度比を測定することで透過率と反射率が測定されることとなる。
+
+この際に調整できるパラメータとして、
+回折格子を回す速度であるスキャンスピード、
+サンプリング間隔、
+光源の波長を選択するスリット幅、
+波長範囲がある。
+スキャンスピードとサンプリング間隔、波長範囲は測定時間と精度のトレードオフにかかわる量である。
+なので測定のできる時間に合わせて調整すればよい。
+一方、スリット幅に関しては強度の分解能にかかわってくる。
+光子エネルギーと波長の関係は
+\begin{align}
+    E = \frac{hc}{\lambda}
+\end{align}
+より、スリット幅\(\Delta\lambda\)とエネルギーもとい光の強度のずれ幅は
+\begin{align}
+    \frac{\Delta E}{E} = \frac{\Delta\lambda}{\lambda}
+\end{align}
+となる。つまりスリット幅が狭いと測定する光の強度の値が正確に出るのがわかる。
+しかし、スリットによって光線がさえぎらるのでセンサーに入る光子の個数が減る。
+すると光源のゆらぎや外乱によって測定される強度にノイズが多く入ることになる。
+なのでスリット幅の狭さはエネルギーの精度とノイズとのトレードオフになる。
+実際に測定したスリット幅によるノイズの影響を測定したのが図\ref{graph:06}でありこの傾向が確かに確認できる。
+\\
 
 \begin{tcolorbox}[title = 課題2]
     金および銀について、
@@ -362,6 +429,70 @@ CdS, GaAs ではほとんど垂直に変化している。
     また金属中の電子を自由粒子であるとするドルーデモデルを仮定したときのプラズマ振動数の理論値を計算せよ。
     さらに推定値と理論値に差が生じる理由を物理的に考察せよ。
 \end{tcolorbox}
+金属中の電子を自由電子とみて、速度に比例する摩擦と振動する光電場を受けながら運動するとしたときの運動方程式は
+\begin{align}
+    m \ddot{x} + m\gamma \dot{x} = -eE_0 e^{-i\omega t}
+\end{align}
+となる。
+ただし、バンド理論により金属中の電子はほとんど散乱を受けずに自由に動くことがわかっているので\(\gamma\ll 1\)である。
+これをフーリエ変換変換して解くと
+\begin{align}
+    x(\omega) = \frac{eE(\omega)}{m}\frac{1}{\omega^2 + i\omega \gamma}
+\end{align}
+分極は\(P(\omega) = -Nex(\omega)/V\)で書けるので誘電関数は
+\begin{align}
+    D(\omega) &= \varepsilon_0 \varepsilon(\omega) E
+    = \varepsilon_0 E(\omega) + P(\omega)
+    = \varepsilon_0 \qty(1 - \frac{Ne^2}{V\varepsilon_0}\frac{1}{\omega^2 + i\gamma\omega})E(\omega)\\
+    \varepsilon(\omega) &= 1-\frac{\omega_p^2}{\omega^2 + \gamma^2}+\frac{i\gamma\omega_p^2}{\omega(\omega^2+\gamma^2)}
+\end{align}
+と書ける。
+このときの
+\begin{align}
+    \omega_p = \sqrt{\frac{Ne^2}{V\varepsilon_0}}
+\end{align}
+をプラズマ振動数という。
+誘電関数と複素屈折率\(\tilde{n}=n+i\kappa\)の関係式である(8)を使うと
+\begin{align}
+    n &= \sqrt{\varepsilon_1}\sqrt{\frac{1+\sqrt{1+\varepsilon_2^2/\varepsilon_1^2}}{2}} \\
+    \kappa &= \sqrt{-\varepsilon_1}\sqrt{\frac{-1+\sqrt{1+\varepsilon_2^2/\varepsilon_1^2}}{2}}
+\end{align}
+より、\(\gamma\ll 1\)も合わせると
+\(\omega<\omega_p\)のときには複素屈折率の実部は値を持たずに虚部は値を持ち、
+\(\omega>\omega_p\)のときには複素屈折率の虚部は値を持たずに実部は値を持つ。
+つまり、プラズマ振動数は金属が光学的に透明であるかの境目になっているのがわかる。
+プラズマ振動数を反射率のスペクトルで見るには反射率が大きく変わる波長である。
+(26)式より波長スペクトルをもとに外挿すると波長による誤差の違いが表れるため、
+反射率のスペクトルを周波数で表し、そこからプラズマ振動数を求めると
+\begin{align*}
+    \hbar\omega_{p(\text{Au})} = 2.5 \quad\text{eV},\qquad \hbar\omega_{p(\text{Ag})} = 3.95 \quad\text{eV}
+\end{align*}
+とわかる。
+\ce{Au}, \ce{Ag} の束縛されずに自由に動く自由電子の数が s 電子1つであると仮定して、
+ドルーデモデルより得られたプラズマ振動数の式(31)に値を入れていくと
+\begin{align*}
+    \hbar\omega_{p(\text{Au})} = 9.0 \quad\text{eV},\qquad \hbar\omega_{p(\text{Ag})} = 9.0 \quad\text{eV}
+\end{align*}
+となり、実験値と合わない。
+
+実際には電束密度は背景が真空ではなく他の束縛電子による影響が入ってるため、
+電束密度と電場、分極の式は
+\begin{align}
+    D(\omega) = \varepsilon' E(\omega) +P(\omega)
+\end{align}
+と書くべきである。この表式でのプラズマ振動数は
+\begin{align}
+    \varepsilon_p' = \sqrt{\frac{Ne^2}{\varepsilon'V}}=\sqrt{\varepsilon_0/\varepsilon'}\omega_p
+\end{align}
+と書ける。
+つまり他の束縛電子による影響によって金属中の誘電率が真空とは異なるのが原因であると、
+ドルーデモデルからは言うことができる。
+
+バンド理論といったもう少し複雑なモデルから見ると、
+この真空の誘電率との違いの由来はこのように言うことができる。% ほんとか?
+自由電子を1つのs電子としたが、実際には1つ下の d 電子や f 電子と s 電子のバンドが重なっている。
+光学現象にかかわってくる電子はこれらが入り混じっているため有効的な誘電率が変わる。
+\\
 
 \begin{tcolorbox}[title = 課題3]
     今回測定した試料の反射率スペクトルと透過率スペクトルから、
@@ -410,10 +541,72 @@ CdS, GaAs ではほとんど垂直に変化している。
 そのためくすんだ光沢をもった白色として見えるのがわかる。
 
 \section{結論}
+金属である\ce{Au}, \ce{Ag} の反射率の測定するとある波長より短い波長では反射率が下がり、
+それより大きい波長では反射率が大きくなるスペクトルが得られた。
+このスペクトルは目に見える金属の色ときちんと対応しているのを確認した。
+特定の波長で反射率が大きく変わるという振る舞いはドルーデモデルをもとにした誘電関数によって説明できた。
+これより金属中の電子はイオンが多数分布しているのにも関わらず自由電子のように振舞うことを表す。
+
+半導体である\ce{SrTiO_3}, \ce{CdS}, \ce{GaAs} の反射率と透過率の測定により、
+屈折率や、吸収係数を求めることができた。
+この吸収係数のふるまいは半導体のバンドギャップの大きさを説明するだけではなく、
+バンド理論が予言する周波数依存性を満たしてることを確認した。
+つまり結晶中の電子はバンド理論によるブロッホ電子という描像で振舞うと考えてもよい。
 
 
 \bibliographystyle{junsrt}
 \bibliography{reference}
 \section*{付録}
+\subsection*{誘電関数の第一原理計算の結果}
+第一原理計算によって \ce{SrTiO_3}, \ce{CdS}, \ce{GaAs} の誘電関数を計算して求めた。
+しかし、計算がうまくいっているのか、この誘電関数のふるまいはセットしたパラメータのどこに由来するのか、
+等の解釈が力不足でできなかったため本文には載せなかった。
+その誘電関数をここに載せる。
+\subsection*{その他の図表}
+実験中に作成を指示されたが使わなかった図表をここに載せる。
+
+\begin{figure}[H]
+    \centering
+    \begin{minipage}[t]{0.48\columnwidth}
+        \centering
+        \includegraphics[width = \columnwidth]{graph/graph7.png}
+        \subcaption{\ce{SrTiO_3}}
+    \end{minipage}
+    \hfil
+    \begin{minipage}[t]{0.48\columnwidth}
+        \centering
+        \includegraphics[width = \columnwidth]{graph/graph8.png}
+        \subcaption{\ce{CdS}}
+    \end{minipage}\\
+    \begin{minipage}[t]{0.48\columnwidth}
+        \centering
+        \includegraphics[width = \columnwidth]{graph/graph9.png}
+        \subcaption{\ce{GaAs}}
+    \end{minipage}
+    \caption{第一原理計算によって求めた半導体の誘電関数}
+
+    \begin{minipage}[t]{0.48\columnwidth}
+        \centering
+        \includegraphics[width = \columnwidth]{graph/graphA.png}
+        \caption{\ce{SrTiO_3}}
+    \end{minipage}
+    \hfil
+    \begin{minipage}[t]{0.48\columnwidth}
+        \centering
+        \includegraphics[width = \columnwidth]{graph/graphB.png}
+        \caption{\ce{CdS}}
+    \end{minipage}\\
+    \begin{minipage}[t]{0.48\columnwidth}
+        \centering
+        \includegraphics[width = \columnwidth]{graph/graphC.png}
+        \caption{\ce{GaAs}}
+    \end{minipage}
+    \hfil
+    \begin{minipage}[t]{0.48\columnwidth}
+        \centering
+        \includegraphics[width = \columnwidth]{graph/graphD.png}
+        \caption{金属の反射率を周波数で表示したもの}
+    \end{minipage}
+\end{figure}
 
 \end{document}
