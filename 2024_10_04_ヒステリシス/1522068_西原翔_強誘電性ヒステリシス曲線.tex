@@ -112,7 +112,7 @@ Ginzburg-Landau 理論の示す結果と比較した。
     \centering
     \begin{minipage}[t]{0.48\columnwidth}
         \centering
-        \includegraphics[width = \columnwidth]{structure/BTO.png}
+        \includegraphics[width = \columnwidth]{BTO.png}
         \subcaption{\ce{BaTiO_3}の立方晶ペロブスカイト構造。
         空間群は $Pm\bar{3}m$, 格子定数は a = 4.04 \AA.
         緑色が Ba, 青色が Ti, 赤色が O を表している。}
@@ -120,7 +120,7 @@ Ginzburg-Landau 理論の示す結果と比較した。
     \end{minipage}
     \begin{minipage}[t]{0.48\columnwidth}
         \centering
-        \includegraphics[width = \columnwidth]{structure/TGS.png}
+        \includegraphics[width = \columnwidth]{TGS.png}
         \subcaption{\ce{(NH_2CH_2COOH)_3 H_2SO_4}の構造。
         空間群は $P2_1$, 格子定数は a = 9.44 \AA, b = 12.63 \AA, c = 5.71 \AA, $\beta$ = 110\si{\degree}.
         cif データ\cite{cif:7128310} をもとに作成した。
@@ -144,7 +144,6 @@ BTO は絶対零度の基底状態から温度を上げていくと順に
 菱面体晶$(R3m)$, 斜方晶$(Amm2)$,
 正方晶$(P4mm)$,
 立方晶$(Pm\bar{3}m)$へと変化する。
-ここでの括弧内は空間群を表している\footnote{空間群については付録に乗せた。}。
 
 \subsection*{\ce{(NH_2CH_2COOH)_3 H_2SO_4}}
 \ce{(NH_2CH_2COOH)_3 SO_4} は TGS と略され、アミノ酸であるグリシン\ce{NH_2CH_2COOH} 3つと硫酸\ce{H_2SO_4}が集まったものである。(図\ref{structure:TGS})。
@@ -170,7 +169,7 @@ BTO は絶対零度の基底状態から温度を上げていくと順に
         \draw(0,0) to node[ground]{} ++(0,0);
     \end{circuitikz}
     \caption{電場に対する試料の電束密度の応答を調べる回路(Sawyer-Tower 法)。
-    $C_s$がサンプルの静電容量、$C_x$は標準コンデンサの静電容量。
+    $C_x$がサンプルの静電容量、$C_s$は標準コンデンサの静電容量。
     入力は 50 Hz の三角波。オシロスコープの Ch.1 で入力三角波の電圧を、
     Ch.2 で$C_s$の両端の電圧差を測定することで試料にかけた電場\(E\)に対する応答である電束密度\(D\)を測定できる。}
     \label{fig:circuit}
@@ -206,15 +205,74 @@ BTO は絶対零度の基底状態から温度を上げていくと順に
 電束密度\(D_x\)の温度依存性を見るため、実際の系では\(C_x\)は熱電対温度計と共に炉の中に入れ測定した。
 
 
-\section{Results}
+\section{Results (TGS)}
+TGS に自発分極の向きである [010] 方向に電場を加えたときの電束密度の振る舞いの測定結果を見ていく。
+ただし、ここでのデータはオシロスコープの測定ノイズやバルクハウゼン効果を無視するため、
+移動平均を取って平均値が0になるように平行移動をしてある。
+図\ref{graph:TGS_D-E_Ec}は試料を特定の温度に保ったまま、入力電場の最大値を変えたときのヒステリシス曲線の様子である。
+電場の最大値が小さいときにはヒステリシス曲線の形が平行四辺形のような形からなめった形となっている。
+試料の自発分極の向きが入力電場の向きと揃うことなく電場が小さくなってしまうことが原因と考えられる。
+どれほど最大電場がどれほどの電場をかければよいかを考える。
+自発分極が入力電場と揃うのに必要な電場の強さは一定であるため、
+十分な電場がかかっているときには保持電場と最大電場の比\(E_C/E\)は徐々に小さくなっていく。
+実際にこれをプロットしたのが図\ref{graph:TGS_Ec-E}である。
+点線を境目に\(E_c/E\)の値の変化の仕方が変わっていることから、
+TGS でヒステリシス曲線を見るとなったときには 5 kV/cm 以上の電場をかければよいとわかる。
+\begin{figure}[H]
+    \centering
+    \begin{minipage}{0.58\columnwidth}
+        \centering
+        \includegraphics[width=\columnwidth]{TGS_D-E_temp.png}
+        \caption{\small{各温度において、試料にかける最大電場を変えたときのヒステリシスループ。
+        横軸が試料にかかっている電場\(E\), 縦軸が試料の電束密度\(D\), 色がヒステリシスループの最大電場を表している。}}
+        \label{graph:TGS_D-E_Ec}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.4\columnwidth}
+        \centering
+        \includegraphics[width=\columnwidth]{TGS_Ec-E.png}
+        \caption{\small{試料の電束密度が0となる電場の強さ(保持電場)\(E_c\)の温度特性。
+        横軸をヒステリシスループの電場の最大値\(E\), 縦軸を\(E/E_c\)としている。}}
+        \label{graph:TGS_Ec-E}
+    \end{minipage}
+\end{figure}
 
-\section{Discussion}
-\subsection{強誘電・常誘電相転移の機構}
-BTOでの相転移はペロブスカイトの構造による格子振動とクーロン相互作用の結合による構造の不安定化によるものである。
-%仮置き
-格子振動は電荷の偏りを生じる光学モードと偏りを生じない音響モードの2つがある。
-光学モードにおける電荷の偏りはつまり分極と解釈できる。
-分極は外部電場と結びつくため云々。
+\begin{figure}[H]
+    \begin{minipage}[t]{0.48\columnwidth}
+        \centering
+        \includegraphics[width=\columnwidth]{TGS_D-E.png}
+        \caption{\small{試料に書ける最大電場を 7.5 kV/cm としながら温度を変えたときのヒステリシスループの様子。
+        50 \si{\degreeCelsius} 程度を境目にヒステリシスが潰れて直線状になっている。}}
+        \label{graph:TGS_D-E_temp}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.48\columnwidth}
+        \centering
+        \includegraphics[width=\columnwidth]{TGS_D-E_para.png}
+        \caption{\small{試料に書ける最大電場を 7.5 kV/cm としながら温度を変え、直線状になる温度領域でのヒステリシスループの様子。}}
+        \label{graph:TGS_D-E_temp_para}
+    \end{minipage}
+\end{figure}
+
+最大電場が 7.5 kV/cm 程度の入力電場のもとで温度を変えていったときのヒステリシスループの様子は図\ref{graph:TGS_D-E_temp}のようになった。
+温度が上がると、ヒステリシスループがつぶれていき、
+50 \si{\degreeCelsius} を境目にヒステリシスループがつぶれて直線状になっている。
+これは電場をかけずとも分極が残る強誘電相から、入力電場に応じて分極が生じる常誘電相への相転移が生じている。
+直線状になっている部分を拡大して表示したのが図\ref{graph:TGS_D-E_temp_para}である。
+おおよそ直線状になっているなっているががたつきが見られる。
+移動平均を取る前のデータを確認するとこれはオシロスコープのレンジ設定が悪く、分解能が足りていないのが原因である。
+
+\section{Discussion (TGS)}
+
+\section{Results (BTO)}
+
+\section{Discussion (BTO)}
+% \subsection{強誘電・常誘電相転移の機構}
+% BTOでの相転移はペロブスカイトの構造による格子振動とクーロン相互作用の結合による構造の不安定化によるものである。
+% %仮置き
+% 格子振動は電荷の偏りを生じる光学モードと偏りを生じない音響モードの2つがある。
+% 光学モードにおける電荷の偏りはつまり分極と解釈できる。
+% 分極は外部電場と結びつくため云々。
 
 \section{Conclusion}
 
