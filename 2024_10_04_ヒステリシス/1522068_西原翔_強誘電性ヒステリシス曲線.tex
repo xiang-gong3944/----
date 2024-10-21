@@ -141,7 +141,7 @@ A 原子と B 原子を置換することで格子定数や電子密度を変え
 ただ、構成する金属原子や環境の温度・圧力によっては \ce{BO_6} の正八面体が傾いたり歪みが生じ、
 対称性の異なる結晶構造になる。
 BTO は絶対零度の基底状態から温度を上げていくと順に
-菱面体晶$(R3m)$, 斜方晶$(Amm2)$,
+菱面体晶$(R3m)$, 直方晶$(Amm2)$,
 正方晶$(P4mm)$,
 立方晶$(Pm\bar{3}m)$へと変化する。
 
@@ -275,7 +275,7 @@ TGS でヒステリシス曲線を見るとなったときには 5 kV/cm 以上�
 
 TGS の結晶の空間群は\(P2_1\)であり、b 軸に関して自発磁化を持つ。
 強誘電・常誘電相転移では結晶のひずみも関わ和ってくることが知られているのでこのひずみをヴォイトの表記を使って\(u_i,\,(1\leq i \leq6)\)と書くことにする。
-秩序変数は分極\(p\)とひずみ\(u\)であり、自由エネルギーは
+分極\(p\)とひずみ\(u\)で表した自由エネルギーは
 \begin{align}
     F
     &= F_0 + \frac{\alpha}{2}p_2^2 + \frac{\beta'}{4}p_2^4+\frac{1}{2\chi_1}p_1^2+\frac{1}{2\chi_3}p_3^2 + w \notag\\
@@ -476,17 +476,264 @@ Ferro 的な試料であっても適切な履歴のもと\(E_c\)に相当する�
 %     \caption{\small{誘電率の温度特性。破線が強誘電相と常誘電相の境目で各相によって求め方が異なっている。}}
 %     \label{graph:TGS_epsilon-T}
 % \end{figure}
-
-
 \section{Results (BTO)}
+自発分極の向きが [001] の BTO に [111] 方向に電場を加えたときの電束密度の振る舞いの測定結果を見ていく。
+図\ref{graph:BTO_D-E_Ec}は試料を特定の温度に保ったまま、入力電場の最大値を変えたときのヒステリシス曲線の様子である。
+自発分極の向きと入力電場の向きが異なっているため TGS で見られた平行四辺形をせん断変形したような形となっている。
+どれほど最大電場がどれほどの電場をかければよいかを確認するため、
+TGS と同様に\(E_c/E\)の比をプロットしたのが図\ref{graph:BTO_Ec-E}である。
+BTO でヒステリシス曲線を見るとなったときには 0.7 kV/cm 以上の電場をかければよいとわかる。
+\begin{figure}[H]
+    \centering
+    \begin{minipage}{0.58\columnwidth}
+        \centering
+        \includegraphics[width=\columnwidth]{BTO_D-E_temp.png}
+        \caption{\small{各温度において、試料にかける最大電場を変えたときのヒステリシスループ。
+        横軸が試料にかかっている電場\(E\), 縦軸が試料の電束密度\(D\), 色がヒステリシスループの最大電場を表している。}}
+        \label{graph:BTO_D-E_Ec}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.4\columnwidth}
+        \centering
+        \includegraphics[width=\columnwidth]{BTO_Ec-E.png}
+        \caption{\small{試料の電束密度が0となる電場の強さ(保持電場)\(E_c\)の温度特性。
+        横軸をヒステリシスループの電場の最大値\(E\), 縦軸を\(E/E_c\)としている。}}
+        \label{graph:BTO_Ec-E}
+    \end{minipage}
+\end{figure}
+
+最大電場が 3.5 kV/cm 程度の入力電場のもとで温度を変えていったときのヒステリシスループの様子は図\ref{graph:BTO_D-E_temp}のようになった。
+温度が上がると、ヒステリシスループが大きくなる傾向があるが、
+120 \si{\degreeCelsius} を境目にヒステリシスループがつぶれた形状になっている。
+120 \si{\degreeCelsius} 以上のヒステリシスループ拡大して表示したのが図\ref{graph:BTO_D-E_temp_para}である。
+おおよそ直線状の形はとるようになったものの、ヒステリシスループが確認できる。
+\begin{figure}[H]
+    \begin{minipage}[t]{0.48\columnwidth}
+        \centering
+        \includegraphics[width=\columnwidth]{BTO_D-E.png}
+        \caption{\small{試料に書ける最大電場を 3.5 kV/cm としながら温度を変えたときのヒステリシスループの様子。
+        色が温度を表している。
+        120 \si{\degreeCelsius} 程度を境目にヒステリシスが潰れて直線状になっている。}}
+        \label{graph:BTO_D-E_temp}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.48\columnwidth}
+        \centering
+        \includegraphics[width=\columnwidth]{BTO_D-E_para.png}
+        \caption{\small{120 \si{\degreeCelsius}以上の温度領域でのヒステリシスループの様子。
+        直線状にはなっているものの依然としてヒステリシスループが確認できる。}}
+        \label{graph:BTO_D-E_temp_para}
+    \end{minipage}
+\end{figure}
 
 \section{Discussion (BTO)}
-% \subsection{強誘電・常誘電相転移の機構}
-% BTOでの相転移はペロブスカイトの構造による格子振動とクーロン相互作用の結合による構造の不安定化によるものである。
-% %仮置き
-% 格子振動は電荷の偏りを生じる光学モードと偏りを生じない音響モードの2つがある。
-% 光学モードにおける電荷の偏りはつまり分極と解釈できる。
-% 分極は外部電場と結びつくため云々。
+\subsection{ランダウ理論}
+BTO の結晶の高温相の空間群は\(Pm\bar{3}m\)であり、自由エネルギーは
+\begin{align}
+    F
+   &= \frac{\alpha}{2}(p_1^2+p_2^2+p_3^2)+\frac{\beta_1'}{4}(p_1^4+p_2^4+p_3^4)+\frac{\beta_2'}{2}(p_1^2p_2^2+p_2^2p_3^2+p_3^2p_1^2) \notag\\
+   &\quad +\frac{\gamma'_1}{6}(p_1^6+p_2^6+p_3^6) + \frac{\gamma'_2}{2}[p_1^4(p_2^2+p_3^2)+p_2^4(p_3^2+p_1^2)+p_3^4(p_1^2+p_2^2)] +\frac{\gamma'_3}{2}p_1^2 p_2^2 p_3^2 \notag\\
+   &\quad + \frac{c_{11}}{2}(u_1^2+u_2^2+u_3^2)+c_{12}(u_1u_2+u_2u_3+u_3u_1) + \frac{c_{44}}{2}(u_4^+u_5^2+u_6^2) +Q_{11}(u_1p_1^2+u_2p_2^2+u_3p_3^2)\notag\\
+   &\quad +Q_{12}[u_1(p_2^2+p_3^2)+u_2(p_3^2+p_1^2)+u_3(p_1^2+p_2^2)]+Q_{44}(u_4p_2p_3+u_5p_3p_1+u_6u_1u_2)
+\end{align}
+と書ける\cite{ishibashi}。
+これから平衡条件\(\partial F/ \partial u_i = 0\)を使うと
+\begin{align}
+    F
+   &= \frac{\alpha}{2}(p_1^2+p_2^2+p_3^2)+\frac{\beta_1}{4}(p_1^4+p_2^4+p_3^4)+\frac{\beta_2}{2}(p_1^2p_2^2+p_2^2p_3^2+p_3^2p_1^2) \notag\\
+   &\quad +\frac{\gamma_1}{6}(p_1^6+p_2^6+p_3^6) + \frac{\gamma_2}{2}[p_1^4(p_2^2+p_3^2)+p_2^4(p_3^2+p_1^2)+p_3^4(p_1^2+p_2^2)] +\frac{\gamma_3}{2}p_1^2 p_2^2 p_3^2
+\end{align}
+というように自由エネルギーを取り直すことができる。
+
+
+\(\partial F/ \partial p_i = 0\)の平衡条件を考えると
+\begin{align}
+    \pdv{F}{p_1} &= \alpha p_1 +\beta_1p_1^3+ \beta_2(p_2^2+p_3^2)p_1
+    +\gamma_1p_1^5+\gamma_2[2p_1^2(p_2^2+p_3^2)+p_2^4+p_3^4]p_1+\gamma_3p_1p_2^2p_3^2 = 0\\
+    \pdv{F}{p_2} &= \alpha p_2 +\beta_1p_2^3+ \beta_2(p_3^2+p_1^2)p_2
+    +\gamma_1p_2^5+\gamma_2[2p_2^2(p_3^2+p_1^2)+p_3^4+p_1^4]p_2+\gamma_3p_2p_3^2p_1^2 = 0\\
+    \pdv{F}{p_3} &= \alpha p_3 +\beta_1p_3^3+ \beta_2(p_1^2+p_2^2)p_3
+    +\gamma_1p_3^5+\gamma_2[2p_3^2(p_1^2+p_2^2)+p_1^4+p_2^4]p_3+\gamma_3p_3p_1^2p_2^2 = 0
+\end{align}
+これを BTO の4つの相を反映した対称性の元で解く\footnote{正確には連立5次方程式を解くとそれぞれの対称性を反映した解が得られる}。
+立方晶・菱面体晶では
+このとき分極の向きは等価であるので\(p_1^2 = p_2^2 = p_3^2\)となる。
+立方晶では
+\begin{align}
+    &p_1^2 = p_2^2 = p_3^2 =0\\
+    &f_C = 0
+\end{align}
+菱面体晶では
+\begin{align}
+    &p_1^2 = p_2^2 = p_3^2 = r^2 \neq 0\\
+    &f_R = 3\qty(\frac{\alpha}{2}r^2+\frac{\beta_1+2\beta_2}{4}r^4+\frac{\gamma_1+6\gamma_2+\gamma_3}{6}r^6)
+\end{align}
+となる。
+正方晶・直方晶では1つの軸だけが違うので\(p_1^2 = p_2^2 \neq p_3^2\)となる。
+正方晶では
+\begin{align}
+    &p_1^2 = p_2^2 = 0, \quad p_3^2 \neq 0\\
+    &f_T = \frac{\alpha}{2}r^2+\frac{\beta_1}{4}r^4+\frac{\gamma_1}{6}r^6
+\end{align}
+直方晶では
+\begin{align}
+    &p_1^2 = p_2^2 = q^2 \neq 0, \quad p_3^2 = 0\\
+    &f_O = 2\qty(\frac{\alpha}{2}r^2+\frac{\beta_1+\beta_2}{4}r^4+\frac{\gamma_1+3\gamma_2}{6}r^6)
+\end{align}
+となる。
+各相を特徴づける秩序変数はそれぞれの相につき1つだけになっている。
+
+このように自由エネルギーを作るときにひずみから考えることでなぜ6次まで考える必要があるかというのがわかる。
+それは4次の係数\(beta\)が格子のばね定数や分極とひずみのカップリングによる影響(電歪定数)を取り込んでいる量になっていて、
+とくに電歪定数が大きいと自由エネルギーが不安定となる\(\beta<0\)となってしまう。
+実際にはそのような状態ではないので6次までとってやることで物理的に実現される状態となるからである。
+また、自由エネルギーが4次までの項だとこのように4つの相に変化するという対称性を表現することができないというのもわかる。
+
+\subsection{保持電場\(E_c\)の温度特性}
+BTOにおける保持電場\(E_c\)の温度依存性は図\ref{graph:BTO_Ec-T_temp}のようになった。
+昇温過程と降温過程で振る舞いが違うのがわかる。
+% 図\ref{graph:BTO_Ec-T_temp}の強誘電相でのカーブを\(E_c\propto(T_c-T)^a\)でフィッティングすると、\(T_c =\) 51.7\si{\degreeCelsius},
+% \(a =\) 0.36 になった。
+\begin{figure}[H]
+    \begin{minipage}[t]{0.48\columnwidth}
+        \centering
+        \includegraphics[width=\columnwidth]{BTO_Ec-T.png}
+        \caption{\small{保持電場\(E_c\)の温度依存性。}}
+        \label{graph:BTO_Ec-T_temp}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.48\columnwidth}
+        \centering
+        \includegraphics[width=\columnwidth]{BTO_Ps-T.png}
+        \caption{\small{自発\(P_s\)の温度依存性。
+        ヒステリシスループから求める方法が2つあり(考察)それぞれの方法を1, 2 としている。}}
+        \label{graph:BTO_Ps-T}
+    \end{minipage}
+\end{figure}
+
+この結果をランダウ理論と比較する。
+この系において、外場\(E\)があるときの自由エネルギーは
+\begin{align}
+    F = \frac{\alpha}{2} p^2 + \frac{\beta}{4} p^4 +\frac{\gamma}{6} p^6-pE
+\end{align}
+% となる。平衡条件\(\partial F/\partial p_2 = 0\)より
+% \begin{align}
+%     \alpha p_2 + \beta p_2^3 - E = 0
+% \end{align}
+% 保持電場\(E_c\)は\(dp/dE\)が発散するような\(E\)のことである。
+% この式を\(E\)で微分することによりこのときの分極\(p_c\)が得られる。
+% \begin{align}
+%     &(\alpha+3\beta p^2)\dv{p}{E} = 1 \\
+%     &\quad \rightarrow p_c^2 = \frac{-\alpha}{3\beta}
+% \end{align}
+% よって保持電場\(E_c\)は
+% \begin{align}
+%     E_c = \alpha p_c + \beta p_c^3 = \pm\sqrt{\frac{-4\alpha^3}{27\beta}} \propto (T_c-T)^{3/2}
+% \end{align}
+% となる。
+
+% 指数が完全に違うことから、保持電場を考える際には結晶の対称性以外の要素を取り入れなければならないことがわかる。
+% そうしたときに考えられる要因としては試料の結晶性が悪く、不純物や欠陥を考慮しなければならないという点である。
+% これにより分域の動き方が制限されるといったものであるが、
+% これはバルクハウゼン効果としてヒステリシスループがわずかにがたつくといった要素として合わられると考えられるためここでは考えにくい。
+
+% ほかの要素として考えられるのは分域同士の双極子双極子相互作用によって分域の反転が生じにくくなるという機構が考えられる。
+% % TODO: たしか分域構造とトポロジカル物性ってなんか関係あったよね。
+% % TGS の b軸方向の自発分極ってことは低次元系とみなせるかもしれないしそういう話がありそう。
+% 分域内部の単位胞内での電子の偏りによる双極子モーメントは a軸c軸平面内の隣接する単位胞にある電子との重なり積分により生じているが、
+% 分域構造のスケールでは量子力学的効果が失われ古典的な双極子双極子相互作用が支配的になる。
+% なので外部電場を加えようとも分域同士の双極子相互作用によって反強誘電性的な構造の保護が生じるため、
+% \(E_c\)の臨界指数がランダウ理論の予言よりも小さくなると考えられる。
+
+% ここの\(E_c\)付近では分域構造が反強誘電性のように見えるという視点は興味深いものである。
+% Ferro 的な試料であっても適切な履歴のもと\(E_c\)に相当する外場を加えるとこの近傍では antiFerro 的な振る舞いを見せることとなる。
+% このように考えると antiFerro 的な状況でしか見つからないとされた現象が Ferro 的な物質でも引き起こすことができるため、
+% 探索できる物質が増えるのではないかと考えられる。
+
+% \subsection{自発分極\(P_s\)の求め方1}
+% 強誘電体であることを特徴づける自発分極\(P_s\)をヒステリシスループから求めることを考える。
+% 電束密度\(D\)と電場\(E\), 分極\(P\)の間の関係は
+% \begin{align}
+%     D = \varepsilon_0 E + P
+% \end{align}
+% である。これより\(E=0\)における電束密度の値が自発分極となる。
+% しかし実際には分域構造のため、\(E=0\)出の電束密度\(D\)の値は自発分極\(P_s\)をそのまま表してはいない。
+% そのため、工夫をする必要がある。
+
+% その方法の1つが\(E\)が十分大きいときから\(E\)が減少していく過程の部分を線形近似し、その直線の外挿によって求める方法である。
+% \(E\)が十分大きいときには分域構造はなく、自発分極はすべて同じ向きを向いていると考えられるので、
+% 電束密度\(D\)と電場\(E\), 分極\(P\)の間の関係式のうち\(P\)は一定となり、直線となる。
+% なのでこの領域を線形近似すると、直線の傾きが誘電率、切片が自発分極となる。
+% この方法を使って自発分極\(P_s\)を求めたのが図\ref{graph:TGS_Ps-T}の1と付いているデータである。
+
+% この方法は最も素直な自発分極の導出の仕方であるが、測定データが多く、Excel で解析をするとなるとあまりにも煩雑で
+% なおかつ線形近似を取る範囲の基準が不明瞭であることから自動化することも難しく、データ処理をする観点からはあまり良いものではないと考えられる。
+
+% \subsection{ヒステリシスロス\(\Delta\)の温度特性とこれを利用した自発分極\(Ps\)の求め方}
+% ヒステリシスループの面積\(\Delta\)はこのヒステリシスループを一周するのに必要なエネルギーである。
+% これを求めるのに閉曲線を構成する座標\((x_n,\,y_n)\)が与えられたときにその閉曲線の内側の面積を求める公式
+% \begin{align}
+%     S = \frac{1}{2}\abs{\sum_n \qty(x_n y_{n+1} - x_{n+1}y_n)}
+% \end{align}
+% を利用して求めた。この公式はグリーンの公式を離散化したものに相当する。
+% これをプロットすると図\ref{graph:TGS_Delta-T}のようになった。
+
+% ここでヒステリシスループの形状に注目するとおおよそ平行四辺形となっていることから
+% \begin{align}
+%     \Delta = 4 E_c P_s
+% \end{align}
+% になることが期待され、実際に強誘電相で最大電場を変えたときのこの比率をプロットすると図\ref{graph:TGS_Delta-E}のようになる。
+% 確かに比率はほとんど 1 になっていてこの式が使えることがわかる。
+
+% つまり逆にいうとヒステリシスループの面積\(\Delta\)と保持電場\(E_c\)を求めさえすれば自発分極\(P_s\)の値が出ることになる。
+% この方法で求めたのが図\ref{graph:TGS_Ps-T}の2と付いているデータである。
+% 別の方法で求めたのにも関わらず同じ振る舞いをしているのがわかる。
+
+% ヒステリシスループの面積\(\Delta\)はその試料全ての自発分極を反転させるのに必要なエネルギーのことであるので試料特有の量であり、
+% \(E_c\)もその試料特有の分域構造を反映した温度特性を示す。
+% なのでこれはヒステリシスループの形状が平行四辺形からずれたときにも使えることが予想される。
+% これは後ほどBTOの結果についてでも言及する。
+
+% \begin{figure}[H]
+%     \begin{minipage}[t]{0.48\columnwidth}
+%         \centering
+%         \includegraphics[width=\columnwidth]{TGS_Delta-T.png}
+%         \caption{\small{ヒステリシスループの面積(ヒステリシスループを一周するのに必要なエネルギー)の温度特性}}
+%         \label{graph:TGS_Delta-T}
+%     \end{minipage}
+%     \hfill
+%     \begin{minipage}[t]{0.48\columnwidth}
+%         \centering
+%         \includegraphics[width=\columnwidth]{TGS_Delta-E.png}
+%         \caption{\small{ヒステリシスループの面積\(\Delta\)と保持電場\(E_c\), 自発分極\(P_s\)の間の関係。
+%         \(\Delta=4E_cP_s\)が成り立っているのがわかる。}}
+%         \label{graph:TGS_Delta-E}
+%     \end{minipage}
+% \end{figure}
+
+% \subsection{比誘電率}
+% 実験的には誘電率は
+% \begin{align}
+%     \varepsilon = \pdv{D}{E}
+% \end{align}
+% で求められる量である。
+% 常誘電相であれば自発分極はないので得られた\(D-E\)応答の傾きをそのまま求めればよい。
+% 一方強誘電相のとき、ヒステリシスループの傾きは一定ではなく、どの傾きを取ればよいかはわからない。
+% ひとまず、\(E=0\)のときの傾きを取ることにしてプロットしたのが図\ref{graph:TGS_epsilon-T}である。
+% \begin{figure}[H]
+%     \begin{minipage}[t]{0.48\columnwidth}
+%         \centering
+%         \includegraphics[width=\columnwidth]{TGS_epsilon-T.png}
+%     \end{minipage}
+%     \hfill
+%     \begin{minipage}[t]{0.48\columnwidth}
+%         \centering
+%         \includegraphics[width=\columnwidth]{TGS_epsilon1-T.png}
+%     \end{minipage}
+%     \caption{\small{誘電率の温度特性。破線が強誘電相と常誘電相の境目で各相によって求め方が異なっている。}}
+%     \label{graph:TGS_epsilon-T}
+% \end{figure}
+
 
 \section{Conclusion}
 
