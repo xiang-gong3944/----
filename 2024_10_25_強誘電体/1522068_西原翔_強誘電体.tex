@@ -36,7 +36,7 @@
 
 %texで表紙を書くとき
 \quad\\[35mm]
-\centerline{\Huge{\textsf{第 7 回}}}
+\centerline{\Huge{\textsf{第 8 回}}}
 \quad\\[5mm]
 \centerline{\Huge{\textsf{応 用 物 理 学 実 験}}}
 \quad\\[5mm]
@@ -83,14 +83,301 @@
 \section{Abstract}
 
 \section{Introduction}
-\subsection{リン酸二水素カリウム (TGS)}
+\subsection*{リン酸二水素カリウム (KDP)}
+\begin{wrapfigure}{r}{0.3\columnwidth}
+    \centering
+    \includegraphics[width = 0.3\columnwidth]{KDP_tetragonal.png}
+    \caption{\small{リン酸二水素カリウム(KDP)の結晶構造\cite{cif:7020834}。
+    VESTAを用いて作成\cite{VESTA}。}}
+    \label{fig:KDP_lattice}
+\end{wrapfigure}
+強誘電体は電場をかけずとも電気分極持つ材料である。
+その分極は外部電場によって反転することができる特徴を持ち、
+電場に応じた向きの自発分極を持つようになる。
+この特性を活用し、強誘電体はさまざまな応用に利用されている。
+光学分野では自発分極による非線形効果を利用して光の振動数や位相、強度を変化させるのに使われる。
+
+今回測定する試料であるリン酸二水素カリウム(KDP)は光学用途に使われる誘電体である。
+室温では常誘電体であり強誘電性を用いた光学素子ではないが、
+歴史的には初めて発見された強誘電体であるロッシェル塩に次いで発見された強誘電体である。
+室温では空間群が \(I-4 2 d\)の正方晶の結晶で、格子定数は a = 4.455, c=6.9266 である(図\ref{fig:KDP_lattice})。
+秩序相では水素結合のはたらきによって c 軸方向に自発分極を持つことが知られている\cite{onodera}。
+
+この対称性から許される誘電率テンソル
+\begin{align}
+    \varepsilon_{ij}=\pdv{D_i}{E_j}
+\end{align}
+の成分を考える。
+正方晶の対称操作は a 軸と b 軸の入れ替え、a 軸の反転、 c 軸の反転である。
+これらの操作を電束密度\(D\)と電場\(E\)にそれぞれ施すことで
+誘電率テンソルが
+\begin{align}
+    \varepsilon_{ij}=
+    \begin{pmatrix}
+        \varepsilon_a & 0 & 0\\
+        0 & \varepsilon_a & 0\\
+        0 & 0 & \varepsilon_c
+    \end{pmatrix}
+\end{align}
+というように書けることがわかる。
+今回の実験ではc軸の応答\(\varepsilon_c\)を測定する。
+
 
 \section{Method}
+この実験では KDP の複素誘電率を LCR メータを用いて試料の静電容量\(C_p\)と損失係数\(D\)を測定した。
+これと複素誘電率の関係は次のように表せる。
+\begin{align}
+    \varepsilon_1 - j\varepsilon_2 = \frac{C_p}{C_0}-jD\frac{C_p}{C_0}, \qquad
+    C_0 = \frac{\varepsilon_0 S}{d}
+\end{align}
+ここでの\(S\)は試料の面積、\(d\)は試料の厚さである。
+また、LCR メータの測定する仕組みから誘電率の虚部を測定データから実際に求めるのには
+\begin{align}
+    \varepsilon_2 = D \frac{\abs{C_p}}{C_0}
+\end{align}
+とする必要がある。これは考察にて言及する。
 
+1 kHz の入力に対する応答の温度変化を 110K から 290 K で測定した。
+また、周波数応答を室温では 1kHz から 1MHz まで、
+130 K から 295 K では 130 kHz から 190kHz の間で測定した。
+
+また、冷却に関しては液体窒素槽に試料を近づけることで行い、試料の温度は熱電対を用いて測定した。
+
+\clearpage
 \section{Result}
+1 kHz の入力に対する応答の温度変化を 110K から 290 K で測定した結果が図\ref{graph:epsilon-Temp}のようになった。
+112 K において誘電率の実部は最大値をとり、そこからさらに低温では誘電率の値が減っている。
+室温における周波数応答は図\ref{graph:epsilon-f_RT}のようになった。
+
+20 kHz で誘電率の変化がみられる。
+これは配向分極のモデルであるデバイモデルで説明される変化である。
+160 kHz に大きなピークがあり、それより高周波で似た形のピークが確認できる。
+これはローレンツモデルによる誘電率の振る舞いであり、これはイオン分極(水素結合)によるものである\cite{onodera}。
+イオン分極のピークが複数見られるのは、水素結合の振動モードが複数あることに由来すると考えられる。
+最も強く応答する周波数こそがその試料の誘電特性を大きく決めるモードであるので、
+KDP の誘電率特性を調べる際には 160 kHz 付近を調べればよいのがわかる。
+\begin{figure}[t]
+    \centering
+    \begin{minipage}[t]{0.48\columnwidth}
+        \centering
+        \includegraphics[width = \columnwidth]{epsilon-Temp.png}
+        \caption{\small{1 kHz の入力に対する複素誘電率の温度特性。}}
+        \label{graph:epsilon-Temp}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.48\columnwidth}
+        \centering
+        \includegraphics[width = \columnwidth]{epsilon-f_RT.png}
+        \caption{\small{室温における複素誘電率の周波数特性。}}
+        \label{graph:epsilon-f_RT}
+    \end{minipage}\\
+
+    \includegraphics[width=0.96\columnwidth]{epsilon1-f.png}
+    \caption{試料の温度を変えたときの誘電率の実部の周波数特性}
+    \label{graph:epsilon1-f}
+\end{figure}
+
+
+試料の温度を変えたときの誘電率の実部の周波数特性は図\ref{graph:epsilon1-f}のようになった。
+この温度によるピークのの違いはイオン分極の共振周波数が温度によって変わることを表している。
+その共振周波数を取り出してプロットしたのが図\ref{graph:ResF-Temp}となる。
+180 K で極大値をとり、それより低い温度では下がってるのがわかる。
+
+損失係数の周波数特性はを対数プロットすると図\ref{graph:Dissipation-f} のようになった。
+様々な周波数でピークが見られる。
+160 kHz から 170 kHz にある2つのピーク最も大きく、誘電率の実部が0となるか周波数と対応している。
+またそのほかにも小さなペアになったようなピークが認められる。
+これは格子振動とのラマン散乱のようなものが見えていると考えられる(考察)。
+
+誘電率の虚部を誘電率の実部と損失係数の積から求めると図\ref{graph:epsilon2-f_D},
+Kramers-Kronig の関係から求めると図\ref{graph:epsilon2-f_KK}のようになった。
+違う方法で求めた両者は値やピークの周波数は同じようになっている。
+
+\begin{figure}[p]
+    \includegraphics[width=0.96\columnwidth]{Dissipation-f.png}
+    \caption{試料の温度を変えたときの損失係数の周波数特性。}
+    \label{graph:Dissipation-f}
+    \includegraphics[width=0.96\columnwidth]{epsilon2-f_EpD.png}
+    \caption{試料の温度を変えたときの誘電率の虚部の周波数特性。損失係数を使う式(4)を用いた。}
+    \label{graph:epsilon2-f_D}
+    \includegraphics[width=0.96\columnwidth]{epsilon2-f_KK.png}
+    \caption{試料の温度を変えたときの誘電率の虚部の周波数特性。
+    誘電率の実部を Kramers-Kronig の関係式を使って虚部に変換した。}
+    \label{graph:epsilon2-f_KK}
+\end{figure}
 
 \section{Discussion}
+\subsection{キュリー則}
+\begin{figure}[t]
+    \centering
+    \begin{minipage}[t]{0.48\columnwidth}
+        \centering
+        \includegraphics[width = \columnwidth]{1epsilon-Temp.png}
+        \caption{\small{1 kHz の入力に対する複素誘電率の実部の逆数の温度特性。
+        1kHz は図\ref{graph:epsilon-f_RT}より直流応答とみなすことができる。
+        電子分極による背景誘電率\(\varepsilon_b\)を取り除くと直線状になっていることから、
+        キュリー則に従っているのがわかる。
+        ただし、測定がうまくいかず欠損データや読み取りのずれが大きいところにおける測定データは無視して
+        フィッティングを行った。}}
+        \label{graph:1epsilon-Temp}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.48\columnwidth}
+        \centering
+        \includegraphics[width = \columnwidth]{ResF-Temp.png}
+        \caption{\small{試料の温度を変えたときの、イオン分極の共振周波数様子。
+        Method1 は式(4)式を用いた複素誘電率の虚部のピークの周波数、
+        Method2 は損失係数の最大値を取るときの周波数、
+        Method3 は Kramers-Kronig の関係を用いて誘電率の実部から求めた虚部のピークの周波数
+        を共振周波数としてプロットした。}}
+        \label{graph:ResF-Temp}
+    \end{minipage}
+\end{figure}
+
+KDP の自発分極は水素結合の双極子モーメントに由来するものである\cite{onodera}。
+そのため、秩序・無秩序型の強誘電相転移を起こす物質である。
+この相転移はランダウの2次の相転移論を使うことができる。
+この系の自由エネルギーは c 軸方向の分極を\(P\)として
+\begin{align}
+    F = \frac{a(T-T_0)}{2}P^2 + \frac{b}{4}P^4 -pE
+\end{align}
+と書ける。平衡条件\(\partial F/\partial P = 0\)より
+\(E=0\)では
+\begin{align}
+    P = 0,\quad \pm\sqrt{\frac{a(T_0-T)}{b}}
+\end{align}
+である。
+\begin{align}
+    E = a(T-T_0)P + bP^3
+\end{align}
+両辺を\(P\)で微分することで電気感受率の\(\chi=\partial P/\partial E\)が得られる。
+電気感受率と誘電率の関係は\(\varepsilon = \varepsilon_0(1+\chi)\simeq \varepsilon_0\chi\)である。
+これより直流電場に対する誘電率は、
+\begin{align}
+    \varepsilon = \frac{C}{T-T_0}
+\end{align}
+というような温度特性を示す。
+実際の資料では背景に電子分極やほかのイオン分極がある。
+これを取り入れると
+\begin{align}
+    \varepsilon = \varepsilon_b + \frac{C}{T-T_0}
+\end{align}
+というようになる。これをキュリー則と呼び、定数\(C\)をキュリー定数という。
+実際これを確かめるには
+\begin{align}
+    \frac{1}{\varepsilon-\varepsilon_b} = \frac{T}{C}-\frac{T_0}{C}
+\end{align}
+というように変形して\(C,\,\varepsilon_b\)実際に直線状になるかを見ればよい。
+1kHz は直流とみなせる周波数であるため、
+図\ref{graph:epsilon-Temp}でプロットした誘電率の実部を\(\varepsilon\)とみなしてフィッティングをすると
+転移温度は\(T_0\) = 120.27 K, 背景誘電率は \(e_b\) = 10.17, キュリー定数は\(C\) = 2152 となった。
+
+\subsection{損失係数から誘電率の虚部を求める式}
+複素誘電率の実部と虚部と LCR メータの測定値の関係は
+\begin{align*}
+    \varepsilon_1 - j\varepsilon_2 = \frac{C_p}{C_0}-jD\frac{\abs{C_p}}{C_0} \tag{(4)'}
+\end{align*}
+としてあらわされる。
+実際この式はうまくいっている。
+誘電率の実部は図\ref{graph:epsilon1-f}で見られるようにイオン分極の誘電特性で見られる形をしていて、
+誘電率の虚部は図\ref{graph:epsilon2-f_D}は Kramers-Kronig の関係から得られた図\ref{graph:epsilon2-f_KK}
+とほとんど同じ値となっている。
+しかしよく考えてみると、誘電率の実部が負になるというのは誘電体の静電容量\(C_p\)が負の値を取っているということを表している。
+実際そのままの値を使って誘電率の虚部を損失係数との積を取ると
+Kramers-Kronig の関係の示すイオン分極の誘電関数の虚部と違った振る舞いを示すため不合理である。
+これは何が起きているのか。
+
+これは LCR メータ内の静電容量を測定する仕組みについて考える必要がある。
+誘電体にかかっている電場を\(E=E_0\exp(i\omega t)\)としたとき、
+内部の電束密度はコンデンサであるため\(D=D_0e^{i(\omega t - \delta)}\)というように位相が遅れる。
+Sawyer Tower 法ではこの電束密度は\(D \propto CV\)というように試料の静電容量と電圧という形で
+読み取ることができる。いづれにせよ、LCR メータの内部では入力電場と電束密度の位相差を記録することになる。
+そうしたときに、この位相差はどのように記録されるかを考える。
+
+素直にどれだけ位相が遅れたかを記録するため\(0\leq \delta \leq 2\pi\)というようにする。
+すると2つの信号が同位相であるときには測定誤差により位相の遅れが 0 と \(2\pi\)離れた値を行き来することになる。
+それではデータの処理を考える際にはとても扱いにくい値となる。
+では\(-\pi\leq\delta\leq\pi\)というように位相差がないときの値の飛びがないように設計すると、
+\(\delta>\pi/2\)のときには損失係数を求めるときに不便になる。
+損失係数は位相の遅れを\(\tan \delta\)で表すものであり常に正であってほしい量である。
+同位相の信号の検出もしながら、損失係数を正に保つには静電容量を負で表すことによって表せばよい。
+
+よって複素誘電率の虚部を求める際には測定された試料の静電容量\(C_p\)の絶対値を取る必要があるのがわかる。
+
+
+\subsection{損失係数係数の様々なピーク}
+損失係数は誘電率の虚部の情報を持っている。
+誘電率の虚部は誘電体の抵抗成分、つまり電流が流れることによる位相変化・エネルギー吸収を表している。
+図\ref{graph:Dissipation-f}の 160 kHz から 170 kHz にある2つのピークは誘電率の実部が 0 になる周波数に対応している。
+誘電率の実部が 0 であるということは\(D = \varepsilon E = \varepsilon_0 E + P\)
+より電場を打ち消すような向きに分極が生じている。
+電場自体は c 軸方向に周期的に変わっているのでこの分極は c 軸方向に進む縦波になる。
+イオン分極による縦波が生成されるということは格子振動となる。
+こうして試料に格子振動が生じることにより、ラマン散乱で見られるようなストークス線が見えるはずである。
+実際、160 kHz から 170 kHz にある2つのピークに対応するようなピークが 145 kHz から 150 kHz と 170 kHz から 180 kHz にある。
+つまり、LCR メータの損失係数\(D\)の測定から縦波フォノンのラマン散乱が見えている。
+
+\subsection{}
 
 \section{Conclusion}
+
+\bibliographystyle{junsrt}
+\bibliography{reference}
+\nocite{*}
+
+\appendix
+\section{Kramers-Kronig の関係}
+電気感受率の実部と虚部は
+\begin{align}
+    \chi_2 = -\frac{1}{\pi}\mathcal{P}\int_{-\infty}^{\infty} \frac{\chi_1(\omega')}{\omega'-\omega} d\omega',\qquad
+    \chi_1 =  \frac{1}{\pi}\mathcal{P}\int_{-\infty}^{\infty} \frac{\chi_2(\omega')}{\omega'-\omega} d\omega'
+\end{align}
+という関係がある。
+これを Kramers-Kronig の関係式という。
+この式はインパルス応答が常に正であるという条件を付けると実部は偶関数、
+虚部は奇関数になる。
+それを用いると
+\begin{align}
+    \chi_2 = -\frac{2}{\pi}\mathcal{P}\int_{0}^{\infty} \frac{\omega \chi_1(\omega')}{\omega'^2-\omega^2} d\omega',\qquad
+    \chi_1 =  \frac{2}{\pi}\mathcal{P}\int_{0}^{\infty} \frac{\omega'\chi_2(\omega')}{\omega'^2-\omega^2} d\omega'
+\end{align}
+となる。
+
+Kramers-Kronig の関係式を使って電気感受率の実部の測定データから虚部を求めるには
+\begin{align}
+    \chi_2
+    = -\frac{2}{\pi}\mathcal{P}\int_{0}^{\infty} \frac{\omega \chi_1(\omega')}{\omega'^2-\omega^2} d\omega'\notag
+    = -\frac{2f}{\pi}\mathcal{P}\int_{0}^{f_{\mathrm{min}}} \frac{\chi_1(f')}{f'^2-f^2} df'
+       -\frac{2f}{\pi}\mathcal{P}\int_{f_\mathrm{min}}^{f_{\mathrm{max}}} \frac{\chi_1(f')}{f'^2-f^2} df'
+       -\frac{2f}{\pi}\mathcal{P}\int_{f_\mathrm{min}}^{\infty} \frac{\chi_1(f')}{f'^2-f^2} df'
+\end{align}
+というように測定データの部分とそれ以外の部分を考えなければならない。
+まず測定データに関する積分については
+\begin{align}
+-\frac{2f_j}{\pi}\mathcal{P}\int_{f_\mathrm{min}}^{f_{\mathrm{max}}} \frac{\chi_1(f')}{f'^2-f_j^2} df'
+= -\frac{2f}{\pi}\sum_{i\neq j} \frac{\chi_1(f_i)}{f_i^2-f_j^2}(f_i-f_{i-1})
+\end{align}
+とすればよい。
+
+それ以外の場所の積分は電気感受率の値は一定であるので
+\begin{align}
+    -\frac{2}{\pi}\mathcal{P}\int_{0}^{f_{\mathrm{min}}} \frac{f \chi_1(f')}{f'^2-f^2} df'
+    = -\frac{\chi_1(f_{\mathrm{min}})}{\pi}\int_{0}^{f_{\mathrm{min}}} \Bigl(\frac{1}{f'-f}-\frac{1}{f'+f}\Bigl) df'
+    = -\frac{\chi_1(f_{\mathrm{min}})}{\pi}\ln\Biggl(\frac{f-f_{\mathrm{min}}}{f+f_{\mathrm{min}}} \Biggr)
+\end{align}
+\begin{align}
+    -\frac{2}{\pi}\mathcal{P}\int_{f_{\mathrm{max}}}^{\infty} \frac{f \chi_1(f')}{f'^2-f^2} df'
+    = -\frac{\chi_1(f_{\mathrm{min}})}{\pi}\int_{f_{\mathrm{max}}}^{\infty} \Bigl(\frac{1}{f'-f}-\frac{1}{f'+f}\Bigl) df'
+    =  \frac{\chi_1(f_{\mathrm{max}})}{\pi}\ln\Biggl(\frac{f_{\mathrm{max}}-f}{f_{\mathrm{max}}+f} \Biggr)
+\end{align}
+となる。
+以上より測定データである誘電率の実部から虚部を求めるには
+\begin{align}
+    \chi_2(f_j) =
+    - \frac{2f}{\pi}\sum_{i\neq j} \frac{\chi_1(f_i)}{f_i^2-f_j^2}(f_i-f_{i-1})
+    - \frac{\chi_1(f_{\mathrm{min}})}{\pi}\ln\Biggl(\frac{f-f_{\mathrm{min}}}{f+f_{\mathrm{min}}} \Biggr)
+    + \frac{\chi_1(f_{\mathrm{max}})}{\pi}\ln\Biggl(\frac{f_{\mathrm{max}}-f}{f_{\mathrm{max}}+f} \Biggr)
+\end{align}
+という式を Python や Excel で実装すればよい。
 
 \end{document}
