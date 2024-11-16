@@ -16,14 +16,23 @@ k_points["M'"]       = [-np.pi, np.pi]
 k_points["Σ'"]      = [-np.pi/2, np.pi/2]
 
 # ホッピングパラメータ
-# スピンのプロットができるようになったら各ホッピングの果たしている役割を見るために t = 0 としてみたい
+# 各ホッピングの果たしている役割を見るために t = 0 としてみたい
 ta = -0.207     # eV
 tb = -0.067     # eV
 tp = -0.102     # eV
 tq = 0.043      # eV
 
 # バンドをプロットする際の経路を生成する
-def gen_kpath(k_points, path, npoints = 50):
+def gen_kpath(path, npoints = 50):
+    """バンド図を書くときの対称点に沿った波数ベクトルの列を作る
+
+    Args:
+        path (list[tuple[str, str]]): プロットする対称点と終点の tuple 列
+        npoints (int, optional): 対称点の間の点の数 Defaults to 50.
+
+    Returns:
+        _type_: 経路の座標、プロット用のラベル、プロット用のラベルの位置、プロット用のx軸の値
+    """
     k_path = []
     labels = []
     labels_loc = []
@@ -51,12 +60,14 @@ def gen_kpath(k_points, path, npoints = 50):
 
 def Hamiltonian(kx, ky, U=0.0, Delta=0.8):
     """ある波数のでのハミルトニアン
-    :param float kx: 波数のx成分
-    :param float ky: 波数のy成分
-    :param float U: オンサイト相互作用の強さ
-    :param float delta: 反強磁性分子場の強さ
+    Args:
+        (float) kx: 波数のx成分
+        (float) ky: 波数のy成分
+        (float) U: オンサイト相互作用の強さ
+        (float) delta: 反強磁性分子場の強さ
 
-    :return: ハミルトニアンの固有値[0]と固有ベクトル[1]
+    Returns:
+        ハミルトニアンの固有値[0]と固有ベクトルの行列[1]
     """
 
     # ホッピング項
@@ -97,12 +108,15 @@ def Hamiltonian(kx, ky, U=0.0, Delta=0.8):
     return scipy.linalg.eigh(H)
 
 def Current(kx, ky, mu):
-    """ある波数での電流演算子
-    :param float kx: 波数のx成分
-    :param float ky: 波数のy成分
-    :param string mu: 電流の方向 "x", "y", "z" のみ
+    """ある波数での電流演算子行列
 
-    :return matrix : 電流演算子行列
+    Args:
+        kx (float): 波数のx成分
+        ky (float): 波数のy成分
+        mu (sring): 電流の方向. "x", "y", "z" のみ受け付ける
+
+    Return:
+        J (ndarray): 8x8の電流演算子行列
     """
 
     if (mu == "x"):
@@ -153,12 +167,15 @@ def Current(kx, ky, mu):
     return -J
 
 def SpinCurrent(kx, ky, mu):
-    """ある波数でのスピン流演算子
-    :param float kx: 波数のx成分
-    :param float ky: 波数のy成分
-    :param string mu: スピン流の方向 "x", "y", "z" のみ
+    """ある波数での電流演算子行列
 
-    :return matrix : スピン流演算子行列
+    Args:
+        kx (float): 波数のx成分
+        ky (float): 波数のy成分
+        mu (sring): 電流の方向. "x", "y", "z" のみ受け付ける
+
+    Return:
+        J (ndarray): 8x8の電流演算子行列
     """
 
     if (mu == "x"):
@@ -209,11 +226,28 @@ def SpinCurrent(kx, ky, mu):
     return J
 
 def calc_delta(N_site):
+    """反強磁性磁化の大きさ
+
+    Args:
+        N_site (list[float]): 各サイトにある電子数
+
+    Returns:
+       delta (float): 反強磁性磁化の大きさ
+    """
     delta = np.abs((N_site[0] + N_site[1]) - (N_site[2] + N_site[3]) - (N_site[4] + N_site[5]) + (N_site[6] + N_site[7])) / 2
     #               A1_up       A2_up         B1_up       B2_up         A1_down     A2_down       B1_down     B2_down
     return delta
 
 def Steffensen(array):
+    """Steffensen の反復法で収束を早めるための処理
+
+    Args:
+        array : SCF 計算で出てきた2つの値
+
+    Returns:
+        val : 収束が早い数列の値
+    """
+    # 収束すると分母が0になり発散するため例外処理が必要
     try:
         res = array[-3] - (array[-3]-array[-2])**2 / (array[-3] - 2*array[-2] + array[-1])
         return res
@@ -221,6 +255,15 @@ def Steffensen(array):
         return array[-2]
 
 def calc_spin(enes, eigenstate):
+    """各サイトのスピンの大きさ
+
+    Args:
+        enes: ある波数の固有エネルギー
+        eigenstate :  ある波数の固有ベクトル
+
+    Returns:
+        spin : 各サイトのスピンの大きさ
+    """
     spin = []
     for l in range(8):
         sp = (np.abs(eigenstate[0,l])**2    # A1_up
@@ -241,7 +284,14 @@ def calc_spin(enes, eigenstate):
     return np.array(spin)
 
 class KappaET2X:
-    def __init__(self, U, k_mesh=31, Ne=6.0):
+    def __init__(self, U, Ne=6.0, k_mesh=31):
+        """モデルのパラメータの設定
+
+        Args:
+            U (float): オンサイト相互作用の大きさ
+            Ne (float, optional): 単位胞内での電子の数 Defaults to 6.0.
+            k_mesh (int, optional): k点の細かさ Defaults to 31.
+        """
         self.U          = U
         self.Ne         = Ne
         self.k_mesh     = k_mesh
@@ -270,6 +320,14 @@ class KappaET2X:
 
 
     def calc_scf(self, iteration = 100, err = 1e-6):
+        """自己無頓着計算を行う。delta と ef を決定する。
+
+        Args:
+            iteration (int, optional): 繰り返す回数の上限. Defaults to 100.
+            err (float, optional): 収束条件. Defaults to 1e-6.
+        """
+
+        # 一度やったらもうやらない。
         if(self.Ef_scf.size > 1):
             print("SCF calculation was already done.")
             return
@@ -281,8 +339,8 @@ class KappaET2X:
         kx, ky = np.meshgrid(kx, ky)
 
         # ここから自己無頓着方程式のループになる
-        # Steffensen の反復法
         for scf_iteration in range(iteration):
+            # Steffensen の反復法
             for m in range(2):
                 # フェルミエネルギーを求める
                 enes = []
@@ -299,8 +357,10 @@ class KappaET2X:
                         eigenStates[i,j] = eigenState
 
                 # 求めたエネルギー固有値をソートして下から何番目というのを探してやればよい
+                # 絶縁体相のときのことを考えると平均をとる必要がある
                 sorted_enes = np.sort(enes)
-                ef = (sorted_enes[int(self.k_mesh * self.k_mesh * self.Ne) - 1]+sorted_enes[int(self.k_mesh * self.k_mesh * self.Ne)])/2
+                ef = (sorted_enes[int(self.k_mesh * self.k_mesh * self.Ne) - 1]
+                      + sorted_enes[int(self.k_mesh * self.k_mesh * self.Ne)])/2
                 self.Ef_scf = np.append(self.Ef_scf, ef)
 
                 # scf で求める値の初期化
@@ -346,7 +406,7 @@ class KappaET2X:
             # ntot = Steffensen(self.Ntot_scf)
             # self.Ntot_scf = np.append(self.Ntot_scf, ntot)
 
-
+            # 与えられた誤差いないに収まったら終了する
             if(np.abs(self.Delta_scf[-1]-self.Delta_scf[-4]) < err) :
 
                 self.delta = self.Delta_scf[-1]
@@ -357,6 +417,7 @@ class KappaET2X:
 
                 return
 
+        # 収束しなかったときの処理
         self.delta = self.Delta_scf[-1]
         self.ef    = self.Ef_scf[-1]
         print('\033[41m'+"Calculation didn't converge. err > {:1.1e}, U = {:.2f}, Ne = {:1.2f} loop = {:2d}, delta = {:1.2e}".format(err, self.U, self. Ne, iteration*3, self.delta)+'\033[0m')
@@ -368,6 +429,9 @@ class KappaET2X:
 
 
     def calc_nscf(self):
+        """
+        delta と ef が与えられたときの各k点の固有状態のエネルギー、状態ベクトル、スピンの大きさの計算をする
+        """
 
         print("NSCF calculation start.")
 
@@ -394,6 +458,7 @@ class KappaET2X:
         self.ef = (sorted_enes[int(self.k_mesh * self.k_mesh * self.Ne) - 1] + sorted_enes[int(self.k_mesh * self.k_mesh * self.Ne)])/2
 
         print("NSCF calculation finished.")
+        print("")
 
 
 
@@ -434,12 +499,17 @@ class KappaET2X:
                         efm = 1 if (self.enes[i,j][m]<self.ef) else 0
                         efn = 1 if (self.enes[i,j][n]<self.ef) else 0
 
+                        Js = (self.eigenStates[i,j,:,m].conj()) @ SpinCurrent(kx[i,j], ky[i,j], mu) @ self.eigenStates[i,j,:,n]
+                        J  = (self.eigenStates[i,j,:,n].conj()) @     Current(kx[i,j], ky[i,j], nu) @ self.eigenStates[i,j,:,m]
 
-                        # chi += Js * J *(efm - efn) / (self.enes[i,j][m]-self.enes[i,j][n] )/ (self.enes[i,j][m]-self.enes[i,j][n]+1j*gamma)
+                        # Js = (self.eigenStates[i,j,m].conj()) @ SpinCurrent(kx[i,j], ky[i,j], mu) @ self.eigenStates[i,j,n]
+                        # J  = (self.eigenStates[i,j,n].conj()) @     Current(kx[i,j], ky[i,j], nu) @ self.eigenStates[i,j,m]
+
+                        chi += Js * J *(efm - efn) / (self.enes[i,j][m]-self.enes[i,j][n] )/ (self.enes[i,j][m]-self.enes[i,j][n]+1j*gamma)
 
         chi /= (self.k_mesh*self.k_mesh*1j)
 
-        print("Spin Conductivity calculation finished. U={:1.2f}, Ne = {:1.2f}.".format(self.U, self.Ne))
+        print("Spin Conductivity calculation finished")
         print("ReChi = {:1.2e}, ImChi = {:1.2e}".format(np.real(chi), np.imag(chi)))
         print("")
 
@@ -493,7 +563,7 @@ class KappaET2X:
             print("SCF calculation wasn't done yet.")
             return
 
-        k_path, label, label_loc, distances = gen_kpath(k_points, self.path)
+        k_path, label, label_loc, distances = gen_kpath(self.path)
 
         bands = []
         spins = []
