@@ -223,7 +223,7 @@ def SpinCurrent(kx, ky, mu):
         for j in range(0, i):
             J[i][j] = J[j][i].conjugate()
 
-    return J
+    return J/2
 
 def calc_delta(N_site):
     """反強磁性磁化の大きさ
@@ -448,9 +448,9 @@ class KappaET2X:
             for j in range(self.k_mesh):
                 enes, eigenstate = Hamiltonian(kx[i][j],ky[i][j], self.U, self.delta)
                 spin = calc_spin(enes, eigenstate)
-                self.enes[i][j]         = enes
-                self.eigenStates[i][j]  = eigenstate
-                self.spins[i][j]        = np.array(spin)
+                self.enes[i,j]         = enes
+                self.eigenStates[i,j]  = eigenstate
+                self.spins[i,j]        = np.array(spin)
 
                 sorted_enes = np.append(sorted_enes, enes)
 
@@ -499,11 +499,8 @@ class KappaET2X:
                         efm = 1 if (self.enes[i,j][m]<self.ef) else 0
                         efn = 1 if (self.enes[i,j][n]<self.ef) else 0
 
-                        Js = (self.eigenStates[i,j,:,m].conj()) @ SpinCurrent(kx[i,j], ky[i,j], mu) @ self.eigenStates[i,j,:,n]
-                        J  = (self.eigenStates[i,j,:,n].conj()) @     Current(kx[i,j], ky[i,j], nu) @ self.eigenStates[i,j,:,m]
-
-                        # Js = (self.eigenStates[i,j,m].conj()) @ SpinCurrent(kx[i,j], ky[i,j], mu) @ self.eigenStates[i,j,n]
-                        # J  = (self.eigenStates[i,j,n].conj()) @     Current(kx[i,j], ky[i,j], nu) @ self.eigenStates[i,j,m]
+                        Js = (self.eigenStates[i,j][:,m].conj()) @ SpinCurrent(kx[i,j], ky[i,j], mu) @ self.eigenStates[i,j][:,n]
+                        J  = (self.eigenStates[i,j][:,n].conj()) @     Current(kx[i,j], ky[i,j], nu) @ self.eigenStates[i,j][:,m]
 
                         chi += Js * J *(efm - efn) / (self.enes[i,j][m]-self.enes[i,j][n] )/ (self.enes[i,j][m]-self.enes[i,j][n]+1j*gamma)
 
