@@ -72,14 +72,14 @@ def Hamiltonian(kx, ky, U=0.0, Delta=0.8):
 
     # ホッピング項
     H = np.zeros((8,8), dtype=np.complex128)
-    H[0,1] = ta + tb*np.exp(1j*kx)                          # A1up   from A2up
-    H[0,2] = tq * (1 + np.exp(-1j*ky))                      # A1up   from B1up
-    H[0,3] = tp * np.exp(-1j*ky) * (1 + np.exp(-1j*kx))     # A1up   from B2up
+    H[0,1] = ta + tb*np.exp(-1j*kx)                          # A1up   from A2up
+    H[0,2] = tq * (1 + np.exp(1j*ky))                        # A1up   from B1up
+    H[0,3] = tp * np.exp(1j*ky) * (1 + np.exp(1j*kx))        # A1up   from B2up
 
-    H[1,2] = tp * (1 + np.exp(-1j*kx))                      # A2up   from B1up
-    H[1,3] = tq * np.exp(-1j*kx) * (1 + np.exp(-1j*ky))     # A2up   from B2up
+    H[1,2] = tp * (1 + np.exp(1j*kx))                      # A2up   from B1up
+    H[1,3] = tq * np.exp(1j*kx) * (1 + np.exp(1j*ky))      # A2up   from B2up
 
-    H[2,3] = ta + tb*np.exp(-1j*kx)                         # B1up   from B2up
+    H[2,3] = ta + tb*np.exp(1j*kx)                         # B1up   from B2up
 
     H[4,5] = H[0,1]                                         # A1down from A2down
     H[4,6] = H[0,2]                                         # A1down from B1down
@@ -122,13 +122,13 @@ def Current(kx, ky, mu):
     if (mu == "x"):
         J = np.zeros((8,8), dtype=np.complex128)
 
-        J[0,1] = 1j * tb * np.exp(1j*kx)                            # A1up   from A2up
-        J[0,3] =-1j * tp * np.exp(-1j*(kx+ky))                      # A1up   from B2up
+        J[0,1] =-1j * tb * np.exp(-1j*kx)                           # A1up   from A2up
+        J[0,3] = 1j * tp * np.exp(1j*(kx+ky))                       # A1up   from B2up
 
-        J[1,2] =-1j * tp * np.exp(-1j*kx)                           # A2up   from B1up
-        J[1,3] =-1j * tq * np.exp(-1j*kx) * (1 + np.exp(-1j*ky))    # A2up   from B2up
+        J[1,2] = 1j * tp * np.exp(1j*kx)                            # A2up   from B1up
+        J[1,3] = 1j * tq * np.exp(1j*kx) * (1 + np.exp(1j*ky))      # A2up   from B2up
 
-        J[2,3] =-1j * tb*np.exp(-1j*kx)                             # B1up   from B2up
+        J[2,3] = 1j * tb*np.exp(1j*kx)                              # B1up   from B2up
 
         J[4,5] = J[0,1]                                         # A1down from A2down
         J[4,7] = J[0,3]                                         # A1down from B2down
@@ -141,10 +141,10 @@ def Current(kx, ky, mu):
     elif (mu == "y"):
         J = np.zeros((8,8), dtype=np.complex128)
 
-        J[0,2] =-1j * tq * np.exp(-1j*ky)                             # A1up   from B1up
-        J[0,3] =-1j * tp * np.exp(-1j*ky) * (1 + np.exp(-1j*kx))      # A1up   from B2up
+        J[0,2] = 1j * tq * np.exp(1j*ky)                             # A1up   from B1up
+        J[0,3] = 1j * tp * np.exp(1j*ky) * (1 + np.exp(1j*kx))      # A1up   from B2up
 
-        J[1,3] =-1j * tq * np.exp(-1j*(kx + ky))                      # A2up   from B2up
+        J[1,3] = 1j * tq * np.exp(1j*(kx + ky))                      # A2up   from B2up
 
         J[4,6] = J[0,2]                                         # A1down from B1down
         J[4,7] = J[0,3]                                         # A1down from B2down
@@ -181,13 +181,13 @@ def SpinCurrent(kx, ky, mu):
     if (mu == "x"):
         J = np.zeros((8,8), dtype=np.complex128)
 
-        J[0,1] = 1j * tb * np.exp(1j*kx)                            # A1up   from A2up
-        J[0,3] =-1j * tp * np.exp(-1j*(kx+ky))                      # A1up   from B2up
+        J[0,1] =-1j * tb * np.exp(-1j*kx)                           # A1up   from A2up
+        J[0,3] = 1j * tp * np.exp(1j*(kx+ky))                       # A1up   from B2up
 
-        J[1,2] =-1j * tp * np.exp(-1j*kx)                           # A2up   from B1up
-        J[1,3] =-1j * tq * np.exp(-1j*kx) * (1 + np.exp(-1j*ky))    # A2up   from B2up
+        J[1,2] = 1j * tp * np.exp(1j*kx)                            # A2up   from B1up
+        J[1,3] = 1j * tq * np.exp(1j*kx) * (1 + np.exp(1j*ky))      # A2up   from B2up
 
-        J[2,3] =-1j * tb * np.exp(-1j*kx)                           # B1up   from B2up
+        J[2,3] = 1j * tb*np.exp(1j*kx)                              # B1up   from B2up
 
         J[4,5] =-J[0,1]                                         # A1down from A2down
         J[4,7] =-J[0,3]                                         # A1down from B2down
@@ -200,10 +200,10 @@ def SpinCurrent(kx, ky, mu):
     elif (mu == "y"):
         J = np.zeros((8,8), dtype=np.complex128)
 
-        J[0,2] =-1j * tq * np.exp(-1j*ky)                             # A1up   from B1up
-        J[0,3] =-1j * tp * np.exp(-1j*ky) * (1 + np.exp(-1j*kx))      # A1up   from B2up
+        J[0,2] = 1j * tq * np.exp(1j*ky)                             # A1up   from B1up
+        J[0,3] = 1j * tp * np.exp(1j*ky) * (1 + np.exp(1j*kx))      # A1up   from B2up
 
-        J[1,3] =-1j * tq * np.exp(-1j*(kx + ky))                      # A2up   from B2up
+        J[1,3] = 1j * tq * np.exp(1j*(kx + ky))                      # A2up   from B2up
 
         J[4,6] =-J[0,2]                                         # A1down from B1down
         J[4,7] =-J[0,3]                                         # A1down from B2down
@@ -488,7 +488,10 @@ class KappaET2X:
         # ブリュアンゾーンの和
         for i in range(self.k_mesh):
             for j in range(self.k_mesh):
+                # enes, eigenstate = Hamiltonian(kx[i][j],ky[i][j], self.U, self.delta)
                 # 各波数におけるそれぞれの固有状態の和
+                Js_matrix = np.conjugate(self.eigenStates[i,j][:].T) @ SpinCurrent(kx[i,j], ky[i,j], mu) @ self.eigenStates[i,j][:]
+                J_matrix  = np.conjugate(self.eigenStates[i,j][:].T) @     Current(kx[i,j], ky[i,j], mu) @ self.eigenStates[i,j][:]
                 for m in range(8):
                     for n in range(8):
                         #零除算を避ける
@@ -499,10 +502,16 @@ class KappaET2X:
                         efm = 1 if (self.enes[i,j][m]<self.ef) else 0
                         efn = 1 if (self.enes[i,j][n]<self.ef) else 0
 
-                        Js = (self.eigenStates[i,j][:,m].conj()) @ SpinCurrent(kx[i,j], ky[i,j], mu) @ self.eigenStates[i,j][:,n]
-                        J  = (self.eigenStates[i,j][:,n].conj()) @     Current(kx[i,j], ky[i,j], nu) @ self.eigenStates[i,j][:,m]
+                        # Js = (self.eigenStates[i,j][:,m].conj()) @ SpinCurrent(kx[i,j], ky[i,j], mu) @ self.eigenStates[i,j][:,n]
+                        # J  = (self.eigenStates[i,j][:,n].conj()) @     Current(kx[i,j], ky[i,j], nu) @ self.eigenStates[i,j][:,m]
 
-                        chi += Js * J *(efm - efn) / (self.enes[i,j][m]-self.enes[i,j][n] )/ (self.enes[i,j][m]-self.enes[i,j][n]+1j*gamma)
+                        Js = Js_matrix[m,n]
+                        J  =  J_matrix[n,m]
+
+                        # Js = (eigenstate[:,m].conj()) @ SpinCurrent(kx[i,j], ky[i,j], mu) @ eigenstate[:,n]
+                        # J  = (eigenstate[:,n].conj()) @     Current(kx[i,j], ky[i,j], nu) @ eigenstate[:,m]
+
+                        chi += Js * J * (efm - efn) / (self.enes[i,j][m]-self.enes[i,j][n]+1j*gamma)**2
 
         chi /= (self.k_mesh*self.k_mesh*1j)
 
