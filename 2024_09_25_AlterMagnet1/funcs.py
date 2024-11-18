@@ -495,8 +495,8 @@ class KappaET2X:
                 for m in range(8):
                     for n in range(8):
                         #零除算を避ける
-                        if(np.abs(self.enes[i,j][m]-self.enes[i,j][n])<0.000001):
-                            continue
+                        # if(np.abs(self.enes[i,j][m]-self.enes[i,j][n])<0.000001):
+                        #     continue
 
                         # フェルミ分布
                         efm = 1 if (self.enes[i,j][m]<self.ef) else 0
