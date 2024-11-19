@@ -464,16 +464,16 @@ class KappaET2X:
 
     def calc_dos(self, E_fineness=1000, sigma2 = 0.0001):
 
-        E = np.linspace(np.min(self.enes)-0.1, np.max(self.enes)+0.1, E_fineness)
-        for e in E:
+        self.E = np.linspace(np.min(self.enes)-0.1, np.max(self.enes)+0.1, E_fineness)
+        for e in self.E:
             self.dos = np.append(self.dos, np.sum(np.exp(-(e-self.enes)**2 / 2 / sigma2 ) / np.sqrt(2 * np.pi * sigma2)))
         self.dos /= np.sum(self.dos)
 
 
 
     def calc_spinConductivity(self, mu, nu, gamma=0.0001):
-        if(self.Ef_scf.size < 2):
-            print("SCF calculation wasn't done yet.")
+        if(self.enes[0,0,0] == 0):
+            print("NSCF calculation wasn't done yet.")
             return
 
         print("SpinConductivity calculation start.")
@@ -488,30 +488,38 @@ class KappaET2X:
         # ブリュアンゾーンの和
         for i in range(self.k_mesh):
             for j in range(self.k_mesh):
-                # enes, eigenstate = Hamiltonian(kx[i][j],ky[i][j], self.U, self.delta)
+
+
                 # 各波数におけるそれぞれの固有状態の和
-                Js_matrix = np.conjugate(self.eigenStates[i,j][:].T) @ SpinCurrent(kx[i,j], ky[i,j], mu) @ self.eigenStates[i,j][:]
-                J_matrix  = np.conjugate(self.eigenStates[i,j][:].T) @     Current(kx[i,j], ky[i,j], mu) @ self.eigenStates[i,j][:]
+                Js_matrix = np.conjugate(self.eigenStates[i,j].T) @ SpinCurrent(kx[i,j], ky[i,j], mu) @ self.eigenStates[i,j]
+                J_matrix  = np.conjugate(self.eigenStates[i,j].T) @     Current(kx[i,j], ky[i,j], nu) @ self.eigenStates[i,j]
+                # print("kx = {:.2f} ky={:.2f}".format(kx[i,j],ky[i,j]))
+                # print(Js_matrix)
                 for m in range(8):
                     for n in range(8):
-                        #零除算を避ける
-                        # if(np.abs(self.enes[i,j][m]-self.enes[i,j][n])<0.000001):
-                        #     continue
+                # for (m,n) in [(6,7),(7,6)]:
+                        #縮退した状態間の遷移はない
+                        if(np.abs(self.enes[i,j][m]-self.enes[i,j][n])<0.000001):
+                            continue
 
                         # フェルミ分布
                         efm = 1 if (self.enes[i,j][m]<self.ef) else 0
                         efn = 1 if (self.enes[i,j][n]<self.ef) else 0
-
-                        # Js = (self.eigenStates[i,j][:,m].conj()) @ SpinCurrent(kx[i,j], ky[i,j], mu) @ self.eigenStates[i,j][:,n]
-                        # J  = (self.eigenStates[i,j][:,n].conj()) @     Current(kx[i,j], ky[i,j], nu) @ self.eigenStates[i,j][:,m]
+                        if((efm - efn) == 0) :
+                            continue
 
                         Js = Js_matrix[m,n]
                         J  =  J_matrix[n,m]
 
-                        # Js = (eigenstate[:,m].conj()) @ SpinCurrent(kx[i,j], ky[i,j], mu) @ eigenstate[:,n]
-                        # J  = (eigenstate[:,n].conj()) @     Current(kx[i,j], ky[i,j], nu) @ eigenstate[:,m]
+                        chi += Js * J * (efm - efn) / ((self.enes[i,j][m]-self.enes[i,j][n]+1j*gamma)**2)
 
-                        chi += Js * J * (efm - efn) / (self.enes[i,j][m]-self.enes[i,j][n]+1j*gamma)**2
+                        # デバッグ用
+                        # print("kx = {:.2f}, ky = {:.2f}, m = {:1d}, n = {:1d}:".format(
+                        #     kx[i,j],ky[i,j],m,n))
+                        # print("Js = {:.2e}, J = {:.2e}".format(Js, J))
+                        # print("Em-En-igamma = {:.2e}".format(((self.enes[i,j][m]-self.enes[i,j][n]+1j*gamma)**2)))
+                        # print("add chi = {:.2e}".format(Js * J * (efm - efn) / ((self.enes[i,j][m]-self.enes[i,j][n]+1j*gamma)**2)))
+                        # print("")
 
         chi /= (self.k_mesh*self.k_mesh*1j)
 
@@ -520,6 +528,50 @@ class KappaET2X:
         print("")
 
         return chi
+
+    def calc_Conductivity(self, mu, nu, gamma=0.0001):
+        if(self.enes[0,0,0] == 0):
+            print("NSCF calculation wasn't done yet.")
+            return
+
+        print("Conductivity calculation start.")
+        # 伝導度 複素数として初期化
+        sigma = 0.0 + 0.0*1j
+
+        # ブリュアンゾーンのメッシュの生成
+        kx = np.linspace(-np.pi, np.pi, self.k_mesh)
+        ky = np.linspace(-np.pi, np.pi, self.k_mesh)
+        kx, ky = np.meshgrid(kx, ky)
+
+        # ブリュアンゾーンの和
+        for i in range(self.k_mesh):
+            for j in range(self.k_mesh):
+
+                Jmu_matrix  = np.conjugate(self.eigenStates[i,j].T) @  Current(kx[i,j], ky[i,j], mu) @ self.eigenStates[i,j]
+                Jnu_matrix  = np.conjugate(self.eigenStates[i,j].T) @  Current(kx[i,j], ky[i,j], nu) @ self.eigenStates[i,j]
+                # 各波数におけるそれぞれの固有状態の和
+                for m in range(8):
+                    for n in range(8):
+                        #零除算を避ける
+                        if(m ==n):
+                            continue
+
+                        # フェルミ分布
+                        efm = 1 if (self.enes[i,j][m]<self.ef) else 0
+                        efn = 1 if (self.enes[i,j][n]<self.ef) else 0
+
+                        Jmu = Jmu_matrix[m,n]
+                        Jnu = Jnu_matrix[n,m]
+
+                        sigma += Jmu * Jnu * (efm - efn) / (self.enes[i,j][m]-self.enes[i,j][n]+1j*gamma)**2
+
+        sigma /= (self.k_mesh*self.k_mesh*1j)
+
+        print("Conductivity calculation finished")
+        print("ReSigma = {:1.2e}, ImSigma = {:1.2e}".format(np.real(sigma), np.imag(sigma)))
+        print("")
+
+        return sigma
 
 
 
