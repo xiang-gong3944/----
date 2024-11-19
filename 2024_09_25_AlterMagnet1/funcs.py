@@ -491,16 +491,13 @@ class KappaET2X:
 
 
                 # 各波数におけるそれぞれの固有状態の和
-                Js_matrix = np.conjugate(self.eigenStates[i,j].T) @ SpinCurrent(kx[i,j], ky[i,j], mu) @ self.eigenStates[i,j]
-                J_matrix  = np.conjugate(self.eigenStates[i,j].T) @     Current(kx[i,j], ky[i,j], nu) @ self.eigenStates[i,j]
-                # print("kx = {:.2f} ky={:.2f}".format(kx[i,j],ky[i,j]))
-                # print(Js_matrix)
+                # Js_matrix = np.conjugate(self.eigenStates[i,j].T) @ SpinCurrent(kx[i,j], ky[i,j], mu) @ self.eigenStates[i,j]
+                # J_matrix  = np.conjugate(self.eigenStates[i,j].T) @     Current(kx[i,j], ky[i,j], nu) @ self.eigenStates[i,j]
+                Js_matrix = self.eigenStates[i,j] @ SpinCurrent(kx[i,j], ky[i,j], mu) @ np.conjugate(self.eigenStates[i,j].T)
+                J_matrix  = self.eigenStates[i,j] @     Current(kx[i,j], ky[i,j], nu) @ np.conjugate(self.eigenStates[i,j].T)
+
                 for m in range(8):
                     for n in range(8):
-                # for (m,n) in [(6,7),(7,6)]:
-                        #縮退した状態間の遷移はない
-                        if(np.abs(self.enes[i,j][m]-self.enes[i,j][n])<0.000001):
-                            continue
 
                         # フェルミ分布
                         efm = 1 if (self.enes[i,j][m]<self.ef) else 0
@@ -547,8 +544,10 @@ class KappaET2X:
         for i in range(self.k_mesh):
             for j in range(self.k_mesh):
 
-                Jmu_matrix  = np.conjugate(self.eigenStates[i,j].T) @  Current(kx[i,j], ky[i,j], mu) @ self.eigenStates[i,j]
-                Jnu_matrix  = np.conjugate(self.eigenStates[i,j].T) @  Current(kx[i,j], ky[i,j], nu) @ self.eigenStates[i,j]
+                Jmu_matrix = np.conjugate(self.eigenStates[i,j].T) @  Current(kx[i,j], ky[i,j], mu) @ self.eigenStates[i,j]
+                Jnu_matrix = np.conjugate(self.eigenStates[i,j].T) @  Current(kx[i,j], ky[i,j], nu) @ self.eigenStates[i,j]
+                # Jmu_matrix = self.eigenStates[i,j] @ SpinCurrent(kx[i,j], ky[i,j], mu) @ np.conjugate(self.eigenStates[i,j].T)
+                # Jnu_matrix = self.eigenStates[i,j] @     Current(kx[i,j], ky[i,j], nu) @ np.conjugate(self.eigenStates[i,j].T)
                 # 各波数におけるそれぞれの固有状態の和
                 for m in range(8):
                     for n in range(8):
@@ -559,6 +558,8 @@ class KappaET2X:
                         # フェルミ分布
                         efm = 1 if (self.enes[i,j][m]<self.ef) else 0
                         efn = 1 if (self.enes[i,j][n]<self.ef) else 0
+                        if((efm - efn) == 0) :
+                            continue
 
                         Jmu = Jmu_matrix[m,n]
                         Jnu = Jnu_matrix[n,m]
