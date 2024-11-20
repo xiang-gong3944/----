@@ -317,7 +317,7 @@ class KappaET2X:
         self.E          = 0
         self.dos        = np.array([])
 
-
+        self.kF_index = np.array([[-1, -1, -1]])
 
     def calc_scf(self, iteration = 100, err = 1e-6):
         """自己無頓着計算を行う。delta と ef を決定する。
@@ -334,9 +334,7 @@ class KappaET2X:
 
         print("SCF calculation start.")
 
-        kx = np.linspace(-np.pi, np.pi, self.k_mesh)
-        ky = np.linspace(-np.pi, np.pi, self.k_mesh)
-        kx, ky = np.meshgrid(kx, ky)
+        kx, ky = self.gen_kmesh()
 
         # ここから自己無頓着方程式のループになる
         for scf_iteration in range(iteration):
@@ -406,7 +404,7 @@ class KappaET2X:
             # ntot = Steffensen(self.Ntot_scf)
             # self.Ntot_scf = np.append(self.Ntot_scf, ntot)
 
-            # 与えられた誤差いないに収まったら終了する
+            # 与えられた誤差の範囲に収まったら終了する
             if(np.abs(self.Delta_scf[-1]-self.Delta_scf[-4]) < err) :
 
                 self.delta = self.Delta_scf[-1]
@@ -424,7 +422,6 @@ class KappaET2X:
         print(f"latter deltas are {self.Delta_scf[-4:-1]}")
         print("")
 
-
         return
 
 
@@ -436,9 +433,7 @@ class KappaET2X:
         print("NSCF calculation start.")
 
         # ブリュアンゾーンのメッシュの生成
-        kx = np.linspace(-np.pi, np.pi, self.k_mesh)
-        ky = np.linspace(-np.pi, np.pi, self.k_mesh)
-        kx, ky = np.meshgrid(kx, ky)
+        kx, ky = self.gen_kmesh()
 
         # フェルミ準位を求めるためのリスト
         sorted_enes = np.array([])
@@ -459,7 +454,7 @@ class KappaET2X:
 
         print("NSCF calculation finished.")
         print("")
-
+        return
 
 
     def calc_dos(self, E_fineness=1000, sigma2 = 0.0001):
@@ -470,8 +465,26 @@ class KappaET2X:
         self.dos /= np.sum(self.dos)
 
 
+    def calc_kF_index(self):
+        # if(self.kF_index.size > 1):
+        #     print("Already calculated.")
+        #     return
 
-    def calc_spinConductivity(self, mu, nu, gamma=0.0001):
+        for i in range(self.k_mesh-1):
+            for j in range(self.k_mesh-1):
+                for m in range(8):
+                    if((self.enes[i,j][m]-self.ef)*(self.enes[i+1,j][m]-self.ef)<0):
+                        append_index = np.array([i+1, j, m])
+                        self.kF_index = np.vstack((self.kF_index, append_index))
+
+                    if((self.enes[i,j][m]-self.ef)*(self.enes[i, j+1][m]-self.ef)<0):
+                        append_index = np.array([i, j+1, m])
+                        self.kF_index = np.vstack((self.kF_index, append_index))
+        self.kF_index = np.delete(self.kF_index, 0, 0)
+        return
+
+
+    def calc_spin_conductivity(self, mu, nu, gamma=0.0001):
         if(self.enes[0,0,0] == 0):
             print("NSCF calculation wasn't done yet.")
             return
@@ -481,32 +494,23 @@ class KappaET2X:
         chi = 0.0 + 0.0*1j
 
         # ブリュアンゾーンのメッシュの生成
-        kx = np.linspace(-np.pi, np.pi, self.k_mesh)
-        ky = np.linspace(-np.pi, np.pi, self.k_mesh)
-        kx, ky = np.meshgrid(kx, ky)
+        kx, ky = self.gen_kmesh()
 
-        # ブリュアンゾーンの和
+        # バンド間遷移
         for i in range(self.k_mesh):
             for j in range(self.k_mesh):
 
-
-                # 各波数におけるそれぞれの固有状態の和
-                # Js_matrix = np.conjugate(self.eigenStates[i,j].T) @ SpinCurrent(kx[i,j], ky[i,j], mu) @ self.eigenStates[i,j]
-                # J_matrix  = np.conjugate(self.eigenStates[i,j].T) @     Current(kx[i,j], ky[i,j], nu) @ self.eigenStates[i,j]
-                Js_matrix = self.eigenStates[i,j] @ SpinCurrent(kx[i,j], ky[i,j], mu) @ np.conjugate(self.eigenStates[i,j].T)
-                J_matrix  = self.eigenStates[i,j] @     Current(kx[i,j], ky[i,j], nu) @ np.conjugate(self.eigenStates[i,j].T)
+                Js_matrix = np.conjugate(self.eigenStates[i,j].T) @ SpinCurrent(kx[i,j], ky[i,j], mu) @ self.eigenStates[i,j]
+                J_matrix  = np.conjugate(self.eigenStates[i,j].T) @     Current(kx[i,j], ky[i,j], nu) @ self.eigenStates[i,j]
 
                 for m in range(8):
                     for n in range(8):
 
+                        Js = Js_matrix[m,n]
+                        J  =  J_matrix[n,m]
                         # フェルミ分布
                         efm = 1 if (self.enes[i,j][m]<self.ef) else 0
                         efn = 1 if (self.enes[i,j][n]<self.ef) else 0
-                        if((efm - efn) == 0) :
-                            continue
-
-                        Js = Js_matrix[m,n]
-                        J  =  J_matrix[n,m]
 
                         chi += Js * J * (efm - efn) / ((self.enes[i,j][m]-self.enes[i,j][n]+1j*gamma)**2)
 
@@ -518,6 +522,18 @@ class KappaET2X:
                         # print("add chi = {:.2e}".format(Js * J * (efm - efn) / ((self.enes[i,j][m]-self.enes[i,j][n]+1j*gamma)**2)))
                         # print("")
 
+        # バンド内遷移
+        if(self.kF_index.size < 1):
+            self.calc_kF_index()
+        for kF_index in self.kF_index:
+            i = kF_index[0]
+            j = kF_index[1]
+            m = kF_index[2]
+            Js = self.eigenStates[i,j][:,m].conj() @ SpinCurrent(kx[i,j], ky[i,j], mu) @ self.eigenStates[i,j][:,m]
+            J  = self.eigenStates[i,j][:,m].conj() @     Current(kx[i,j], ky[i,j], nu) @ self.eigenStates[i,j][:,m]
+
+            chi -= 1j * Js * J / gamma
+
         chi /= (self.k_mesh*self.k_mesh*1j)
 
         print("Spin Conductivity calculation finished")
@@ -526,7 +542,7 @@ class KappaET2X:
 
         return chi
 
-    def calc_Conductivity(self, mu, nu, gamma=0.0001):
+    def calc_conductivity(self, mu, nu, gamma=0.0001):
         if(self.enes[0,0,0] == 0):
             print("NSCF calculation wasn't done yet.")
             return
@@ -536,9 +552,7 @@ class KappaET2X:
         sigma = 0.0 + 0.0*1j
 
         # ブリュアンゾーンのメッシュの生成
-        kx = np.linspace(-np.pi, np.pi, self.k_mesh)
-        ky = np.linspace(-np.pi, np.pi, self.k_mesh)
-        kx, ky = np.meshgrid(kx, ky)
+        kx, ky = self.gen_kmesh()
 
         # ブリュアンゾーンの和
         for i in range(self.k_mesh):
@@ -546,8 +560,6 @@ class KappaET2X:
 
                 Jmu_matrix = np.conjugate(self.eigenStates[i,j].T) @  Current(kx[i,j], ky[i,j], mu) @ self.eigenStates[i,j]
                 Jnu_matrix = np.conjugate(self.eigenStates[i,j].T) @  Current(kx[i,j], ky[i,j], nu) @ self.eigenStates[i,j]
-                # Jmu_matrix = self.eigenStates[i,j] @ SpinCurrent(kx[i,j], ky[i,j], mu) @ np.conjugate(self.eigenStates[i,j].T)
-                # Jnu_matrix = self.eigenStates[i,j] @     Current(kx[i,j], ky[i,j], nu) @ np.conjugate(self.eigenStates[i,j].T)
                 # 各波数におけるそれぞれの固有状態の和
                 for m in range(8):
                     for n in range(8):
@@ -564,7 +576,8 @@ class KappaET2X:
                         Jmu = Jmu_matrix[m,n]
                         Jnu = Jnu_matrix[n,m]
 
-                        sigma += Jmu * Jnu * (efm - efn) / (self.enes[i,j][m]-self.enes[i,j][n]+1j*gamma)**2
+                        # sigma += Jmu * Jnu * (efm - efn) / (self.enes[i,j][m]-self.enes[i,j][n]+1j*gamma)**2
+                        sigma += Jmu * Jnu * (efm - efn) / (self.enes[i,j][m]-self.enes[i,j][n]+1j*gamma) / (self.enes[i,j][m]-self.enes[i,j][n])
 
         sigma /= (self.k_mesh*self.k_mesh*1j)
 
@@ -575,8 +588,52 @@ class KappaET2X:
         return sigma
 
 
+    def debug_basis_trans(self, m, n):
+        kx, ky = self.gen_kmesh()
+        kx = kx[m,n]
+        ky = ky[m,n]
 
-    def plot_Nsite(self):
+        H = np.zeros((8,8), dtype=np.complex128)
+        H[0,1] = ta + tb*np.exp(-1j*kx)                          # A1up   from A2up
+        H[0,2] = tq * (1 + np.exp(1j*ky))                        # A1up   from B1up
+        H[0,3] = tp * np.exp(1j*ky) * (1 + np.exp(1j*kx))        # A1up   from B2up
+
+        H[1,2] = tp * (1 + np.exp(1j*kx))                      # A2up   from B1up
+        H[1,3] = tq * np.exp(1j*kx) * (1 + np.exp(1j*ky))      # A2up   from B2up
+
+        H[2,3] = ta + tb*np.exp(1j*kx)                         # B1up   from B2up
+
+        H[4,5] = H[0,1]                                         # A1down from A2down
+        H[4,6] = H[0,2]                                         # A1down from B1down
+        H[4,7] = H[0,3]                                         # A1down from B2down
+
+        H[5,6] = H[1,2]                                         # A2down from B1down
+        H[5,7] = H[1,3]                                         # A2down from B2down
+
+        H[6,7] = H[2,3]                                         # B1down from B2down
+
+        #エルミート化
+        for i in range(1,8):
+            for j in range(0, i):
+                H[i][j] = H[j][i].conjugate()
+
+        # 反強磁性分子内磁場を表すハートリー項
+        H[0,0] = - self.U * self.delta / 4    # A1 up
+        H[1,1] = - self.U * self.delta / 4    # A2 up
+        H[2,2] = + self.U * self.delta / 4    # B1 up
+        H[3,3] = + self.U * self.delta / 4    # B2 up
+        H[4,4] = + self.U * self.delta / 4    # A1 down
+        H[5,5] = + self.U * self.delta / 4    # A2 down
+        H[6,6] = - self.U * self.delta / 4    # B1 down
+        H[7,7] = - self.U * self.delta / 4    # B2 down
+
+        print("U^dag H U")
+        print(np.conjugate(self.eigenStates[m,n].T) @  H @ self.eigenStates[m,n])
+        print("\n U H U^dag")
+        print(self.eigenStates[m,n] @  H @ np.conjugate(self.eigenStates[m,n].T))
+
+
+    def plot_nsite(self):
         if(self.Ef_scf.size < 2):
             print("SCF calculation wasn't done yet.")
             return
@@ -591,7 +648,6 @@ class KappaET2X:
             plt.plot(self.N_site_scf[:,i], label = "site {:d} = {:.3f}".format(i, self.N_site_scf[-1, i]))
         plt.legend()
         plt.show()
-
 
 
     def plot_scf(self):
@@ -614,7 +670,6 @@ class KappaET2X:
         ax1.legend(h1+h2, l1+l2)
 
         plt.show()
-
 
 
     def plot_band(self):
@@ -667,7 +722,7 @@ class KappaET2X:
         plt.colorbar()
 
         plt.show()
-
+        return
 
 
     def plot3d_band(self):
@@ -677,11 +732,7 @@ class KappaET2X:
             print("SCF calculation wasn't done yet.")
             return
 
-
-        kx = np.linspace(-np.pi, np.pi, self.k_mesh)
-        ky = np.linspace(-np.pi, np.pi, self.k_mesh)
-        kx, ky = np.meshgrid(kx, ky)
-
+        kx, ky = self.gen_kmesh()
 
         fig = go.Figure()
 
@@ -734,6 +785,8 @@ class KappaET2X:
             height=800   # グラフの高さ
         )
         fig.show()
+        return
+
 
     def plot_dos(self):
         E = np.linspace(np.min(self.enes)-0.1, np.max(self.enes)+0.1, self.dos.size)
@@ -745,3 +798,35 @@ class KappaET2X:
         plt.vlines(self.ef, -0.04*ysacale, 1.04*ysacale, color="gray", linestyles="dashed")
         plt.title("Ef={:.2f} eV".format(self.ef))
         plt.show()
+
+        return
+
+
+    def plot_fermi_surface(self):
+        # if(self.kF_index.size < 2):
+        self.calc_kF_index()
+
+        kx, ky = self.gen_kmesh()
+
+        for kF_index in self.kF_index:
+            i = kF_index[0]
+            j = kF_index[1]
+            m = kF_index[2]
+            color = "tab:green"
+            if(self.spins[i,j,m] > 0.1):
+                color = "tab:orange"
+            if(self.spins[i,j,m] < -0.1):
+                color = "tab:blue"
+            plt.scatter(kx[i,j], ky[i,j], color=color, s=10)
+
+        plt.axis("square")
+        plt.xlim(-3.5,3.5)
+        plt.ylim(-3.5,3.5)
+        plt.show()
+        return
+
+
+    def gen_kmesh(self):
+        kx = np.linspace(-np.pi, np.pi, self.k_mesh)
+        ky = np.linspace(-np.pi, np.pi, self.k_mesh)
+        return(np.meshgrid(kx, ky))
