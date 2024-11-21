@@ -8,12 +8,14 @@ Excel でちまちま csv をファイルをいじると Excel がとても重�
 熱測定でも BTO と TGS をした。
 ここので比熱の発散の冪を合わせるとスケーリング則の1つである
 Rushbrooke の等式
+
 $$
     \alpha + 2\beta +\gamma = 2\\
     C(T) \sim \frac{1}{|T-T_c|^\alpha},\quad
     P(T) \sim (T_c-T)^\beta,\quad
     \chi(T) \sim \frac{1}{|T-T_c|^\gamma}
 $$
+
 を確かめることができる。
 
 この実験でよくわかんなかった内容を残しておくと
@@ -22,9 +24,11 @@ $$
 よく考えてみるとすでに自発分極があるのにそれの電気感受率というのはよくわからないもである。
 
 Jupyter notebook の中では強誘電相での誘電率を
+
 $$
     \varepsilon = \left(\frac{\partial D}{\partial E}\right)_{E=0}
 $$
+
 というように E-D グラフの D 軸上の傾きではないかとして一応計算はしてある。
 ここでの傾きは何かしらの意味を持っているのは確かで、
 BTO の誘電率の温度特性のグラフを見ると何らかの規則性があるのがわかる。
