@@ -89,7 +89,11 @@
 % \twocolumn
 
 \begin{abstract}
-    % aaaaaaaaaa
+    DSC 測定は試料の熱的性質を調べることに広く使われている。
+    このレポートでは DSC 測定およびそれと同等の測定法である DTA 測定の微分方程式モデルについて簡単に紹介した。
+    また DSC 測定の一種である熱流型の DSC 測定をする機器を用いて In の固体液相転移、Ni の磁気相転移、
+    BTO の変異型強誘電相転移、TGS の秩序・無秩序型強誘電相転移に伴う熱異常を測定した。
+    また、この結果と 3OB 実験:強誘電性ヒステリシス曲線で得られたデータと合わせてスケーリング則の一種である Rushbrooke の等式周りを議論した。
 \end{abstract}
 
 
@@ -144,7 +148,6 @@ DTA と DSC の動作原理として Mraw のモデル\cite{Mraw}がある(図\r
 ここでの \(\dv{q_r}{t}\) はヒーターから表面への熱流、
 \(C_{rm}, C_{r}\) はそれぞれ表面部分とバルク部分の熱容量、
 \(T_{rm}, T_{r}\) はそれぞれ表面部分とバルク部分の温度を表している。
-\clearpage
 
 一次相転移を起こさないときには左側にあるサンプル試料でも同様の式
 \begin{align}
@@ -178,7 +181,6 @@ DTA と DSC の動作原理として Mraw のモデル\cite{Mraw}がある(図\r
     \caption{Mraw のモデルを使った一次相転移時の熱流束 DSC の振る舞い\cite{saito1987}.}
     \label{graph:theory}
 \end{wrapfigure}
-このモデルを DTA およ
 このモデルを DTA および DSC にどのように適用されるか見ていく。
 古典的 DTA では試料表面で温度を測定するのではなく、内部の温度を測定する。
 そのため始め表面部分と内部で分けていたが一体になったものとみなすことができ、
@@ -209,7 +211,7 @@ DTA と DSC の動作原理として Mraw のモデル\cite{Mraw}がある(図\r
 より正確には DTA と熱流束型 DSC は温度差を見るという点では同じ測定原理であるが、
 シグナルは微分方程式モデルが異なることから違った形が出る、
 DTA と入力補償型 DSC は測定原理は違うが、モデルは同じ形になるためシグナルは同じになると説明されるべきである。
-
+\clearpage
 \section{実験}
 熱流型 DSC 測定機器である (株)日立ハイテクサイエンス DSC7020 を用いて、
 In の固液相転移、Ni の磁気相転移、BTO の変異型強誘電相転移、TGS の秩序・無秩序型強誘電相転移に伴う熱異常を測定した。
@@ -269,7 +271,9 @@ In の固液相転移付近における
 Ni の磁気相転移付近における熱流\(\dot{H}\), エントロピー流\(\dot{S}\), および比熱\(C_p\)は図\ref{graph:Ni}のようになった。
 これは Mraw のモデルや図\ref{graph:In}で見たような一次相転移とは異なった熱異常となっている。
 図\ref{graph:Ni-current}のスケールに注目すると相転移に伴って熱流が発散しないことから転移熱は小さいのがわかる。
-そして相転移で比熱が発散せずに変わっているのが図\ref{graph:Ni-Cp}よりわかることからこれは2次相転移であるとわかる。
+そして相転移で比熱が発散せずに\(T_c = 630.4\) K で不連続に変わっているのが図\ref{graph:Ni-Cp}よりわかる。
+この不連続になり始めた点を相転移点とする。
+これよりは2次相転移であるとわかる。
 また、加熱時と冷却時で比熱の値やその振る舞いは異なっているのがわかる。
 \begin{figure}[hbt]
     \centering
@@ -359,17 +363,248 @@ Ni の磁気相転移と同じシグナルとなっていることから2次相�
 \end{align}
 というようにして行った。
 この数値積分を実行すると各相転移の転移熱は表\ref{table:integral}のようになった。
+積分を行った際のベースラインの取り方については appendix にまとめておいた。
+\begin{table}[hbt]
+    \centering
+    \caption{各試料の相転移温度と転移熱・転移エントロピー}
+    \label{table:integral}
+    \begin{tabular}{lllll}
+    \hline
+                             & In    & Ni    & BTO   & TGS   \\
+    \hline
+    昇温時の転移温度 (K)       & 429.8 & 630.4 & 403.5 & 320.0 \\
+    降温時の転移温度 (K)       & 428.9 & 630.4 & 402.3 & 320.0 \\
+    昇温時の転移熱   (J/g)     & 2504  & 25.97 & 210.4 & 353.4 \\
+    降温時の転移熱   (J/g)     & 2510  & 25.61 & 222.6 & 372.7 \\
+    昇温時の転移エントロピー (mJ/K・g)   & 5819  & 41.26 & 520.1 & 1216  \\
+    降温時の転移エントロピー (mJ/K・g)   & 5854  & 39.47 & 554.3 & 1187 \\
+    \hline
+    \end{tabular}
+\end{table}
 
+\clearpage
 \section{考察}
+\subsection{Rushbrooke の等式}
+3OB 実験:強誘電性ヒステリシス曲線にて今回熱特性を測定した TGS と BTO の誘電特性を測定した。
+違うサンプルではあるが、この実験では自発分極の温度特性と、常誘電相における D-E 特性の傾きから誘電率を調べることができる。
+そのためスケーリング則の1つである Rushbrooke の等式
 
+\begin{gather}
+    \alpha + 2\beta +\gamma = 2\\
+    C(T) \sim \frac{1}{\abs{T-T_c}^\alpha},\quad
+    P(T) \sim (T_c-T)^\beta,\quad
+    \chi(T) \sim \frac{1}{\abs{T-T_c}^\gamma}
+\end{gather}
+について確認ができる。
+3OB 実験強誘電性ヒステリシス曲線の TGS と BTO の誘電特性の測定結果は図\ref{graph:TGS-histerisis},
+図\ref{graph:BTO-histerisis} のようになった。
+\begin{figure}[hbt]
+    \centering
+    \begin{minipage}[t]{0.48\columnwidth}
+        \centering
+        \includegraphics[width = \columnwidth]{discussion/TGS_Ps-T.png}
+        \subcaption{自発分極}
+        % \label{graph:TGS-current}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.48\columnwidth}
+        \centering
+        \includegraphics[width = \columnwidth]{discussion/TGS_epsilon1-T.png}
+        \subcaption{誘電率}
+        % \label{graph:TSG-Cp}
+    \end{minipage}\\
+    \caption{TGS の誘電特性。降温過程の測定はあまりに急速に冷却したためあまりうまくいっていない。}
+    \label{graph:TGS-histerisis}
+
+    \begin{minipage}[t]{0.48\columnwidth}
+        \centering
+        \includegraphics[width = \columnwidth]{discussion/BTO_Ps-T.png}
+        \subcaption{自発分極}
+        % \label{graph:TGS-current}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.48\columnwidth}
+        \centering
+        \includegraphics[width = \columnwidth]{discussion/BTO_epsilon-T1.png}
+        \subcaption{誘電率}
+        % \label{graph:TSG-Cp}
+    \end{minipage}
+    \caption{BTO の誘電特性}
+    \label{graph:BTO-histerisis}
+\end{figure}
+
+まず TGS について臨界指数を読み取っていく。
+まず比熱の発散の臨界指数 \(\alpha\) を見る。
+図\ref{graph:TGS}では比熱の発散がなく、単なる飛びであるため、\(\alpha = 0\)とみなすことができる。
+自発分極の臨界指数\(\beta\)は図\ref{graph:TGS-histerisis}より
+\(\beta = 0.42\) であるとわかる。
+また、誘電率の逆数がおおよそ温度に比例しているとみなすと \(\gamma=1\) とみなせる。
+すると Rushbrooke の等式の左辺の値は
+\begin{align}
+    \alpha +2\beta+\gamma = 1.84
+\end{align}
+となり悪くない値が出てくる。
+逆に Rushbrooke の等式が正しいとして、
+測定のしにくい誘電率の冪を求めると \(\gamma = 1.16\) であるとわかる。
+
+BTO の臨界指数について、図\ref{graph:BTO-histerisis} より自発分極の発散がないことから
+\(\beta = 0\), 誘電率の発散は\(\gamma = 1\) とわかる。
+これと Rushbrooke の等式より図\ref{graph:BTO-Cp}の比熱の発散は \(\alpha = 1\) であるとわかる。
+
+\section{課題}
+\begin{tcolorbox}[title = 課題1]
+    \[\dot{Q}=C\dv{T}{t}\]を用いて
+    \[H_Q-H_P = \int_{P\to Q}\dot{Q}dt\]
+    および
+    \[S_Q-S_P = \int_{P\to Q}\frac{\dot{Q}}{T}dt\]
+    を示せ。
+\end{tcolorbox}
+
+\begin{align*}
+    \int_{P\to Q}\dot{Q}dt
+    = \int_{P\to Q} C\dv{T}{t}dt
+    = \int_{P\to Q} \qty(\pdv{H}{T})_p dT
+    = H_Q-H_P
+\end{align*}
+そして
+\begin{align}
+    \int_{P\to Q}\frac{\dot{Q}}{T}dt
+    = \int_{P\to Q} \frac{C}{T}\dv{T}{t}dt
+    = \int_{P\to Q} \qty(\pdv{S}{T})_p dT
+    = S_Q-S_P
+\end{align}
+
+\begin{tcolorbox}[title = 課題2]
+    4 つの試料について、昇温時と降温時の転移温度を比較し、
+    異なっている場合にはその理由について考察せよ。
+    なお、実験データから各試料について転移温度をどのように決定したかを明記せよ。
+\end{tcolorbox}
+
+結果のセクションで述べた。
+
+
+\begin{tcolorbox}[title = 課題3]
+    インジウムの融解熱(凝固熱)を調べ、実験で得られた転移エンタルピーと比較せよ。
+\end{tcolorbox}
+
+\cite{chem} の値を使うと In の融解熱は \(\Delta H = 28.58\) J/g である。
+今回の測定で得られたものは\(\Delta H = 2504\) J/g, \(\Delta H = 2510\) J/g
+というように近い値を得ることができた。
 
 \section{結論}
+熱異常の様子から In の固体液相転移は一次相転移、Ni の磁気相転移は二次相転移、
+BTO の変異型強誘電は相転移一次相転移、TGS の秩序・無秩序型強誘電相転移は二次相転移であることが確認できた。
+また、TGS では Rushbrooke の等式がおおよそ正しいことが確認できた。
 
-
+% \clearpage
 \bibliographystyle{junsrt}
 \bibliography{reference}
 \nocite{*}
-
 \appendix
+\section{転移熱を求める際のベースライン}
+転移熱・転移エントロピーを求める際の相転移付近での Current の測定結果とそのベースライン、
+積分値のグラフは以下の通りである。
+\begin{figure}[hbt]
+    \centering
+    \begin{minipage}[t]{0.245\columnwidth}
+        \centering
+        \includegraphics[width = \columnwidth]{appendix/In-dHdt-heat.png}
+        \subcaption{\(\dot{H}\) heating}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.245\columnwidth}
+        \centering
+        \includegraphics[width = \columnwidth]{appendix/In-dHdt-cool.png}
+        \subcaption{\(\dot{H}\) cooling}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.245\columnwidth}
+        \centering
+        \includegraphics[width = \columnwidth]{appendix/In-dSdt-heat.png}
+        \subcaption{\(\dot{S}\) heating}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.245\columnwidth}
+        \centering
+        \includegraphics[width = \columnwidth]{appendix/In-dSdt-cool.png}
+        \subcaption{\(\dot{S}\) cooling}
+    \end{minipage}\\
+    \caption{In}
+
+    \begin{minipage}[t]{0.245\columnwidth}
+        \centering
+        \includegraphics[width = \columnwidth]{appendix/Ni-dHdt-heat.png}
+        \subcaption{\(\dot{H}\) heating}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.245\columnwidth}
+        \centering
+        \includegraphics[width = \columnwidth]{appendix/Ni-dHdt-cool.png}
+        \subcaption{\(\dot{H}\) cooling}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.245\columnwidth}
+        \centering
+        \includegraphics[width = \columnwidth]{appendix/Ni-dSdt-heat.png}
+        \subcaption{\(\dot{S}\) heating}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.245\columnwidth}
+        \centering
+        \includegraphics[width = \columnwidth]{appendix/Ni-dSdt-cool.png}
+        \subcaption{\(\dot{S}\) cooling}
+    \end{minipage}\\
+    \caption{Ni}
+
+    \begin{minipage}[t]{0.245\columnwidth}
+        \centering
+        \includegraphics[width = \columnwidth]{appendix/BTO-dHdt-heat.png}
+        \subcaption{\(\dot{H}\) heating}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.245\columnwidth}
+        \centering
+        \includegraphics[width = \columnwidth]{appendix/BTO-dHdt-cool.png}
+        \subcaption{\(\dot{H}\) cooling}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.245\columnwidth}
+        \centering
+        \includegraphics[width = \columnwidth]{appendix/BTO-dSdt-heat.png}
+        \subcaption{\(\dot{S}\) heating}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.245\columnwidth}
+        \centering
+        \includegraphics[width = \columnwidth]{appendix/BTO-dSdt-cool.png}
+        \subcaption{\(\dot{S}\) cooling}
+    \end{minipage}\\
+    \caption{BTO}
+
+    \begin{minipage}[t]{0.245\columnwidth}
+        \centering
+        \includegraphics[width = \columnwidth]{appendix/TGS-dHdt-heat.png}
+        \subcaption{\(\dot{H}\) heating}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.245\columnwidth}
+        \centering
+        \includegraphics[width = \columnwidth]{appendix/TGS-dHdt-cool.png}
+        \subcaption{\(\dot{H}\) cooling}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.245\columnwidth}
+        \centering
+        \includegraphics[width = \columnwidth]{appendix/TGS-dSdt-heat.png}
+        \subcaption{\(\dot{S}\) heating}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.245\columnwidth}
+        \centering
+        \includegraphics[width = \columnwidth]{appendix/TGS-dSdt-cool.png}
+        \subcaption{\(\dot{S}\) cooling}
+    \end{minipage}\\
+    \caption{TGS}
+\end{figure}
 
 \end{document}
