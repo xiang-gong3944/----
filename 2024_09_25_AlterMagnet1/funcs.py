@@ -508,31 +508,34 @@ class KappaET2X:
 
                         Js = Js_matrix[m,n]
                         J  =  J_matrix[n,m]
-                        # フェルミ分布
-                        efm = 1 if (self.enes[i,j][m]<self.ef) else 0
-                        efn = 1 if (self.enes[i,j][n]<self.ef) else 0
 
-                        chi += Js * J * (efm - efn) / ((self.enes[i,j][m]-self.enes[i,j][n]+1j*gamma)**2)
+                        if(np.abs(self.enes[i,j,m]-self.enes[i,j,n])<1e-6):
+                            continue
+                        #     kelvin = 8.61734 * 10**(-5)
+                        #     temp = kelvin * 10
+                        #     # temp = 0.001
+
+                        #     if(np.abs(self.enes[i,j,m]-self.ef)>3*temp):
+                        #         continue
+
+                        #     fermi_dist = -1/(2*temp*(1+np.cosh((self.enes[i,j,m]-self.ef)/temp)))
+                        #     chi -= 1j * fermi_dist * Js * J / gamma
+
+                        else:
+                            # フェルミ分布
+                            efm = 1 if (self.enes[i,j][m]<self.ef) else 0
+                            efn = 1 if (self.enes[i,j][n]<self.ef) else 0
+
+                            add_chi = Js * J * (efm - efn) / ((self.enes[i,j][m]-self.enes[i,j][n])*(self.enes[i,j][m]-self.enes[i,j][n]+1j*gamma))
+                            chi += add_chi
 
                         # デバッグ用
+                        # Jupyter でこれつけて実行すると出力が多すぎて固まるので注意
                         # print("kx = {:.2f}, ky = {:.2f}, m = {:1d}, n = {:1d}:".format(
                         #     kx[i,j],ky[i,j],m,n))
                         # print("Js = {:.2e}, J = {:.2e}".format(Js, J))
-                        # print("Em-En-igamma = {:.2e}".format(((self.enes[i,j][m]-self.enes[i,j][n]+1j*gamma)**2)))
-                        # print("add chi = {:.2e}".format(Js * J * (efm - efn) / ((self.enes[i,j][m]-self.enes[i,j][n]+1j*gamma)**2)))
-                        # print("")
-
-        # バンド内遷移
-        if(self.kF_index.size < 1):
-            self.calc_kF_index()
-        for kF_index in self.kF_index:
-            i = kF_index[0]
-            j = kF_index[1]
-            m = kF_index[2]
-            Js = self.eigenStates[i,j][:,m].conj() @ SpinCurrent(kx[i,j], ky[i,j], mu) @ self.eigenStates[i,j][:,m]
-            J  = self.eigenStates[i,j][:,m].conj() @     Current(kx[i,j], ky[i,j], nu) @ self.eigenStates[i,j][:,m]
-
-            chi -= 1j * Js * J / gamma
+                        # print("(Em-En)^2 = {:.2e}".format(((self.enes[i,j][m]-self.enes[i,j][n])**2)))
+                        # print("add chi = {:.2e}\n ".format(add_chi))
 
         chi /= (self.k_mesh*self.k_mesh*1j)
 
