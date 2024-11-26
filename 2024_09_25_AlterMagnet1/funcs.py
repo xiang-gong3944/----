@@ -552,11 +552,14 @@ class KappaET2X:
 
                 chi -= 1j * Js * J / gamma
 
+                # デバッグ用
+                print("kx = {:.2f}, ky = {:.2f}, m = {:d}, spin = {:.1f}, Js ={:.2e}, J = {:.2e}".format(
+                    kx[i,j], ky[i,j], m, self.spins[i,j,m], Js, J))
+
         chi /= (self.k_mesh*self.k_mesh*1j)
 
         print("Spin Conductivity calculation finished")
-        print("ReChi = {:1.2e}, ImChi = {:1.2e}".format(np.real(chi), np.imag(chi)))
-        print("")
+        print("ReChi = {:1.2e}, ImChi = {:1.2e}\n".format(np.real(chi), np.imag(chi)))
 
         return chi
 
@@ -613,8 +616,7 @@ class KappaET2X:
         sigma /= (self.k_mesh*self.k_mesh*1j)
 
         print("Conductivity calculation finished")
-        print("ReSigma = {:1.2e}, ImSigma = {:1.2e}".format(np.real(sigma), np.imag(sigma)))
-        print("")
+        print("ReSigma = {:1.2e}, ImSigma = {:1.2e}\n".format(np.real(sigma), np.imag(sigma)))
 
         return sigma
 
@@ -803,8 +805,8 @@ class KappaET2X:
             plt.scatter(kx[i,j], ky[i,j], color=color, s=1)
 
         plt.axis("square")
-        plt.xlim(-3.5,3.5)
-        plt.ylim(-3.5,3.5)
+        plt.xlim(-np.pi, np.pi)
+        plt.ylim(-np.pi, np.pi)
         plt.show()
         return
 
