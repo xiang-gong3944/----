@@ -163,7 +163,8 @@ def Current(kx, ky, mu):
     for i in range(1,8):
         for j in range(0, i):
             J[i][j] = J[j][i].conjugate()
-
+    # v = np.ones(8)
+    # J = -np.diag(v)
     return -J
 
 def SpinCurrent(kx, ky, mu):
@@ -547,14 +548,14 @@ class KappaET2X:
                 Js_matrix = np.conjugate(self.eigenStates[i,j].T) @ SpinCurrent(kx[i,j], ky[i,j], mu) @ self.eigenStates[i,j]
                 J_matrix  = np.conjugate(self.eigenStates[i,j].T) @     Current(kx[i,j], ky[i,j], nu) @ self.eigenStates[i,j]
 
-                Js = Js_matrix[m,n]
-                J  =  J_matrix[n,m]
+                Js = Js_matrix[m,m]
+                J  =  J_matrix[m,m]
 
                 chi -= 1j * Js * J / gamma
 
                 # デバッグ用
-                print("kx = {:.2f}, ky = {:.2f}, m = {:d}, spin = {:.1f}, Js ={:.2e}, J = {:.2e}".format(
-                    kx[i,j], ky[i,j], m, self.spins[i,j,m], Js, J))
+                # print("kx = {:.2f}, ky = {:.2f}, m = {:d}, spin = {:.1f}, Js ={:.2e}, J = {:.2e}".format(
+                #     kx[i,j], ky[i,j], m, self.spins[i,j,m], Js, J))
 
         chi /= (self.k_mesh*self.k_mesh*1j)
 
@@ -608,8 +609,8 @@ class KappaET2X:
                 Jmu_matrix = np.conjugate(self.eigenStates[i,j].T) @  Current(kx[i,j], ky[i,j], mu) @ self.eigenStates[i,j]
                 Jnu_matrix = np.conjugate(self.eigenStates[i,j].T) @  Current(kx[i,j], ky[i,j], nu) @ self.eigenStates[i,j]
 
-                Jmu = Jmu_matrix[m,n]
-                Jnu = Jnu_matrix[n,m]
+                Jmu = Jmu_matrix[m,m]
+                Jnu = Jnu_matrix[m,m]
 
                 sigma -= 1j * Jmu * Jnu / gamma
 
