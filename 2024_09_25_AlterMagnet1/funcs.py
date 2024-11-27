@@ -52,6 +52,7 @@ def gen_kpath(path, npoints = 50):
         segment_dist = np.linspace(total_distance, total_distance+distance, npoints)
         distances.extend(segment_dist)
         total_distance += distance
+    # del spoint, epoint
 
     labels.append(path[-1][1])
     labels_loc.append(total_distance)
@@ -94,6 +95,7 @@ def Hamiltonian(kx, ky, U=0.0, Delta=0.8):
     for i in range(1,8):
         for j in range(0, i):
             H[i][j] = H[j][i].conjugate()
+    del i, j
 
     # 反強磁性分子内磁場を表すハートリー項
     H[0,0] = - U * Delta / 4    # A1 up
@@ -163,8 +165,8 @@ def Current(kx, ky, mu):
     for i in range(1,8):
         for j in range(0, i):
             J[i][j] = J[j][i].conjugate()
-    # v = np.ones(8)
-    # J = -np.diag(v)
+    del i, j
+
     return -J
 
 def SpinCurrent(kx, ky, mu):
@@ -223,6 +225,7 @@ def SpinCurrent(kx, ky, mu):
     for i in range(1,8):
         for j in range(0, i):
             J[i][j] = J[j][i].conjugate()
+    del i, j
 
     return J/2
 
@@ -277,10 +280,13 @@ def calc_spin(enes, eigenstate):
                 -np.abs(eigenstate[7,l])**2    # B2_donw
                 )
         spin.append(sp)
+    del l
+
     for l in range(4):
         if(np.abs(enes[2*l]-enes[2*l + 1])<0.000001):
             spin[2*l] = 0
             spin[2*l+1] = 0
+    del l
 
     return np.array(spin)
 
@@ -333,7 +339,7 @@ class KappaET2X:
             print("SCF calculation was already done.")
             return
 
-        print("SCF calculation start.")
+        print("SCF calculation start. U = {:.2f}, Ne = {:1.2f}, err < {:1.1e}".format(self.U, self.Ne, err))
 
         kx, ky = self.gen_kmesh()
 
@@ -354,6 +360,7 @@ class KappaET2X:
                         enes = np.append(enes, eigenEnergy)
                         eigenEnes[i,j] = eigenEnergy
                         eigenStates[i,j] = eigenState
+                del i, j
 
                 # 求めたエネルギー固有値をソートして下から何番目というのを探してやればよい
                 # 絶縁体相のときのことを考えると平均をとる必要がある
@@ -376,6 +383,7 @@ class KappaET2X:
                                 nsite += np.abs(eigenStates[i,j][:,l])**2
                                 etot  += eigenEnes[i,j,l]
                                 # ntot  += 1.0          # ntot を計算するとなぜか 0 除算が発生する。
+                del i, j, l
 
                 # 規格化して足す
                 nsite /= self.k_mesh * self.k_mesh
@@ -388,6 +396,8 @@ class KappaET2X:
 
                 # ntot /= self.k_mesh * self.k_mesh
                 # self.Ntot_scf = np.append(self.Ntot_scf, ntot)
+
+            del m
 
             # Steffensen の反復法
             ef = Steffensen(self.Ef_scf)
@@ -411,17 +421,17 @@ class KappaET2X:
                 self.delta = self.Delta_scf[-1]
                 self.ef    = self.Ef_scf[-1]
 
-                print("SCF loop converged. U = {:.2f}, Ne = {:1.2f}, err < {:1.1e}, loop = {:2d}, delta = {:1.2e}".format(self.U, self.Ne, err, scf_iteration*3, self.delta))
-                print("")
+                print("SCF loop converged. U = {:.2f}, Ne = {:1.2f}, err < {:1.1e}, loop = {:2d}, delta = {:1.2e}\n".format(self.U, self.Ne, err, scf_iteration*3, self.delta))
 
                 return
+
+        del scf_iteration
 
         # 収束しなかったときの処理
         self.delta = self.Delta_scf[-1]
         self.ef    = self.Ef_scf[-1]
         print('\033[41m'+"Calculation didn't converge. err > {:1.1e}, U = {:.2f}, Ne = {:1.2f} loop = {:2d}, delta = {:1.2e}".format(err, self.U, self. Ne, iteration*3, self.delta)+'\033[0m')
-        print(f"latter deltas are {self.Delta_scf[-4:-1]}")
-        print("")
+        print(f"latter deltas are {self.Delta_scf[-4:-1]}\n")
 
         return
 
@@ -449,20 +459,23 @@ class KappaET2X:
                 self.spins[i,j]        = np.array(spin)
 
                 sorted_enes = np.append(sorted_enes, enes)
+        del i, j
 
         sorted_enes = np.sort(sorted_enes)
         self.ef = (sorted_enes[int(self.k_mesh * self.k_mesh * self.Ne) - 1] + sorted_enes[int(self.k_mesh * self.k_mesh * self.Ne)])/2
 
-        print("NSCF calculation finished.")
-        print("")
+        print("NSCF calculation finished.\n")
         return
 
 
     def calc_dos(self, E_fineness=1000, sigma2 = 0.0001):
 
         self.E = np.linspace(np.min(self.enes)-0.1, np.max(self.enes)+0.1, E_fineness)
+
         for e in self.E:
             self.dos = np.append(self.dos, np.sum(np.exp(-(e-self.enes)**2 / 2 / sigma2 ) / np.sqrt(2 * np.pi * sigma2)))
+        del e
+
         self.dos /= np.sum(self.dos)
 
 
@@ -498,7 +511,7 @@ class KappaET2X:
                         and np.abs(self.enes[i,j][m]-self.ef) < np.abs(self.enes[i,j-1][m]-self.ef)):
                             self.kF_index = np.vstack((self.kF_index, append_index))
                             continue
-
+        del i, j, m
 
         self.kF_index = np.delete(self.kF_index, 0, 0)
         return
@@ -525,37 +538,39 @@ class KappaET2X:
         for i in range(self.k_mesh):
             for j in range(self.k_mesh):
 
-                Js_matrix = np.conjugate(self.eigenStates[i,j].T) @ SpinCurrent(kx[i,j], ky[i,j], mu) @ self.eigenStates[i,j]
-                J_matrix  = np.conjugate(self.eigenStates[i,j].T) @     Current(kx[i,j], ky[i,j], nu) @ self.eigenStates[i,j]
+                Jmu_matrix = np.conjugate(self.eigenStates[i,j].T) @ SpinCurrent(kx[i,j], ky[i,j], mu) @ self.eigenStates[i,j]
+                Jnu_matrix = np.conjugate(self.eigenStates[i,j].T) @     Current(kx[i,j], ky[i,j], nu) @ self.eigenStates[i,j]
 
                 for m in range(8):
                     for n in range(8):
 
-                        Js = Js_matrix[m,n]
-                        J  =  J_matrix[n,m]
+                        Jmu = Jmu_matrix[m,n]
+                        Jnu  = Jnu_matrix[n,m]
 
                         if(np.abs(self.enes[i,j,m]-self.enes[i,j,n]) > 1e-6):
                             # フェルミ分布
                             efm = 1 if (self.enes[i,j][m]<self.ef) else 0
                             efn = 1 if (self.enes[i,j][n]<self.ef) else 0
 
-                            add_chi = Js * J * (efm - efn) / ((self.enes[i,j][m]-self.enes[i,j][n])*(self.enes[i,j][m]-self.enes[i,j][n]+1j*gamma))
+                            add_chi = Jmu * Jnu * (efm - efn) / ((self.enes[i,j][m]-self.enes[i,j][n])*(self.enes[i,j][m]-self.enes[i,j][n]+1j*gamma))
                             chi += add_chi
+        del i, j, m, n
 
         # バンド内遷移
         for (i, j, m) in self.kF_index:
 
-                Js_matrix = np.conjugate(self.eigenStates[i,j].T) @ SpinCurrent(kx[i,j], ky[i,j], mu) @ self.eigenStates[i,j]
-                J_matrix  = np.conjugate(self.eigenStates[i,j].T) @     Current(kx[i,j], ky[i,j], nu) @ self.eigenStates[i,j]
+                Jmu_matrix = np.conjugate(self.eigenStates[i,j].T) @ SpinCurrent(kx[i,j], ky[i,j], mu) @ self.eigenStates[i,j]
+                Jnu_matrix  = np.conjugate(self.eigenStates[i,j].T) @     Current(kx[i,j], ky[i,j], nu) @ self.eigenStates[i,j]
 
-                Js = Js_matrix[m,m]
-                J  =  J_matrix[m,m]
+                Jmu = Jmu_matrix[m,m]
+                Jnu = Jnu_matrix[m,m]
 
-                chi -= 1j * Js * J / gamma
+                chi += 1j * Jmu * Jnu / gamma
 
                 # デバッグ用
                 # print("kx = {:.2f}, ky = {:.2f}, m = {:d}, spin = {:.1f}, Js ={:.2e}, J = {:.2e}".format(
                 #     kx[i,j], ky[i,j], m, self.spins[i,j,m], Js, J))
+        # del i, j, m
 
         chi /= (self.k_mesh*self.k_mesh*1j)
 
@@ -602,6 +617,7 @@ class KappaET2X:
 
                             add_sigma = Jmu * Jnu * (efm - efn) / ((self.enes[i,j][m]-self.enes[i,j][n])*(self.enes[i,j][m]-self.enes[i,j][n]+1j*gamma))
                             sigma += add_sigma
+        del i, j, m
 
         # バンド内遷移
         for (i, j, m) in self.kF_index:
@@ -612,7 +628,8 @@ class KappaET2X:
                 Jmu = Jmu_matrix[m,m]
                 Jnu = Jnu_matrix[m,m]
 
-                sigma -= 1j * Jmu * Jnu / gamma
+                sigma += 1j * Jmu * Jnu / gamma
+        # del i, j, m
 
         sigma /= (self.k_mesh*self.k_mesh*1j)
 
@@ -670,12 +687,14 @@ class KappaET2X:
 
         bands = []
         spins = []
-        # plt.xticks(label)
+
         for kxy in k_path:
             enes, eigenstate = Hamiltonian(kxy[0], kxy[1], self.U, self.delta)
             bands.append(enes)
             spin = calc_spin(enes, eigenstate)
             spins.append(spin)
+        del kxy
+
         bands = np.array(bands)
         spins = np.array(spins)
 
@@ -683,7 +702,6 @@ class KappaET2X:
         ax = fig.add_subplot(111)
         ax.yaxis.set_ticks_position('both')
         ax.xaxis.set_ticks_position('both')
-        # ax.set_aspect(5)
         plt.rcParams['xtick.direction'] = 'in'
         plt.rcParams['ytick.direction'] = 'in'
 
@@ -703,8 +721,11 @@ class KappaET2X:
 
         colors = ["tab:blue", "tab:green","tab:orange"]
         cmap_name = LinearSegmentedColormap.from_list("custom",colors, 10)
+
         for i in range(8):
             plt.scatter(distances, bands[:,i], c=spins[:,i], cmap=cmap_name, vmin=-1, vmax=1, s=1)
+        del i
+
         plt.vlines(label_loc[1:-1], Ymin,Ymax, "grey", "dashed")
         plt.hlines(self.ef, distances[0], distances[-1], "grey")
         plt.title("$E_f$ = {:.5f}".format(self.ef))
@@ -761,6 +782,7 @@ class KappaET2X:
                     # hidesurface=True,
                 )
             )
+        del i
 
         axis = dict(visible=True)
         fig.update_scenes(
@@ -804,6 +826,7 @@ class KappaET2X:
             if(self.spins[i,j,m] < -0.1):
                 color = "tab:blue"
             plt.scatter(kx[i,j], ky[i,j], color=color, s=1)
+        # del i, j, m
 
         plt.axis("square")
         plt.xlim(-np.pi, np.pi)
