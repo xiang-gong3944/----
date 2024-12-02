@@ -312,19 +312,9 @@ class KappaET2X:
         self.Etot_scf   = np.array([0.8])
         self.Ntot_scf   = np.array([Ne])
 
-        self.delta      = 0
-        self.ef         = 0
-        self.enes       = np.zeros((k_mesh, k_mesh, 8))
-        self.eigenStates= np.zeros((k_mesh, k_mesh, 8, 8), dtype=np.complex128)
-        self.spins      = np.zeros((k_mesh, k_mesh, 8))
-
         self.path       = [("Γ", "Y"), ("Y", "M'"), ("M'", "Σ'"), ("Σ'","Γ"),
                            ("Γ", "Σ"), ("Σ", "M"), ("M", "X"), ("X", "Γ")]
 
-        self.E          = 0
-        self.dos        = np.array([])
-
-        self.kF_index = np.array([[-1, -1, -1]])
 
     def calc_scf(self, iteration = 100, err = 1e-6):
         """自己無頓着計算を行う。delta と ef を決定する。
@@ -341,7 +331,7 @@ class KappaET2X:
 
         print("SCF calculation start. U = {:.2f}, Ne = {:1.2f}, err < {:1.1e}".format(self.U, self.Ne, err))
 
-        kx, ky = self.gen_kmesh()
+        kx, ky = self._gen_kmesh()
 
         # ここから自己無頓着方程式のループになる
         for scf_iteration in range(iteration):
@@ -436,18 +426,23 @@ class KappaET2X:
         return
 
 
-    def calc_nscf(self):
+    def calc_nscf(self, fineness=5):
         """
         delta と ef が与えられたときの各k点の固有状態のエネルギー、状態ベクトル、スピンの大きさの計算をする
         """
+        if(not hasattr(self, "delta") or not hasattr(self, "ef")):
+            print("have not set delta or ef yet")
+            return
 
         print("NSCF calculation start.")
 
-        # ブリュアンゾーンのメッシュの生成
-        kx, ky = self.gen_kmesh()
+        self.k_mesh *= fineness
+        self.enes       = np.zeros((self.k_mesh, self.k_mesh, 8))
+        self.eigenStates= np.zeros((self.k_mesh, self.k_mesh, 8, 8), dtype=np.complex128)
+        self.spins      = np.zeros((self.k_mesh, self.k_mesh, 8))
 
-        # フェルミ準位を求めるためのリスト
-        sorted_enes = np.array([])
+        # ブリュアンゾーンのメッシュの生成
+        kx, ky = self._gen_kmesh()
 
         # メッシュの各点でのエネルギー固有値の計算
         for i in range(self.k_mesh):
@@ -458,11 +453,7 @@ class KappaET2X:
                 self.eigenStates[i,j]  = eigenstate
                 self.spins[i,j]        = np.array(spin)
 
-                sorted_enes = np.append(sorted_enes, enes)
         del i, j
-
-        sorted_enes = np.sort(sorted_enes)
-        self.ef = (sorted_enes[int(self.k_mesh * self.k_mesh * self.Ne) - 1] + sorted_enes[int(self.k_mesh * self.k_mesh * self.Ne)])/2
 
         print("NSCF calculation finished.\n")
         return
@@ -471,13 +462,13 @@ class KappaET2X:
     def calc_dos(self, E_fineness=1000, sigma2 = 0.0001):
 
         self.E = np.linspace(np.min(self.enes)-0.1, np.max(self.enes)+0.1, E_fineness)
+        self.dos = np.array([])
 
         for e in self.E:
             self.dos = np.append(self.dos, np.sum(np.exp(-(e-self.enes)**2 / 2 / sigma2 ) / np.sqrt(2 * np.pi * sigma2)))
         del e
 
         self.dos /= np.sum(self.dos)*(self.E[1]-self.E[0])
-        # self.dos /= self.k_mesh ** 2
 
         return
 
@@ -489,30 +480,63 @@ class KappaET2X:
         for i in range(self.k_mesh):
             for j in range(self.k_mesh):
                 for m in range(8):
-                    append_index = np.array([i, j, m])
-
-                    if(i < self.k_mesh-1):
-                        if((self.enes[i,j][m]-self.ef)*(self.enes[i+1,j][m]-self.ef) < 0
-                            and np.abs(self.enes[i,j][m]-self.ef) < np.abs(self.enes[i+1,j][m]-self.ef)):
-                            self.kF_index = np.vstack((self.kF_index, append_index))
+                    candidate_kF_index  = np.array([i, j, m])
+                    ene_ij = self.enes[i,j,m]
+                    # 八方で確かめる
+                    if(i < self.k_mesh-1): # 南方向
+                        ene_delta = self.enes[i+1,j,m]
+                        if((ene_ij-self.ef)*(ene_delta-self.ef) < 0
+                            and np.abs(ene_ij-self.ef) < np.abs(ene_delta-self.ef)):
+                            self.kF_index = np.vstack((self.kF_index, candidate_kF_index))
                             continue
 
-                    if(j < self.k_mesh-1):
-                        if((self.enes[i,j][m]-self.ef)*(self.enes[i,j+1][m]-self.ef) < 0
-                            and np.abs(self.enes[i,j][m]-self.ef) < np.abs(self.enes[i,j+1][m]-self.ef)):
-                            self.kF_index = np.vstack((self.kF_index, append_index))
+                    if(j < self.k_mesh-1): # 東方向
+                        ene_delta = self.enes[i,j+1,m]
+                        if((ene_ij-self.ef)*(ene_delta-self.ef) < 0
+                            and np.abs(ene_ij-self.ef) < np.abs(ene_delta-self.ef)):
+                            self.kF_index = np.vstack((self.kF_index, candidate_kF_index ))
                             continue
 
-                    if(i > 0):
-                        if((self.enes[i,j][m]-self.ef)*(self.enes[i-1,j][m]-self.ef) < 0
-                            and np.abs(self.enes[i,j][m]-self.ef) < np.abs(self.enes[i-1,j][m]-self.ef)):
-                            self.kF_index = np.vstack((self.kF_index, append_index))
+                    if(i > 0): # 北方向
+                        ene_delta = self.enes[i-1,j,m]
+                        if((ene_ij-self.ef)*(ene_delta-self.ef) < 0
+                            and np.abs(ene_ij-self.ef) < np.abs(ene_delta-self.ef)):
+                            self.kF_index = np.vstack((self.kF_index, candidate_kF_index ))
                             continue
 
-                    if(j > 0):
-                        if((self.enes[i,j][m]-self.ef)*(self.enes[i,j-1][m]-self.ef) < 0
-                        and np.abs(self.enes[i,j][m]-self.ef) < np.abs(self.enes[i,j-1][m]-self.ef)):
-                            self.kF_index = np.vstack((self.kF_index, append_index))
+                    if(j > 0): # 西方向
+                        ene_delta = self.enes[i,j-1,m]
+                        if((ene_ij-self.ef)*(ene_delta-self.ef) < 0
+                            and np.abs(ene_ij-self.ef) < np.abs(ene_delta-self.ef)):
+                            self.kF_index = np.vstack((self.kF_index, candidate_kF_index ))
+                            continue
+
+                    if(i < self.k_mesh-1 and j < self.k_mesh-1): # 南東方向
+                        ene_delta = self.enes[i+1,j+1,m]
+                        if((ene_ij-self.ef)*(ene_delta-self.ef) < 0
+                            and np.abs(ene_ij-self.ef) < np.abs(ene_delta-self.ef)):
+                            self.kF_index = np.vstack((self.kF_index, candidate_kF_index ))
+                            continue
+
+                    if(i > 0 and j < self.k_mesh-1): # 北東方向
+                        ene_delta = self.enes[i-1,j+1,m]
+                        if((ene_ij-self.ef)*(ene_delta-self.ef) < 0
+                            and np.abs(ene_ij-self.ef) < np.abs(ene_delta-self.ef)):
+                            self.kF_index = np.vstack((self.kF_index, candidate_kF_index))
+                            continue
+
+                    if(i > 0 and j > 0): # 北西方向
+                        ene_delta = self.enes[i-1,j-1,m]
+                        if((ene_ij-self.ef)*(ene_delta-self.ef) < 0
+                            and np.abs(ene_ij-self.ef) < np.abs(ene_delta-self.ef)):
+                            self.kF_index = np.vstack((self.kF_index, candidate_kF_index))
+                            continue
+
+                    if(i < self.k_mesh-1 and j > 0): # 南西方向
+                        ene_delta = self.enes[i+1,j-1,m]
+                        if((ene_ij-self.ef)*(ene_delta-self.ef) < 0
+                            and np.abs(ene_ij-self.ef) < np.abs(ene_delta-self.ef)):
+                            self.kF_index = np.vstack((self.kF_index, candidate_kF_index))
                             continue
         del i, j, m
 
@@ -520,22 +544,22 @@ class KappaET2X:
         return
 
 
-    def calc_spin_conductivity(self, mu, nu, gamma=0.0001):
-        if(self.enes[0,0,0] == 0):
+    def calc_spin_conductivity(self, mu="x", nu="y", gamma=0.0001):
+        if(not hasattr(self, "enes")):
             print("NSCF calculation wasn't done yet.")
             return
 
         print("SpinConductivity calculation start.")
 
         # フェルミ面の計算をしていなかったらする
-        if(self.kF_index.size < 4):
+        if(not hasattr(self, "kF_index")):
             self.calc_kF_index()
 
         # スピン伝導度 複素数として初期化
         chi = 0.0 + 0.0*1j
 
         # ブリュアンゾーンのメッシュの生成
-        kx, ky = self.gen_kmesh()
+        kx, ky = self._gen_kmesh()
 
         # バンド間遷移
         for i in range(self.k_mesh):
@@ -560,7 +584,7 @@ class KappaET2X:
         del i, j, m, n
 
         # バンド内遷移
-        for (i, j, m) in self.kF_index:
+        for i, j, m in self.kF_index:
 
                 Jmu_matrix = np.conjugate(self.eigenStates[i,j].T) @ SpinCurrent(kx[i,j], ky[i,j], mu) @ self.eigenStates[i,j]
                 Jnu_matrix  = np.conjugate(self.eigenStates[i,j].T) @     Current(kx[i,j], ky[i,j], nu) @ self.eigenStates[i,j]
@@ -573,7 +597,7 @@ class KappaET2X:
                 # デバッグ用
                 # print("kx = {:.2f}, ky = {:.2f}, m = {:d}, spin = {:.1f}, Js ={:.2e}, J = {:.2e}".format(
                 #     kx[i,j], ky[i,j], m, self.spins[i,j,m], Js, J))
-        # del i, j, m
+        del i, j, m
 
         chi /= (self.k_mesh*self.k_mesh*1j)
 
@@ -583,22 +607,22 @@ class KappaET2X:
         return chi
 
 
-    def calc_conductivity(self, mu, nu, gamma=0.0001):
-        if(self.enes[0,0,0] == 0):
+    def calc_conductivity(self, mu="x", nu="y", gamma=0.0001):
+        if(not hasattr(self, "enes")):
             print("NSCF calculation wasn't done yet.")
             return
 
         print("Conductivity calculation start.")
 
         # フェルミ面の計算をしていなかったらする
-        if(self.kF_index.size < 4):
+        if(not hasattr(self, "kF_index")):
             self.calc_kF_index()
 
         # 伝導度 複素数として初期化
         sigma = 0.0 + 0.0*1j
 
         # ブリュアンゾーンのメッシュの生成
-        kx, ky = self.gen_kmesh()
+        kx, ky = self._gen_kmesh()
 
         # ブリュアンゾーンの和
         for i in range(self.k_mesh):
@@ -623,7 +647,7 @@ class KappaET2X:
         del i, j, m
 
         # バンド内遷移
-        for (i, j, m) in self.kF_index:
+        for i, j, m in self.kF_index:
 
                 Jmu_matrix = np.conjugate(self.eigenStates[i,j].T) @  Current(kx[i,j], ky[i,j], mu) @ self.eigenStates[i,j]
                 Jnu_matrix = np.conjugate(self.eigenStates[i,j].T) @  Current(kx[i,j], ky[i,j], nu) @ self.eigenStates[i,j]
@@ -632,7 +656,7 @@ class KappaET2X:
                 Jnu = Jnu_matrix[m,m]
 
                 sigma += 1j * Jmu * Jnu / gamma
-        # del i, j, m
+        del i, j, m
 
         sigma /= (self.k_mesh*self.k_mesh*1j)
 
@@ -682,8 +706,8 @@ class KappaET2X:
 
 
     def plot_band(self):
-        if(self.Ef_scf.size < 2):
-            print("SCF calculation wasn't done yet.")
+        if(not hasattr(self, "delta") or not hasattr(self, "ef")):
+            print("have not set delta or ef yet")
             return
 
         k_path, label, label_loc, distances = gen_kpath(self.path)
@@ -741,11 +765,11 @@ class KappaET2X:
     def plot3d_band(self):
     # 参考 https://qiita.com/okumakito/items/3b2ccc9966c43a5e84d0
 
-        if(self.Ef_scf.size < 2):
-            print("SCF calculation wasn't done yet.")
+        if(not hasattr(self, "delta") or not hasattr(self, "ef")):
+            print("have not set delta or ef yet")
             return
 
-        kx, ky = self.gen_kmesh()
+        kx, ky = self._gen_kmesh()
 
         fig = go.Figure()
 
@@ -803,7 +827,7 @@ class KappaET2X:
 
 
     def plot_dos(self):
-        if(self.dos.size < 2):
+        if(not hasattr(self, "dos")):
             self.calc_dos()
 
         E = np.linspace(np.min(self.enes)-0.1, np.max(self.enes)+0.1, self.dos.size)
@@ -813,8 +837,8 @@ class KappaET2X:
 
         plt.plot(E, self.dos)
 
-        plt.ylable("Energy (eV)")
-        plt.ylable("DOS")
+        plt.xlabel("Energy (eV)")
+        plt.ylabel("DOS")
         plt.vlines(self.ef, -0.04*ysacale, 1.04*ysacale, color="gray", linestyles="dashed")
         plt.title("Ef={:.2f} eV".format(self.ef))
         plt.show()
@@ -823,19 +847,19 @@ class KappaET2X:
 
 
     def plot_fermi_surface(self):
-        if(self.kF_index.size < 4):
+        if(not hasattr(self, "kF_index")):
             self.calc_kF_index()
 
-        kx, ky = self.gen_kmesh()
+        kx, ky = self._gen_kmesh()
 
-        for (i, j, m) in self.kF_index:
+        for i, j, m in self.kF_index:
             color = "tab:green"
             if(self.spins[i,j,m] > 0.1):
                 color = "tab:orange"
             if(self.spins[i,j,m] < -0.1):
                 color = "tab:blue"
             plt.scatter(kx[i,j], ky[i,j], color=color, s=1)
-        # del i, j, m
+        del i, j, m
 
         plt.axis("square")
         plt.xlim(-np.pi, np.pi)
@@ -844,7 +868,7 @@ class KappaET2X:
         return
 
 
-    def gen_kmesh(self):
-        kx = np.linspace(-np.pi, np.pi, self.k_mesh)
-        ky = np.linspace(-np.pi, np.pi, self.k_mesh)
+    def _gen_kmesh(self, kx0 = 0.0, ky0 = 0.0, length = np.pi):
+        kx = np.linspace(kx0 - length, kx0 + length, self.k_mesh)
+        ky = np.linspace(ky0 - length, ky0 + length, self.k_mesh)
         return(np.meshgrid(kx, ky))
