@@ -312,8 +312,19 @@ class KappaET2X:
         self.Etot_scf   = np.array([0.8])
         self.Ntot_scf   = np.array([Ne])
 
+        self.delta      = 0
+        self.ef         = 0
+        self.enes       = np.zeros((k_mesh, k_mesh, 8))
+        self.eigenStates= np.zeros((k_mesh, k_mesh, 8, 8), dtype=np.complex128)
+        self.spins      = np.zeros((k_mesh, k_mesh, 8))
+
         self.path       = [("Γ", "Y"), ("Y", "M'"), ("M'", "Σ'"), ("Σ'","Γ"),
                            ("Γ", "Σ"), ("Σ", "M"), ("M", "X"), ("X", "Γ")]
+
+        self.E          = 0
+        self.dos        = np.array([])
+
+        self.kF_index = np.array([[-1, -1, -1]])
 
 
     def calc_scf(self, iteration = 100, err = 1e-6):
@@ -430,9 +441,6 @@ class KappaET2X:
         """
         delta と ef が与えられたときの各k点の固有状態のエネルギー、状態ベクトル、スピンの大きさの計算をする
         """
-        if(not hasattr(self, "delta") or not hasattr(self, "ef")):
-            print("have not set delta or ef yet")
-            return
 
         print("NSCF calculation start.")
 
@@ -545,7 +553,7 @@ class KappaET2X:
 
 
     def calc_spin_conductivity(self, mu="x", nu="y", gamma=0.0001):
-        if(not hasattr(self, "enes")):
+        if(self.enes[0,0,0] == 0):
             print("NSCF calculation wasn't done yet.")
             return
 
@@ -587,7 +595,7 @@ class KappaET2X:
         for i, j, m in self.kF_index:
 
                 Jmu_matrix = np.conjugate(self.eigenStates[i,j].T) @ SpinCurrent(kx[i,j], ky[i,j], mu) @ self.eigenStates[i,j]
-                Jnu_matrix  = np.conjugate(self.eigenStates[i,j].T) @     Current(kx[i,j], ky[i,j], nu) @ self.eigenStates[i,j]
+                Jnu_matrix = np.conjugate(self.eigenStates[i,j].T) @     Current(kx[i,j], ky[i,j], nu) @ self.eigenStates[i,j]
 
                 Jmu = Jmu_matrix[m,m]
                 Jnu = Jnu_matrix[m,m]
@@ -608,7 +616,7 @@ class KappaET2X:
 
 
     def calc_conductivity(self, mu="x", nu="y", gamma=0.0001):
-        if(not hasattr(self, "enes")):
+        if(self.enes[0,0,0] == 0):
             print("NSCF calculation wasn't done yet.")
             return
 
@@ -706,8 +714,8 @@ class KappaET2X:
 
 
     def plot_band(self):
-        if(not hasattr(self, "delta") or not hasattr(self, "ef")):
-            print("have not set delta or ef yet")
+        if(self.Ef_scf.size < 2):
+            print("SCF calculation wasn't done yet.")
             return
 
         k_path, label, label_loc, distances = gen_kpath(self.path)
@@ -765,8 +773,8 @@ class KappaET2X:
     def plot3d_band(self):
     # 参考 https://qiita.com/okumakito/items/3b2ccc9966c43a5e84d0
 
-        if(not hasattr(self, "delta") or not hasattr(self, "ef")):
-            print("have not set delta or ef yet")
+        if(self.Ef_scf.size < 2):
+            print("SCF calculation wasn't done yet.")
             return
 
         kx, ky = self._gen_kmesh()
@@ -827,7 +835,7 @@ class KappaET2X:
 
 
     def plot_dos(self):
-        if(not hasattr(self, "dos")):
+        if(self.dos.size < 2):
             self.calc_dos()
 
         E = np.linspace(np.min(self.enes)-0.1, np.max(self.enes)+0.1, self.dos.size)
@@ -847,7 +855,7 @@ class KappaET2X:
 
 
     def plot_fermi_surface(self):
-        if(not hasattr(self, "kF_index")):
+        if(self.kF_index.size < 4):
             self.calc_kF_index()
 
         kx, ky = self._gen_kmesh()

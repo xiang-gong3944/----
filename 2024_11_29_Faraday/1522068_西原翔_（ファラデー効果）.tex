@@ -108,6 +108,137 @@
 \bibliography{reference}
 \nocite{*}
 \appendix
+\section{ファラデー効果の現象論}
+\subsection{ファラデー配置における電気感受率}
+系の対称性からファラデー効果が生じることを見ていく。
+磁場\(H\)が\(z\)方向にかかっている試料に、
+同じく\(z\)軸方向に進む光電場\(E\)があるという系である。
+これをファラデー配置という。
+試料は少なくとも\(z\)軸に関して \(\pi/2\) 回転する (\(C_4\)を施す) としても変わらない対称性があるとする。
+
+電気感受率テンソル\(\chi_{ij}\)は\(C_4\)に対して
+\begin{align}
+    &\chi_{ij}
+    = \begin{pmatrix}
+        \chi_{xx} & \chi_{xy} & \chi_{xz}\\
+        \chi_{yx} & \chi_{yy} & \chi_{yz}\\
+        \chi_{zx} & \chi_{zy} & \chi_{zz}
+    \end{pmatrix}\\
+    &\rightarrow\quad
+    C_4^{-1}\chi_{ij}C_4
+    = \begin{pmatrix}
+        0 & -1 & 0\\
+        1 & 0 & 0\\
+        0 & 0 & 1
+    \end{pmatrix}
+    \begin{pmatrix}
+        \chi_{xx} & \chi_{xy} & \chi_{xz}\\
+        \chi_{yx} & \chi_{yy} & \chi_{yz}\\
+        \chi_{zx} & \chi_{zy} & \chi_{zz}
+    \end{pmatrix}
+    \begin{pmatrix}
+        0 & 1 & 0\\
+        -1 & 0 & 0\\
+        0 & 0 & 1
+    \end{pmatrix}
+    = \begin{pmatrix}
+        \chi_{yy} & -\chi_{yx} & -\chi_{yz}\\
+        -\chi_{xy} & \chi_{xx} & \chi_{xz}\\
+        \chi_{-zy} & \chi_{zx} & \chi_{zz}
+    \end{pmatrix}
+\end{align}
+というように変化する。
+これらが等しいというのが系の対称性からの要請なので、
+電気感受率テンソルは
+\begin{align}
+    \chi_{ij}
+    &= \begin{pmatrix}
+        \chi_{xx}(H) & \chi_{xy}(H) & 0\\
+        -\chi_{xy}(H) & \chi_{xx}(H) & 0\\
+        0 & 0 & \chi_{zz}(H)
+    \end{pmatrix}
+\end{align}
+と書ける。
+ここで、磁気光学効果があるので電気感受率が磁場\(H\)の関数であることを明記した。
+
+また、電気感受率は線形応答理論理論より分極演算子\(P_i(r,t)\)を使って
+\begin{align}
+    \chi_{ij}(r-r',\,t-t';H) = -\frac{i}{\hbar}\theta(t-t')\ev{\left[P_i(r,t),\,P_j(r',t')\right]}(H)
+\end{align}
+と書ける。これに時間反転\((t,\,t',\,i,\,H)\rightarrow(-t,\,-t',\,-i,\,H)\)を施すと
+\begin{align}
+    \chi_{ij}(r-r',\,-t+t';-H)
+    &= \frac{i}{\hbar}\theta(-t+t')\ev{\left[P_i(r,-t),\,P_j(r',-t')\right]}(-H)\notag\\
+    &= -\frac{i}{\hbar}\theta(t'-t)\ev{\left[P_j(r',t'),\,P_i(r,t)\right]}(-H)\notag\\
+    &= \chi_{ji}(r'-r,\,t'-t;-H) = \chi_{ji}(r-r',\,t-t';-H)
+\end{align}
+というようになる。
+途中で分極は時間反転に関して\(P(t)=P(-t)\)であること、
+グリーン関数の対称性\(G(r,t)=G(-r,-t)\)を使った。
+よって電気感受率には次の関係 (オンサーガーの相反定理)
+\begin{align}
+    \chi_{ij}(H) = \chi_{ji}(-H)
+\end{align}
+があることがわかった。
+これを使うと\(\chi_{xx},\,\chi_{yy}\)は磁場\(H\)に関して偶関数、
+\(\chi_{xy}\)は磁場\(H\)に関して奇関数であると言える。
+つまり、磁場\(H\)がないときには、
+電気感受率、言い換えると誘電率テンソルの非対角項は現れないということである。
+
+\subsection{電磁場の固有値問題}
+電磁場の振る舞いを見るにはマクスウェル方程式を解く必要がある。
+試料中には真電荷や真電流はないのでマクスウェル方程式のうち、
+\begin{align}
+    \curl E = -\mu_0\pdv{H}{t},\qquad \curl{H} = \varepsilon\varepsilon_0 \pdv{E}{t}
+\end{align}
+この2つを解けばよい。
+電場と磁場をフーリエ変換して波数と周波数表示するとこの方程式は
+\begin{align}
+    k \times E(k,\omega) = \mu_0 \omega H(k,\omega),\qquad
+    k \times H(k,\omega) = -\varepsilon\varepsilon_0 \omega E(k,\omega)
+\end{align}
+となる。
+この式からベクトル解析の公式\(A\times(B\times C) = (A\cdot C)B-(A\cdot B)C\)と、
+波数ベクトルと電場の振幅方向が直交していることを使うと
+光を使って磁場を消去してやると
+\begin{align}
+    - k^2 E +\varepsilon\frac{\omega^2}{c^2}E = 0
+\end{align}
+という方程式が得られる。。
+複素屈折率\(\tilde{n}=n+i\kappa\)を用いた媒質中での光の分散関係\(k = \omega \tilde{n}/c\)を使うと、
+この式は固有値\(\tilde{n}^2\)固有ベクトル\(Ex(\omega),\,Ez(\omega),\,Ez(\omega)\)の固有値方程式
+\begin{align}
+    \begin{pmatrix}
+        \varepsilon_{xx}-\tilde{n}^2 & \varepsilon_{xy} & 0\\
+        -\varepsilon_{xy} & \varepsilon_{xx}-\tilde{n}^2 & 0 \\
+        0 & 0 & \varepsilon_{zz}
+    \end{pmatrix}
+    \begin{pmatrix}
+        Ex(\omega)\\
+        Ey(\omega)\\
+        Ez(\omega)
+    \end{pmatrix} = 0
+\end{align}
+というようになる。
+これの解は
+\begin{align}
+    \tilde{n}^2_\pm = \varepsilon_{xx} \pm i\varepsilon_{xy},\qquad
+    E_{\pm}(\omega) = E_0\frac{E_x(\omega)\pm iE_y(\omega)}{\sqrt{2}}
+\end{align}
+である。
+位置・時間表示に戻すとジョーンズベクトルを使って
+\begin{align}
+    E_{\pm}(z, t) = E_o \exp(-i\omega\qty(t-\frac{\tilde{n_\pm}}{c}z)) \frac{1}{\sqrt{2}}
+    \begin{pmatrix}
+        1 \\ \pm i
+    \end{pmatrix}
+\end{align}
+というようになる。
+
+この結果は誘電率テンソルの非対角項があるような媒質中では円偏光が基準モードとなる。
+また屈折率に注目すると、左回りと右周りで屈折率が違うことから進む速さ・減衰の仕方が変わってくることがわかる。
+
+
 
 
 \end{document}
