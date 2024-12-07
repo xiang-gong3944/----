@@ -31,8 +31,8 @@
 \usepackage{fancyhdr}
 \pagestyle{fancy}
 \lhead{応用物理学実験:ファラデー効果}
-\rhead{\bf\thepage}
-\cfoot{}
+\rhead{1522068 西原 翔}
+\cfoot{\thepage}
 
 \graphicspath{{./image/}}
 
@@ -153,37 +153,46 @@
 \begin{align}
     \chi_{ij}
     &= \begin{pmatrix}
-        \chi_{xx}(H) & \chi_{xy}(H) & 0\\
-        -\chi_{xy}(H) & \chi_{xx}(H) & 0\\
-        0 & 0 & \chi_{zz}(H)
+        \chi_{xx}(M) & \chi_{xy}(M) & 0\\
+        -\chi_{xy}(M) & \chi_{xx}(M) & 0\\
+        0 & 0 & \chi_{zz}(M)
     \end{pmatrix}
 \end{align}
 と書ける。
 ここで、磁気光学効果があるので電気感受率が磁場\(H\)の関数であることを明記した。
 
-また、電気感受率は線形応答理論理論より分極演算子\(P_i(r,t)\)を使って
+また、電気感受率は線形応答理論理論より分極演算子\(\hat{P}_i(r,t)\)を使って
 \begin{align}
-    \chi_{ij}(r-r',\,t-t';H) = -\frac{i}{\hbar}\theta(t-t')\ev{\left[P_i(r,t),\,P_j(r',t')\right]}(H)
+    \chi_{ij}(r-r',\,t-t';M) = -\frac{i}{\hbar}\theta(t-t')\ev{\left[\hat{P}_i(r,t),\,\hat{P}_j(r',t')\right]}_{M}
 \end{align}
-と書ける。これに時間反転\((t,\,t',\,i,\,H)\rightarrow(-t,\,-t',\,-i,\,H)\)を施すと
+と書ける。これに時間反転\((t,\,t',\,i,\,M)\rightarrow(-t,\,-t',\,-i,\,-M)\)を施すと
 \begin{align}
-    \chi_{ij}(r-r',\,-t+t';-H)
-    &= \frac{i}{\hbar}\theta(-t+t')\ev{\left[P_i(r,-t),\,P_j(r',-t')\right]}(-H)\notag\\
-    &= -\frac{i}{\hbar}\theta(t'-t)\ev{\left[P_j(r',t'),\,P_i(r,t)\right]}(-H)\notag\\
-    &= \chi_{ji}(r'-r,\,t'-t;-H) = \chi_{ji}(r-r',\,t-t';-H)
+    \chi_{ij}(r-r',\,-t+t';-M)
+    &= \frac{i}{\hbar}\theta(-t+t')\ev{\left[\hat{P}_i(r,-t),\,\hat{P}_j(r',-t')\right]}_{-M}\notag\\
+    &= -\frac{i}{\hbar}\theta(t'-t)\ev{\left[\hat{P}_j(r',t'),\,\hat{P}_i(r,t)\right]}_{-M}\notag\\
+    &= \chi_{ji}(r'-r,\,t'-t;-H) = \chi_{ji}(r-r',\,t-t';-M)
 \end{align}
 というようになる。
-途中で分極は時間反転に関して\(P(t)=P(-t)\)であること、
+途中で分極は時間反転に関して\(\hat{P}(t)=\hat{P}(-t)\)であること、
 グリーン関数の対称性\(G(r,t)=G(-r,-t)\)を使った。
 よって電気感受率には次の関係 (オンサーガーの相反定理)
 \begin{align}
-    \chi_{ij}(H) = \chi_{ji}(-H)
+    \chi_{ij}(M) = \chi_{ji}(-M)
 \end{align}
 があることがわかった。
-これを使うと\(\chi_{xx},\,\chi_{yy}\)は磁場\(H\)に関して偶関数、
-\(\chi_{xy}\)は磁場\(H\)に関して奇関数であると言える。
-つまり、磁場\(H\)がないときには、
+これを使うと\(\chi_{xx},\,\chi_{yy}\)は磁場\(M\)に関して偶関数、
+\(\chi_{xy}\)は磁場\(M\)に関して奇関数であると言える。
+つまり、磁場\(M\)がないときには、
 電気感受率、言い換えると誘電率テンソルの非対角項は現れないということである。
+
+また、磁化が外部磁場\(H\)に比例するような常磁性体を考えると、
+ここまでの\(M\)はすべて\(H\)で置き換えることができる。
+これより磁場が十分小さいとき誘電率テンソルの対角項は磁場によらない定数、
+誘電率テンソルの非対角項は
+\begin{align}
+    \varepsilon_{ij}(H) = aH
+\end{align}
+というように書くことができる。
 
 \subsection{電磁場の固有値問題}
 電磁場の振る舞いを見るにはマクスウェル方程式を解く必要がある。
@@ -286,5 +295,310 @@
 だけ回転した直線偏光を表しているのがわかる。
 
 \(\Delta n \propto \varepsilon_{xy} \propto H\) よりこの回転角は媒質にかかっている磁場の強さ\(H\)に比例する。
+
+\if0
+\section{磁性ガラス(含 \ce{Tb_2O_3}) の磁気旋光の測定結果}
+磁性を持つ \ce{Tb_2O_3} を含む磁性ガラスのファラデー効果の測定結果が多くなってしまったため、
+こちらで測定結果をすべてまとめる。
+ここでの結果は 5 次の Savitzky-Golay  フィルターをかけてある。
+
+\subsection{x-t グラフ}
+横軸に時間 (\si{\micro s})、左縦軸に透過光の強度 (arb. unit)、右縦軸に磁場の強さ (mA/cm) をプロットしたグラフは以下の通りである。
+グラフの上部にあるのはソレノイドコイルの巻き数とパルス発生装置の充電電圧である。
+
+始めに偏光子と検光子のなす角度が 0 度のときの結果を示す。
+\begin{figure}[H]
+    \centering
+    \begin{minipage}[t]{0.24\columnwidth}
+        \centering
+        \includegraphics[width = \columnwidth]{xt/01.png}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.24\columnwidth}
+        \centering
+        \includegraphics[width = \columnwidth]{xt/02.png}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.24\columnwidth}
+        \centering
+        \includegraphics[width = \columnwidth]{xt/03.png}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.24\columnwidth}
+        \centering
+        \includegraphics[width = \columnwidth]{xt/04.png}
+    \end{minipage}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \begin{minipage}[t]{0.24\columnwidth}
+        \centering
+        \includegraphics[width = \columnwidth]{xt/05.png}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.24\columnwidth}
+        \centering
+        \includegraphics[width = \columnwidth]{xt/06.png}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.24\columnwidth}
+        \centering
+        \includegraphics[width = \columnwidth]{xt/07.png}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.24\columnwidth}
+        \centering
+        \includegraphics[width = \columnwidth]{xt/08.png}
+    \end{minipage}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \begin{minipage}[t]{0.24\columnwidth}
+        \centering
+        \includegraphics[width = \columnwidth]{xt/09.png}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.24\columnwidth}
+        \centering
+        \includegraphics[width = \columnwidth]{xt/10.png}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.24\columnwidth}
+        \centering
+        \includegraphics[width = \columnwidth]{xt/11.png}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.24\columnwidth}
+        \centering
+        \includegraphics[width = \columnwidth]{xt/12.png}
+    \end{minipage}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \begin{minipage}[t]{0.24\columnwidth}
+        \centering
+        \includegraphics[width = \columnwidth]{xt/13.png}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.24\columnwidth}
+        \centering
+        \includegraphics[width = \columnwidth]{xt/14.png}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.24\columnwidth}
+        \centering
+        \includegraphics[width = \columnwidth]{xt/15.png}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.24\columnwidth}
+        \centering
+        \includegraphics[width = \columnwidth]{xt/16.png}
+    \end{minipage}
+\end{figure}
+
+次に偏光子と検光子のなす角度が 45 度のときの結果を示す。
+\begin{figure}[H]
+    \centering
+    \begin{minipage}[t]{0.24\columnwidth}
+        \centering
+        \includegraphics[width = \columnwidth]{xt/17.png}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.24\columnwidth}
+        \centering
+        \includegraphics[width = \columnwidth]{xt/18.png}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.24\columnwidth}
+        \centering
+        \includegraphics[width = \columnwidth]{xt/19.png}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.24\columnwidth}
+        \centering
+        \includegraphics[width = \columnwidth]{xt/20.png}
+    \end{minipage}
+\end{figure}
+
+最後に磁場の向きを今までの向きとは反平行にして、偏光子と検光子のなす角度が 45 度のときの結果を示す。
+\begin{figure}[H]
+    \centering
+    \begin{minipage}[t]{0.24\columnwidth}
+        \centering
+        \includegraphics[width = \columnwidth]{xt/22.png}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.24\columnwidth}
+        \centering
+        \includegraphics[width = \columnwidth]{xt/23.png}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.24\columnwidth}
+        \centering
+        \includegraphics[width = \columnwidth]{xt/24.png}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.24\columnwidth}
+        \centering
+        \includegraphics[width = \columnwidth]{xt/25.png}
+    \end{minipage}
+\end{figure}
+
+\subsection{x-y グラフ}
+
+横軸に磁場の強さ (kA/cm)、縦軸に透過光の強度 (arb. unit) をプロットしたグラフは以下の通りである。
+磁場による磁気ガラス中の磁化の応答が遅れるがあるため、
+それを補正したものと補正していないもの両方を載せる。
+
+補正はこのようにして行った。
+磁場の強さと透過光の強度の x-y グラフを作る際に、
+時刻\(t[i]\)のときの磁場の強さと透過光を\(H[i], I[i]\)というようにおく。
+磁化の応答が遅れるということは、同じだけ透過光の応答も遅らせればよい。
+なので
+\begin{align}
+    (H[i], I[i+\text{shift}])
+\end{align}
+というように光強度も shift の分だけ遅らせたペアの点をプロットするというようにして補正した。
+
+グラフの上部にあるのはソレノイドコイルの巻き数とパルス発生装置の充電電圧、どれだけシフトしたかの量である。
+
+始めに偏光子と検光子のなす角度が 0 度のときの結果を示す。
+\begin{figure}[H]
+    \centering
+    \begin{minipage}[t]{0.24\columnwidth}
+        \centering
+        \includegraphics[width = \columnwidth]{xy/01.png}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.24\columnwidth}
+        \centering
+        \includegraphics[width = \columnwidth]{xy/02.png}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.24\columnwidth}
+        \centering
+        \includegraphics[width = \columnwidth]{xy/03.png}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.24\columnwidth}
+        \centering
+        \includegraphics[width = \columnwidth]{xy/04.png}
+    \end{minipage}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \begin{minipage}[t]{0.24\columnwidth}
+        \centering
+        \includegraphics[width = \columnwidth]{xy/05.png}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.24\columnwidth}
+        \centering
+        \includegraphics[width = \columnwidth]{xy/06.png}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.24\columnwidth}
+        \centering
+        \includegraphics[width = \columnwidth]{xy/07.png}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.24\columnwidth}
+        \centering
+        \includegraphics[width = \columnwidth]{xy/08.png}
+    \end{minipage}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \begin{minipage}[t]{0.24\columnwidth}
+        \centering
+        \includegraphics[width = \columnwidth]{xy/09.png}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.24\columnwidth}
+        \centering
+        \includegraphics[width = \columnwidth]{xy/10.png}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.24\columnwidth}
+        \centering
+        \includegraphics[width = \columnwidth]{xy/11.png}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.24\columnwidth}
+        \centering
+        \includegraphics[width = \columnwidth]{xy/12.png}
+    \end{minipage}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \begin{minipage}[t]{0.24\columnwidth}
+        \centering
+        \includegraphics[width = \columnwidth]{xy/13.png}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.24\columnwidth}
+        \centering
+        \includegraphics[width = \columnwidth]{xy/14.png}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.24\columnwidth}
+        \centering
+        \includegraphics[width = \columnwidth]{xy/15.png}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.24\columnwidth}
+        \centering
+        \includegraphics[width = \columnwidth]{xy/16.png}
+    \end{minipage}
+\end{figure}
+
+次に偏光子と検光子のなす角度が 45 度のときの結果を示す。
+\begin{figure}[H]
+    \centering
+    \begin{minipage}[t]{0.24\columnwidth}
+        \centering
+        \includegraphics[width = \columnwidth]{xy/17.png}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.24\columnwidth}
+        \centering
+        \includegraphics[width = \columnwidth]{xy/18.png}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.24\columnwidth}
+        \centering
+        \includegraphics[width = \columnwidth]{xy/19.png}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.24\columnwidth}
+        \centering
+        \includegraphics[width = \columnwidth]{xy/20.png}
+    \end{minipage}
+\end{figure}
+
+最後に磁場の向きを今までの向きとは反平行にして、偏光子と検光子のなす角度が 45 度のときの結果を示す。
+\begin{figure}[H]
+    \centering
+    \begin{minipage}[t]{0.24\columnwidth}
+        \centering
+        \includegraphics[width = \columnwidth]{xy/22.png}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.24\columnwidth}
+        \centering
+        \includegraphics[width = \columnwidth]{xy/23.png}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.24\columnwidth}
+        \centering
+        \includegraphics[width = \columnwidth]{xy/24.png}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.24\columnwidth}
+        \centering
+        \includegraphics[width = \columnwidth]{xy/25.png}
+    \end{minipage}
+\end{figure}
+\fi
 
 \end{document}
