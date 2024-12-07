@@ -204,9 +204,9 @@
 \begin{align}
     - k^2 E +\varepsilon\frac{\omega^2}{c^2}E = 0
 \end{align}
-という方程式が得られる。。
+という方程式が得られる。
 複素屈折率\(\tilde{n}=n+i\kappa\)を用いた媒質中での光の分散関係\(k = \omega \tilde{n}/c\)を使うと、
-この式は固有値\(\tilde{n}^2\)固有ベクトル\(Ex(\omega),\,Ez(\omega),\,Ez(\omega)\)の固有値方程式
+この式は固有値\(\tilde{n}^2\)固有ベクトル\(E_x(\omega),\,E_y(\omega),\,E_z(\omega)\)の固有値方程式
 \begin{align}
     \begin{pmatrix}
         \varepsilon_{xx}-\tilde{n}^2 & \varepsilon_{xy} & 0\\
@@ -214,9 +214,9 @@
         0 & 0 & \varepsilon_{zz}
     \end{pmatrix}
     \begin{pmatrix}
-        Ex(\omega)\\
-        Ey(\omega)\\
-        Ez(\omega)
+        E_x(\omega)\\
+        E_y(\omega)\\
+        E_z(\omega)
     \end{pmatrix} = 0
 \end{align}
 というようになる。
@@ -226,19 +226,65 @@
     E_{\pm}(\omega) = E_0\frac{E_x(\omega)\pm iE_y(\omega)}{\sqrt{2}}
 \end{align}
 である。
-位置・時間表示に戻すとジョーンズベクトルを使って
+位置・時間表示に戻すと振動数\(\omega\)の光はジョーンズベクトル\(\vb*{r}=(1,i)/\sqrt{2},\,\vb*{l}=(1,-i)/\sqrt{2}\)を使って
 \begin{align}
-    E_{\pm}(z, t) = E_o \exp(-i\omega\qty(t-\frac{\tilde{n_\pm}}{c}z)) \frac{1}{\sqrt{2}}
-    \begin{pmatrix}
-        1 \\ \pm i
-    \end{pmatrix}
+    (E_{+}(z, t),\,E_{-}(z,t)) = E_o \exp(-i\omega\qty(t-\frac{\tilde{n}_\pm}{c}z))
+    (\vb*{r},\,\vb*{l})
 \end{align}
 というようになる。
 
 この結果は誘電率テンソルの非対角項があるような媒質中では円偏光が基準モードとなる。
 また屈折率に注目すると、左回りと右周りで屈折率が違うことから進む速さ・減衰の仕方が変わってくることがわかる。
 
+\subsection{磁気旋光角・ベルデ定数}
+複素屈折率を
+\begin{align}
+    \tilde{n}_{+} = n_+ +i\kappa_+,\qquad \tilde{n}_{-} = n_- +i\kappa_-
+\end{align}
+というようにする。
+また
+\begin{align}
+    \tilde{n} = \frac{n_+ + n_-}{2} + i \frac{\kappa_+ + \kappa_-}{2} ,\qquad
+    \Delta \tilde{n} = (n_+ -n_-) + i(\kappa_+ -\kappa_-)
+\end{align}
+というように置くと、\(\tilde{n}_{\pm}\)は
+\begin{align}
+    \tilde{n}_\pm = \tilde{n} \pm \frac{1}{2}\Delta\tilde{n}
+\end{align}
+と書ける。
 
+このもとで厚さ\(L\)の磁場がかかった媒質に直線偏光の光\(E_{\text{in}}\)が入ってくることを考える。
+この直線偏光はジョーンズベクトルをを用いて
+\begin{align}
+    E_{\text{in}} = \frac{E_0}{\sqrt{2}}\exp(-i\omega t)(\vb*{r}+\vb*{l})
+\end{align}
+と表せる。
+これが媒質中を通り抜けると各変更は\(i\omega \tilde{n}_{\pm}L/c\)だけ進むので、
+出てくる光\(E_{\text{out}}\)は
+\begin{align}
+    E_{\text{out}}
+    &= \frac{E_0}{\sqrt{2}}\exp(-i\omega t) \qty(\exp(i\omega \frac{\tilde{n}_{+}L}{c})\vb*{r}
+        +\exp(i\omega \frac{\tilde{n}_{-}L}{c})\vb*{l}) \notag\\
+    &= \frac{E_0}{\sqrt{2}}\exp(-i\omega \qty(t-\frac{\tilde{n}L}{c}))
+        \qty(\exp(i\omega \frac{\Delta\tilde{ n}L}{2c})\vb*{r}
+            +\exp(-i\omega \frac{\Delta\tilde{n}L}{2c})\vb*{l})
+\end{align}
+これを直線偏光の基底で書き直すと
+\begin{align}
+    E_{\text{out}}
+    &= E_0\exp(-i\omega \qty(t-\frac{\tilde{n}L}{c}))
+    \begin{pmatrix}
+       \cos(-\omega \frac{\Delta\tilde{n}L}{2c}) \\
+       \sin(-\omega \frac{\Delta\tilde{n}L}{2c})
+    \end{pmatrix}
+\end{align}
+というようになる。
+これは角度
+\begin{align*}
+    \theta = \omega \frac{\Delta nL}{2c}
+\end{align*}
+だけ回転した直線偏光を表しているのがわかる。
 
+\(\Delta n \propto \varepsilon_{xy} \propto H\) よりこの回転角は媒質にかかっている磁場の強さ\(H\)に比例する。
 
 \end{document}
