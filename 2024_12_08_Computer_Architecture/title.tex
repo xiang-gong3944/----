@@ -1,0 +1,169 @@
+\documentclass[11pt,dvipdfmx,a4paper]{jsarticle}
+
+\usepackage{amsmath,amssymb}
+\usepackage{bm}
+\usepackage[dvipdfmx]{graphicx}
+\usepackage{physics} % http://mirrors.ibiblio.org/CTAN/macros/latex/contrib/physics/physics.pdf
+\usepackage{siunitx} %SI単位を楽に出力
+\usepackage{mathtools} %環境の追加
+% \usepackage{circuitikz} %電気回路をtex中で書く
+% \usepackage{caption} %番号なしキャプションを書く
+% \usepackage{cancel} %式中に斜線を入れる
+% \usepackage{tensor} %テンソルの添え字を書く
+% \usepackage{tikz} %図を書く
+% \usepackage{ascmac} %四角い枠の中に文章を書く
+% \usepackage{float} %figureで[hbp]オプションを使う
+% \usepackage{hyperref}  \usepackage{pxjahyper} %ハイパーリンクをつかう
+% \usepackage{tablefootnote} %表中に注釈をいれる
+% \usepackage[thicklines]{cancel} %数式中の取り消し線
+% \usepackage[version=4]{mhchem} %化学式の入力
+% \usepackage{pdfpages}
+% \usepackage{wrapfig} %文章の回り込み
+\usepackage[subrefformat=parens]{subcaption} %(a)図のようにすることができるやつ
+\usepackage{here}
+\usepackage{url}
+\usepackage{tcolorbox}
+
+\def\labelenumi{(\theenumi)}
+
+\title{第11回課題レポート}
+\author{1522068 西原翔}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\begin{tcolorbox}[colbacktitle=white, coltitle=black, colback=white, title=課題1]
+    BHT Simulator を使用して、予測精度を測定し、結果を考察せよ。
+    配列データの並び方、BHT エントリ数や履歴サイズ、
+    および予測の初期値を変えた結果はどうなるか?
+\end{tcolorbox}
+
+ランダムに並んだ配列のときの予測精度の結果は表\ref{table:01}のようになった。
+
+bne の命令アドレスははじめの if による 0x00400024, 最後の while による 0x00400044 であった。
+これよりエントリ数が 8, 16, 32 のときのインデックスが表\ref{table:01}のようになるのがわかる。
+
+ヒット率に関して、与えられた配列がランダムであるため if 文での分岐予測がうまくいかず、
+精度が半分程度になっている。
+一方 while での分岐ははじめのカウンタの更新の分と最後の分岐以外ではずっと同じ動きをするため、
+分岐履歴表による予測の精度が高くなっている。
+エントリ数が 8 であると、これら2つの分岐が合わさってしまっているので精度が悪くなっているのがわかる。
+
+\begin{table}[H]
+    \centering
+    \caption{ランダムに並んだ配列のときの結果 (class1.asm)}
+    \label{table:01}
+    \begin{tabular}{cccc}
+        \hline
+        エントリ数 & カウンタのビット数 & 使われたインデックス番号 & ヒット率\\
+        \hline
+        8 & 1 & 1 & 34/64\\
+        8 & 2 & 1 & 46/64\\
+        16 & 1 & 1, 9 & 30/32, 16/32\\
+        16 & 2 & 1, 9 & 29/32, 18/32\\
+        32 & 1 & 9, 17 & 16/32, 30/32\\
+        32 & 2 & 9, 17 & 18/32, 29/32\\
+        \hline
+    \end{tabular}
+\end{table}
+
+降順に並んだ配列のときの予測精度の結果は表\ref{table:02}のようになった。
+
+class2.asm は与えられる配列以外は class1.asm と同じコードであるため、
+分岐履歴表で使われるインデックスも表\ref{table:02}のものと同じになった。
+
+ヒット率に関して、与えられた配列が降順であり、
+はじめの分岐予測と配列の値が 16 をまたぐとき以外は分岐履歴と同じ分岐になるため、
+エントリ数が 16, 32 では精度がよくなっているのがわかる。
+while での分岐は class1.asm と同じ条件であるため、精度も同じようになっている。
+
+\begin{table}[H]
+    \centering
+    \caption{ランダムに並んだ配列のときの結果 (class2.asm)}
+    \label{table:02}
+    \begin{tabular}{cccc}
+        \hline
+        エントリ数 & カウンタのビット数 & 使われたインデックス番号 & ヒット率\\
+        \hline
+        8 & 1 & 1 & 32/64\\
+        8 & 2 & 1 & 46/64\\
+        16 & 1 & 1, 9 & 30/32, 31/32\\
+        16 & 2 & 1, 9 & 29/32, 30/32\\
+        32 & 1 & 9, 17 & 31/32, 30/32\\
+        32 & 2 & 9, 17 & 30/32, 29/32\\
+        \hline
+    \end{tabular}
+\end{table}
+
+
+\begin{tcolorbox}[colbacktitle=white, coltitle=black, colback=white, title=課題2]
+    Data Cache Simulator を使用して、
+    キャッシュのヒット数やミス数を測定し、結果を考察せよ。
+    配置方式、ブロック数、ブロック・サイズを変えた結果はどうなるか?
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[colbacktitle=white, coltitle=black, colback=white, title=課題3]
+    スカラ・プロセッサを用いて、あるプログラムを実行する。以下の設問に答えよ。
+    \begin{enumerate}
+        \item 命令キャッシュのミス率が 2 \%,
+        主記憶へのミス・ペナルティが 300 クロック・サイクル、プロセッサの CPI は 2 である。
+        この命令キャッシュによる実行時間 \(t_1\) と、
+        ミスをしない完全なキャッシュによる実行時間 \(t_2\) の実行時間比 \(t_1/t_2\) を求めよ。
+        \item データ・キャッシュのミス率が 5 \%,
+        主記憶へのアクセス時間が 200 ns、
+        プロセッサの CPI は 2, クロック周波数は 2 GHzである。
+        プログラム中のロード・ストア命令の出現頻度は 30 \% である。
+        このデータ・キャッシュによる実行時間 \(t_1\) と、
+        ミスをしない完全なキャッシュによる実行時間 \(t_2\) の実行時間比 \(t_1/t_2\) を求めよ。
+        \item 分岐予測器の予測ミス率が 5 \%,
+        予測ミス・ペナルティが 4 クロック・サイクル、
+        プロセッサの CPI は 1 である。
+        プログラム中の分岐命令の出現頻度は 20 \% である。
+        この分岐予測器による実行時間 \(t_1\) と、
+        ミスをしない完全な分岐予測器による実行時間 \(t_2\) の実行時間比 \(t_1/t_2\) を求めよ。
+    \end{enumerate}
+\end{tcolorbox}
+
+\section*{(1)}
+実行命令数を \(I\), クロックサイクル時間を \(C\) としたときに、
+ミスをしない完全なキャッシュによる実行時間 \(t_2\) は
+\begin{align*}
+    t_2 = 2 \times I \times C
+\end{align*}
+となる。
+そして命令キャッシュミスがあるときの実行時間 \(t_2\) は \(t_1\) に加え、
+ミス・ペナルティによる時間が加わるため
+\begin{align*}
+    t_1 = t_2 + 2 \times I \times C \times 2\% \times 300
+\end{align*}
+となる。
+よって実行時間比 \(t_1/t_2\) は
+\begin{align*}
+    \frac{t_1}{t_2} = 4
+\end{align*}
+というように 4 倍遅くなる。
+
+\section*{(2)}
+実行命令数を \(I\) としたときに、
+ミスをしない完全なキャッシュによる実行時間 \(t_2\) は
+\begin{align*}
+    t_2 = \frac{2 \times I}{2\,\text{GHz}} = I \,\text{ns}
+\end{align*}
+となる。
+そしてデータ・キャッシュミスがあるときの実行時間 は \(t_1\) に加え、
+ミス・ペナルティによる時間が加わるため
+\begin{align*}
+    t_1 = t_2 + I \times 30 \% \times 5 \% \times 200\,\text{ns}
+        = t_2 + 3I\,\text{ns}
+\end{align*}
+となる。
+よって実行時間比 \(t_1/t_2\) は
+\begin{align*}
+    \frac{t_1}{t_2} = 4
+\end{align*}
+というように 4 倍遅くなる。
+
+
+\end{document}
