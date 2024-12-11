@@ -20,20 +20,22 @@ a = 1.0
 b = 1.0
 # Slater-Koster パラメータ
 Vpps = 1.0
-Vppp = -0.3
-Vpds = -1.85
+Vppp = -0.6
+Vpds = 1.85
 
 # ホッピングパラメータ
 Tpp = a * b * (Vpps-Vppp) / (a**2 + b**2)
-Tpd = np.sqrt(3) * Vpds / 2
+aaaa = 0.5
+Tpd1 = np.sqrt(3) * Vpds / 2 * (1 + aaaa)    # 短いホッピング
+Tpd2 = np.sqrt(3) * Vpds / 2 * (1 - aaaa)   # 長いホッピング
 
 # クーロン相互作用の強さ
-Ud = 8.5
+Ud = 8.0
 Up = 4.0
 Upd = 1.0
 
 # 軌道エネルギー差
-Delta = -3.0
+Ep = 3.0
 
 # 軌道の数
 n_orbit = 6
@@ -75,7 +77,7 @@ def gen_kpath(path, npoints = 50):
 
     return k_path, labels, labels_loc, distances
 
-def Hamiltonian(kx, ky, m=0):
+def Hamiltonian(kx, ky, delta=0):
     """ある波数のでのハミルトニアン
     Args:
         (float) kx: 波数のx成分
@@ -90,22 +92,22 @@ def Hamiltonian(kx, ky, m=0):
     H = np.zeros((n_orbit*2, n_orbit*2), dtype=np.complex128)
 
     # ホッピング項
-    H[0,2] = Tpd
-    H[0,3] = Tpd
-    H[0,4] = Tpd
-    H[0,5] = Tpd
+    H[0,2] = Tpd1 * np.exp(1j*ky/4)
+    H[0,3] = Tpd2 * np.exp(1j*kx/4)
+    H[0,4] = Tpd1 * np.exp(-1j*ky/4)
+    H[0,5] = Tpd2 * np.exp(-1j*kx/4)
 
-    H[1,2] = Tpd * np.exp(-1j(kx + ky))
-    H[1,3] = Tpd * np.exp(-1j*kx)
-    H[1,4] = Tpd
-    H[1,5] = Tpd * np.exp(-1j*ky)
+    H[1,2] = Tpd2 * np.exp(-1j*ky/4)
+    H[1,3] = Tpd1 * np.exp(-1j*kx/4)
+    H[1,4] = Tpd2 * np.exp(1j*ky/4)
+    H[1,5] = Tpd1 * np.exp(1j*kx/4)
 
-    H[2,3] = Tpp * (1 + np.exp(1j*ky))
-    H[2,5] = Tpp * (1 + np.exp(1j*kx))
+    H[2,3] = -2*Tpp * np.cos((kx-ky)/4)
+    H[2,5] = -2*Tpp * np.cos((kx+ky)/4)
 
-    H[3,4] = Tpp * (1 + np.exp(1j*kx))
+    H[3,4] = -2*Tpp * np.cos((kx+ky)/4)
 
-    H[4,5] = Tpp * (1 + np.exp(-1j*ky))
+    H[4,5] = -2*Tpp * np.cos((kx-ky)/4)
 
     #エルミート化
     for i in range(1,n_orbit*2):
@@ -113,25 +115,23 @@ def Hamiltonian(kx, ky, m=0):
             H[i][j] = H[j][i].conjugate()
     del i, j
 
+    # 軌道準位差
+    H[2,2] = Ep
+    H[3,3] = Ep
+    H[4,4] = Ep
+    H[5,5] = Ep
+
     # 反対向きスピンの分
     for i in range(n_orbit):
         for j in range(n_orbit):
             H[i+n_orbit,j+n_orbit] = H[i,j]
     del i, j
 
-    # 軌道準位差
-    H[0,0] = Delta
-    H[1,1] = Delta
-
-    # # 反強磁性分子内磁場を表すハートリー項
-    # H[0,0] = - U * Delta / 4    # A1 up
-    # H[1,1] = - U * Delta / 4    # A2 up
-    # H[2,2] = + U * Delta / 4    # B1 up
-    # H[3,3] = + U * Delta / 4    # B2 up
-    # H[4,4] = + U * Delta / 4    # A1 down
-    # H[5,5] = + U * Delta / 4    # A2 down
-    # H[6,6] = - U * Delta / 4    # B1 down
-    # H[7,7] = - U * Delta / 4    # B2 down
+    # Cu イオンでのクーロン相互作用(ハートリー項のみ)
+    H[0,0] = -Ud * delta /2
+    H[1,1] = Ud * delta /2
+    H[0+n_orbit,0+n_orbit] = Ud * delta /2
+    H[1+n_orbit,1+n_orbit] = -Ud * delta /2
 
     return scipy.linalg.eigh(H)
 
@@ -255,18 +255,19 @@ def Hamiltonian(kx, ky, m=0):
 
 #     return J/2
 
-# def calc_delta(N_site):
-#     """反強磁性磁化の大きさ
+def calc_delta(N_site):
+    """反強磁性磁化の大きさ
 
-#     Args:
-#         N_site (list[float]): 各サイトにある電子数
+    Args:
+        N_site (list[float]): 各サイトにある電子数
 
-#     Returns:
-#        delta (float): 反強磁性磁化の大きさ
-#     """
-#     delta = np.abs((N_site[0] + N_site[1]) - (N_site[2] + N_site[3]) - (N_site[4] + N_site[5]) + (N_site[6] + N_site[7])) / 2
-#     #               A1_up       A2_up         B1_up       B2_up         A1_down     A2_down       B1_down     B2_down
-#     return delta
+    Returns:
+       delta (float): 反強磁性磁化の大きさ
+    """
+    delta = np.abs((N_site[0] + N_site[1]) - (N_site[6] + N_site[7])) / 2
+    # delta = np.abs(np.sum(N_site[:n_orbit])-np.sum(N_site[n_orbit:])) / 2
+
+    return delta
 
 def Steffensen(array):
     """Steffensen の反復法で収束を早めるための処理
@@ -284,40 +285,47 @@ def Steffensen(array):
     except:
         return array[-2]
 
-# def calc_spin(enes, eigenstate):
-#     """各サイトのスピンの大きさ
+def calc_spin(enes, eigenstate):
+    """各サイトのスピンの大きさ
 
-#     Args:
-#         enes: ある波数の固有エネルギー
-#         eigenstate :  ある波数の固有ベクトル
+    Args:
+        enes: ある波数の固有エネルギー
+        eigenstate :  ある波数の固有ベクトル
 
-#     Returns:
-#         spin : 各サイトのスピンの大きさ
-#     """
-#     spin = []
-#     for l in range(8):
-#         sp = (np.abs(eigenstate[0,l])**2    # A1_up
-#                 +np.abs(eigenstate[1,l])**2    # A2_up
-#                 +np.abs(eigenstate[2,l])**2    # B1_up
-#                 +np.abs(eigenstate[3,l])**2    # B2_up
-#                 -np.abs(eigenstate[4,l])**2    # A1_down
-#                 -np.abs(eigenstate[5,l])**2    # A2_down
-#                 -np.abs(eigenstate[6,l])**2    # B1_down
-#                 -np.abs(eigenstate[7,l])**2    # B2_donw
-#                 )
-#         spin.append(sp)
-#     del l
+    Returns:
+        spin : 各サイトのスピンの大きさ
+    """
+    spin = []
+    for l in range(n_orbit*2):
+        sp = (np.abs(eigenstate[0,l])**2
+                +np.abs(eigenstate[1,l])**2
+                +np.abs(eigenstate[2,l])**2
+                +np.abs(eigenstate[3,l])**2
+                +np.abs(eigenstate[4,l])**2
+                +np.abs(eigenstate[5,l])**2
+                -np.abs(eigenstate[6,l])**2
+                -np.abs(eigenstate[7,l])**2
+                -np.abs(eigenstate[8,l])**2
+                -np.abs(eigenstate[9,l])**2
+                -np.abs(eigenstate[10,l])**2
+                -np.abs(eigenstate[11,l])**2
+                )
+        # prob = np.abs(eigenstate[:,l])**2
+        # sp = prob[0] + prob[1] + prob[2] + prob[3] + prob[4] + prob[5] -(
+        #     prob[6] + prob[7] + prob[8] + prob[9] + prob[10] + prob[11])
+        spin.append(sp)
+    del l
 
-#     for l in range(4):
-#         if(np.abs(enes[2*l]-enes[2*l + 1])<0.000001):
-#             spin[2*l] = 0
-#             spin[2*l+1] = 0
-#     del l
+    for l in range(n_orbit):
+        if(np.abs(enes[2*l]-enes[2*l + 1])<0.000001):
+            spin[2*l] = 0
+            spin[2*l+1] = 0
+    del l
 
-#     return np.array(spin)
+    return np.array(spin)
 
 class CuO2:
-    def __init__(self, U, Ne=6.0, k_mesh=31):
+    def __init__(self, Ne=2.0, k_mesh=31):
         """モデルのパラメータの設定
 
         Args:
@@ -325,14 +333,13 @@ class CuO2:
             Ne (float, optional): 単位胞内での電子の数 Defaults to 6.0.
             k_mesh (int, optional): k点の細かさ Defaults to 31.
         """
-        self.U          = U
         self.Ne         = Ne
         self.k_mesh     = k_mesh
 
-        ne1 = Ne/8.0 + 0.2
-        ne2 = Ne/8.0 - 0.2
+        ne1 = Ne/12.0 + 0.2
+        ne2 = Ne/12.0 - 0.2
         self.N_site_scf = np.array([
-                        [ne1, ne1, ne2, ne2, ne2, ne2, ne1, ne1]])
+                        [ne1, ne1, ne2, ne2, ne2, ne2, ne1, ne1, ne2, ne2, ne2, ne2]])
         self.Ef_scf     = np.array([])
         self.Delta_scf  = np.array([0.8])
         self.Etot_scf   = np.array([0.8])
@@ -352,7 +359,7 @@ class CuO2:
         self.kF_index = np.array([[-1, -1, -1]])
 
 
-    def calc_scf(self, iteration = 100, err = 1e-6):
+    def calc_scf(self, iteration = 100, err = 1e-8):
         """自己無頓着計算を行う。delta と ef を決定する。
 
         Args:
@@ -365,7 +372,7 @@ class CuO2:
             print("SCF calculation was already done.")
             return
 
-        print("SCF calculation start. U = {:.2f}, Ne = {:1.2f}, err < {:1.1e}".format(self.U, self.Ne, err))
+        print("SCF calculation start. Ne = {:1.2f}, err < {:1.1e}".format(self.Ne, err))
 
         kx, ky = self._gen_kmesh()
 
@@ -382,7 +389,7 @@ class CuO2:
                 # ブリュアンゾーン内の全探査
                 for i in range(self.k_mesh):
                     for j in range(self.k_mesh):
-                        eigenEnergy, eigenState = Hamiltonian(kx[i][j],ky[i][j], self.U, Delta)
+                        eigenEnergy, eigenState = Hamiltonian(kx[i][j],ky[i][j], Delta)
                         enes = np.append(enes, eigenEnergy)
                         eigenEnes[i,j] = eigenEnergy
                         eigenStates[i,j] = eigenState
@@ -396,7 +403,7 @@ class CuO2:
                 self.Ef_scf = np.append(self.Ef_scf, ef)
 
                 # scf で求める値の初期化
-                nsite  = np.zeros((8))
+                nsite  = np.zeros((n_orbit*2))
                 etot   = 0
 
                 # ブリュアンゾーン内の全探査
@@ -441,7 +448,7 @@ class CuO2:
                 self.delta = self.Delta_scf[-1]
                 self.ef    = self.Ef_scf[-1]
 
-                print("SCF loop converged. U = {:.2f}, Ne = {:1.2f}, err < {:1.1e}, loop = {:2d}, delta = {:1.2e}\n".format(self.U, self.Ne, err, scf_iteration*3, self.delta))
+                print("SCF loop converged.  Ne = {:1.2f}, err < {:1.1e}, loop = {:2d}, delta = {:1.2e}\n".format(self.Ne, err, scf_iteration*3, self.delta))
 
                 return
 
@@ -450,7 +457,7 @@ class CuO2:
         # 収束しなかったときの処理
         self.delta = self.Delta_scf[-1]
         self.ef    = self.Ef_scf[-1]
-        print('\033[41m'+"Calculation didn't converge. err > {:1.1e}, U = {:.2f}, Ne = {:1.2f} loop = {:2d}, delta = {:1.2e}".format(err, self.U, self. Ne, iteration*3, self.delta)+'\033[0m')
+        print('\033[41m'+"Calculation didn't converge. err > {:1.1e}, Ne = {:1.2f} loop = {:2d}, delta = {:1.2e}".format(err, self. Ne, iteration*3, self.delta)+'\033[0m')
         print(f"latter deltas are {self.Delta_scf[-4:-1]}\n")
 
         return
@@ -474,7 +481,7 @@ class CuO2:
         # メッシュの各点でのエネルギー固有値の計算
         for i in range(self.k_mesh):
             for j in range(self.k_mesh):
-                enes, eigenstate = Hamiltonian(kx[i][j],ky[i][j], self.U, self.delta)
+                enes, eigenstate = Hamiltonian(kx[i][j],ky[i][j], self.delta)
                 spin = calc_spin(enes, eigenstate)
                 self.enes[i,j]         = enes
                 self.eigenStates[i,j]  = eigenstate
@@ -697,11 +704,11 @@ class CuO2:
 
         plt.figure(figsize=[12.8,4.8])
         plt.subplot(121)
-        for i in [0, 1, 6, 7]:
+        for i in range(n_orbit):
             plt.plot(self.N_site_scf[:,i], label = "site {:d} = {:.3f}".format(i, self.N_site_scf[-1, i]))
         plt.legend()
         plt.subplot(122)
-        for i in [2, 3, 4, 5]:
+        for i in range(n_orbit,n_orbit*2):
             plt.plot(self.N_site_scf[:,i], label = "site {:d} = {:.3f}".format(i, self.N_site_scf[-1, i]))
         plt.legend()
         plt.show()
@@ -740,7 +747,7 @@ class CuO2:
         spins = []
 
         for kxy in k_path:
-            enes, eigenstate = Hamiltonian(kxy[0], kxy[1], self.U, self.delta)
+            enes, eigenstate = Hamiltonian(kxy[0], kxy[1],  self.delta)
             bands.append(enes)
             spin = calc_spin(enes, eigenstate)
             spins.append(spin)
@@ -773,8 +780,8 @@ class CuO2:
         colors = ["tab:blue", "tab:green","tab:orange"]
         cmap_name = LinearSegmentedColormap.from_list("custom",colors, 10)
 
-        for i in range(8):
-            plt.scatter(distances, bands[:,i], c=spins[:,i], cmap=cmap_name, vmin=-1, vmax=1, s=1)
+        for i in range(n_orbit*2):
+            plt.scatter(distances, bands[:,i], c=spins[:,i]/2, cmap=cmap_name, vmin=-0.5, vmax=0.5, s=1)
         del i
 
         plt.vlines(label_loc[1:-1], Ymin,Ymax, "grey", "dashed")
@@ -800,7 +807,7 @@ class CuO2:
         contours = dict(
             x=dict(highlight=False, show=True, color='grey', start=-3.5, end=3.5, size=0.5),
             y=dict(highlight=False, show=True, color='grey', start=-3.5, end=3.5, size=0.5),
-            z=dict(highlight=False, show=False, start=-1, end = 1, size=0.5)
+            z=dict(highlight=False, show=False, start=-8, end = 8, size=0.5)
         )
 
         fig.add_trace(go.Surface(
@@ -808,7 +815,7 @@ class CuO2:
                 x=kx,
                 y=ky,
                 surfacecolor=self.spins[:,:,0],
-                colorscale = "balance",
+                colorscale = "viridis",
                 cmin=-1.5,
                 cmax=1.5,
                 showscale = False,
@@ -817,13 +824,13 @@ class CuO2:
                 # hidesurface=True,
             )
         )
-        for i in range(1, 8):
+        for i in range(1, n_orbit*2):
             fig.add_trace(go.Surface(
                     z=self.enes[:,:,i]-self.ef,
                     x=kx,
                     y=ky,
                     surfacecolor=self.spins[:,:,i],
-                    colorscale = "balance",
+                    colorscale = "viridis",
                     cmin=-1.5,
                     cmax=1.5,
                     showscale = False,
