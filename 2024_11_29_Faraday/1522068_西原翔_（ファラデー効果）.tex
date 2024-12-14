@@ -95,6 +95,148 @@
 
 
 \section{原理}
+\subsection{光の偏光とジョーンズベクトル}
+光は電磁波であるため、これはマクスウェル方程式に従う。
+電荷分布のない媒質中での光はガウスの法則
+\begin{align}
+    \div{\vb*{E}} = 0 \overset{FT}{\qquad\rightarrow\qquad} \vb*{k}\cdot \vb*{E} = 0
+\end{align}
+より横波であるのがわかる。
+光の進行方向を法線とする平面を自由に振動することから、
+2つの独立な成分を持つ。これを偏光という。
+
+2つの偏光の位相差も含めた光電場を表記するのにジョーンズベクトルと呼ばれるものがある。
+これは\(z\) 軸に進む光で全体の位相が \(kz-\omega t\) で書けるとき
+\footnote{光子数が一定(\(\simeq\)強度が一定)のレーザー光は光子数と位相の不確定性より、このように書けない}、
+\(x,\,y\) 平面の電場のベクトルを
+\begin{align}
+    \vb*{E} = e^{i(kz-\omega t)}
+    \begin{pmatrix}
+        E_{0x}\\ E_{0y}e^{i\phi}
+    \end{pmatrix}
+\end{align}
+のようにして表すものである。
+ベクトルの第 1 成分は \(x\) 軸に関する光電場の振動、つまり横偏光を、
+ベクトルの第 2 成分は \(y\) 軸に関する光電場の振動、つまり縦偏光表している。
+\(e^{i\phi}\)は横偏光と縦偏光の相対位相を表している項である。
+
+このジョーンズベクトルを用いると様々な偏光状態を表すことができる。
+このベクトルの実部を取ると
+\((E_x,\,E_y) = (E_0\cos\theta\cos(kz-\omega t),\,E_0\cos\theta\cos(kz-\omega t+\phi) )\)となる。
+これから \(kz-\omega t\)の部分を消すように変形すると、
+\begin{align}
+    \qty(\frac{E_x}{E_{0x}})^2 + \qty(\frac{E_y}{E_{0y}})^2
+    - \frac{2\cos\phi E_x E_y}{E_{0x}E_{0y}} = \sin^2\phi
+\end{align}
+という楕円の式が得られる。
+つまり、光電場ベクトルは一般的には楕円の周上を回転しながら進んでいくとわかる。
+これを楕円偏光という。
+
+光電場の横成分と縦成分の位相差がない(\(\phi=0\))とき、もしくは逆位相のとき(\(\phi=0\))、
+この場合には(3)式から
+\begin{align}
+    \frac{E_x}{E_{0x}} = \pm \frac{E_y}{E_{0y}}
+\end{align}
+が得られる。これは直線状を光電場ベクトルを上を動くので、この光の偏光は直線偏光であるという。
+
+光電場の横成分と縦成分の大きさが同じ (\(E_{0x}=E_{0y}\equiv E_0\)) かつ位相差が\(\phi=\pm\pi/2\)のとき
+(3) 式から
+\begin{align}
+    E_x^2 + E_y^2 = E_0^2
+\end{align}
+という円の式が得られる。円周上を回る偏光であるので、これを円偏光という。
+これに対応するジョーンズベクトルを
+\begin{align}
+    \vb*{r} = \frac{1}{\sqrt{2}}
+    \begin{pmatrix}
+        1\\i
+    \end{pmatrix},\qquad
+    \vb*{l} = \frac{1}{\sqrt{2}}
+    \begin{pmatrix}
+        1\\-i
+    \end{pmatrix}
+\end{align}
+というようにおく。
+前者を光の進行方向に対して右回りに回る偏光であるので右回り円偏光、
+後者を光の進行方向に対して左回りに回る偏光であるので左回り円偏光と呼ぶ。
+また、このベクトルは正規直交しているので、
+これを偏光ベクトルの基底として扱うこともできる。
+物質との相互作用を考える際にはこちらが便利であることが多い。
+
+\subsection{光学素子とジョーンズベクトル}
+光が光学素子によってその状態が変わるというのは、ジョーンズベクトルに行列が作用するというように理解できる。
+透過した光が x 方向の直線偏光となる偏光板は行列を用いて
+\begin{align}
+    P_x =
+    \begin{pmatrix}
+        1 & 0\\
+        0 & 0
+    \end{pmatrix}
+\end{align}
+というように書くことができる。
+このようにおくことで\(P_x \vb*{E}\)としたときに、
+縦偏光の成分がなくなるのがわかる。
+また、この偏光板を角度 \(\theta\) だけ回転させたものは回転行列\(R(\theta)\)を用いて
+\begin{align}
+    P_\theta = R(\theta)P_x R^{-1}(\theta)
+    = \begin{pmatrix}
+        \cos \theta & -\sin\theta\\
+        \sin\theta & \cos\theta
+    \end{pmatrix}
+    \begin{pmatrix}
+        1 & 0\\
+        0 & 0
+    \end{pmatrix}
+    \begin{pmatrix}
+        \cos \theta & \sin\theta\\
+        -\sin\theta & \cos\theta
+    \end{pmatrix}
+    =\begin{pmatrix}
+        \cos^2 \theta & \cos\theta\sin\theta\\
+        \cos\theta\sin\theta & \sin^2\theta
+    \end{pmatrix}
+\end{align}
+というようにあらわせる。
+
+横偏光と縦偏光の位相を\(\phi\)だけずらす移相子はこのように書ける。
+\begin{align}
+    \Delta_\phi(\theta) &= R(\theta) \Delta_\phi  R^{-1}(\theta) \notag\\
+    &= \begin{pmatrix}
+        \cos \theta & -\sin\theta\\
+        \sin\theta & \cos\theta
+    \end{pmatrix}
+    \begin{pmatrix}
+        1 & 0\\
+        0 & e^{i\phi}
+    \end{pmatrix}
+    \begin{pmatrix}
+        \cos \theta & \sin\theta\\
+        -\sin\theta & \cos\theta
+    \end{pmatrix}
+    =e^{i\phi} I + (1-e^{i\phi})\begin{pmatrix}
+        \cos^2 \theta & \cos\theta\sin\theta\\
+        \cos\theta\sin\theta & \sin^2\theta
+    \end{pmatrix}.
+\end{align}
+ここで \(I\)は単位行列を表している。
+
+移相子のうち位相を \(\phi = \pi/2\) ずらすものを \(\lambda/4\) 板といい、
+\begin{align}
+    Q(\theta)
+    =iI + (1-i)\begin{pmatrix}
+        \cos^2 \theta & \cos\theta\sin\theta\\
+        \cos\theta\sin\theta & \sin^2\theta
+    \end{pmatrix}
+\end{align}
+というように書く。
+
+このような行列をジョーンズ行列と呼ばれる。
+始めの光電場が \(\vb*{E}\) でジョーンズ行列 \(J\) で表せる光学素子を通ったあと、
+実際に測定される光の強度は
+\begin{align}
+    I = \abs{J\vb*{E}}^2
+\end{align}
+というようになる。
 
 \section{実験}
 
