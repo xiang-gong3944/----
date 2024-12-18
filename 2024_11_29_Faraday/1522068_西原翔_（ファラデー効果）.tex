@@ -161,24 +161,24 @@
 後者を光の進行方向に対して左回りに回る偏光であるので左回り円偏光と呼ぶ。
 また、このベクトルは正規直交しているので、
 これを偏光ベクトルの基底として扱うこともできる。
-物質との相互作用を考える際にはこちらが便利であることが多い。
+物質との相互作用を考える際にはこちらが便利であることがある。
 
 \subsection{光学素子とジョーンズベクトル}
 光が光学素子によってその状態が変わるというのは、ジョーンズベクトルに行列が作用するというように理解できる。
 透過した光が x 方向の直線偏光となる偏光板は行列を用いて
 \begin{align}
-    P_x =
+    \hat{P}_x =
     \begin{pmatrix}
         1 & 0\\
         0 & 0
     \end{pmatrix}
 \end{align}
 というように書くことができる。
-このようにおくことで\(P_x \vb*{E}\)としたときに、
+このようにおくことで\(\hat{P}_x \vb*{E}\)としたときに、
 縦偏光の成分がなくなるのがわかる。
 また、この偏光板を角度 \(\theta\) だけ回転させたものは回転行列\(R(\theta)\)を用いて
 \begin{align}
-    P_\theta = R(\theta)P_x R^{-1}(\theta)
+    \hat{P}(\theta) = \hat{R}(\theta)\hat{P}_x \hat{R}^{-1}(\theta)
     = \begin{pmatrix}
         \cos \theta & -\sin\theta\\
         \sin\theta & \cos\theta
@@ -200,7 +200,7 @@
 
 横偏光と縦偏光の位相を\(\phi\)だけずらす移相子はこのように書ける。
 \begin{align}
-    \Delta_\phi(\theta) &= R(\theta) \Delta_\phi  R^{-1}(\theta) \notag\\
+    \hat{\Delta}_\phi(\theta) &= \hat{R}(\theta) \hat{\Delta}_\phi  \hat{R}^{-1}(\theta) \notag\\
     &= \begin{pmatrix}
         \cos \theta & -\sin\theta\\
         \sin\theta & \cos\theta
@@ -213,40 +213,329 @@
         \cos \theta & \sin\theta\\
         -\sin\theta & \cos\theta
     \end{pmatrix}
-    =e^{i\phi} I + (1-e^{i\phi})\begin{pmatrix}
+    =e^{i\phi} \hat{I} + (1-e^{i\phi})\begin{pmatrix}
         \cos^2 \theta & \cos\theta\sin\theta\\
         \cos\theta\sin\theta & \sin^2\theta
     \end{pmatrix}.
 \end{align}
-ここで \(I\)は単位行列を表している。
+ここで \(\hat{I}\)は単位行列を表している。
 
 移相子のうち位相を \(\phi = \pi/2\) ずらすものを \(\lambda/4\) 板といい、
 \begin{align}
-    Q(\theta)
+    \hat{Q}(\theta)
     =iI + (1-i)\begin{pmatrix}
         \cos^2 \theta & \cos\theta\sin\theta\\
         \cos\theta\sin\theta & \sin^2\theta
     \end{pmatrix}
+    =\begin{pmatrix}
+        \cos^2\theta+i\sin^2\theta & (1-i)\cos\theta\sin\theta\\
+        (1-i)\cos\theta\sin\theta & \sin^2\theta + i \cos^2\theta
+    \end{pmatrix}
 \end{align}
 というように書く。
+角度を \(\theta = 0\) として、直線偏光 \(\vb*{d}=\,^t(1,0)/\sqrt{2}\) を \(\lambda/4\) 板に通すと、
+\begin{align}
+    \hat{Q}(0)\vb*{h} =\frac{1}{\sqrt{2}}
+    \begin{pmatrix}
+        1   &   0\\
+        0   &   i
+    \end{pmatrix}
+    \begin{pmatrix}
+        1 \\ 1
+    \end{pmatrix}
+    = \frac{1}{\sqrt{2}}\begin{pmatrix}
+        1 \\ i
+    \end{pmatrix}
+    =\vb*{r},
+\end{align}
+円偏光 \(\vb*{r} = \,^t(1,i)/\sqrt{2}\) を \(\lambda/4\) 板に通すと、
+\begin{align}
+    \hat{Q}(0)\vb*{r} = \frac{1}{\sqrt{2}}
+    \begin{pmatrix}
+        1   &   0\\
+        0   &   i
+    \end{pmatrix}
+    \begin{pmatrix}
+        1 \\ i
+    \end{pmatrix}
+    = \frac{1}{\sqrt{2}}\begin{pmatrix}
+        1 \\ -1
+    \end{pmatrix}
+    \equiv\vb*{a},
+\end{align}
+というようになる。
+つまり、\(\lambda/4\) 板は直線偏光を円偏光に、
+円偏光を直線偏光に変換する素子であるとわかる。
 
-このような行列をジョーンズ行列と呼ばれる。
-始めの光電場が \(\vb*{E}\) でジョーンズ行列 \(J\) で表せる光学素子を通ったあと、
+このような行列ジョーンズベクトルに作用して偏光状態を変える行列はジョーンズ行列と呼ばれる。
+始めの光電場が \(\vb*{E}\) でジョーンズ行列 \(\hat{J}\) で表せる光学素子を通ったあと、
 実際に測定される光の強度は
 \begin{align}
-    I = \abs{J\vb*{E}}^2
+    I = \abs{\hat{J}\vb*{E}}^2
 \end{align}
 というようになる。
 
-\section{実験}
+% 一般の楕円偏光 \(^t(\cos\theta,e^{i\phi}\sin{\theta})\) を偏光版\(\hat{P}(0)\)を通すことで得られる光の強度は
+% \begin{align}
+%     I = \abs{\begin{pmatrix}
+%         1   &   0\\
+%         0   &   0
+%     \end{pmatrix}\begin{pmatrix}
+%         \cos\theta \\ e^{i\phi}\sin\theta
+%     \end{pmatrix}}^2 = \cos\theta^2
+% \end{align}
+% というようになる。
 
-\section{結果}
+% 一般の楕円偏光 \(^t(\cos\theta,e^{i\phi}\sin{\theta})\) を \(\lambda/4\) 板\(\hat{\Delta}(0)\)、
+% 偏光版\(\hat{P}(0)\)の順に通すことで得られる光の強度は
+% \begin{align}
+%     I = \abs{\begin{pmatrix}
+%         1   &   0\\
+%         0   &   0
+%     \end{pmatrix}\abs{\begin{pmatrix}
+%         1   &   0\\
+%         0   &   i
+%     \end{pmatrix}\begin{pmatrix}
+%         \cos\theta \\ e^{i\phi}\sin\theta
+%     \end{pmatrix}}^2 = \cos\theta^2
+% \end{align}
+% というようになる。
+
+\section{実験1: レーザー光の偏光}
+\begin{wrapfigure}{r}{0.48\columnwidth}
+    \centering
+    \includegraphics[width=0.48\columnwidth]{fig_ex-1.png}
+    \caption{実験1: レーザー光の偏光の測定系}
+    \label{fig:ex-1}
+\end{wrapfigure}
+レーザー光の偏光の性質をみるため、以下のような実験を行った。
+
+はじめに、強度が安定しているかを確認するため、10 分間 He-Ne レーザー光の強度を1分おきに測定した(図\ref{fig:ex-1}-a)。
+その後、レーザー光の偏光面の偏りを調べるため、図\ref{fig:ex-1}-b のように偏光板を追加して、
+偏光板の角度を変えたときの強度の変化を測定した。
+偏光板の特定の角度で光の強度が強くなるとしたら、
+その角度がレーザー光の偏光面の傾きであると期待できる。
+このように偏光面の角度を知る役割の偏光板を検光子と呼ぶ。
+
+また、円偏光の度合を調べるため、\(\lambda/4\) 板を光路上に追加して、偏光版の角度を変えたときの強度の変化を測定した
+(図\ref{fig:ex-1}-c)。
+縦偏光と横偏光の位相差が \(\phi=\pm\pi/2\) に近く、円偏光のような形になっているとき、
+\(\lambda/4\) 板を通すと直線偏光になるので、検光子の角度によって強度に変化が出ると予想される。
+
+\section{結果1: レーザー光の偏光}
+レーザー光の強度は図\ref{graph:ex-1-1}のようになった。
+光の強度はフォトダイオードの出力する値で 1.73 V で一定であるため、
+以降の測定では光源は安定しているものとみなすことができる。
+
+レーザー光の偏光の様子を測定するため、
+検光子と \(\lambda/4\) 板を通した後の光の強度は図\ref{graph:ex-1-2}のようになった。
+これを一般のジョーンズベクトル \(E = \,^t(\cos a,\,e^{ib}\sin a)\)を仮定した際に得られる強度の式とあわせて考える。
+検光子のみ通したのときの強度は
+\begin{align}
+    I = &\cos^2 a \cos^4 \theta
+    + 2 \cos a \cos b \cos^3 \theta \sin a \sin \theta
+    + \cos^2 a \cos^2 \theta \sin^2 \theta \nonumber \\
+    &+ \cos^2 b \cos^2 \theta \sin^2 a \sin^2 \theta
+    + \cos^2 \theta \sin^2 a \sin^2 b \sin^2 \theta \nonumber \\
+    &+ 2 \cos a \cos b \cos \theta \sin a \sin^3 \theta
+    + \cos^2 b \sin^2 a \sin^4 \theta
+    + \sin^2 a \sin^2 b \sin^4 \theta.
+\end{align}
+である。これを図\ref{graph:ex-1-2}と合うようにパラメータ \((a,b)\) を調整すると、\((a,b)=(\pi/4,\pi/2)\)となった。
+これはレーザー光から出た直後の光が円偏光であることを表している。
+
+一方、\(\lambda/4\) 板を通したときのジョーンズベクトルから計算したときの強度は
+\begin{align}
+    I =&\cos^2 a \cos^4 \theta
+    - 2 \cos a \sin b \cos^3 \theta \sin a \sin \theta
+    + \cos^2 a \cos^2 \theta \sin^2 \theta \nonumber \\
+    &+ \sin^2 b \cos^2 \theta \sin^2 a \sin^2 \theta
+    + \cos^2 b \cos^2 \theta \sin^2 a \sin^2 \theta \nonumber \\
+    &- 2 \cos a \sin b \cos \theta \sin a \sin^3 \theta
+    + \sin^2 b \sin^2 a \sin^4 \theta
+    + \cos^2 b \sin^2 a \sin^4 \theta.
+\end{align}
+となる。
+この式を図\ref{graph:ex-1-2}と合うようにパラメータ \((a,b)\) を調整すると、\((a,b)=(\pi/4,0)\)となった。
+これはレーザー光から出た直後の光が直線偏光を表している。
+
+ジョーンズベクトルを用いた解析では矛盾がでることから、
+ジョーンズベクトルでの表記をする際に行った光の状態の仮定が誤っているのがわかる。
+その仮定はレーザー光は特定の偏光の状態であるというものである。
+よってレーザー光は非偏光であることがわかる。
+
+% レーザー光の偏光の様子として考えられるのは、
+% レーザー内で光が生成される際に、ランダムな向きの偏光として生成される
+
+\begin{figure}[H]
+    \centering
+    \begin{minipage}[t]{0.48\columnwidth}
+        \centering
+        \includegraphics[width=\columnwidth]{11_29_00.png}
+        \caption{光源の He-Ne レーザーの強度。縦軸はフォトダイオードの出力電圧。}
+        \label{graph:ex-1-1}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.48\columnwidth}
+        \centering
+        \includegraphics[width=\columnwidth]{11_29_01.png}
+        \caption{レーザー光の偏光の様子。
+        横軸は検光子の角度、縦軸は図\ref{graph:ex-1-1}の強度を基準とした強度。
+        no \(\lambda/4\) は \(\lambda/4\) 板を通さず直接検光子を通したときの強度、
+        \(\lambda/4\) は \(\lambda/4\) 板を通してから検光子を通したときの強度。}
+        \label{graph:ex-1-2}
+    \end{minipage}
+\end{figure}
+
+\clearpage
+\section{実験2: 直線偏光の取扱}
+\begin{wrapfigure}{r}{0.48\columnwidth}
+    \centering
+    \includegraphics[width=0.48\columnwidth]{fig_ex-2.png}
+    \caption{実験2: 直線偏光の取扱の測定系}
+    \label{fig:ex-2}
+\end{wrapfigure}
+偏光板を通した後のレーザー光の性質を調べるため、以下のような実験を行った。
+
+まずはじめに、レーザー光を通す偏光版の角度を \ang{0} と \ang{45}
+\footnote{検光子の角度の方向と偏光子の角度の方向は逆向きになっている。} にし、
+検光子を用いることでの偏光面の角度を調べた(図\ref{fig:ex-2}-a)。
+
+次に、\(\lambda/4\) 板の規準となる角度を調べるため、
+2つの偏光板の角度をあわせた後、
+フォトダイオードの出力が最大となる角度に \(\lambda/4\) 板をセットした(図\ref{fig:ex-2}-b)。
+この系をジョーンズ行列を用いて表すと、
+\begin{align}
+    \hat{J}(\theta) &= \hat{P}(0)\hat{Q}(\theta)\hat{P}(0) \notag\\
+    &=\begin{pmatrix}
+        \cos^2\theta + i\sin^2\theta  & 0\\
+        0 & 0
+    \end{pmatrix}
+\end{align}
+これに \(\vb*{E}=\,^t(E_{0x},E_{0y}e^{i\phi})\)の光が入ったときの光の強度は % TODO: 文章の流れを踏まえると実は論理が変
+\begin{align}
+    I(\theta) = \abs{\hat{J}(\theta)\vb*{E}}^2 \propto 1 -\frac{\sin^2 2\theta}{2}
+\end{align}
+となる。これの強度が最も強いときは \(\theta=0,\pi/2\)である。
+\(\theta=0\) は縦偏光の位相を \(\pi/2\) 遅らせるもの、
+\(\theta=\pi/2\) は横偏光の位相を \(\pi/2\) 進ませるものに対応し、
+縦偏光と横変更の相対的な位相は変わらない。
+なので最大となる\(\lambda/4\) 板の角度 \(\theta\) が2種類あるように見えるが、
+どちらを選んだかわからなくても問題ないのがわかる。
+
+その後、\(\lambda/4\) 板を規準となる角度から \ang{0}, \ang{15}, \ang{30}, \ang{45}
+傾けたときの偏光面の角度を調べた(図\ref{fig:ex-2}-c)
+
+\section{結果2: 直線偏光の取扱}
+レーザー光を通す偏光版の角度を \ang{0} と \ang{45} にしたときの測定結果は図\ref{graph:ex-2-1}のようになった。
+これを見るとそれぞれの角度について
+\begin{align}
+    I_0(\theta) \propto \cos^2\theta,\qquad I_{45}(\theta) \propto \cos^2\qty(\theta + \frac{\pi}{4})
+\end{align}
+が成り立っているのがわかる(マリュス則)。
+検光子のジョーンズ行列
+\begin{align}
+    \hat{P}(\theta) =
+    \begin{pmatrix}
+        \cos^2\theta & \cos\theta\sin\theta\\
+        \cos\theta\sin\theta & \sin^2\theta
+    \end{pmatrix}
+\end{align}
+を作用させてマリュス則が成り立つような偏光はそれぞれ
+\begin{align}
+    \vb*{E}_0 = \begin{pmatrix}
+        1 \\ 0
+    \end{pmatrix},\qquad
+    \vb*{E}_{45} = \frac{1}{\sqrt{2}}\begin{pmatrix}
+        1 \\ 1
+    \end{pmatrix}
+\end{align}
+である。ジョーンズ行列との積\(\\hat{P}(\theta)\vb*{E}\)を計算すると確かにマリュス則と一致しているのがわかる(課題1)。
+
+この結果より、レーザー光を偏光板に通すと直線偏光が得られることがわかった。
+
+直線偏光を \(\lambda/4\) 板に通した時の偏光面の様子は図\ref{graph:ex-2-2}のようになった。
+この系のジョーンズベクトルは
+\begin{align}
+    \hat{J}(\theta_1,\,\theta_2)\vb*{E} &= \hat{P}(\theta_2)\hat{Q}(\theta_1)\vb*{E}=
+    \begin{pmatrix}
+        \cos^2\theta_2 & \cos\theta_2\sin\theta_2\\
+        \cos\theta_2\sin\theta_2 & \sin^2\theta_2
+    \end{pmatrix}
+    \begin{pmatrix}
+        \cos^2\theta_1+i\sin^2\theta_1 & (1-i)\cos\theta_1\sin\theta_1\\
+        (1-i)\cos\theta_1\sin\theta_1 & \sin^2\theta_1 + i \cos^2\theta_1
+    \end{pmatrix}
+    \begin{pmatrix}
+        1\\0
+    \end{pmatrix}\notag\\
+    &=\begin{pmatrix}
+        \cos^2(\theta_2) \left( \cos^2(\theta_1) + i \sin^2(\theta_1) \right) + \cos(\theta_2) \sin(\theta_2) \left( (1 - i) \cos(\theta_1) \sin(\theta_1) \right) \\
+        \cos(\theta_2) \sin(\theta_2) \left( \cos^2(\theta_1) + i \sin^2(\theta_1) \right) + \sin^2(\theta_2) \left( (1 - i) \cos(\theta_1) \sin(\theta_1) \right)
+    \end{pmatrix}
+\end{align}
+これより強度を計算すると
+\begin{align}
+    I(\theta_1,\,\theta_2) \propto \cos(4\theta_1-2\theta_2)+\cos\theta(2\theta_2)+2
+\end{align}
+となり図\ref{graph:ex-2-2}とよく一致する。
+
+\begin{figure}[H]
+    \centering
+    \begin{minipage}[t]{0.48\columnwidth}
+        \centering
+        \includegraphics[width=\columnwidth]{11_29_02.png}
+        \caption{偏光板を通した後のレーザー光の偏光の様子。
+        横軸は検光子の角度、
+        縦軸は図\ref{graph:ex-1-1}の強度を規準とした強度。
+        凡例はレーザー光から出た後の偏光板の角度を表している。}
+        \label{graph:ex-2-1}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.48\columnwidth}
+        \centering
+        \includegraphics[width=\columnwidth]{11_29_03.png}
+        \caption{偏光板を通した後のレーザー光(直線偏光)に \(\lambda/4\) 板を通したあとの偏光の様子。
+        横軸は検光子の角度、
+        縦軸は図\ref{graph:ex-1-1}の強度を規準とした強度。
+        凡例は \(\lambda/4\) 板の角度を表している。}
+        \label{graph:ex-2-2}
+    \end{minipage}
+\end{figure}
+
+\section{実験3: ファラデー効果}
+\begin{wrapfigure}{r}{0.48\columnwidth}
+    \centering
+    \caption{使用したソレノイドコイルのパラメータ}
+    \label{table:ex-3}
+    \begin{tabular}{rrrrr}
+        \hline
+        コイル & 巻き数 & 長さ (cm) & 直径 (cm) & 長岡係数\\
+        \hline
+        No.1 & 150 & 8.275 & 2.200 & 0.896\\
+        No.2 & 100 & 7.238 & 2.200 & 0.882\\
+        No.3 & 75 & 7.866 & 2.283 & 0.887\\
+        No.4 & 50 & 7.478 & 2.200 & 0.886\\
+        \hline
+    \end{tabular}
+\end{wrapfigure}
+
+磁化のある媒質中を通った後の直線偏光の性質を調べるため、以下のような実験を行った。
+
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\columnwidth]{fig_ex-3.png}
+    \caption{実験3: ファラデー効果の測定系}
+    \label{fig:ex-3}
+\end{figure}
+
 
 \section{考察}
 
 \section{結論}
 
-% \clearpage
 \bibliographystyle{junsrt}
 \bibliography{reference}
 \nocite{*}
