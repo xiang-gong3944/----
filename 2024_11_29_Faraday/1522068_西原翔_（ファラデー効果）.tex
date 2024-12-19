@@ -90,7 +90,17 @@
 % \twocolumn
 
 \begin{abstract}
-    b
+    This report presents the theoretical and experimental investigation of the Faraday effect,
+    which involves the rotation of the polarization plane of light passing through a magnetized medium.
+    The principles of light polarization, including Jones vectors and matrices,
+    are reviewed to describe changes in polarization states induced by optical elements.
+    Experimental setups utilizing He-Ne lasers, polarizers,
+    and \(\lambda/4\) plates are detailed for analyzing linearly polarized and circularly polarized light.
+    The Faraday effect is explored using magneto-optical glass with applied magnetic fields,
+    with results indicating a proportional relationship between the polarization rotation angle
+    and the magnetic field strength. Discrepancies between experimental Verdet constants and reference values are discussed,
+    with potential sources of error including material properties and measurement inaccuracies.
+    Applications of the Faraday effect in optical communication devices, such as isolators, are also addressed.
 \end{abstract}
 
 
@@ -163,7 +173,7 @@
 これを偏光ベクトルの基底として扱うこともできる。
 物質との相互作用を考える際にはこちらが便利であることがある。
 
-\subsection{光学素子とジョーンズベクトル}
+\subsection{光学素子とジョーンズ行列}
 光が光学素子によってその状態が変わるというのは、ジョーンズベクトルに行列が作用するというように理解できる。
 透過した光が x 方向の直線偏光となる偏光板は行列を用いて
 \begin{align}
@@ -223,7 +233,7 @@
 移相子のうち位相を \(\phi = \pi/2\) ずらすものを \(\lambda/4\) 板といい、
 \begin{align}
     \hat{Q}(\theta)
-    =iI + (1-i)\begin{pmatrix}
+    =i\hat{I} + (1-i)\begin{pmatrix}
         \cos^2 \theta & \cos\theta\sin\theta\\
         \cos\theta\sin\theta & \sin^2\theta
     \end{pmatrix}
@@ -300,7 +310,7 @@
 %     \end{pmatrix}}^2 = \cos\theta^2
 % \end{align}
 % というようになる。
-
+\clearpage
 \section{実験1: レーザー光の偏光}
 \begin{wrapfigure}{r}{0.48\columnwidth}
     \centering
@@ -322,10 +332,30 @@
 縦偏光と横偏光の位相差が \(\phi=\pm\pi/2\) に近く、円偏光のような形になっているとき、
 \(\lambda/4\) 板を通すと直線偏光になるので、検光子の角度によって強度に変化が出ると予想される。
 
-\section{結果1: レーザー光の偏光}
+\section{結果・考察1: レーザー光の偏光}
 レーザー光の強度は図\ref{graph:ex-1-1}のようになった。
 光の強度はフォトダイオードの出力する値で 1.73 V で一定であるため、
 以降の測定では光源は安定しているものとみなすことができる。
+
+\begin{figure}[H]
+    \centering
+    \begin{minipage}[t]{0.48\columnwidth}
+        \centering
+        \includegraphics[width=\columnwidth]{11_29_00.png}
+        \caption{光源の He-Ne レーザーの強度。縦軸はフォトダイオードの出力電圧。}
+        \label{graph:ex-1-1}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.48\columnwidth}
+        \centering
+        \includegraphics[width=\columnwidth]{11_29_01.png}
+        \caption{レーザー光の偏光の様子。
+        横軸は検光子の角度、縦軸は図\ref{graph:ex-1-1}の強度を基準とした強度。
+        no \(\lambda/4\) は \(\lambda/4\) 板を通さず直接検光子を通したときの強度、
+        \(\lambda/4\) は \(\lambda/4\) 板を通してから検光子を通したときの強度。}
+        \label{graph:ex-1-2}
+    \end{minipage}
+\end{figure}
 
 レーザー光の偏光の様子を測定するため、
 検光子と \(\lambda/4\) 板を通した後の光の強度は図\ref{graph:ex-1-2}のようになった。
@@ -364,30 +394,7 @@
 その仮定はレーザー光は特定の偏光の状態であるというものである。
 よってレーザー光は非偏光であることがわかる。
 
-% レーザー光の偏光の様子として考えられるのは、
-% レーザー内で光が生成される際に、ランダムな向きの偏光として生成される
 
-\begin{figure}[H]
-    \centering
-    \begin{minipage}[t]{0.48\columnwidth}
-        \centering
-        \includegraphics[width=\columnwidth]{11_29_00.png}
-        \caption{光源の He-Ne レーザーの強度。縦軸はフォトダイオードの出力電圧。}
-        \label{graph:ex-1-1}
-    \end{minipage}
-    \hfill
-    \begin{minipage}[t]{0.48\columnwidth}
-        \centering
-        \includegraphics[width=\columnwidth]{11_29_01.png}
-        \caption{レーザー光の偏光の様子。
-        横軸は検光子の角度、縦軸は図\ref{graph:ex-1-1}の強度を基準とした強度。
-        no \(\lambda/4\) は \(\lambda/4\) 板を通さず直接検光子を通したときの強度、
-        \(\lambda/4\) は \(\lambda/4\) 板を通してから検光子を通したときの強度。}
-        \label{graph:ex-1-2}
-    \end{minipage}
-\end{figure}
-
-\clearpage
 \section{実験2: 直線偏光の取扱}
 \begin{wrapfigure}{r}{0.48\columnwidth}
     \centering
@@ -426,7 +433,7 @@
 その後、\(\lambda/4\) 板を規準となる角度から \ang{0}, \ang{15}, \ang{30}, \ang{45}
 傾けたときの偏光面の角度を調べた(図\ref{fig:ex-2}-c)
 
-\section{結果2: 直線偏光の取扱}
+\section{結果・考察2: 直線偏光の取扱}
 レーザー光を通す偏光版の角度を \ang{0} と \ang{45} にしたときの測定結果は図\ref{graph:ex-2-1}のようになった。
 これを見るとそれぞれの角度について
 \begin{align}
@@ -450,7 +457,26 @@
         1 \\ 1
     \end{pmatrix}
 \end{align}
-である。ジョーンズ行列との積\(\\hat{P}(\theta)\vb*{E}\)を計算すると確かにマリュス則と一致しているのがわかる(課題1)。
+である。
+ジョーンズ行列との積\(\hat{P}(\theta)\vb*{E}\)を計算すると
+\begin{align}
+    \hat{P}(\theta)\vb*{E}
+    = \begin{pmatrix}
+        \cos^2\theta & \cos\theta \sin\theta\\
+        \cos\theta\sin\theta & \sin^2\theta
+    \end{pmatrix}
+    \begin{pmatrix}
+        1 \\ 0
+    \end{pmatrix}
+    = \begin{pmatrix}
+        \cos^2\theta \\ \cos\theta\sin\theta
+    \end{pmatrix}
+\end{align}
+であり、これの強度は
+\begin{align}
+    I(\theta) = \cos^4\theta +\cos^2\theta\sin^2\theta = \cos^2\theta
+\end{align}
+確かにマリュス則と一致しているのがわかる(課題1)。
 
 この結果より、レーザー光を偏光板に通すと直線偏光が得られることがわかった。
 
@@ -476,9 +502,11 @@
 \end{align}
 これより強度を計算すると
 \begin{align}
-    I(\theta_1,\,\theta_2) \propto \cos(4\theta_1-2\theta_2)+\cos\theta(2\theta_2)+2
+    I(\theta_1,\,\theta_2) \propto \cos(4\theta_1-2\theta_2)+\cos(2\theta_2)+2
 \end{align}
-となり図\ref{graph:ex-2-2}とよく一致する。
+となる。これをグラフ描画ソフトで確認すると図\ref{graph:ex-2-2}とよく一致する。
+
+これより、偏光が定まっているような光に対してはジョーンズベクトルによる方法はうまくいっているのがわかる。
 
 \begin{figure}[H]
     \centering
@@ -522,19 +550,515 @@
 
 磁化のある媒質中を通った後の直線偏光の性質を調べるため、以下のような実験を行った。
 
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+測定する系は図\ref{fig:ex-3}の通りである。
+偏光子を使って He-Ne レーザー光を直線偏光とし、
+磁化を持った媒質を通って、偏光子と同じ角度にした検光子を通して強度を測定する。
 
-\begin{figure}
+偏光子と検光子を同じ角度にすることで、
+媒質を通っても変化がないときには最も強い強度、変化があったときには強度が弱くなる。
+これにより偏光の変化の様子を測定する。
+
+磁化をもつ He-Ne レーザー光を透過する媒質として、
+酸化テルビウムを含む磁気ガラスを使う。
+これをソレノイドコイル中に通し、コイルに電流を流すことでテルビウムの磁化を誘起させる。
+% 常磁性体であるため、磁化は
+% \begin{align}
+%     M = \chi H
+% \end{align}
+% というように単に比例するため磁場の強さによる偏光の違いを見る。
+
+ソレノイドコイルは理想的な無限長さではないため、コイル内部の磁場は\(H=ni\)ではなく、
+長岡係数\(K_n\)を用いて
+\begin{gather}
+    H = K_n n i\\
+    K_n = \frac{4}{3\pi\sqrt{1-k^2}}\qty(\frac{1-k^2}{k^2}K(k)-\frac{1-2k^2}{k^2}E(k)-k),\qquad
+    \frac{2r}{l} = \frac{k}{\sqrt{1-k^2}}
+\end{gather}
+というように補正される。
+ここで、\(r\)はソレノイドコイルの半径、\(l\)はソレノイドコイルの軸方向の長さ、
+\(K(k),\,E(k)\)はの第一種完全楕円積分および第二種完全楕円積分である。
+
+このようなセッティングの元、4種類のコイル(表\ref{table:ex-3})を使い、
+パルス電流の強さを変えて測定を行った。
+
+次に、No.1 のコイルを使用して、偏光子の角度を \ang{45} にしたときの偏光の様子を測定した。
+その後、パルス電流の流す向きを変えて同じ測定を行った。
+
+\begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\columnwidth]{fig_ex-3.png}
+    \includegraphics[width=0.7\columnwidth]{fig_ex-3.png}
     \caption{実験3: ファラデー効果の測定系}
     \label{fig:ex-3}
 \end{figure}
 
+\section{結果・考察3: ファラデー効果}
+測定結果は以下のようになった。
+ノイズをとるため実線は 5 次の Savitzky-Golay フィルターをかけたものを使った。
 
-\section{考察}
+\ifodd1
+\subsection*{x-t グラフ}
+横軸に時間 (\si{\micro s})、左縦軸に透過光の強度 (arb. unit)、右縦軸に磁場の強さ (kA/cm) をプロットしたグラフは以下の通りである。
+グラフの上部にあるのはソレノイドコイルの巻き数とパルス発生電流を装置の充電電圧である。
+
+始めに偏光子と検光子のなす角度が 0 度のときの結果を示す。
+\begin{figure}[H]
+    \centering
+    \begin{minipage}[t]{0.24\columnwidth}
+        \centering
+        \includegraphics[width = \columnwidth]{xt/01.png}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.24\columnwidth}
+        \centering
+        \includegraphics[width = \columnwidth]{xt/02.png}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.24\columnwidth}
+        \centering
+        \includegraphics[width = \columnwidth]{xt/03.png}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.24\columnwidth}
+        \centering
+        \includegraphics[width = \columnwidth]{xt/04.png}
+    \end{minipage}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \begin{minipage}[t]{0.24\columnwidth}
+        \centering
+        \includegraphics[width = \columnwidth]{xt/05.png}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.24\columnwidth}
+        \centering
+        \includegraphics[width = \columnwidth]{xt/06.png}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.24\columnwidth}
+        \centering
+        \includegraphics[width = \columnwidth]{xt/07.png}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.24\columnwidth}
+        \centering
+        \includegraphics[width = \columnwidth]{xt/08.png}
+    \end{minipage}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \begin{minipage}[t]{0.24\columnwidth}
+        \centering
+        \includegraphics[width = \columnwidth]{xt/09.png}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.24\columnwidth}
+        \centering
+        \includegraphics[width = \columnwidth]{xt/10.png}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.24\columnwidth}
+        \centering
+        \includegraphics[width = \columnwidth]{xt/11.png}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.24\columnwidth}
+        \centering
+        \includegraphics[width = \columnwidth]{xt/12.png}
+    \end{minipage}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \begin{minipage}[t]{0.24\columnwidth}
+        \centering
+        \includegraphics[width = \columnwidth]{xt/13.png}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.24\columnwidth}
+        \centering
+        \includegraphics[width = \columnwidth]{xt/14.png}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.24\columnwidth}
+        \centering
+        \includegraphics[width = \columnwidth]{xt/15.png}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.24\columnwidth}
+        \centering
+        \includegraphics[width = \columnwidth]{xt/16.png}
+    \end{minipage}
+\end{figure}
+
+次に偏光子と検光子のなす角度が 45 度のときの結果を示す。
+\begin{figure}[H]
+    \centering
+    \begin{minipage}[t]{0.24\columnwidth}
+        \centering
+        \includegraphics[width = \columnwidth]{xt/17.png}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.24\columnwidth}
+        \centering
+        \includegraphics[width = \columnwidth]{xt/18.png}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.24\columnwidth}
+        \centering
+        \includegraphics[width = \columnwidth]{xt/19.png}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.24\columnwidth}
+        \centering
+        \includegraphics[width = \columnwidth]{xt/20.png}
+    \end{minipage}
+\end{figure}
+
+最後にパルス電流の向きを変えることで磁場の向きを今までの向きとは反平行にして、偏光子と検光子のなす角度が 45 度のときの結果を示す。
+\begin{figure}[H]
+    \centering
+    \begin{minipage}[t]{0.24\columnwidth}
+        \centering
+        \includegraphics[width = \columnwidth]{xt/22.png}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.24\columnwidth}
+        \centering
+        \includegraphics[width = \columnwidth]{xt/23.png}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.24\columnwidth}
+        \centering
+        \includegraphics[width = \columnwidth]{xt/24.png}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.24\columnwidth}
+        \centering
+        \includegraphics[width = \columnwidth]{xt/25.png}
+    \end{minipage}
+\end{figure}
+
+\subsection*{x-y グラフ}
+
+横軸に磁場の強さ (kA/cm)、縦軸に透過光の強度 (arb. unit) をプロットしたグラフは以下の通りである。
+磁場による磁気ガラス中の磁化の応答が遅れるがあるため、
+それを補正したものと補正していないもの両方を載せる。
+
+補正はこのようにして行った。
+磁場の強さと透過光の強度の x-y グラフを作る際に、
+時刻\(t[i]\)のときの磁場の強さと透過光を\(H[i], I[i]\)というようにおく。
+磁化の応答が遅れるということは、同じだけ透過光の応答も遅らせればよい。
+なので
+\begin{align}
+    (H[i], I[i+\text{shift}])
+\end{align}
+というように光強度も shift の分だけ遅らせたペアの点をプロットするというようにして補正した。
+
+グラフの上部にあるのはソレノイドコイルの巻き数とパルス発生装置の充電電圧、どれだけシフトしたかの量である。
+
+始めに偏光子と検光子のなす角度が 0 度のときの結果を示す。
+\begin{figure}[H]
+    \centering
+    \begin{minipage}[t]{0.24\columnwidth}
+        \centering
+        \includegraphics[width = \columnwidth]{xy/01.png}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.24\columnwidth}
+        \centering
+        \includegraphics[width = \columnwidth]{xy/02.png}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.24\columnwidth}
+        \centering
+        \includegraphics[width = \columnwidth]{xy/03.png}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.24\columnwidth}
+        \centering
+        \includegraphics[width = \columnwidth]{xy/04.png}
+    \end{minipage}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \begin{minipage}[t]{0.24\columnwidth}
+        \centering
+        \includegraphics[width = \columnwidth]{xy/05.png}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.24\columnwidth}
+        \centering
+        \includegraphics[width = \columnwidth]{xy/06.png}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.24\columnwidth}
+        \centering
+        \includegraphics[width = \columnwidth]{xy/07.png}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.24\columnwidth}
+        \centering
+        \includegraphics[width = \columnwidth]{xy/08.png}
+    \end{minipage}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \begin{minipage}[t]{0.24\columnwidth}
+        \centering
+        \includegraphics[width = \columnwidth]{xy/09.png}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.24\columnwidth}
+        \centering
+        \includegraphics[width = \columnwidth]{xy/10.png}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.24\columnwidth}
+        \centering
+        \includegraphics[width = \columnwidth]{xy/11.png}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.24\columnwidth}
+        \centering
+        \includegraphics[width = \columnwidth]{xy/12.png}
+    \end{minipage}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \begin{minipage}[t]{0.24\columnwidth}
+        \centering
+        \includegraphics[width = \columnwidth]{xy/13.png}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.24\columnwidth}
+        \centering
+        \includegraphics[width = \columnwidth]{xy/14.png}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.24\columnwidth}
+        \centering
+        \includegraphics[width = \columnwidth]{xy/15.png}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.24\columnwidth}
+        \centering
+        \includegraphics[width = \columnwidth]{xy/16.png}
+    \end{minipage}
+\end{figure}
+
+次に偏光子と検光子のなす角度が 45 度のときの結果を示す。
+\begin{figure}[H]
+    \centering
+    \begin{minipage}[t]{0.24\columnwidth}
+        \centering
+        \includegraphics[width = \columnwidth]{xy/17.png}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.24\columnwidth}
+        \centering
+        \includegraphics[width = \columnwidth]{xy/18.png}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.24\columnwidth}
+        \centering
+        \includegraphics[width = \columnwidth]{xy/19.png}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.24\columnwidth}
+        \centering
+        \includegraphics[width = \columnwidth]{xy/20.png}
+    \end{minipage}
+\end{figure}
+
+最後にパルス電流の向きを変えることで磁場の向きを今までの向きとは反平行にして、偏光子と検光子のなす角度が 45 度のときの結果を示す。
+\begin{figure}[H]
+    \centering
+    \begin{minipage}[t]{0.24\columnwidth}
+        \centering
+        \includegraphics[width = \columnwidth]{xy/22.png}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.24\columnwidth}
+        \centering
+        \includegraphics[width = \columnwidth]{xy/23.png}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.24\columnwidth}
+        \centering
+        \includegraphics[width = \columnwidth]{xy/24.png}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.24\columnwidth}
+        \centering
+        \includegraphics[width = \columnwidth]{xy/25.png}
+    \end{minipage}
+\end{figure}
+\clearpage
+\fi
+\begin{wrapfigure}{r}{0.48\columnwidth}
+    \centering
+    \includegraphics[width=0.48\columnwidth]{verdet.png}
+    \caption{実験3: ファラデー効果の測定結果から得られたベルデ定数}
+    \label{graph:ex-3-1}
+\end{wrapfigure}
+偏光子を掛けていないときの x-y グラフから、
+強度と磁場の間には比例定数ある定数を \(a\) として
+\begin{align}
+    I(H) \propto \cos^2 aH
+\end{align}
+というように書けるのがわかる。
+これは図\ref{fig:ex-2}-a での結果であるマリュス則と同じ形となっている。
+つまり、磁化がある媒質中を直線偏光が通ると、
+直線偏光の偏光面の角度が磁場に比例して変わるということを表している(ファラデー効果)。
+この結果は偏光子の角度を \ang{45} つけたときには \(I \propto \cos^2(aH+\pi/4)\) になっていることや、
+さらに磁場の向きを逆向きにしたときには \(I \propto \cos^2(-aH+\pi/4)\) となっていることからもわかる。
+
+磁気ガラスの長さが長ければ、光が媒質中を滞在する時間が増え、磁化との相互作用が多くなる。
+なのでこの定数を長さで割った量(ベルデ定数)というのが、物質固有の量であると考えられる。
+磁気ガラスの長さを 5.00 cm として、比例定数 \(a\) をこれらのグラフから \(I(H) \propto \cos^2 aH+b\)でフィッティングすることで求めると、
+図\ref{graph:ex-3-1}のようになった。
+
+各実験から得られたベルデ定数の平均値は 9.63 deg/kA であった。
+長岡係数による補正があるものの、実験テキストにある文献値 1.04 deg/kA とはずれてしまった。
+このずれは実際に測定をしていない磁気ガラスの長さが正確ではないと違うといったことが考えられる。
+文献値のベルデ定数があっているものとして、これをもとに磁気ガラスの長さを求めると 4.63 cm である。
+4 mm のずれは考えにくいので、他にも要因があるように考えられる。
+
+\begin{wrapfigure}{r}{0.28\columnwidth}
+    \centering
+    \caption{実験3: 外部磁場に対する磁気ガラス中の磁化の応答の遅れ}
+    \label{table:ex-3-1}
+    \begin{tabular}{rr}
+        \hline
+        コイル & 遅れ (\si{\micro s})\\
+        \hline
+        No.1 & 4.8\\
+        No.2 & 3.8\\
+        No.3 & 2.8\\
+        No.4 & 2.6\\
+        \hline
+    \end{tabular}
+\end{wrapfigure}
+他に挙げられる原因として、磁気ガラス中の酸化テルビウムの量が文献値が測定したサンプルと異なるのも考えられる。
+ベルデ定数が文献値より小さいことから、
+今回測定した試料は磁気ガラス中の酸化テルビウムの量が文献値が測定した試料に比べ小さいと推測される。
+
+また、x-y グラフを作る際に必要な磁場に対する磁化の応答の遅れを補正するためのシフト量は、
+磁場の強さではなく、コイルの種類に関係していた(表\ref{table:ex-3-1})。
+これの解釈は正直わからない。
+有限長のソレノイドコイルであることや、
+コイルの巻きむらによって、コイル中の磁場が不均一となるため、
+磁気ガラスの配置に敏感に影響されたのではないかと考えている。
+
+\section{課題}
+\begin{tcolorbox}[colbacktitle=white, coltitle=black, colback=white, title = 課題1]
+    直線偏光の光が偏光板を透過した時、その透過光強度 \(I\) は
+    \begin{align*}
+        I(\theta) = I_0 \cos^2\theta
+    \end{align*}
+    となることを説明せよ。ここで、\(I_0\) は偏光板への入射光強度、
+    \(\theta\) は電場方向と偏光板の透過軸の成す角であり、
+    偏光板による吸収や反射は無視する。
+\end{tcolorbox}
+
+結果・考察2: 直線偏光の取扱で論じた。\\
+\clearpage
+\begin{tcolorbox}[colbacktitle=white, coltitle=black, colback=white, title = 課題2]
+    光の偏光状態を表す手法として極座標表示がある。
+    \(\lambda/4\) 板の特性を調べたときに得た偏光の実験結果を極座標表示で表しなさい。
+\end{tcolorbox}
+\begin{wrapfigure}{r}{0.45\columnwidth}
+    \centering
+    \includegraphics[width = 0.45 \columnwidth]{11_29_04.png}
+    \caption{\(\lambda/4\) 板の特性を調べたときに得た偏光の実験結果(図\ref{graph:ex-2-2})の極座標表示。}
+    \label{graph:ex-2-3}
+\end{wrapfigure}
+極座標表示で\(\lambda/4\) 板の特性を調べたときに得た偏光の実験結果(図\ref{graph:ex-2-2})を
+プロットすると図\ref{graph:ex-2-3}のようになった。
+
+これを見ると \(\lambda/4\) 板の角度が \ang{0} で直線偏光を変えないときには、
+\(I(\theta)\propto\cos^2\theta\)に従って節があるような曲線となっている。
+\(\lambda/4\) 板の角度を \ang{15}, \ang{30}, \ang{45} とつけていくと、
+その角度にあわせて偏光面も \ang{15}, \ang{30}, \ang{45} と回転していくのがわかる。
+これは \(\lambda/4\) 板のジョーンズ行列が
+\begin{align}
+    \hat{Q}(\theta)
+    &=i\hat{I} + (1-i)\begin{pmatrix}
+        \cos^2 \theta & \cos\theta\sin\theta\\
+        \cos\theta\sin\theta & \sin^2\theta
+    \end{pmatrix}\notag\\
+    &=i\hat{I} + (1-i)\hat{P}(\theta)
+\end{align}
+というように偏光板のジョーンズ行列\(\hat{P}(\theta)\)を使って書くことができるのに対応している。
+つまり、右辺第二項を反映して偏光面が回転していっていると解釈できる。
+
+単位行列とのアフィン結合に虚数が入るため、
+単に回転をするだけではなく節が消え、円周状になっていく。\\ \\
+
+\begin{tcolorbox}[colbacktitle=white, coltitle=black, colback=white, title = 課題3]
+    ファラデー効果の応用について調査せよ。また、その原理について説明せよ。
+\end{tcolorbox}
+光通信網のデバイスである光アイソレーターに使われる。
+
+光通信の光源は半導体レーザーである。
+半導体レーザー素子内部で発振して出た光は光ファイバーを通って回路網に流れていく。
+こうした回路網の中での反射により、光が半導体レーザー素子に戻ってくることがある。
+するとレーザー発振が不安定になり、信号の室が悪くなる。
+こうした影響をなくすため、戻ってくる光のみを遮断するような部品が必要となる。
+これを光アイソレーターという。
+
+図\ref{fig:assignment-1}はファラデー効果の使った光アイソレーターの模式図である。
+半導体レーザーから出た光を偏光板に通し直線偏光にしたあと、
+ファラデー効果を用いて、偏光面を \ang{45} 回転させる。
+そして同じく \ang{45} 回転させた偏光板に通して回路につなぐといったものである。
+このようにすると光源から出る光は直線偏光にするところ以外での減衰が小さくなっているのがわかる。
+
+一方、回路で反射して戻ってきた光がこの系に入ってくることを考える。
+\ang{45} の偏光板を通った反射光の偏光は \ang{45} の直線偏光になる。
+これがファラデー素子を通るとさらに \ang{45} 偏光面が回転する。
+そうすると、半導体レーザーを直線偏光にする偏光板と偏光面が直交するようになるため、
+半導体レーザーに反射光が戻らなくなるのがわかる。
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\columnwidth]{fig_assignment-1.png}
+    \caption{光アイソレーターの模式図}
+    \label{fig:assignment-1}
+\end{figure}
+
+\begin{tcolorbox}[colbacktitle=white, coltitle=black, colback=white, title = 課題4]
+    直線偏光は、互いに反対に回転する円偏光の組み合わせと考えると、
+    ファラデー効果は、
+    透明物質に入射した右回りと左回りの円偏光に対する屈折率が異なるために生ずると考えられる。
+    いま、磁場発生用コイルに流れる電流と同じ方向に回転する円偏光の電場ベクトルを \(E^+(z,t)\),
+    反対方向に回転する円偏光の電場ベクトルを\(E^-(z,t)\)とすると、
+    両者は次のように表される。
+    \begin{align*}
+        E^+(z,t) &= (E_0\cos(kz-\omega t),\,E_0\sin(kz-\omega t),\,0)\\
+        E^-(z,t) &= (E_0\cos(kz-\omega t),\,- E_0\sin(kz-\omega t),\,0)
+    \end{align*}
+    方向に回転する円偏光、反対方向に回転する円偏光に対する屈折率を、
+    それぞれ \(n^+,\,n^-\) とすると、長さ \(L\) の透明物質を透過した後の直線偏光の回転角が
+    次式で表されることを示せ。
+    \begin{align*}
+        \theta = \frac{\pi L}{\lambda}(n^+-n^-)
+    \end{align*}
+    なお、物質中の屈折率を \(n\) とすると、波数は \(2\pi n/\lambda\) と表される。
+\end{tcolorbox}
+
+付録にて論じた。
 
 \section{結論}
+本実験ではレーザー光の偏光特性とファラデー効果について検討した。
+まず、レーザー光の偏光性を調べた結果、
+ジョーンズベクトルを用いた解析がうまくいかないことからレーザー光が非偏光であることを確認した。
+また、\(\lambda/4\) 板を通すことで直線偏光を円偏光に変換し、
+その逆も可能であることを確認した。
+これにより、偏光が定まっている光に対してジョーンズベクトルが有効であるのがわかった。
+また、ソレノイドコイル中に常磁性体を入れることで磁化のある透明媒質を用意し、
+これを通る直線偏光の挙動を解析した。
+実験の結果、偏光面の回転角が磁場の強さに比例することを確認した。
+この比例定数であるベルデ定数は文献値と一致しない結果となった。
+この原因として、使用した磁気ガラスの物性や測定時の精度が影響したと考えられる。
 
 \bibliographystyle{junsrt}
 \bibliography{reference}
@@ -700,7 +1224,7 @@ aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
     E_{\text{in}} = \frac{E_0}{\sqrt{2}}\exp(-i\omega t)(\vb*{r}+\vb*{l})
 \end{align}
 と表せる。
-これが媒質中を通り抜けると各変更は\(i\omega \tilde{n}_{\pm}L/c\)だけ進むので、
+これが媒質中を通り抜けると各偏光は\(\omega \tilde{n}_{\pm}L/c\)だけ進むので、
 出てくる光\(E_{\text{out}}\)は
 \begin{align}
     E_{\text{out}}
@@ -726,311 +1250,9 @@ aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 \end{align*}
 だけ回転した直線偏光を表しているのがわかる。
 
-\(\Delta n \propto \varepsilon_{xy} \propto H\) よりこの回転角は媒質にかかっている磁場の強さ\(H\)に比例する。
+\(\Delta n \propto \varepsilon_{xy} \propto H\) より
+この回転角は媒質にかかっている磁場の強さ\(H\)に比例するというファラデー効果が得られた。
 
-\if0
-\section{磁性ガラス(含 \ce{Tb_2O_3}) の磁気旋光の測定結果}
-磁性を持つ \ce{Tb_2O_3} を含む磁性ガラスのファラデー効果の測定結果が多くなってしまったため、
-こちらで測定結果をすべてまとめる。
-ここでの結果は 5 次の Savitzky-Golay  フィルターをかけてある。
 
-\subsection{x-t グラフ}
-横軸に時間 (\si{\micro s})、左縦軸に透過光の強度 (arb. unit)、右縦軸に磁場の強さ (mA/cm) をプロットしたグラフは以下の通りである。
-グラフの上部にあるのはソレノイドコイルの巻き数とパルス発生装置の充電電圧である。
-
-始めに偏光子と検光子のなす角度が 0 度のときの結果を示す。
-\begin{figure}[H]
-    \centering
-    \begin{minipage}[t]{0.24\columnwidth}
-        \centering
-        \includegraphics[width = \columnwidth]{xt/01.png}
-    \end{minipage}
-    \hfill
-    \begin{minipage}[t]{0.24\columnwidth}
-        \centering
-        \includegraphics[width = \columnwidth]{xt/02.png}
-    \end{minipage}
-    \hfill
-    \begin{minipage}[t]{0.24\columnwidth}
-        \centering
-        \includegraphics[width = \columnwidth]{xt/03.png}
-    \end{minipage}
-    \hfill
-    \begin{minipage}[t]{0.24\columnwidth}
-        \centering
-        \includegraphics[width = \columnwidth]{xt/04.png}
-    \end{minipage}
-\end{figure}
-\begin{figure}[H]
-    \centering
-    \begin{minipage}[t]{0.24\columnwidth}
-        \centering
-        \includegraphics[width = \columnwidth]{xt/05.png}
-    \end{minipage}
-    \hfill
-    \begin{minipage}[t]{0.24\columnwidth}
-        \centering
-        \includegraphics[width = \columnwidth]{xt/06.png}
-    \end{minipage}
-    \hfill
-    \begin{minipage}[t]{0.24\columnwidth}
-        \centering
-        \includegraphics[width = \columnwidth]{xt/07.png}
-    \end{minipage}
-    \hfill
-    \begin{minipage}[t]{0.24\columnwidth}
-        \centering
-        \includegraphics[width = \columnwidth]{xt/08.png}
-    \end{minipage}
-\end{figure}
-\begin{figure}[H]
-    \centering
-    \begin{minipage}[t]{0.24\columnwidth}
-        \centering
-        \includegraphics[width = \columnwidth]{xt/09.png}
-    \end{minipage}
-    \hfill
-    \begin{minipage}[t]{0.24\columnwidth}
-        \centering
-        \includegraphics[width = \columnwidth]{xt/10.png}
-    \end{minipage}
-    \hfill
-    \begin{minipage}[t]{0.24\columnwidth}
-        \centering
-        \includegraphics[width = \columnwidth]{xt/11.png}
-    \end{minipage}
-    \hfill
-    \begin{minipage}[t]{0.24\columnwidth}
-        \centering
-        \includegraphics[width = \columnwidth]{xt/12.png}
-    \end{minipage}
-\end{figure}
-\begin{figure}[H]
-    \centering
-    \begin{minipage}[t]{0.24\columnwidth}
-        \centering
-        \includegraphics[width = \columnwidth]{xt/13.png}
-    \end{minipage}
-    \hfill
-    \begin{minipage}[t]{0.24\columnwidth}
-        \centering
-        \includegraphics[width = \columnwidth]{xt/14.png}
-    \end{minipage}
-    \hfill
-    \begin{minipage}[t]{0.24\columnwidth}
-        \centering
-        \includegraphics[width = \columnwidth]{xt/15.png}
-    \end{minipage}
-    \hfill
-    \begin{minipage}[t]{0.24\columnwidth}
-        \centering
-        \includegraphics[width = \columnwidth]{xt/16.png}
-    \end{minipage}
-\end{figure}
-
-次に偏光子と検光子のなす角度が 45 度のときの結果を示す。
-\begin{figure}[H]
-    \centering
-    \begin{minipage}[t]{0.24\columnwidth}
-        \centering
-        \includegraphics[width = \columnwidth]{xt/17.png}
-    \end{minipage}
-    \hfill
-    \begin{minipage}[t]{0.24\columnwidth}
-        \centering
-        \includegraphics[width = \columnwidth]{xt/18.png}
-    \end{minipage}
-    \hfill
-    \begin{minipage}[t]{0.24\columnwidth}
-        \centering
-        \includegraphics[width = \columnwidth]{xt/19.png}
-    \end{minipage}
-    \hfill
-    \begin{minipage}[t]{0.24\columnwidth}
-        \centering
-        \includegraphics[width = \columnwidth]{xt/20.png}
-    \end{minipage}
-\end{figure}
-
-最後に磁場の向きを今までの向きとは反平行にして、偏光子と検光子のなす角度が 45 度のときの結果を示す。
-\begin{figure}[H]
-    \centering
-    \begin{minipage}[t]{0.24\columnwidth}
-        \centering
-        \includegraphics[width = \columnwidth]{xt/22.png}
-    \end{minipage}
-    \hfill
-    \begin{minipage}[t]{0.24\columnwidth}
-        \centering
-        \includegraphics[width = \columnwidth]{xt/23.png}
-    \end{minipage}
-    \hfill
-    \begin{minipage}[t]{0.24\columnwidth}
-        \centering
-        \includegraphics[width = \columnwidth]{xt/24.png}
-    \end{minipage}
-    \hfill
-    \begin{minipage}[t]{0.24\columnwidth}
-        \centering
-        \includegraphics[width = \columnwidth]{xt/25.png}
-    \end{minipage}
-\end{figure}
-
-\subsection{x-y グラフ}
-
-横軸に磁場の強さ (kA/cm)、縦軸に透過光の強度 (arb. unit) をプロットしたグラフは以下の通りである。
-磁場による磁気ガラス中の磁化の応答が遅れるがあるため、
-それを補正したものと補正していないもの両方を載せる。
-
-補正はこのようにして行った。
-磁場の強さと透過光の強度の x-y グラフを作る際に、
-時刻\(t[i]\)のときの磁場の強さと透過光を\(H[i], I[i]\)というようにおく。
-磁化の応答が遅れるということは、同じだけ透過光の応答も遅らせればよい。
-なので
-\begin{align}
-    (H[i], I[i+\text{shift}])
-\end{align}
-というように光強度も shift の分だけ遅らせたペアの点をプロットするというようにして補正した。
-
-グラフの上部にあるのはソレノイドコイルの巻き数とパルス発生装置の充電電圧、どれだけシフトしたかの量である。
-
-始めに偏光子と検光子のなす角度が 0 度のときの結果を示す。
-\begin{figure}[H]
-    \centering
-    \begin{minipage}[t]{0.24\columnwidth}
-        \centering
-        \includegraphics[width = \columnwidth]{xy/01.png}
-    \end{minipage}
-    \hfill
-    \begin{minipage}[t]{0.24\columnwidth}
-        \centering
-        \includegraphics[width = \columnwidth]{xy/02.png}
-    \end{minipage}
-    \hfill
-    \begin{minipage}[t]{0.24\columnwidth}
-        \centering
-        \includegraphics[width = \columnwidth]{xy/03.png}
-    \end{minipage}
-    \hfill
-    \begin{minipage}[t]{0.24\columnwidth}
-        \centering
-        \includegraphics[width = \columnwidth]{xy/04.png}
-    \end{minipage}
-\end{figure}
-\begin{figure}[H]
-    \centering
-    \begin{minipage}[t]{0.24\columnwidth}
-        \centering
-        \includegraphics[width = \columnwidth]{xy/05.png}
-    \end{minipage}
-    \hfill
-    \begin{minipage}[t]{0.24\columnwidth}
-        \centering
-        \includegraphics[width = \columnwidth]{xy/06.png}
-    \end{minipage}
-    \hfill
-    \begin{minipage}[t]{0.24\columnwidth}
-        \centering
-        \includegraphics[width = \columnwidth]{xy/07.png}
-    \end{minipage}
-    \hfill
-    \begin{minipage}[t]{0.24\columnwidth}
-        \centering
-        \includegraphics[width = \columnwidth]{xy/08.png}
-    \end{minipage}
-\end{figure}
-\begin{figure}[H]
-    \centering
-    \begin{minipage}[t]{0.24\columnwidth}
-        \centering
-        \includegraphics[width = \columnwidth]{xy/09.png}
-    \end{minipage}
-    \hfill
-    \begin{minipage}[t]{0.24\columnwidth}
-        \centering
-        \includegraphics[width = \columnwidth]{xy/10.png}
-    \end{minipage}
-    \hfill
-    \begin{minipage}[t]{0.24\columnwidth}
-        \centering
-        \includegraphics[width = \columnwidth]{xy/11.png}
-    \end{minipage}
-    \hfill
-    \begin{minipage}[t]{0.24\columnwidth}
-        \centering
-        \includegraphics[width = \columnwidth]{xy/12.png}
-    \end{minipage}
-\end{figure}
-\begin{figure}[H]
-    \centering
-    \begin{minipage}[t]{0.24\columnwidth}
-        \centering
-        \includegraphics[width = \columnwidth]{xy/13.png}
-    \end{minipage}
-    \hfill
-    \begin{minipage}[t]{0.24\columnwidth}
-        \centering
-        \includegraphics[width = \columnwidth]{xy/14.png}
-    \end{minipage}
-    \hfill
-    \begin{minipage}[t]{0.24\columnwidth}
-        \centering
-        \includegraphics[width = \columnwidth]{xy/15.png}
-    \end{minipage}
-    \hfill
-    \begin{minipage}[t]{0.24\columnwidth}
-        \centering
-        \includegraphics[width = \columnwidth]{xy/16.png}
-    \end{minipage}
-\end{figure}
-
-次に偏光子と検光子のなす角度が 45 度のときの結果を示す。
-\begin{figure}[H]
-    \centering
-    \begin{minipage}[t]{0.24\columnwidth}
-        \centering
-        \includegraphics[width = \columnwidth]{xy/17.png}
-    \end{minipage}
-    \hfill
-    \begin{minipage}[t]{0.24\columnwidth}
-        \centering
-        \includegraphics[width = \columnwidth]{xy/18.png}
-    \end{minipage}
-    \hfill
-    \begin{minipage}[t]{0.24\columnwidth}
-        \centering
-        \includegraphics[width = \columnwidth]{xy/19.png}
-    \end{minipage}
-    \hfill
-    \begin{minipage}[t]{0.24\columnwidth}
-        \centering
-        \includegraphics[width = \columnwidth]{xy/20.png}
-    \end{minipage}
-\end{figure}
-
-最後に磁場の向きを今までの向きとは反平行にして、偏光子と検光子のなす角度が 45 度のときの結果を示す。
-\begin{figure}[H]
-    \centering
-    \begin{minipage}[t]{0.24\columnwidth}
-        \centering
-        \includegraphics[width = \columnwidth]{xy/22.png}
-    \end{minipage}
-    \hfill
-    \begin{minipage}[t]{0.24\columnwidth}
-        \centering
-        \includegraphics[width = \columnwidth]{xy/23.png}
-    \end{minipage}
-    \hfill
-    \begin{minipage}[t]{0.24\columnwidth}
-        \centering
-        \includegraphics[width = \columnwidth]{xy/24.png}
-    \end{minipage}
-    \hfill
-    \begin{minipage}[t]{0.24\columnwidth}
-        \centering
-        \includegraphics[width = \columnwidth]{xy/25.png}
-    \end{minipage}
-\end{figure}
-\fi
 
 \end{document}
