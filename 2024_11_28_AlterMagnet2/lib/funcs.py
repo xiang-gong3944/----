@@ -16,18 +16,15 @@ k_points["M'"]       = [-np.pi, np.pi]
 k_points["Σ'"]      = [-np.pi/2, np.pi/2]
 
 # ひずみ具合
-a = 1.0
-b = 1.0
+a = 0.25
 # Slater-Koster パラメータ
 Vpps = 1.0
 Vppp = -0.6
 Vpds = 1.85
 
 # ホッピングパラメータ
-Tpp = a * b * (Vpps-Vppp) / (a**2 + b**2)
-aaaa = 0.5
-Tpd1 = np.sqrt(3) * Vpds / 2 * (1 + aaaa)    # 短いホッピング
-Tpd2 = np.sqrt(3) * Vpds / 2 * (1 - aaaa)   # 長いホッピング
+Tpp0 = (Vpps-Vppp) / 2
+Tpd0 = np.sqrt(3) * Vpds / 2
 
 # クーロン相互作用の強さ
 Ud = 8.0
@@ -77,7 +74,7 @@ def gen_kpath(path, npoints = 50):
 
     return k_path, labels, labels_loc, distances
 
-def Hamiltonian(kx, ky, delta=0):
+def Hamiltonian(kx, ky, delta=0, a0 = a):
     """ある波数のでのハミルトニアン
     Args:
         (float) kx: 波数のx成分
@@ -90,24 +87,27 @@ def Hamiltonian(kx, ky, delta=0):
     """
 
     H = np.zeros((n_orbit*2, n_orbit*2), dtype=np.complex128)
+    Tpp = Tpd0 * 2* a * (1-a) / (a*a + (1-a)*(1-a))
+    Tpd1 = Tpd0 * 2 * (1-a)    # 短いホッピング
+    Tpd2 = Tpd0 * 2 * a        # 長いホッピング
 
     # ホッピング項
-    H[0,2] = Tpd1 * np.exp(1j*ky/4)
-    H[0,3] = Tpd2 * np.exp(1j*kx/4)
-    H[0,4] = Tpd1 * np.exp(-1j*ky/4)
-    H[0,5] = Tpd2 * np.exp(-1j*kx/4)
+    H[0,2] = Tpd1 * np.exp(1j*(-kx+ky)*a0/2)
+    H[0,3] = Tpd2 * np.exp(1j*(kx+ky)*(1-a0)/2)
+    H[0,4] = Tpd1 * np.exp(1j*(kx-ky)*a0/2)
+    H[0,5] = Tpd2 * np.exp(-1j*(kx+ky)*(1-a0)/2)
 
-    H[1,2] = Tpd2 * np.exp(-1j*ky/4)
-    H[1,3] = Tpd1 * np.exp(-1j*kx/4)
-    H[1,4] = Tpd2 * np.exp(1j*ky/4)
-    H[1,5] = Tpd1 * np.exp(1j*kx/4)
+    H[1,2] = Tpd2 * np.exp(1j*(kx-ky)*(1-a0)/2)
+    H[1,3] = Tpd1 * np.exp(-1j*(kx+ky)*a0/2)
+    H[1,4] = Tpd2 * np.exp(1j*(-kx+ky)*(1-a0)/2)
+    H[1,5] = Tpd1 * np.exp(1j*(kx+ky)*a0/2)
 
-    H[2,3] = -2*Tpp * np.cos((kx-ky)/4)
-    H[2,5] = -2*Tpp * np.cos((kx+ky)/4)
+    H[2,3] = -2*Tpp * np.cos(kx/2) * np.exp(1j*ky*(1-2*a0)/2)
+    H[2,5] = -2*Tpp * np.cos(ky/2) * np.exp(-1j*kx*(1-2*a0)/2)
 
-    H[3,4] = -2*Tpp * np.cos((kx+ky)/4)
+    H[3,4] = -2*Tpp * np.cos(ky/2) * np.exp(-1j*kx*(1-2*a0)/2)
 
-    H[4,5] = -2*Tpp * np.cos((kx-ky)/4)
+    H[4,5] = -2*Tpp * np.cos(kx/2) * np.exp(-1j*ky*(1-2*a0)/2)
 
     #エルミート化
     for i in range(1,n_orbit*2):
@@ -264,8 +264,7 @@ def calc_delta(N_site):
     Returns:
        delta (float): 反強磁性磁化の大きさ
     """
-    delta = np.abs((N_site[0] + N_site[1]) - (N_site[6] + N_site[7])) / 2
-    # delta = np.abs(np.sum(N_site[:n_orbit])-np.sum(N_site[n_orbit:])) / 2
+    delta = np.abs(N_site[0] - N_site[1] - N_site[6] + N_site[7]) / 2
 
     return delta
 
@@ -310,9 +309,6 @@ def calc_spin(enes, eigenstate):
                 -np.abs(eigenstate[10,l])**2
                 -np.abs(eigenstate[11,l])**2
                 )
-        # prob = np.abs(eigenstate[:,l])**2
-        # sp = prob[0] + prob[1] + prob[2] + prob[3] + prob[4] + prob[5] -(
-        #     prob[6] + prob[7] + prob[8] + prob[9] + prob[10] + prob[11])
         spin.append(sp)
     del l
 
@@ -325,23 +321,25 @@ def calc_spin(enes, eigenstate):
     return np.array(spin)
 
 class CuO2:
-    def __init__(self, Ne=2.0, k_mesh=31):
+    def __init__(self, Ne=2.0, a=0.5, k_mesh=31):
         """モデルのパラメータの設定
 
         Args:
             U (float): オンサイト相互作用の大きさ
             Ne (float, optional): 単位胞内での電子の数 Defaults to 6.0.
+            a: 格子のひずみ具合 Defaults to a=0.5 でひずみ無し
             k_mesh (int, optional): k点の細かさ Defaults to 31.
         """
         self.Ne         = Ne
+        self.a          = a
         self.k_mesh     = k_mesh
 
-        ne1 = Ne/12.0 + 0.2
-        ne2 = Ne/12.0 - 0.2
+        ne1 = Ne/4.0 + 0.1
+        ne2 = Ne/4.0 - 0.1
         self.N_site_scf = np.array([
-                        [ne1, ne1, ne2, ne2, ne2, ne2, ne1, ne1, ne2, ne2, ne2, ne2]])
+                        [ne1, ne2, 0, 0, 0, 0, ne2, ne1, 0, 0, 0, 0]])
         self.Ef_scf     = np.array([])
-        self.Delta_scf  = np.array([0.8])
+        self.Delta_scf  = np.array([-0.2])
         self.Etot_scf   = np.array([0.8])
 
         self.delta      = 0
@@ -359,7 +357,7 @@ class CuO2:
         self.kF_index = np.array([[-1, -1, -1]])
 
 
-    def calc_scf(self, iteration = 100, err = 1e-8):
+    def calc_scf(self, iteration = 400, err = 1e-6):
         """自己無頓着計算を行う。delta と ef を決定する。
 
         Args:
@@ -481,7 +479,7 @@ class CuO2:
         # メッシュの各点でのエネルギー固有値の計算
         for i in range(self.k_mesh):
             for j in range(self.k_mesh):
-                enes, eigenstate = Hamiltonian(kx[i][j],ky[i][j], self.delta)
+                enes, eigenstate = Hamiltonian(kx[i][j],ky[i][j], self.delta, self.a)
                 spin = calc_spin(enes, eigenstate)
                 self.enes[i,j]         = enes
                 self.eigenStates[i,j]  = eigenstate
@@ -747,7 +745,7 @@ class CuO2:
         spins = []
 
         for kxy in k_path:
-            enes, eigenstate = Hamiltonian(kxy[0], kxy[1],  self.delta)
+            enes, eigenstate = Hamiltonian(kxy[0], kxy[1],  self.delta, self.a)
             bands.append(enes)
             spin = calc_spin(enes, eigenstate)
             spins.append(spin)

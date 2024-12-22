@@ -327,7 +327,7 @@ class KappaET2X:
         self.kF_index = np.array([[-1, -1, -1]])
 
 
-    def calc_scf(self, iteration = 100, err = 1e-6):
+    def calc_scf(self, iteration = 1000, err = 1e-6):
         """自己無頓着計算を行う。delta と ef を決定する。
 
         Args:
@@ -437,7 +437,7 @@ class KappaET2X:
         return
 
 
-    def calc_nscf(self, fineness=5):
+    def calc_nscf(self, fineness=1):
         """
         delta と ef が与えられたときの各k点の固有状態のエネルギー、状態ベクトル、スピンの大きさの計算をする
         """
@@ -560,7 +560,7 @@ class KappaET2X:
         print("SpinConductivity calculation start.")
 
         # フェルミ面の計算をしていなかったらする
-        if(not hasattr(self, "kF_index")):
+        if(self.kF_index == np.array([[-1, -1, -1]])):
             self.calc_kF_index()
 
         # スピン伝導度 複素数として初期化
@@ -589,9 +589,19 @@ class KappaET2X:
 
                             add_chi = Jmu * Jnu * (efm - efn) / ((self.enes[i,j][m]-self.enes[i,j][n])*(self.enes[i,j][m]-self.enes[i,j][n]+1j*gamma))
                             chi += add_chi
+
+                        # バンド内遷移の計算方法2 これは精度がでない
+                        # else:
+                        #     T = 10
+                        #     T2eV = 8.61734 * 10 ** -5
+                        #     beta = 1/(T * T2eV)
+                        #     if np.abs(self.enes[i,j,m]-self.ef) < 2*T*T2eV:
+                        #         cosh = np.cosh(beta*(self.enes[i,j,m]-self.ef))
+                        #         diff_fermidist = -beta/(2*(1+cosh))
+                        #         chi -= 1j * Jmu * Jnu / gamma * diff_fermidist
         del i, j, m, n
 
-        # バンド内遷移
+        # バンド内遷移の計算方法1
         for i, j, m in self.kF_index:
 
                 Jmu_matrix = np.conjugate(self.eigenStates[i,j].T) @ SpinCurrent(kx[i,j], ky[i,j], mu) @ self.eigenStates[i,j]
@@ -602,9 +612,6 @@ class KappaET2X:
 
                 chi += 1j * Jmu * Jnu / gamma
 
-                # デバッグ用
-                # print("kx = {:.2f}, ky = {:.2f}, m = {:d}, spin = {:.1f}, Js ={:.2e}, J = {:.2e}".format(
-                #     kx[i,j], ky[i,j], m, self.spins[i,j,m], Js, J))
         del i, j, m
 
         chi /= (self.k_mesh*self.k_mesh*1j)
