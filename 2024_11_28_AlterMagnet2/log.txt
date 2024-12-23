@@ -1,0 +1,781 @@
+SCF calculation start. Ne = 2.00, err < 1.0e-06
+SCF loop converged.  Ne = 2.00, err < 1.0e-06, loop = 27, delta = 6.77e-01
+
+SCF calculation start. Ne = 2.06, err < 1.0e-06
+SCF loop converged.  Ne = 2.06, err < 1.0e-06, loop = 51, delta = 6.58e-01
+
+SCF calculation start. Ne = 2.12, err < 1.0e-06
+SCF loop converged.  Ne = 2.12, err < 1.0e-06, loop = 42, delta = 6.39e-01
+
+SCF calculation start. Ne = 2.19, err < 1.0e-06
+SCF loop converged.  Ne = 2.19, err < 1.0e-06, loop = 24, delta = 6.19e-01
+
+SCF calculation start. Ne = 2.25, err < 1.0e-06
+SCF loop converged.  Ne = 2.25, err < 1.0e-06, loop = 42, delta = 5.99e-01
+
+SCF calculation start. Ne = 2.31, err < 1.0e-06
+SCF loop converged.  Ne = 2.31, err < 1.0e-06, loop = 24, delta = 5.78e-01
+
+SCF calculation start. Ne = 2.38, err < 1.0e-06
+SCF loop converged.  Ne = 2.38, err < 1.0e-06, loop = 48, delta = 5.57e-01
+
+SCF calculation start. Ne = 2.44, err < 1.0e-06
+SCF loop converged.  Ne = 2.44, err < 1.0e-06, loop = 27, delta = 5.34e-01
+
+SCF calculation start. Ne = 2.50, err < 1.0e-06
+SCF loop converged.  Ne = 2.50, err < 1.0e-06, loop = 24, delta = 5.10e-01
+
+SCF calculation start. Ne = 2.56, err < 1.0e-06
+SCF loop converged.  Ne = 2.56, err < 1.0e-06, loop = 36, delta = 4.85e-01
+
+SCF calculation start. Ne = 2.62, err < 1.0e-06
+SCF loop converged.  Ne = 2.62, err < 1.0e-06, loop = 30, delta = 4.58e-01
+
+SCF calculation start. Ne = 2.69, err < 1.0e-06
+SCF loop converged.  Ne = 2.69, err < 1.0e-06, loop = 39, delta = 4.28e-01
+
+SCF calculation start. Ne = 2.75, err < 1.0e-06
+SCF loop converged.  Ne = 2.75, err < 1.0e-06, loop = 60, delta = 3.94e-01
+
+SCF calculation start. Ne = 2.81, err < 1.0e-06
+SCF loop converged.  Ne = 2.81, err < 1.0e-06, loop = 78, delta = 3.54e-01
+
+SCF calculation start. Ne = 2.88, err < 1.0e-06
+SCF loop converged.  Ne = 2.88, err < 1.0e-06, loop = 60, delta = 3.01e-01
+
+SCF calculation start. Ne = 2.94, err < 1.0e-06
+SCF loop converged.  Ne = 2.94, err < 1.0e-06, loop = 141, delta = 7.49e-03
+
+SCF calculation start. Ne = 3.00, err < 1.0e-06
+SCF loop converged.  Ne = 3.00, err < 1.0e-06, loop = 99, delta = 1.61e-03
+
+SCF calculation start. Ne = 3.06, err < 1.0e-06
+SCF loop converged.  Ne = 3.06, err < 1.0e-06, loop = 87, delta = 2.79e-04
+
+SCF calculation start. Ne = 3.12, err < 1.0e-06
+SCF loop converged.  Ne = 3.12, err < 1.0e-06, loop = 54, delta = 9.02e-05
+
+SCF calculation start. Ne = 3.19, err < 1.0e-06
+SCF loop converged.  Ne = 3.19, err < 1.0e-06, loop = 54, delta = 4.84e-05
+
+SCF calculation start. Ne = 3.25, err < 1.0e-06
+SCF loop converged.  Ne = 3.25, err < 1.0e-06, loop = 60, delta = 4.21e-05
+
+SCF calculation start. Ne = 3.31, err < 1.0e-06
+SCF loop converged.  Ne = 3.31, err < 1.0e-06, loop = 21, delta = 3.01e-05
+
+SCF calculation start. Ne = 3.38, err < 1.0e-06
+SCF loop converged.  Ne = 3.38, err < 1.0e-06, loop = 21, delta = 1.11e-05
+
+SCF calculation start. Ne = 3.44, err < 1.0e-06
+SCF loop converged.  Ne = 3.44, err < 1.0e-06, loop = 18, delta = 1.51e-05
+
+SCF calculation start. Ne = 3.50, err < 1.0e-06
+SCF loop converged.  Ne = 3.50, err < 1.0e-06, loop = 63, delta = 1.40e-05
+
+SCF calculation start. Ne = 3.56, err < 1.0e-06
+SCF loop converged.  Ne = 3.56, err < 1.0e-06, loop = 42, delta = 2.11e-06
+
+SCF calculation start. Ne = 3.62, err < 1.0e-06
+SCF loop converged.  Ne = 3.62, err < 1.0e-06, loop = 42, delta = 9.22e-06
+
+SCF calculation start. Ne = 3.69, err < 1.0e-06
+SCF loop converged.  Ne = 3.69, err < 1.0e-06, loop = 24, delta = 7.17e-06
+
+SCF calculation start. Ne = 3.75, err < 1.0e-06
+SCF loop converged.  Ne = 3.75, err < 1.0e-06, loop = 36, delta = 7.30e-06
+
+SCF calculation start. Ne = 3.81, err < 1.0e-06
+SCF loop converged.  Ne = 3.81, err < 1.0e-06, loop = 42, delta = 7.53e-06
+
+SCF calculation start. Ne = 3.88, err < 1.0e-06
+SCF loop converged.  Ne = 3.88, err < 1.0e-06, loop = 27, delta = 1.90e-06
+
+SCF calculation start. Ne = 3.94, err < 1.0e-06
+SCF loop converged.  Ne = 3.94, err < 1.0e-06, loop = 30, delta = 6.72e-07
+
+SCF calculation start. Ne = 4.00, err < 1.0e-06
+SCF loop converged.  Ne = 4.00, err < 1.0e-06, loop = 24, delta = 1.82e-06
+
+SCF calculation start. Ne = 4.06, err < 1.0e-06
+SCF loop converged.  Ne = 4.06, err < 1.0e-06, loop = 18, delta = 1.01e-05
+
+SCF calculation start. Ne = 4.12, err < 1.0e-06
+SCF loop converged.  Ne = 4.12, err < 1.0e-06, loop = 30, delta = 5.44e-06
+
+SCF calculation start. Ne = 4.19, err < 1.0e-06
+SCF loop converged.  Ne = 4.19, err < 1.0e-06, loop = 27, delta = 2.13e-07
+
+SCF calculation start. Ne = 4.25, err < 1.0e-06
+SCF loop converged.  Ne = 4.25, err < 1.0e-06, loop = 54, delta = 1.96e-06
+
+SCF calculation start. Ne = 4.31, err < 1.0e-06
+SCF loop converged.  Ne = 4.31, err < 1.0e-06, loop = 12, delta = 5.76e-06
+
+SCF calculation start. Ne = 4.38, err < 1.0e-06
+SCF loop converged.  Ne = 4.38, err < 1.0e-06, loop = 36, delta = 5.69e-07
+
+SCF calculation start. Ne = 4.44, err < 1.0e-06
+SCF loop converged.  Ne = 4.44, err < 1.0e-06, loop = 15, delta = 1.06e-04
+
+SCF calculation start. Ne = 4.50, err < 1.0e-06
+SCF loop converged.  Ne = 4.50, err < 1.0e-06, loop = 21, delta = 3.95e-05
+
+SCF calculation start. Ne = 4.56, err < 1.0e-06
+SCF loop converged.  Ne = 4.56, err < 1.0e-06, loop = 15, delta = 3.05e-08
+
+SCF calculation start. Ne = 4.62, err < 1.0e-06
+SCF loop converged.  Ne = 4.62, err < 1.0e-06, loop = 21, delta = 5.17e-06
+
+SCF calculation start. Ne = 4.69, err < 1.0e-06
+SCF loop converged.  Ne = 4.69, err < 1.0e-06, loop = 21, delta = 6.56e-06
+
+SCF calculation start. Ne = 4.75, err < 1.0e-06
+SCF loop converged.  Ne = 4.75, err < 1.0e-06, loop = 45, delta = 1.77e-04
+
+SCF calculation start. Ne = 4.81, err < 1.0e-06
+SCF loop converged.  Ne = 4.81, err < 1.0e-06, loop = 15, delta = 2.25e-04
+
+SCF calculation start. Ne = 4.88, err < 1.0e-06
+SCF loop converged.  Ne = 4.88, err < 1.0e-06, loop = 21, delta = 5.68e-06
+
+SCF calculation start. Ne = 4.94, err < 1.0e-06
+SCF loop converged.  Ne = 4.94, err < 1.0e-06, loop = 27, delta = 9.08e-06
+
+SCF calculation start. Ne = 5.00, err < 1.0e-06
+SCF loop converged.  Ne = 5.00, err < 1.0e-06, loop = 15, delta = 1.30e-05
+
+SCF calculation start. Ne = 5.06, err < 1.0e-06
+SCF loop converged.  Ne = 5.06, err < 1.0e-06, loop = 33, delta = 1.81e-04
+
+SCF calculation start. Ne = 5.12, err < 1.0e-06
+SCF loop converged.  Ne = 5.12, err < 1.0e-06, loop = 18, delta = 5.08e-04
+
+SCF calculation start. Ne = 5.19, err < 1.0e-06
+SCF loop converged.  Ne = 5.19, err < 1.0e-06, loop = 12, delta = 1.40e-09
+
+SCF calculation start. Ne = 5.25, err < 1.0e-06
+SCF loop converged.  Ne = 5.25, err < 1.0e-06, loop = 21, delta = 8.61e-06
+
+SCF calculation start. Ne = 5.31, err < 1.0e-06
+SCF loop converged.  Ne = 5.31, err < 1.0e-06, loop = 24, delta = 1.84e-05
+
+SCF calculation start. Ne = 5.38, err < 1.0e-06
+SCF loop converged.  Ne = 5.38, err < 1.0e-06, loop = 48, delta = 5.12e-05
+
+SCF calculation start. Ne = 5.44, err < 1.0e-06
+SCF loop converged.  Ne = 5.44, err < 1.0e-06, loop = 33, delta = 1.13e-03
+
+SCF calculation start. Ne = 5.50, err < 1.0e-06
+SCF loop converged.  Ne = 5.50, err < 1.0e-06, loop = 39, delta = 2.81e-04
+
+SCF calculation start. Ne = 5.56, err < 1.0e-06
+SCF loop converged.  Ne = 5.56, err < 1.0e-06, loop = 45, delta = 3.22e-05
+
+SCF calculation start. Ne = 5.62, err < 1.0e-06
+SCF loop converged.  Ne = 5.62, err < 1.0e-06, loop = 39, delta = 2.35e-06
+
+SCF calculation start. Ne = 5.69, err < 1.0e-06
+SCF loop converged.  Ne = 5.69, err < 1.0e-06, loop = 24, delta = 5.76e-04
+
+SCF calculation start. Ne = 5.75, err < 1.0e-06
+SCF loop converged.  Ne = 5.75, err < 1.0e-06, loop = 21, delta = 2.51e-03
+
+SCF calculation start. Ne = 5.81, err < 1.0e-06
+SCF loop converged.  Ne = 5.81, err < 1.0e-06, loop = 69, delta = 1.76e-04
+
+SCF calculation start. Ne = 5.88, err < 1.0e-06
+SCF loop converged.  Ne = 5.88, err < 1.0e-06, loop = 174, delta = 9.57e-06
+
+SCF calculation start. Ne = 5.94, err < 1.0e-06
+SCF loop converged.  Ne = 5.94, err < 1.0e-06, loop = 69, delta = 7.40e-03
+
+SCF calculation start. Ne = 6.00, err < 1.0e-06
+e:\Documents\codes\TUS\B3\レポート\2024_11_28_AlterMagnet2\lib\funcs.py:282: RuntimeWarning:
+
+invalid value encountered in scalar divide
+
+SCF loop converged.  Ne = 6.00, err < 1.0e-06, loop = 183, delta = 6.32e-02
+
+SCF calculation start. Ne = 6.06, err < 1.0e-06
+SCF loop converged.  Ne = 6.06, err < 1.0e-06, loop = 18, delta = 2.45e-01
+
+SCF calculation start. Ne = 6.12, err < 1.0e-06
+SCF loop converged.  Ne = 6.12, err < 1.0e-06, loop = 24, delta = 2.47e-01
+
+SCF calculation start. Ne = 6.19, err < 1.0e-06
+SCF loop converged.  Ne = 6.19, err < 1.0e-06, loop =  9, delta = 2.53e-01
+
+SCF calculation start. Ne = 6.25, err < 1.0e-06
+SCF loop converged.  Ne = 6.25, err < 1.0e-06, loop = 27, delta = 2.62e-01
+
+SCF calculation start. Ne = 6.31, err < 1.0e-06
+SCF loop converged.  Ne = 6.31, err < 1.0e-06, loop = 39, delta = 2.66e-01
+
+SCF calculation start. Ne = 6.38, err < 1.0e-06
+SCF loop converged.  Ne = 6.38, err < 1.0e-06, loop = 36, delta = 2.67e-01
+
+SCF calculation start. Ne = 6.44, err < 1.0e-06
+SCF loop converged.  Ne = 6.44, err < 1.0e-06, loop = 21, delta = 2.67e-01
+
+SCF calculation start. Ne = 6.50, err < 1.0e-06
+SCF loop converged.  Ne = 6.50, err < 1.0e-06, loop = 27, delta = 2.66e-01
+
+SCF calculation start. Ne = 6.56, err < 1.0e-06
+SCF loop converged.  Ne = 6.56, err < 1.0e-06, loop = 15, delta = 2.64e-01
+
+SCF calculation start. Ne = 6.62, err < 1.0e-06
+SCF loop converged.  Ne = 6.62, err < 1.0e-06, loop = 18, delta = 2.61e-01
+
+SCF calculation start. Ne = 6.69, err < 1.0e-06
+SCF loop converged.  Ne = 6.69, err < 1.0e-06, loop = 21, delta = 2.57e-01
+
+SCF calculation start. Ne = 6.75, err < 1.0e-06
+SCF loop converged.  Ne = 6.75, err < 1.0e-06, loop = 18, delta = 2.53e-01
+
+SCF calculation start. Ne = 6.81, err < 1.0e-06
+SCF loop converged.  Ne = 6.81, err < 1.0e-06, loop = 12, delta = 2.48e-01
+
+SCF calculation start. Ne = 6.88, err < 1.0e-06
+SCF loop converged.  Ne = 6.88, err < 1.0e-06, loop = 12, delta = 2.42e-01
+
+SCF calculation start. Ne = 6.94, err < 1.0e-06
+SCF loop converged.  Ne = 6.94, err < 1.0e-06, loop = 18, delta = 2.35e-01
+
+SCF calculation start. Ne = 7.00, err < 1.0e-06
+SCF loop converged.  Ne = 7.00, err < 1.0e-06, loop = 15, delta = 2.27e-01
+
+SCF calculation start. Ne = 7.06, err < 1.0e-06
+SCF loop converged.  Ne = 7.06, err < 1.0e-06, loop =  9, delta = 2.18e-01
+
+SCF calculation start. Ne = 7.12, err < 1.0e-06
+SCF loop converged.  Ne = 7.12, err < 1.0e-06, loop = 24, delta = 2.08e-01
+
+SCF calculation start. Ne = 7.19, err < 1.0e-06
+SCF loop converged.  Ne = 7.19, err < 1.0e-06, loop = 15, delta = 1.98e-01
+
+SCF calculation start. Ne = 7.25, err < 1.0e-06
+SCF loop converged.  Ne = 7.25, err < 1.0e-06, loop =  9, delta = 1.86e-01
+
+SCF calculation start. Ne = 7.31, err < 1.0e-06
+SCF loop converged.  Ne = 7.31, err < 1.0e-06, loop = 12, delta = 1.73e-01
+
+SCF calculation start. Ne = 7.38, err < 1.0e-06
+SCF loop converged.  Ne = 7.38, err < 1.0e-06, loop = 39, delta = 1.60e-01
+
+SCF calculation start. Ne = 7.44, err < 1.0e-06
+SCF loop converged.  Ne = 7.44, err < 1.0e-06, loop = 12, delta = 1.45e-01
+
+SCF calculation start. Ne = 7.50, err < 1.0e-06
+SCF loop converged.  Ne = 7.50, err < 1.0e-06, loop = 12, delta = 1.30e-01
+
+SCF calculation start. Ne = 7.56, err < 1.0e-06
+SCF loop converged.  Ne = 7.56, err < 1.0e-06, loop = 12, delta = 1.15e-01
+
+SCF calculation start. Ne = 7.62, err < 1.0e-06
+SCF loop converged.  Ne = 7.62, err < 1.0e-06, loop = 60, delta = 9.87e-02
+
+SCF calculation start. Ne = 7.69, err < 1.0e-06
+SCF loop converged.  Ne = 7.69, err < 1.0e-06, loop = 15, delta = 8.23e-02
+
+SCF calculation start. Ne = 7.75, err < 1.0e-06
+SCF loop converged.  Ne = 7.75, err < 1.0e-06, loop = 12, delta = 6.55e-02
+
+SCF calculation start. Ne = 7.81, err < 1.0e-06
+SCF loop converged.  Ne = 7.81, err < 1.0e-06, loop = 12, delta = 4.85e-02
+
+SCF calculation start. Ne = 7.88, err < 1.0e-06
+SCF loop converged.  Ne = 7.88, err < 1.0e-06, loop = 12, delta = 3.15e-02
+
+SCF calculation start. Ne = 7.94, err < 1.0e-06
+SCF loop converged.  Ne = 7.94, err < 1.0e-06, loop = 12, delta = 1.54e-02
+
+SCF calculation start. Ne = 8.00, err < 1.0e-06
+SCF loop converged.  Ne = 8.00, err < 1.0e-06, loop = 18, delta = 2.12e-08
+
+SCF calculation start. Ne = 8.06, err < 1.0e-06
+SCF loop converged.  Ne = 8.06, err < 1.0e-06, loop = 33, delta = 1.33e-06
+
+SCF calculation start. Ne = 8.12, err < 1.0e-06
+SCF loop converged.  Ne = 8.12, err < 1.0e-06, loop = 12, delta = 2.59e-07
+
+SCF calculation start. Ne = 8.19, err < 1.0e-06
+SCF loop converged.  Ne = 8.19, err < 1.0e-06, loop = 21, delta = 1.44e-05
+
+SCF calculation start. Ne = 8.25, err < 1.0e-06
+SCF loop converged.  Ne = 8.25, err < 1.0e-06, loop = 15, delta = 1.73e-05
+
+SCF calculation start. Ne = 8.31, err < 1.0e-06
+SCF loop converged.  Ne = 8.31, err < 1.0e-06, loop = 24, delta = 2.26e-05
+
+SCF calculation start. Ne = 8.38, err < 1.0e-06
+SCF loop converged.  Ne = 8.38, err < 1.0e-06, loop = 15, delta = 1.16e-05
+
+SCF calculation start. Ne = 8.44, err < 1.0e-06
+SCF loop converged.  Ne = 8.44, err < 1.0e-06, loop = 15, delta = 1.22e-04
+
+SCF calculation start. Ne = 8.50, err < 1.0e-06
+SCF loop converged.  Ne = 8.50, err < 1.0e-06, loop = 42, delta = 4.34e-05
+
+SCF calculation start. Ne = 8.56, err < 1.0e-06
+SCF loop converged.  Ne = 8.56, err < 1.0e-06, loop = 15, delta = 6.76e-05
+
+SCF calculation start. Ne = 8.62, err < 1.0e-06
+SCF loop converged.  Ne = 8.62, err < 1.0e-06, loop = 18, delta = 6.95e-05
+
+SCF calculation start. Ne = 8.69, err < 1.0e-06
+SCF loop converged.  Ne = 8.69, err < 1.0e-06, loop =  9, delta = 4.07e-05
+
+SCF calculation start. Ne = 8.75, err < 1.0e-06
+SCF loop converged.  Ne = 8.75, err < 1.0e-06, loop = 21, delta = 9.05e-05
+
+SCF calculation start. Ne = 8.81, err < 1.0e-06
+SCF loop converged.  Ne = 8.81, err < 1.0e-06, loop = 21, delta = 1.22e-05
+
+SCF calculation start. Ne = 8.88, err < 1.0e-06
+SCF loop converged.  Ne = 8.88, err < 1.0e-06, loop =  9, delta = 1.77e-04
+
+SCF calculation start. Ne = 8.94, err < 1.0e-06
+SCF loop converged.  Ne = 8.94, err < 1.0e-06, loop = 15, delta = 7.39e-06
+
+SCF calculation start. Ne = 9.00, err < 1.0e-06
+SCF loop converged.  Ne = 9.00, err < 1.0e-06, loop = 27, delta = 6.48e-05
+
+SCF calculation start. Ne = 9.06, err < 1.0e-06
+SCF loop converged.  Ne = 9.06, err < 1.0e-06, loop = 12, delta = 2.93e-05
+
+SCF calculation start. Ne = 9.12, err < 1.0e-06
+SCF loop converged.  Ne = 9.12, err < 1.0e-06, loop = 12, delta = 1.57e-05
+
+SCF calculation start. Ne = 9.19, err < 1.0e-06
+SCF loop converged.  Ne = 9.19, err < 1.0e-06, loop = 42, delta = 1.07e-04
+
+SCF calculation start. Ne = 9.25, err < 1.0e-06
+SCF loop converged.  Ne = 9.25, err < 1.0e-06, loop = 15, delta = 3.23e-06
+
+SCF calculation start. Ne = 9.31, err < 1.0e-06
+SCF loop converged.  Ne = 9.31, err < 1.0e-06, loop = 36, delta = 1.13e-04
+
+SCF calculation start. Ne = 9.38, err < 1.0e-06
+SCF loop converged.  Ne = 9.38, err < 1.0e-06, loop = 27, delta = 2.40e-05
+
+SCF calculation start. Ne = 9.44, err < 1.0e-06
+SCF loop converged.  Ne = 9.44, err < 1.0e-06, loop = 15, delta = 1.52e-06
+
+SCF calculation start. Ne = 9.50, err < 1.0e-06
+SCF loop converged.  Ne = 9.50, err < 1.0e-06, loop = 21, delta = 6.91e-05
+
+SCF calculation start. Ne = 9.56, err < 1.0e-06
+SCF loop converged.  Ne = 9.56, err < 1.0e-06, loop = 21, delta = 2.80e-04
+
+SCF calculation start. Ne = 9.62, err < 1.0e-06
+SCF loop converged.  Ne = 9.62, err < 1.0e-06, loop = 36, delta = 7.90e-06
+
+SCF calculation start. Ne = 9.69, err < 1.0e-06
+SCF loop converged.  Ne = 9.69, err < 1.0e-06, loop = 15, delta = 1.67e-03
+
+SCF calculation start. Ne = 9.75, err < 1.0e-06
+SCF loop converged.  Ne = 9.75, err < 1.0e-06, loop = 39, delta = 3.82e-04
+
+SCF calculation start. Ne = 9.81, err < 1.0e-06
+SCF loop converged.  Ne = 9.81, err < 1.0e-06, loop = 36, delta = 4.24e-05
+
+SCF calculation start. Ne = 9.88, err < 1.0e-06
+SCF loop converged.  Ne = 9.88, err < 1.0e-06, loop = 45, delta = 4.63e-05
+
+SCF calculation start. Ne = 9.94, err < 1.0e-06
+SCF loop converged.  Ne = 9.94, err < 1.0e-06, loop = 27, delta = 1.81e-04
+
+SCF calculation start. Ne = 10.00, err < 1.0e-06
+SCF loop converged.  Ne = 10.00, err < 1.0e-06, loop = 24, delta = 6.13e-10
+
+sent message. HTTP Response:200
+
+SCF calculation start. Ne = 2.00, err < 1.0e-06
+SCF loop converged.  Ne = 2.00, err < 1.0e-06, loop = 27, delta = 6.77e-01
+
+SCF calculation start. Ne = 2.06, err < 1.0e-06
+SCF loop converged.  Ne = 2.06, err < 1.0e-06, loop = 51, delta = 6.58e-01
+
+SCF calculation start. Ne = 2.12, err < 1.0e-06
+SCF loop converged.  Ne = 2.12, err < 1.0e-06, loop = 42, delta = 6.39e-01
+
+SCF calculation start. Ne = 2.19, err < 1.0e-06
+SCF loop converged.  Ne = 2.19, err < 1.0e-06, loop = 24, delta = 6.19e-01
+
+SCF calculation start. Ne = 2.25, err < 1.0e-06
+SCF loop converged.  Ne = 2.25, err < 1.0e-06, loop = 42, delta = 5.99e-01
+
+SCF calculation start. Ne = 2.31, err < 1.0e-06
+SCF loop converged.  Ne = 2.31, err < 1.0e-06, loop = 24, delta = 5.78e-01
+
+SCF calculation start. Ne = 2.38, err < 1.0e-06
+SCF loop converged.  Ne = 2.38, err < 1.0e-06, loop = 48, delta = 5.57e-01
+
+SCF calculation start. Ne = 2.44, err < 1.0e-06
+SCF loop converged.  Ne = 2.44, err < 1.0e-06, loop = 27, delta = 5.34e-01
+
+SCF calculation start. Ne = 2.50, err < 1.0e-06
+SCF loop converged.  Ne = 2.50, err < 1.0e-06, loop = 24, delta = 5.10e-01
+
+SCF calculation start. Ne = 2.56, err < 1.0e-06
+SCF loop converged.  Ne = 2.56, err < 1.0e-06, loop = 36, delta = 4.85e-01
+
+SCF calculation start. Ne = 2.62, err < 1.0e-06
+SCF loop converged.  Ne = 2.62, err < 1.0e-06, loop = 30, delta = 4.58e-01
+
+SCF calculation start. Ne = 2.69, err < 1.0e-06
+SCF loop converged.  Ne = 2.69, err < 1.0e-06, loop = 39, delta = 4.28e-01
+
+SCF calculation start. Ne = 2.75, err < 1.0e-06
+SCF loop converged.  Ne = 2.75, err < 1.0e-06, loop = 60, delta = 3.94e-01
+
+SCF calculation start. Ne = 2.81, err < 1.0e-06
+SCF loop converged.  Ne = 2.81, err < 1.0e-06, loop = 78, delta = 3.54e-01
+
+SCF calculation start. Ne = 2.88, err < 1.0e-06
+SCF loop converged.  Ne = 2.88, err < 1.0e-06, loop = 60, delta = 3.01e-01
+
+SCF calculation start. Ne = 2.94, err < 1.0e-06
+SCF loop converged.  Ne = 2.94, err < 1.0e-06, loop = 141, delta = 7.49e-03
+
+SCF calculation start. Ne = 3.00, err < 1.0e-06
+SCF loop converged.  Ne = 3.00, err < 1.0e-06, loop = 99, delta = 1.61e-03
+
+SCF calculation start. Ne = 3.06, err < 1.0e-06
+SCF loop converged.  Ne = 3.06, err < 1.0e-06, loop = 87, delta = 2.79e-04
+
+SCF calculation start. Ne = 3.12, err < 1.0e-06
+SCF loop converged.  Ne = 3.12, err < 1.0e-06, loop = 54, delta = 9.02e-05
+
+SCF calculation start. Ne = 3.19, err < 1.0e-06
+SCF loop converged.  Ne = 3.19, err < 1.0e-06, loop = 54, delta = 4.84e-05
+
+SCF calculation start. Ne = 3.25, err < 1.0e-06
+SCF loop converged.  Ne = 3.25, err < 1.0e-06, loop = 60, delta = 4.21e-05
+
+SCF calculation start. Ne = 3.31, err < 1.0e-06
+SCF loop converged.  Ne = 3.31, err < 1.0e-06, loop = 21, delta = 3.01e-05
+
+SCF calculation start. Ne = 3.38, err < 1.0e-06
+SCF loop converged.  Ne = 3.38, err < 1.0e-06, loop = 21, delta = 1.11e-05
+
+SCF calculation start. Ne = 3.44, err < 1.0e-06
+SCF loop converged.  Ne = 3.44, err < 1.0e-06, loop = 18, delta = 1.51e-05
+
+SCF calculation start. Ne = 3.50, err < 1.0e-06
+SCF loop converged.  Ne = 3.50, err < 1.0e-06, loop = 63, delta = 1.40e-05
+
+SCF calculation start. Ne = 3.56, err < 1.0e-06
+SCF loop converged.  Ne = 3.56, err < 1.0e-06, loop = 42, delta = 2.11e-06
+
+SCF calculation start. Ne = 3.62, err < 1.0e-06
+SCF loop converged.  Ne = 3.62, err < 1.0e-06, loop = 42, delta = 9.22e-06
+
+SCF calculation start. Ne = 3.69, err < 1.0e-06
+SCF loop converged.  Ne = 3.69, err < 1.0e-06, loop = 24, delta = 7.17e-06
+
+SCF calculation start. Ne = 3.75, err < 1.0e-06
+SCF loop converged.  Ne = 3.75, err < 1.0e-06, loop = 36, delta = 7.30e-06
+
+SCF calculation start. Ne = 3.81, err < 1.0e-06
+SCF loop converged.  Ne = 3.81, err < 1.0e-06, loop = 42, delta = 7.53e-06
+
+SCF calculation start. Ne = 3.88, err < 1.0e-06
+SCF loop converged.  Ne = 3.88, err < 1.0e-06, loop = 27, delta = 1.90e-06
+
+SCF calculation start. Ne = 3.94, err < 1.0e-06
+SCF loop converged.  Ne = 3.94, err < 1.0e-06, loop = 30, delta = 6.72e-07
+
+SCF calculation start. Ne = 4.00, err < 1.0e-06
+SCF loop converged.  Ne = 4.00, err < 1.0e-06, loop = 24, delta = 1.82e-06
+
+SCF calculation start. Ne = 4.06, err < 1.0e-06
+SCF loop converged.  Ne = 4.06, err < 1.0e-06, loop = 18, delta = 1.01e-05
+
+SCF calculation start. Ne = 4.12, err < 1.0e-06
+SCF loop converged.  Ne = 4.12, err < 1.0e-06, loop = 30, delta = 5.44e-06
+
+SCF calculation start. Ne = 4.19, err < 1.0e-06
+SCF loop converged.  Ne = 4.19, err < 1.0e-06, loop = 27, delta = 2.13e-07
+
+SCF calculation start. Ne = 4.25, err < 1.0e-06
+SCF loop converged.  Ne = 4.25, err < 1.0e-06, loop = 54, delta = 1.96e-06
+
+SCF calculation start. Ne = 4.31, err < 1.0e-06
+SCF loop converged.  Ne = 4.31, err < 1.0e-06, loop = 12, delta = 5.76e-06
+
+SCF calculation start. Ne = 4.38, err < 1.0e-06
+SCF loop converged.  Ne = 4.38, err < 1.0e-06, loop = 36, delta = 5.69e-07
+
+SCF calculation start. Ne = 4.44, err < 1.0e-06
+SCF loop converged.  Ne = 4.44, err < 1.0e-06, loop = 15, delta = 1.06e-04
+
+SCF calculation start. Ne = 4.50, err < 1.0e-06
+SCF loop converged.  Ne = 4.50, err < 1.0e-06, loop = 21, delta = 3.95e-05
+
+SCF calculation start. Ne = 4.56, err < 1.0e-06
+SCF loop converged.  Ne = 4.56, err < 1.0e-06, loop = 15, delta = 3.05e-08
+
+SCF calculation start. Ne = 4.62, err < 1.0e-06
+SCF loop converged.  Ne = 4.62, err < 1.0e-06, loop = 21, delta = 5.17e-06
+
+SCF calculation start. Ne = 4.69, err < 1.0e-06
+SCF loop converged.  Ne = 4.69, err < 1.0e-06, loop = 21, delta = 6.56e-06
+
+SCF calculation start. Ne = 4.75, err < 1.0e-06
+SCF loop converged.  Ne = 4.75, err < 1.0e-06, loop = 45, delta = 1.77e-04
+
+SCF calculation start. Ne = 4.81, err < 1.0e-06
+SCF loop converged.  Ne = 4.81, err < 1.0e-06, loop = 15, delta = 2.25e-04
+
+SCF calculation start. Ne = 4.88, err < 1.0e-06
+SCF loop converged.  Ne = 4.88, err < 1.0e-06, loop = 21, delta = 5.68e-06
+
+SCF calculation start. Ne = 4.94, err < 1.0e-06
+SCF loop converged.  Ne = 4.94, err < 1.0e-06, loop = 27, delta = 9.08e-06
+
+SCF calculation start. Ne = 5.00, err < 1.0e-06
+SCF loop converged.  Ne = 5.00, err < 1.0e-06, loop = 15, delta = 1.30e-05
+
+SCF calculation start. Ne = 5.06, err < 1.0e-06
+SCF loop converged.  Ne = 5.06, err < 1.0e-06, loop = 33, delta = 1.81e-04
+
+SCF calculation start. Ne = 5.12, err < 1.0e-06
+SCF loop converged.  Ne = 5.12, err < 1.0e-06, loop = 18, delta = 5.08e-04
+
+SCF calculation start. Ne = 5.19, err < 1.0e-06
+SCF loop converged.  Ne = 5.19, err < 1.0e-06, loop = 12, delta = 1.40e-09
+
+SCF calculation start. Ne = 5.25, err < 1.0e-06
+SCF loop converged.  Ne = 5.25, err < 1.0e-06, loop = 21, delta = 8.61e-06
+
+SCF calculation start. Ne = 5.31, err < 1.0e-06
+SCF loop converged.  Ne = 5.31, err < 1.0e-06, loop = 24, delta = 1.84e-05
+
+SCF calculation start. Ne = 5.38, err < 1.0e-06
+SCF loop converged.  Ne = 5.38, err < 1.0e-06, loop = 48, delta = 5.12e-05
+
+SCF calculation start. Ne = 5.44, err < 1.0e-06
+SCF loop converged.  Ne = 5.44, err < 1.0e-06, loop = 33, delta = 1.13e-03
+
+SCF calculation start. Ne = 5.50, err < 1.0e-06
+SCF loop converged.  Ne = 5.50, err < 1.0e-06, loop = 39, delta = 2.81e-04
+
+SCF calculation start. Ne = 5.56, err < 1.0e-06
+SCF loop converged.  Ne = 5.56, err < 1.0e-06, loop = 45, delta = 3.22e-05
+
+SCF calculation start. Ne = 5.62, err < 1.0e-06
+SCF loop converged.  Ne = 5.62, err < 1.0e-06, loop = 39, delta = 2.35e-06
+
+SCF calculation start. Ne = 5.69, err < 1.0e-06
+SCF loop converged.  Ne = 5.69, err < 1.0e-06, loop = 24, delta = 5.76e-04
+
+SCF calculation start. Ne = 5.75, err < 1.0e-06
+SCF loop converged.  Ne = 5.75, err < 1.0e-06, loop = 21, delta = 2.51e-03
+
+SCF calculation start. Ne = 5.81, err < 1.0e-06
+SCF loop converged.  Ne = 5.81, err < 1.0e-06, loop = 69, delta = 1.76e-04
+
+SCF calculation start. Ne = 5.88, err < 1.0e-06
+SCF loop converged.  Ne = 5.88, err < 1.0e-06, loop = 174, delta = 9.57e-06
+
+SCF calculation start. Ne = 5.94, err < 1.0e-06
+SCF loop converged.  Ne = 5.94, err < 1.0e-06, loop = 69, delta = 7.40e-03
+
+SCF calculation start. Ne = 6.00, err < 1.0e-06
+SCF loop converged.  Ne = 6.00, err < 1.0e-06, loop = 183, delta = 6.32e-02
+
+SCF calculation start. Ne = 6.06, err < 1.0e-06
+SCF loop converged.  Ne = 6.06, err < 1.0e-06, loop = 18, delta = 2.45e-01
+
+SCF calculation start. Ne = 6.12, err < 1.0e-06
+SCF loop converged.  Ne = 6.12, err < 1.0e-06, loop = 24, delta = 2.47e-01
+
+SCF calculation start. Ne = 6.19, err < 1.0e-06
+SCF loop converged.  Ne = 6.19, err < 1.0e-06, loop =  9, delta = 2.53e-01
+
+SCF calculation start. Ne = 6.25, err < 1.0e-06
+SCF loop converged.  Ne = 6.25, err < 1.0e-06, loop = 27, delta = 2.62e-01
+
+SCF calculation start. Ne = 6.31, err < 1.0e-06
+SCF loop converged.  Ne = 6.31, err < 1.0e-06, loop = 39, delta = 2.66e-01
+
+SCF calculation start. Ne = 6.38, err < 1.0e-06
+SCF loop converged.  Ne = 6.38, err < 1.0e-06, loop = 36, delta = 2.67e-01
+
+SCF calculation start. Ne = 6.44, err < 1.0e-06
+SCF loop converged.  Ne = 6.44, err < 1.0e-06, loop = 21, delta = 2.67e-01
+
+SCF calculation start. Ne = 6.50, err < 1.0e-06
+SCF loop converged.  Ne = 6.50, err < 1.0e-06, loop = 27, delta = 2.66e-01
+
+SCF calculation start. Ne = 6.56, err < 1.0e-06
+SCF loop converged.  Ne = 6.56, err < 1.0e-06, loop = 15, delta = 2.64e-01
+
+SCF calculation start. Ne = 6.62, err < 1.0e-06
+SCF loop converged.  Ne = 6.62, err < 1.0e-06, loop = 18, delta = 2.61e-01
+
+SCF calculation start. Ne = 6.69, err < 1.0e-06
+SCF loop converged.  Ne = 6.69, err < 1.0e-06, loop = 21, delta = 2.57e-01
+
+SCF calculation start. Ne = 6.75, err < 1.0e-06
+SCF loop converged.  Ne = 6.75, err < 1.0e-06, loop = 18, delta = 2.53e-01
+
+SCF calculation start. Ne = 6.81, err < 1.0e-06
+SCF loop converged.  Ne = 6.81, err < 1.0e-06, loop = 12, delta = 2.48e-01
+
+SCF calculation start. Ne = 6.88, err < 1.0e-06
+SCF loop converged.  Ne = 6.88, err < 1.0e-06, loop = 12, delta = 2.42e-01
+
+SCF calculation start. Ne = 6.94, err < 1.0e-06
+SCF loop converged.  Ne = 6.94, err < 1.0e-06, loop = 18, delta = 2.35e-01
+
+SCF calculation start. Ne = 7.00, err < 1.0e-06
+SCF loop converged.  Ne = 7.00, err < 1.0e-06, loop = 15, delta = 2.27e-01
+
+SCF calculation start. Ne = 7.06, err < 1.0e-06
+SCF loop converged.  Ne = 7.06, err < 1.0e-06, loop =  9, delta = 2.18e-01
+
+SCF calculation start. Ne = 7.12, err < 1.0e-06
+SCF loop converged.  Ne = 7.12, err < 1.0e-06, loop = 24, delta = 2.08e-01
+
+SCF calculation start. Ne = 7.19, err < 1.0e-06
+SCF loop converged.  Ne = 7.19, err < 1.0e-06, loop = 15, delta = 1.98e-01
+
+SCF calculation start. Ne = 7.25, err < 1.0e-06
+SCF loop converged.  Ne = 7.25, err < 1.0e-06, loop =  9, delta = 1.86e-01
+
+SCF calculation start. Ne = 7.31, err < 1.0e-06
+SCF loop converged.  Ne = 7.31, err < 1.0e-06, loop = 12, delta = 1.73e-01
+
+SCF calculation start. Ne = 7.38, err < 1.0e-06
+SCF loop converged.  Ne = 7.38, err < 1.0e-06, loop = 39, delta = 1.60e-01
+
+SCF calculation start. Ne = 7.44, err < 1.0e-06
+SCF loop converged.  Ne = 7.44, err < 1.0e-06, loop = 12, delta = 1.45e-01
+
+SCF calculation start. Ne = 7.50, err < 1.0e-06
+SCF loop converged.  Ne = 7.50, err < 1.0e-06, loop = 12, delta = 1.30e-01
+
+SCF calculation start. Ne = 7.56, err < 1.0e-06
+SCF loop converged.  Ne = 7.56, err < 1.0e-06, loop = 12, delta = 1.15e-01
+
+SCF calculation start. Ne = 7.62, err < 1.0e-06
+SCF loop converged.  Ne = 7.62, err < 1.0e-06, loop = 60, delta = 9.87e-02
+
+SCF calculation start. Ne = 7.69, err < 1.0e-06
+SCF loop converged.  Ne = 7.69, err < 1.0e-06, loop = 15, delta = 8.23e-02
+
+SCF calculation start. Ne = 7.75, err < 1.0e-06
+SCF loop converged.  Ne = 7.75, err < 1.0e-06, loop = 12, delta = 6.55e-02
+
+SCF calculation start. Ne = 7.81, err < 1.0e-06
+SCF loop converged.  Ne = 7.81, err < 1.0e-06, loop = 12, delta = 4.85e-02
+
+SCF calculation start. Ne = 7.88, err < 1.0e-06
+SCF loop converged.  Ne = 7.88, err < 1.0e-06, loop = 12, delta = 3.15e-02
+
+SCF calculation start. Ne = 7.94, err < 1.0e-06
+SCF loop converged.  Ne = 7.94, err < 1.0e-06, loop = 12, delta = 1.54e-02
+
+SCF calculation start. Ne = 8.00, err < 1.0e-06
+SCF loop converged.  Ne = 8.00, err < 1.0e-06, loop = 18, delta = 2.12e-08
+
+SCF calculation start. Ne = 8.06, err < 1.0e-06
+SCF loop converged.  Ne = 8.06, err < 1.0e-06, loop = 33, delta = 1.33e-06
+
+SCF calculation start. Ne = 8.12, err < 1.0e-06
+SCF loop converged.  Ne = 8.12, err < 1.0e-06, loop = 12, delta = 2.59e-07
+
+SCF calculation start. Ne = 8.19, err < 1.0e-06
+SCF loop converged.  Ne = 8.19, err < 1.0e-06, loop = 21, delta = 1.44e-05
+
+SCF calculation start. Ne = 8.25, err < 1.0e-06
+SCF loop converged.  Ne = 8.25, err < 1.0e-06, loop = 15, delta = 1.73e-05
+
+SCF calculation start. Ne = 8.31, err < 1.0e-06
+SCF loop converged.  Ne = 8.31, err < 1.0e-06, loop = 24, delta = 2.26e-05
+
+SCF calculation start. Ne = 8.38, err < 1.0e-06
+SCF loop converged.  Ne = 8.38, err < 1.0e-06, loop = 15, delta = 1.16e-05
+
+SCF calculation start. Ne = 8.44, err < 1.0e-06
+SCF loop converged.  Ne = 8.44, err < 1.0e-06, loop = 15, delta = 1.22e-04
+
+SCF calculation start. Ne = 8.50, err < 1.0e-06
+SCF loop converged.  Ne = 8.50, err < 1.0e-06, loop = 42, delta = 4.34e-05
+
+SCF calculation start. Ne = 8.56, err < 1.0e-06
+SCF loop converged.  Ne = 8.56, err < 1.0e-06, loop = 15, delta = 6.76e-05
+
+SCF calculation start. Ne = 8.62, err < 1.0e-06
+SCF loop converged.  Ne = 8.62, err < 1.0e-06, loop = 18, delta = 6.95e-05
+
+SCF calculation start. Ne = 8.69, err < 1.0e-06
+SCF loop converged.  Ne = 8.69, err < 1.0e-06, loop =  9, delta = 4.07e-05
+
+SCF calculation start. Ne = 8.75, err < 1.0e-06
+SCF loop converged.  Ne = 8.75, err < 1.0e-06, loop = 21, delta = 9.05e-05
+
+SCF calculation start. Ne = 8.81, err < 1.0e-06
+SCF loop converged.  Ne = 8.81, err < 1.0e-06, loop = 21, delta = 1.22e-05
+
+SCF calculation start. Ne = 8.88, err < 1.0e-06
+SCF loop converged.  Ne = 8.88, err < 1.0e-06, loop =  9, delta = 1.77e-04
+
+SCF calculation start. Ne = 8.94, err < 1.0e-06
+SCF loop converged.  Ne = 8.94, err < 1.0e-06, loop = 15, delta = 7.39e-06
+
+SCF calculation start. Ne = 9.00, err < 1.0e-06
+SCF loop converged.  Ne = 9.00, err < 1.0e-06, loop = 27, delta = 6.48e-05
+
+SCF calculation start. Ne = 9.06, err < 1.0e-06
+SCF loop converged.  Ne = 9.06, err < 1.0e-06, loop = 12, delta = 2.93e-05
+
+SCF calculation start. Ne = 9.12, err < 1.0e-06
+SCF loop converged.  Ne = 9.12, err < 1.0e-06, loop = 12, delta = 1.57e-05
+
+SCF calculation start. Ne = 9.19, err < 1.0e-06
+SCF loop converged.  Ne = 9.19, err < 1.0e-06, loop = 42, delta = 1.07e-04
+
+SCF calculation start. Ne = 9.25, err < 1.0e-06
+SCF loop converged.  Ne = 9.25, err < 1.0e-06, loop = 15, delta = 3.23e-06
+
+SCF calculation start. Ne = 9.31, err < 1.0e-06
+SCF loop converged.  Ne = 9.31, err < 1.0e-06, loop = 36, delta = 1.13e-04
+
+SCF calculation start. Ne = 9.38, err < 1.0e-06
+SCF loop converged.  Ne = 9.38, err < 1.0e-06, loop = 27, delta = 2.40e-05
+
+SCF calculation start. Ne = 9.44, err < 1.0e-06
+SCF loop converged.  Ne = 9.44, err < 1.0e-06, loop = 15, delta = 1.52e-06
+
+SCF calculation start. Ne = 9.50, err < 1.0e-06
+SCF loop converged.  Ne = 9.50, err < 1.0e-06, loop = 21, delta = 6.91e-05
+
+SCF calculation start. Ne = 9.56, err < 1.0e-06
+SCF loop converged.  Ne = 9.56, err < 1.0e-06, loop = 21, delta = 2.80e-04
+
+SCF calculation start. Ne = 9.62, err < 1.0e-06
+SCF loop converged.  Ne = 9.62, err < 1.0e-06, loop = 36, delta = 7.90e-06
+
+SCF calculation start. Ne = 9.69, err < 1.0e-06
+SCF loop converged.  Ne = 9.69, err < 1.0e-06, loop = 15, delta = 1.67e-03
+
+SCF calculation start. Ne = 9.75, err < 1.0e-06
+SCF loop converged.  Ne = 9.75, err < 1.0e-06, loop = 39, delta = 3.82e-04
+
+SCF calculation start. Ne = 9.81, err < 1.0e-06
+SCF loop converged.  Ne = 9.81, err < 1.0e-06, loop = 36, delta = 4.24e-05
+
+SCF calculation start. Ne = 9.88, err < 1.0e-06
+SCF loop converged.  Ne = 9.88, err < 1.0e-06, loop = 45, delta = 4.63e-05
+
+SCF calculation start. Ne = 9.94, err < 1.0e-06
+SCF loop converged.  Ne = 9.94, err < 1.0e-06, loop = 27, delta = 1.81e-04
+
+SCF calculation start. Ne = 10.00, err < 1.0e-06
+SCF loop converged.  Ne = 10.00, err < 1.0e-06, loop = 24, delta = 6.13e-10
+
+sent message. HTTP Response:200
