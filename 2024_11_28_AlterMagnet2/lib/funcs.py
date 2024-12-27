@@ -15,8 +15,6 @@ k_points["Σ"]       = [np.pi/2, np.pi/2]
 k_points["M'"]       = [-np.pi, np.pi]
 k_points["Σ'"]      = [-np.pi/2, np.pi/2]
 
-# ひずみ具合
-a = 0.25
 # Slater-Koster パラメータ
 Vpps = 1.0
 Vppp = -0.6
@@ -74,7 +72,7 @@ def gen_kpath(path, npoints = 50):
 
     return k_path, labels, labels_loc, distances
 
-def Hamiltonian(kx, ky, delta=0, a0 = a):
+def Hamiltonian(kx, ky, a0, delta):
     """ある波数のでのハミルトニアン
     Args:
         (float) kx: 波数のx成分
@@ -87,9 +85,9 @@ def Hamiltonian(kx, ky, delta=0, a0 = a):
     """
 
     H = np.zeros((n_orbit*2, n_orbit*2), dtype=np.complex128)
-    Tpp = Tpd0 * 2* a * (1-a) / (a*a + (1-a)*(1-a))
-    Tpd1 = Tpd0 * 2 * (1-a)    # 短いホッピング
-    Tpd2 = Tpd0 * 2 * a        # 長いホッピング
+    Tpp = Tpd0 * 2* a0 * (1-a0) / (a0*a0 + (1-a0)*(1-a0))
+    Tpd1 = Tpd0 * 2 * (1-a0)    # 短いホッピング
+    Tpd2 = Tpd0 * 2 * a0        # 長いホッピング
 
     # ホッピング項
     H[0,2] = Tpd1 * np.exp(1j*(-kx+ky)*a0/2)
@@ -377,7 +375,7 @@ class CuO2:
         # ここから自己無頓着方程式のループになる
         for scf_iteration in range(iteration):
             # Steffensen の反復法
-            for m in range(2):
+            for m in range(3):
                 # フェルミエネルギーを求める
                 enes = []
                 eigenEnes = np.zeros((self.k_mesh, self.k_mesh, n_orbit*2))
@@ -387,7 +385,7 @@ class CuO2:
                 # ブリュアンゾーン内の全探査
                 for i in range(self.k_mesh):
                     for j in range(self.k_mesh):
-                        eigenEnergy, eigenState = Hamiltonian(kx[i][j],ky[i][j], Delta)
+                        eigenEnergy, eigenState = Hamiltonian(kx[i][j],ky[i][j],self.a, Delta )
                         enes = np.append(enes, eigenEnergy)
                         eigenEnes[i,j] = eigenEnergy
                         eigenStates[i,j] = eigenState
@@ -398,6 +396,7 @@ class CuO2:
                 sorted_enes = np.sort(enes)
                 ef = (sorted_enes[int(self.k_mesh * self.k_mesh * self.Ne) - 1]
                       + sorted_enes[int(self.k_mesh * self.k_mesh * self.Ne)])/2
+                # ef = sorted_enes[int(self.k_mesh * self.k_mesh * self.Ne) - 1]
                 self.Ef_scf = np.append(self.Ef_scf, ef)
 
                 # scf で求める値の初期化
@@ -426,18 +425,18 @@ class CuO2:
 
             del m
 
-            # Steffensen の反復法
-            ef = Steffensen(self.Ef_scf)
-            self.Ef_scf = np.append(self.Ef_scf, ef)
+            # # Steffensen の反復法
+            # ef = Steffensen(self.Ef_scf)
+            # self.Ef_scf = np.append(self.Ef_scf, ef)
 
-            nsite = Steffensen(self.N_site_scf)
-            self.N_site_scf = np.vstack((self.N_site_scf, nsite))
+            # nsite = Steffensen(self.N_site_scf)
+            # self.N_site_scf = np.vstack((self.N_site_scf, nsite))
 
-            delta = Steffensen(self.Delta_scf)
-            self.Delta_scf = np.append(self.Delta_scf, delta)
+            # delta = Steffensen(self.Delta_scf)
+            # self.Delta_scf = np.append(self.Delta_scf, delta)
 
-            etot = Steffensen(self.Etot_scf)
-            self.Etot_scf = np.append(self.Etot_scf, etot)
+            # etot = Steffensen(self.Etot_scf)
+            # self.Etot_scf = np.append(self.Etot_scf, etot)
 
 
             # 与えられた誤差の範囲に収まったら終了する
@@ -479,7 +478,7 @@ class CuO2:
         # メッシュの各点でのエネルギー固有値の計算
         for i in range(self.k_mesh):
             for j in range(self.k_mesh):
-                enes, eigenstate = Hamiltonian(kx[i][j],ky[i][j], self.delta, self.a)
+                enes, eigenstate = Hamiltonian(kx[i][j],ky[i][j], self.a, self.delta)
                 spin = calc_spin(enes, eigenstate)
                 self.enes[i,j]         = enes
                 self.eigenStates[i,j]  = eigenstate
@@ -745,7 +744,7 @@ class CuO2:
         spins = []
 
         for kxy in k_path:
-            enes, eigenstate = Hamiltonian(kxy[0], kxy[1],  self.delta, self.a)
+            enes, eigenstate = Hamiltonian(kxy[0], kxy[1], self.a, self.delta)
             bands.append(enes)
             spin = calc_spin(enes, eigenstate)
             spins.append(spin)
@@ -769,8 +768,8 @@ class CuO2:
         plt.ylabel("Energy (eV)")
 
 
-        Ymin = np.min(bands)-0.05
-        Ymax = np.max(bands)+0.05
+        Ymin = np.min(bands)*1.05
+        Ymax = np.max(bands)*1.05
         plt.xticks(label_loc, label)
         plt.xlim(label_loc[0], label_loc[-1])
         plt.ylim(Ymin, Ymax)
@@ -888,7 +887,7 @@ class CuO2:
             if(self.spins[i,j,m] < -0.1):
                 color = "tab:blue"
             plt.scatter(kx[i,j], ky[i,j], color=color, s=1)
-        del i, j, m
+        # del i, j, m
 
         plt.axis("square")
         plt.xlim(-np.pi, np.pi)
