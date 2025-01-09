@@ -72,7 +72,7 @@ def gen_kpath(path, npoints = 50):
 
     return k_path, labels, labels_loc, distances
 
-def Hamiltonian(kx, ky, a0, delta):
+def Hamiltonian(kx, ky, a0, delta, Ud):
     """ある波数のでのハミルトニアン
     Args:
         (float) kx: 波数のx成分
@@ -86,8 +86,8 @@ def Hamiltonian(kx, ky, a0, delta):
 
     H = np.zeros((n_orbit*2, n_orbit*2), dtype=np.complex128)
     Tpp = Tpd0 * 2* a0 * (1-a0) / (a0*a0 + (1-a0)*(1-a0))
-    Tpd1 = Tpd0 * 2 * (1-a0)    # 短いホッピング
-    Tpd2 = Tpd0 * 2 * a0        # 長いホッピング
+    Tpd1 = Tpd0 * (1 - 2*a0)    # 短いホッピング
+    Tpd2 = Tpd0 * (1 + 2*a0)    # 長いホッピング
 
     # ホッピング項
     H[0,2] = Tpd1 * np.exp(1j*(-kx+ky)*a0/2)
@@ -108,7 +108,7 @@ def Hamiltonian(kx, ky, a0, delta):
     H[4,5] = -2*Tpp * np.cos(kx/2) * np.exp(-1j*ky*(1-2*a0)/2)
 
     #エルミート化
-    for i in range(1,n_orbit*2):
+    for i in range(1,n_orbit):
         for j in range(0, i):
             H[i][j] = H[j][i].conjugate()
     del i, j
@@ -133,125 +133,156 @@ def Hamiltonian(kx, ky, a0, delta):
 
     return scipy.linalg.eigh(H)
 
-# def Current(kx, ky, mu):
-#     """ある波数での電流演算子行列
+def Current(kx, ky, a0, mu):
+    """ある波数での電流演算子行列
 
-#     Args:
-#         kx (float): 波数のx成分
-#         ky (float): 波数のy成分
-#         mu (sring): 電流の方向. "x", "y", "z" のみ受け付ける
+    Args:
+        kx (float): 波数のx成分
+        ky (float): 波数のy成分
+        mu (sring): 電流の方向. "x", "y", "z" のみ受け付ける
 
-#     Return:
-#         J (ndarray): 8x8の電流演算子行列
-#     """
+    Return:
+        J (ndarray): 8x8の電流演算子行列
+    """
 
-#     if (mu == "x"):
-#         J = np.zeros((8,8), dtype=np.complex128)
+    J = np.zeros((n_orbit*2, n_orbit*2), dtype=np.complex128)
+    Tpp = Tpd0 * 2* a0 * (1-a0) / (a0*a0 + (1-a0)*(1-a0))
+    Tpd1 = Tpd0 * (1 - 2*a0)    # 短いホッピング
+    Tpd2 = Tpd0 * (1 + 2*a0)    # 長いホッピング
 
-#         J[0,1] =-1j * tb * np.exp(-1j*kx)                           # A1up   from A2up
-#         J[0,3] = 1j * tp * np.exp(1j*(kx+ky))                       # A1up   from B2up
+    if (mu == "x"):
+        J[0,2] = -1j*a0/2 * Tpd1 * np.exp(1j*(-kx+ky)*a0/2)
+        J[0,3] = 1j*(1-a0)/2 * Tpd2 * np.exp(1j*(kx+ky)*(1-a0)/2)
+        J[0,4] = 1j*a0/2 * Tpd1 * np.exp(1j*(kx-ky)*a0/2)
+        J[0,5] = -1j*(1-a0)/2 * Tpd2 * np.exp(-1j*(kx+ky)*(1-a0)/2)
 
-#         J[1,2] = 1j * tp * np.exp(1j*kx)                            # A2up   from B1up
-#         J[1,3] = 1j * tq * np.exp(1j*kx) * (1 + np.exp(1j*ky))      # A2up   from B2up
+        J[1,2] = 1j*(1-a0)/2 * Tpd2 * np.exp(1j*(kx-ky)*(1-a0)/2)
+        J[1,3] = -1j*a0/2 * Tpd1 * np.exp(-1j*(kx+ky)*a0/2)
+        J[1,4] = -1j*(1-a0)/2 * Tpd2 * np.exp(1j*(-kx+ky)*(1-a0)/2)
+        J[1,5] = 1j*a0/2 * Tpd1 * np.exp(1j*(kx+ky)*a0/2)
 
-#         J[2,3] = 1j * tb*np.exp(1j*kx)                              # B1up   from B2up
+        J[2,3] = Tpp * np.sin(kx/2) * np.exp(1j*ky*(1-2*a0)/2)
+        J[2,5] = 1j*(1-2*a0) * Tpp * np.cos(ky/2) * np.exp(-1j*kx*(1-2*a0)/2)
 
-#         J[4,5] = J[0,1]                                         # A1down from A2down
-#         J[4,7] = J[0,3]                                         # A1down from B2down
+        J[3,4] = 1j*(1-2*a0) * Tpp * np.cos(ky/2) * np.exp(-1j*kx*(1-2*a0)/2)
 
-#         J[5,6] = J[1,2]                                         # A2down from B1down
-#         J[5,7] = J[1,3]                                         # A2down from B2down
+        J[4,5] = Tpp * np.sin(kx/2) * np.exp(-1j*ky*(1-2*a0)/2)
 
-#         J[6,7] = J[2,3]                                         # B1down from B2down
+    elif (mu == "y"):
+        J[0,2] = 1j*a0/2 * Tpd1 * np.exp(1j*(-kx+ky)*a0/2)
+        J[0,3] = 1j*(1-a0)/2 * Tpd2 * np.exp(1j*(kx+ky)*(1-a0)/2)
+        J[0,4] = -1j*a0/2 * Tpd1 * np.exp(1j*(kx-ky)*a0/2)
+        J[0,5] = -1j*(1-a0)/2 * Tpd2 * np.exp(-1j*(kx+ky)*(1-a0)/2)
 
-#     elif (mu == "y"):
-#         J = np.zeros((8,8), dtype=np.complex128)
+        J[1,2] = -1j*(1-a0)/2 * Tpd2 * np.exp(1j*(kx-ky)*(1-a0)/2)
+        J[1,3] = -1j*a0/2 * Tpd1 * np.exp(-1j*(kx+ky)*a0/2)
+        J[1,4] = 1j*(1-a0)/2 * Tpd2 * np.exp(1j*(-kx+ky)*(1-a0)/2)
+        J[1,5] = 1j*a0/2 * Tpd1 * np.exp(1j*(kx+ky)*a0/2)
 
-#         J[0,2] = 1j * tq * np.exp(1j*ky)                             # A1up   from B1up
-#         J[0,3] = 1j * tp * np.exp(1j*ky) * (1 + np.exp(1j*kx))      # A1up   from B2up
+        J[2,3] = -1j*(1-2*a0) * Tpp * np.cos(kx/2) * np.exp(1j*ky*(1-2*a0)/2)
+        J[2,5] = Tpp * np.sin(ky/2) * np.exp(-1j*kx*(1-2*a0)/2)
 
-#         J[1,3] = 1j * tq * np.exp(1j*(kx + ky))                      # A2up   from B2up
+        J[3,4] = Tpp * np.sin(ky/2) * np.exp(-1j*kx*(1-2*a0)/2)
 
-#         J[4,6] = J[0,2]                                         # A1down from B1down
-#         J[4,7] = J[0,3]                                         # A1down from B2down
-
-#         J[5,7] = J[1,3]                                         # A2down from B2down
-
-
-#     elif (mu == "z"):
-#         J = np.zeros((8,8), dtype=np.complex128)
-
-#     else :
-#         print("The current direction is incorrect.")
-#         return
-
-#     #エルミート化
-#     for i in range(1,8):
-#         for j in range(0, i):
-#             J[i][j] = J[j][i].conjugate()
-#     del i, j
-
-#     return -J
-
-# def SpinCurrent(kx, ky, mu):
-#     """ある波数での電流演算子行列
-
-#     Args:
-#         kx (float): 波数のx成分
-#         ky (float): 波数のy成分
-#         mu (sring): 電流の方向. "x", "y", "z" のみ受け付ける
-
-#     Return:
-#         J (ndarray): 8x8の電流演算子行列
-#     """
-
-#     if (mu == "x"):
-#         J = np.zeros((8,8), dtype=np.complex128)
-
-#         J[0,1] =-1j * tb * np.exp(-1j*kx)                           # A1up   from A2up
-#         J[0,3] = 1j * tp * np.exp(1j*(kx+ky))                       # A1up   from B2up
-
-#         J[1,2] = 1j * tp * np.exp(1j*kx)                            # A2up   from B1up
-#         J[1,3] = 1j * tq * np.exp(1j*kx) * (1 + np.exp(1j*ky))      # A2up   from B2up
-
-#         J[2,3] = 1j * tb*np.exp(1j*kx)                              # B1up   from B2up
-
-#         J[4,5] =-J[0,1]                                         # A1down from A2down
-#         J[4,7] =-J[0,3]                                         # A1down from B2down
-
-#         J[5,6] =-J[1,2]                                         # A2down from B1down
-#         J[5,7] =-J[1,3]                                         # A2down from B2down
-
-#         J[6,7] =-J[2,3]                                         # B1down from B2down
-
-#     elif (mu == "y"):
-#         J = np.zeros((8,8), dtype=np.complex128)
-
-#         J[0,2] = 1j * tq * np.exp(1j*ky)                             # A1up   from B1up
-#         J[0,3] = 1j * tp * np.exp(1j*ky) * (1 + np.exp(1j*kx))      # A1up   from B2up
-
-#         J[1,3] = 1j * tq * np.exp(1j*(kx + ky))                      # A2up   from B2up
-
-#         J[4,6] =-J[0,2]                                         # A1down from B1down
-#         J[4,7] =-J[0,3]                                         # A1down from B2down
-
-#         J[5,7] =-J[1,3]                                         # A2down from B2down
+        J[4,5] = 1j * (1-2*a0) * Tpp * np.cos(kx/2) * np.exp(-1j*ky*(1-2*a0)/2)
 
 
-#     elif (mu == "z"):
-#         J = np.zeros((8,8), dtype=np.complex128)
+    elif (mu == "z"):
+        J = J
 
-#     else :
-#         print("The current direction is incorrect.")
-#         return
+    else :
+        print("The current direction is incorrect.")
+        return
 
-#     #エルミート化
-#     for i in range(1,8):
-#         for j in range(0, i):
-#             J[i][j] = J[j][i].conjugate()
-#     del i, j
+    # 反対向きスピンの分
+    for i in range(n_orbit):
+        for j in range(n_orbit):
+            J[i+n_orbit,j+n_orbit] = J[i,j]
+    del i, j
 
-#     return J/2
+    #エルミート化
+    for i in range(1,n_orbit*2):
+        for j in range(0, i):
+            J[i][j] = J[j][i].conjugate()
+    del i, j
+
+    return J
+
+def SpinCurrent(kx, ky, a0, mu):
+    """ある波数での電流演算子行列
+
+    Args:
+        kx (float): 波数のx成分
+        ky (float): 波数のy成分
+        mu (sring): 電流の方向. "x", "y", "z" のみ受け付ける
+
+    Return:
+        J (ndarray): 8x8の電流演算子行列
+    """
+
+    J = np.zeros((n_orbit*2, n_orbit*2), dtype=np.complex128)
+    Tpp = Tpd0 * 2* a0 * (1-a0) / (a0*a0 + (1-a0)*(1-a0))
+    Tpd1 = Tpd0 * (1 - 2*a0)    # 短いホッピング
+    Tpd2 = Tpd0 * (1 + 2*a0)    # 長いホッピング
+
+    if (mu == "x"):
+        J[0,2] = -1j*a0/2 * Tpd1 * np.exp(1j*(-kx+ky)*a0/2)
+        J[0,3] = 1j*(1-a0)/2 * Tpd2 * np.exp(1j*(kx+ky)*(1-a0)/2)
+        J[0,4] = 1j*a0/2 * Tpd1 * np.exp(1j*(kx-ky)*a0/2)
+        J[0,5] = -1j*(1-a0)/2 * Tpd2 * np.exp(-1j*(kx+ky)*(1-a0)/2)
+
+        J[1,2] = 1j*(1-a0)/2 * Tpd2 * np.exp(1j*(kx-ky)*(1-a0)/2)
+        J[1,3] = -1j*a0/2 * Tpd1 * np.exp(-1j*(kx+ky)*a0/2)
+        J[1,4] = -1j*(1-a0)/2 * Tpd2 * np.exp(1j*(-kx+ky)*(1-a0)/2)
+        J[1,5] = 1j*a0/2 * Tpd1 * np.exp(1j*(kx+ky)*a0/2)
+
+        J[2,3] = Tpp * np.sin(kx/2) * np.exp(1j*ky*(1-2*a0)/2)
+        J[2,5] = 1j*(1-2*a0) * Tpp * np.cos(ky/2) * np.exp(-1j*kx*(1-2*a0)/2)
+
+        J[3,4] = 1j*(1-2*a0) * Tpp * np.cos(ky/2) * np.exp(-1j*kx*(1-2*a0)/2)
+
+        J[4,5] = Tpp * np.sin(kx/2) * np.exp(-1j*ky*(1-2*a0)/2)
+
+    elif (mu == "y"):
+        J[0,2] = 1j*a0/2 * Tpd1 * np.exp(1j*(-kx+ky)*a0/2)
+        J[0,3] = 1j*(1-a0)/2 * Tpd2 * np.exp(1j*(kx+ky)*(1-a0)/2)
+        J[0,4] = -1j*a0/2 * Tpd1 * np.exp(1j*(kx-ky)*a0/2)
+        J[0,5] = -1j*(1-a0)/2 * Tpd2 * np.exp(-1j*(kx+ky)*(1-a0)/2)
+
+        J[1,2] = -1j*(1-a0)/2 * Tpd2 * np.exp(1j*(kx-ky)*(1-a0)/2)
+        J[1,3] = -1j*a0/2 * Tpd1 * np.exp(-1j*(kx+ky)*a0/2)
+        J[1,4] = 1j*(1-a0)/2 * Tpd2 * np.exp(1j*(-kx+ky)*(1-a0)/2)
+        J[1,5] = 1j*a0/2 * Tpd1 * np.exp(1j*(kx+ky)*a0/2)
+
+        J[2,3] = -1j*(1-2*a0) * Tpp * np.cos(kx/2) * np.exp(1j*ky*(1-2*a0)/2)
+        J[2,5] = Tpp * np.sin(ky/2) * np.exp(-1j*kx*(1-2*a0)/2)
+
+        J[3,4] = Tpp * np.sin(ky/2) * np.exp(-1j*kx*(1-2*a0)/2)
+
+        J[4,5] = 1j * (1-2*a0) * Tpp * np.cos(kx/2) * np.exp(-1j*ky*(1-2*a0)/2)
+
+
+    elif (mu == "z"):
+        J = J
+
+    else :
+        print("The current direction is incorrect.")
+        return
+
+    # 反対向きスピンの分
+    for i in range(n_orbit):
+        for j in range(n_orbit):
+            J[i+n_orbit,j+n_orbit] = -J[i,j]
+    del i, j
+
+    #エルミート化
+    for i in range(1,n_orbit*2):
+        for j in range(0, i):
+            J[i][j] = J[j][i].conjugate()
+    del i, j
+
+
+    return J/2
 
 def calc_delta(N_site):
     """反強磁性磁化の大きさ
@@ -319,7 +350,7 @@ def calc_spin(enes, eigenstate):
     return np.array(spin)
 
 class CuO2:
-    def __init__(self, Ne=2.0, a=0.5, k_mesh=31):
+    def __init__(self, Ne=2.0, a=0.5, k_mesh=31, U=8):
         """モデルのパラメータの設定
 
         Args:
@@ -331,6 +362,7 @@ class CuO2:
         self.Ne         = Ne
         self.a          = a
         self.k_mesh     = k_mesh
+        self.U          = U
 
         ne1 = Ne/4.0 + 0.1
         ne2 = Ne/4.0 - 0.1
@@ -385,7 +417,7 @@ class CuO2:
                 # ブリュアンゾーン内の全探査
                 for i in range(self.k_mesh):
                     for j in range(self.k_mesh):
-                        eigenEnergy, eigenState = Hamiltonian(kx[i][j],ky[i][j],self.a, Delta )
+                        eigenEnergy, eigenState = Hamiltonian(kx[i][j],ky[i][j],self.a, Delta , self.U)
                         enes = np.append(enes, eigenEnergy)
                         eigenEnes[i,j] = eigenEnergy
                         eigenStates[i,j] = eigenState
@@ -478,7 +510,7 @@ class CuO2:
         # メッシュの各点でのエネルギー固有値の計算
         for i in range(self.k_mesh):
             for j in range(self.k_mesh):
-                enes, eigenstate = Hamiltonian(kx[i][j],ky[i][j], self.a, self.delta)
+                enes, eigenstate = Hamiltonian(kx[i][j],ky[i][j], self.a, self.delta, self.U)
                 spin = calc_spin(enes, eigenstate)
                 self.enes[i,j]         = enes
                 self.eigenStates[i,j]  = eigenstate
@@ -596,8 +628,8 @@ class CuO2:
         for i in range(self.k_mesh):
             for j in range(self.k_mesh):
 
-                Jmu_matrix = np.conjugate(self.eigenStates[i,j].T) @ SpinCurrent(kx[i,j], ky[i,j], mu) @ self.eigenStates[i,j]
-                Jnu_matrix = np.conjugate(self.eigenStates[i,j].T) @     Current(kx[i,j], ky[i,j], nu) @ self.eigenStates[i,j]
+                Jmu_matrix = np.conjugate(self.eigenStates[i,j].T) @ SpinCurrent(kx[i,j], ky[i,j], self.a, mu) @ self.eigenStates[i,j]
+                Jnu_matrix = np.conjugate(self.eigenStates[i,j].T) @     Current(kx[i,j], ky[i,j], self.a, nu) @ self.eigenStates[i,j]
 
                 for m in range(n_orbit*2):
                     for n in range(n_orbit*2):
@@ -617,8 +649,8 @@ class CuO2:
         # バンド内遷移
         for i, j, m in self.kF_index:
 
-                Jmu_matrix = np.conjugate(self.eigenStates[i,j].T) @ SpinCurrent(kx[i,j], ky[i,j], mu) @ self.eigenStates[i,j]
-                Jnu_matrix = np.conjugate(self.eigenStates[i,j].T) @     Current(kx[i,j], ky[i,j], nu) @ self.eigenStates[i,j]
+                Jmu_matrix = np.conjugate(self.eigenStates[i,j].T) @ SpinCurrent(kx[i,j], ky[i,j], self.a, mu) @ self.eigenStates[i,j]
+                Jnu_matrix = np.conjugate(self.eigenStates[i,j].T) @     Current(kx[i,j], ky[i,j], self.a, nu) @ self.eigenStates[i,j]
 
                 Jmu = Jmu_matrix[m,m]
                 Jnu = Jnu_matrix[m,m]
@@ -744,7 +776,7 @@ class CuO2:
         spins = []
 
         for kxy in k_path:
-            enes, eigenstate = Hamiltonian(kxy[0], kxy[1], self.a, self.delta)
+            enes, eigenstate = Hamiltonian(kxy[0], kxy[1], self.a, self.delta, self.U)
             bands.append(enes)
             spin = calc_spin(enes, eigenstate)
             spins.append(spin)
