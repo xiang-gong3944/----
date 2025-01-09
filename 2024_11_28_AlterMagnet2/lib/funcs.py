@@ -615,8 +615,10 @@ class CuO2:
         print("SpinConductivity calculation start.")
 
         # フェルミ面の計算をしていなかったらする
-        if(not hasattr(self, "kF_index")):
+        if(self.kF_index.size < 4):
+            print("\t kF index calculation start")
             self.calc_kF_index()
+            print("\t kF index calculation finished")
 
         # スピン伝導度 複素数として初期化
         chi = 0.0 + 0.0*1j
@@ -675,8 +677,10 @@ class CuO2:
         print("Conductivity calculation start.")
 
         # フェルミ面の計算をしていなかったらする
-        if(not hasattr(self, "kF_index")):
+        if(self.kF_index.size < 4):
+            print("\t kF index calculation start")
             self.calc_kF_index()
+            print("\t kF index calculation finished")
 
         # 伝導度 複素数として初期化
         sigma = 0.0 + 0.0*1j
@@ -908,7 +912,9 @@ class CuO2:
 
     def plot_fermi_surface(self):
         if(self.kF_index.size < 4):
+            print("\t kF index calculation start")
             self.calc_kF_index()
+            print("\t kF index calculation finished")
 
         kx, ky = self._gen_kmesh()
 
