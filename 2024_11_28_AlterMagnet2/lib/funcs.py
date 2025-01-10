@@ -342,7 +342,7 @@ def calc_spin(enes, eigenstate):
     del l
 
     for l in range(n_orbit):
-        if(np.abs(enes[2*l]-enes[2*l + 1])<0.000001):
+        if(np.abs(enes[2*l]-enes[2*l + 1])<1e-10):
             spin[2*l] = 0
             spin[2*l+1] = 0
     del l
@@ -537,8 +537,10 @@ class CuO2:
 
 
     def calc_kF_index(self):
+        if(self.kF_index.size != 3):
+            return
 
-        self.kF_index = np.array([[-1, -1, -1]])
+        print("kF index calculation start")
 
         for i in range(self.k_mesh):
             for j in range(self.k_mesh):
@@ -604,6 +606,7 @@ class CuO2:
         del i, j, m
 
         self.kF_index = np.delete(self.kF_index, 0, 0)
+        print("kF index calculation finished")
         return
 
 
@@ -612,13 +615,11 @@ class CuO2:
             print("NSCF calculation wasn't done yet.")
             return
 
-        print("SpinConductivity calculation start.")
-
         # フェルミ面の計算をしていなかったらする
-        if(self.kF_index.size < 4):
-            print("\t kF index calculation start")
+        if(self.kF_index.size == 3):
             self.calc_kF_index()
-            print("\t kF index calculation finished")
+
+        print("SpinConductivity calculation start.")
 
         # スピン伝導度 複素数として初期化
         chi = 0.0 + 0.0*1j
@@ -659,7 +660,7 @@ class CuO2:
 
                 chi += 1j * Jmu * Jnu / gamma
 
-        del i, j, m
+        # del i, j, m
 
         chi /= (self.k_mesh*self.k_mesh*1j)
 
@@ -911,7 +912,7 @@ class CuO2:
 
 
     def plot_fermi_surface(self):
-        if(self.kF_index.size < 4):
+        if(self.kF_index.size == 3):
             print("\t kF index calculation start")
             self.calc_kF_index()
             print("\t kF index calculation finished")
