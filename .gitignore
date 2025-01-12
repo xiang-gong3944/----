@@ -9,3 +9,4 @@
 *.aux
 *.toc
 **/__pycache__/**
+**/temp/**

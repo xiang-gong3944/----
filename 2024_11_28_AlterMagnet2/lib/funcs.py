@@ -4,7 +4,7 @@ from matplotlib.ticker import LinearLocator, FormatStrFormatter
 import plotly.graph_objects as go
 import scipy.linalg
 from matplotlib.colors import LinearSegmentedColormap
-
+import os
 
 k_points = {}
 k_points["Γ"]       = [0.0, 0.0]
@@ -342,7 +342,7 @@ def calc_spin(enes, eigenstate):
     del l
 
     for l in range(n_orbit):
-        if(np.abs(enes[2*l]-enes[2*l + 1])<1e-10):
+        if(np.abs(enes[2*l]-enes[2*l + 1])<1e-12):
             spin[2*l] = 0
             spin[2*l+1] = 0
     del l
@@ -362,6 +362,7 @@ class CuO2:
         self.Ne         = Ne
         self.a          = a
         self.k_mesh     = k_mesh
+        self.k_mesh_fine= k_mesh
         self.U          = U
 
         ne1 = Ne/4.0 + 0.1
@@ -400,7 +401,7 @@ class CuO2:
             print("SCF calculation was already done.")
             return
 
-        print("SCF calculation start. Ne = {:1.2f}, err < {:1.1e}".format(self.Ne, err))
+        print("SCF calculation start. Np = {:1.2f}, Ud = {:1.2f} err < {:1.1e}".format(self.Ne, self.U, err))
 
         kx, ky = self._gen_kmesh()
 
@@ -606,7 +607,7 @@ class CuO2:
         del i, j, m
 
         self.kF_index = np.delete(self.kF_index, 0, 0)
-        print("kF index calculation finished")
+        print("kF index calculation finished\n")
         return
 
 
@@ -670,68 +671,7 @@ class CuO2:
         return chi
 
 
-    def calc_conductivity(self, mu="x", nu="y", gamma=0.0001):
-        if(self.enes[0,0,0] == 0):
-            print("NSCF calculation wasn't done yet.")
-            return
-
-        print("Conductivity calculation start.")
-
-        # フェルミ面の計算をしていなかったらする
-        if(self.kF_index.size < 4):
-            print("\t kF index calculation start")
-            self.calc_kF_index()
-            print("\t kF index calculation finished")
-
-        # 伝導度 複素数として初期化
-        sigma = 0.0 + 0.0*1j
-
-        # ブリュアンゾーンのメッシュの生成
-        kx, ky = self._gen_kmesh()
-
-        # ブリュアンゾーンの和
-        for i in range(self.k_mesh):
-            for j in range(self.k_mesh):
-
-                Jmu_matrix = np.conjugate(self.eigenStates[i,j].T) @  Current(kx[i,j], ky[i,j], mu) @ self.eigenStates[i,j]
-                Jnu_matrix = np.conjugate(self.eigenStates[i,j].T) @  Current(kx[i,j], ky[i,j], nu) @ self.eigenStates[i,j]
-                # 各波数におけるそれぞれの固有状態の和
-                for m in range(n_orbit*2):
-                    for n in range(n_orbit*2):
-                        Jmu = Jmu_matrix[m,n]
-                        Jnu = Jnu_matrix[n,m]
-
-                        if(np.abs(self.enes[i,j,m]-self.enes[i,j,n]) > 1e-6):
-
-                            # フェルミ分布
-                            efm = 1 if (self.enes[i,j][m]<self.ef) else 0
-                            efn = 1 if (self.enes[i,j][n]<self.ef) else 0
-
-                            add_sigma = Jmu * Jnu * (efm - efn) / ((self.enes[i,j][m]-self.enes[i,j][n])*(self.enes[i,j][m]-self.enes[i,j][n]+1j*gamma))
-                            sigma += add_sigma
-        del i, j, m
-
-        # バンド内遷移
-        for i, j, m in self.kF_index:
-
-                Jmu_matrix = np.conjugate(self.eigenStates[i,j].T) @  Current(kx[i,j], ky[i,j], mu) @ self.eigenStates[i,j]
-                Jnu_matrix = np.conjugate(self.eigenStates[i,j].T) @  Current(kx[i,j], ky[i,j], nu) @ self.eigenStates[i,j]
-
-                Jmu = Jmu_matrix[m,m]
-                Jnu = Jnu_matrix[m,m]
-
-                sigma += 1j * Jmu * Jnu / gamma
-        del i, j, m
-
-        sigma /= (self.k_mesh*self.k_mesh*1j)
-
-        print("Conductivity calculation finished")
-        print("ReSigma = {:1.2e}, ImSigma = {:1.2e}\n".format(np.real(sigma), np.imag(sigma)))
-
-        return sigma
-
-
-    def plot_nsite(self):
+    def plot_nsite(self, folder_path="./output/temp/", is_plt_show = True):
         if(self.Ef_scf.size < 2):
             print("SCF calculation wasn't done yet.")
             return
@@ -745,10 +685,23 @@ class CuO2:
         for i in range(n_orbit,n_orbit*2):
             plt.plot(self.N_site_scf[:,i], label = "site {:d} = {:.3f}".format(i, self.N_site_scf[-1, i]))
         plt.legend()
-        plt.show()
+
+        if not os.path.isdir(folder_path):
+            os.makedirs(folder_path)
+
+        file_index = "_a{:02d}k{:d}Ud{:04d}.png".format(int(self.a*100), self.k_mesh, int(self.U*100))
+        image_path = folder_path +"nsite"+ file_index
+        plt.savefig(image_path, bbox_inches='tight')
+
+        if is_plt_show:
+            plt.show()
+        else:
+            plt.close()
+
+        return
 
 
-    def plot_scf(self):
+    def plot_scf(self, folder_path="./output/temp/", is_plt_show = True):
         if(self.Ef_scf.size < 2):
             print("SCF calculation wasn't done yet.")
             return
@@ -767,10 +720,22 @@ class CuO2:
         h2, l2 = ax2.get_legend_handles_labels()
         ax1.legend(h1+h2, l1+l2)
 
-        plt.show()
+        if not os.path.isdir(folder_path):
+            os.makedirs(folder_path)
+
+        file_index = "_a{:02d}k{:d}Ud{:04d}.png".format(int(self.a*100), self.k_mesh, int(self.U*100))
+        image_path = folder_path +"scf"+ file_index
+        plt.savefig(image_path, bbox_inches='tight')
+
+        if is_plt_show:
+            plt.show()
+        else:
+            plt.close()
+
+        return
 
 
-    def plot_band(self):
+    def plot_band(self, folder_path="./output/temp/", is_plt_show = True):
         if(self.Ef_scf.size < 2):
             print("SCF calculation wasn't done yet.")
             return
@@ -823,7 +788,18 @@ class CuO2:
         plt.title("$E_f$ = {:.5f}".format(self.ef))
         plt.colorbar()
 
-        plt.show()
+        if not os.path.isdir(folder_path):
+            os.makedirs(folder_path)
+
+        file_index = "_a{:02d}k{:d}Ud{:04d}.png".format(int(self.a*100), self.k_mesh, int(self.U*100))
+        image_path = folder_path +"band"+ file_index
+        plt.savefig(image_path, bbox_inches='tight')
+
+        if is_plt_show:
+            plt.show()
+        else:
+            plt.close()
+
         return
 
 
@@ -891,7 +867,7 @@ class CuO2:
         return
 
 
-    def plot_dos(self):
+    def plot_dos(self, folder_path="./output/temp/", is_plt_show =True):
         if(self.dos.size < 2):
             self.calc_dos()
 
@@ -906,33 +882,88 @@ class CuO2:
         plt.ylabel("DOS")
         plt.vlines(self.ef, -0.04*ysacale, 1.04*ysacale, color="gray", linestyles="dashed")
         plt.title("Ef={:.2f} eV".format(self.ef))
-        plt.show()
+
+        if not os.path.isdir(folder_path):
+            os.makedirs(folder_path)
+
+        file_index = "_a{:02d}k{:d}Ud{:04d}.png".format(int(self.a*100), self.k_mesh, int(self.U*100))
+        image_path = folder_path +"dos"+ file_index
+        plt.savefig(image_path, bbox_inches='tight')
+
+        if is_plt_show:
+            plt.show()
+        else:
+            plt.close()
 
         return
 
 
-    def plot_fermi_surface(self):
+    def plot_fermi_surface(self, folder_path="./output/temp/", is_plt_show = True):
         if(self.kF_index.size == 3):
-            print("\t kF index calculation start")
             self.calc_kF_index()
-            print("\t kF index calculation finished")
 
         kx, ky = self._gen_kmesh()
 
-        for i, j, m in self.kF_index:
-            color = "tab:green"
-            if(self.spins[i,j,m] > 0.1):
-                color = "tab:orange"
-            if(self.spins[i,j,m] < -0.1):
-                color = "tab:blue"
-            plt.scatter(kx[i,j], ky[i,j], color=color, s=1)
+
+        colors = np.full(self.kF_index.shape[0], "tab:green")
+        colors[self.spins[self.kF_index[:, 0], self.kF_index[:, 1], self.kF_index[:, 2]] < -0.1] = "tab:blue"
+        colors[self.spins[self.kF_index[:, 0], self.kF_index[:, 1], self.kF_index[:, 2]] > 0.1] = "#ff7f0e"
+        # colors[self.spins[self.kF_index[:, 0], self.kF_index[:, 1], self.kF_index[:, 2]] > 0.1] = "tab:orange" # これだとエラーが出る
+
+        rotate_kx = (kx[self.kF_index[:, 0], self.kF_index[:, 1]] + ky[self.kF_index[:, 0], self.kF_index[:, 1]]) / 2
+        rotate_ky = (-kx[self.kF_index[:, 0], self.kF_index[:, 1]] + ky[self.kF_index[:, 0], self.kF_index[:, 1]]) / 2
+
+        fig = plt.figure()
+        ax = fig.add_subplot(111)
+        ax.yaxis.set_ticks_position('both')
+        ax.xaxis.set_ticks_position('both')
+        plt.rcParams['xtick.direction'] = 'in'
+        plt.rcParams['ytick.direction'] = 'in'
+
+        plt.rcParams['font.size'] = 14
+        plt.rcParams['font.family'] ='Times New Roman'
+        plt.rcParams['mathtext.fontset'] = 'stix'
+
+        plt.scatter(rotate_kx, rotate_ky, c=colors, s=1)
+        plt.scatter(rotate_kx+np.pi, rotate_ky+np.pi, c=colors, s=1)
+        plt.scatter(rotate_kx+np.pi, rotate_ky-np.pi, c=colors, s=1)
+        plt.scatter(rotate_kx-np.pi, rotate_ky+np.pi, c=colors, s=1)
+        plt.scatter(rotate_kx-np.pi, rotate_ky-np.pi, c=colors, s=1)
+
+        plt.plot([np.pi, 0, -np.pi, 0, np.pi], [0, np.pi, 0, -np.pi, 0], linestyle = "dashed", c = "grey")
+        plt.arrow(-2.1,2.1, 4.2, -4.2, width=0.01,head_width=0.05,head_length=0.2,length_includes_head=True, color ="grey")
+        plt.arrow(-2.1, -2.1, 4.2, 4.2, width=0.01,head_width=0.05,head_length=0.2,length_includes_head=True, color = "grey")
+        plt.text(2.3, -2.3, "$k_x$")
+        plt.text(2.3, 2.3, "$k_y$")
         # del i, j, m
+
+        plt.xlabel("$k'_x$")
+        plt.ylabel("$k'_y$")
 
         plt.axis("square")
         plt.xlim(-np.pi, np.pi)
         plt.ylim(-np.pi, np.pi)
-        plt.show()
+
+        if not os.path.isdir(folder_path):
+            os.makedirs(folder_path)
+
+        file_index = "_a{:02d}k{:d}Ud{:04d}.png".format(int(self.a*100), self.k_mesh, int(self.U*100))
+        image_path = folder_path +"fermi"+ file_index
+        plt.savefig(image_path, bbox_inches='tight')
+
+        if is_plt_show:
+            plt.show()
+        else:
+            plt.close()
         return
+
+
+    def save_all_fig(self, folder_path = "./output/temp/", is_plt_show = False):
+        self.plot_nsite(folder_path, is_plt_show)
+        self.plot_scf(folder_path, is_plt_show)
+        self.plot_dos(folder_path, is_plt_show)
+        self.plot_band(folder_path, is_plt_show)
+        self.plot_fermi_surface(folder_path, is_plt_show)
 
 
     def _gen_kmesh(self, kx0 = 0.0, ky0 = 0.0, length = np.pi):
